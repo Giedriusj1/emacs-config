@@ -25,7 +25,6 @@
    smooth-scrolling 
    elpy
    flymake-cursor 
-   pyflakes 
    auctex 
    emacs-eclim 
    ace-jump-mode 
