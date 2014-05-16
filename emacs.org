@@ -24,7 +24,6 @@
    rainbow-mode 
    smooth-scrolling 
    elpy
-   flymake-cursor 
    auctex 
    emacs-eclim 
    ace-jump-mode 
