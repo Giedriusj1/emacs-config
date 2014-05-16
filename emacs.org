@@ -1,4 +1,5 @@
 #+TITLE: Emacs config
+bla bla
 
 * INIT BASICS                                                 :config:basics:
 ** repo load
