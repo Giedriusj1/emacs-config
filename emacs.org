@@ -10,8 +10,7 @@
 
 
 ;; update list of available packages: this should be changed
-(when (not (package-installed-p 'yasnippet))
-  (package-refresh-contents))
+  (package-refresh-contents)
 
 ;; check if the packages are installed: if not, install them with ELPA...
 (mapc
