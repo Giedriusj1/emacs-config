@@ -1,0 +1,465 @@
+#+TITLE: Emacs config
+
+* INIT BASICS                                                 :config:basics:
+** repo load
+#+begin_src emacs-lisp
+(add-to-list 'load-path "~/.emacs.d/")
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+			 ("malade" . "http://marmalade-repo.org/packages/")
+			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+
+
+;; update list of available packages: this should be changed
+(when (not (package-installed-p 'yasnippet))
+  (package-refresh-contents))
+
+;; check if the packages are installed: if not, install them with ELPA...
+(mapc
+ (lambda (package)
+   (if (not (package-installed-p package))
+       (package-install package)))
+ '(yasnippet 
+   igrep
+   magit 
+   rainbow-mode 
+   smooth-scrolling 
+   elpy
+   flymake-cursor 
+   pyflakes 
+   auctex 
+   emacs-eclim 
+   ace-jump-mode 
+   member-function 
+   auto-install 
+   auto-complete-clang 
+   helm 
+   auto-complete-c-headers
+   powerline
+   icomplete+
+   ace-jump-mode
+   dired+
+   auto-complete
+   ac-dabbrev
+   isearch+
+   smooth-scroll
+   flymake-haskell-multi
+   key-chord
+   yasnippet
+   all-ext
+   )
+ )
+#+end_src
+
+** Keyboard
+## The purpose of this code block is to define key maps + bindings that do not rely on external packages
+
+#+begin_src emacs-lisp
+(define-prefix-command 'alt-semi-map)
+(define-prefix-command 'control-semi-map)
+(define-prefix-command 'hyper-semi-map)
+(define-prefix-command 'meta-semi-map)
+
+(global-set-key (kbd "H-;") 'hyper-semi-map)
+(global-set-key (kbd "C-;") 'control-semi-map)
+(global-set-key (kbd "M-;") 'meta-semi-map)
+
+(define-key control-semi-map (kbd "SPC") 'point-to-register)
+(define-key control-semi-map (kbd "C-SPC") 'point-to-register)
+(define-key control-semi-map (kbd "j") 'jump-to-register)
+(define-key control-semi-map (kbd "C-j") 'jump-to-register)
+(define-key control-semi-map (kbd "h") 'highlight-phrase)
+(define-key control-semi-map (kbd "C-h") 'highlight-phrase)
+(define-key control-semi-map (kbd "M-h") 'highlight-phrase)
+(define-key control-semi-map (kbd "C-M-h") 'highlight-phrase)
+(define-key control-semi-map (kbd "C-w") 'window-configuration-to-register) 
+
+(define-key control-semi-map (kbd "q") 'goto-line)
+(define-key control-semi-map (kbd "C-q") 'goto-line)
+
+(define-key control-semi-map (kbd "C-l") 'execute-extended-command)
+
+;;(define-key hyper-semi-map (kbd "H-j") 'shell-pop)
+
+(global-set-key [f11] 'toggle-truncate-lines)
+(global-set-key [f12] 'whitespace-mode)
+
+(global-set-key (kbd "H-o") 'other-window)
+(global-set-key (kbd "H-f") 'backward-delete-char-untabify)
+(global-set-key (kbd "H-j") 'delete-char)
+
+(global-set-key (kbd "H-h") 'backward-kill-word)
+(global-set-key (kbd "H-l") 'kill-word)
+
+(global-set-key (kbd "H-1") 'delete-other-windows)
+(global-set-key (kbd "H-2") 'split-window-below)
+(global-set-key (kbd "H-3") 'split-window-right)
+(global-set-key (kbd "H-0") 'delete-window)
+(global-set-key (kbd "H-e") 'execute-extended-command)
+
+(global-set-key (kbd "<Scroll_Lock>") 'windresize)
+(global-set-key (kbd "<up>") 'scroll-down-line)
+(global-set-key (kbd "<down>") 'scroll-up-line)
+
+(global-set-key (kbd "H-j") 'backward-delete-char-untabify)
+(global-set-key (kbd "H-k") 'delete-forward-char)
+
+(global-set-key (kbd "M-,") 'beginning-of-buffer)
+(global-set-key (kbd "M-.") 'end-of-buffer)
+
+(global-set-key (kbd "M-p") 'backward-paragraph)
+(global-set-key (kbd "M-n") 'forward-paragraph)
+
+
+(global-set-key (kbd "H-M-j") 'next-multiframe-window)
+(global-set-key (kbd "H-M-k") 'previous-multiframe-window)
+(global-set-key (kbd "H-M-c") 'delete-window)
+
+
+(global-set-key (kbd "M-o") 'other-window)
+
+#+end_src
+
+* LOOKS                                                       :config::looks:
+** themes and colours
+#+BEGIN_SRC emacs-lisp
+;;(highline-mode)
+
+(custom-set-variables
+ '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
+ '(custom-enabled-themes (quote (wombat)))
+ '(directory-free-space-args "-Pkh")
+ '(electric-pair-mode t)
+ '(fci-rule-color "#BBBBBB")
+ '(menu-bar-mode nil)
+ '(scroll-bar-mode nil)
+ '(send-mail-function (quote sendmail-send-it))
+ '(tool-bar-mode nil)
+
+ (custom-set-faces
+  '(highline-face ((t (:background "#303030"))))
+  '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 98 :width normal))))
+  )
+ )
+
+
+#+END_SRC
+ 
+** Buffer names
+   Setup uniquify so that non-unique buffer names get the parent path
+   included to make them unique.
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (require 'uniquify)
+     (setq uniquify-buffer-name-style 'forward)
+   #+END_SRC
+** Highlight parentheses
+#+begin_src emacs-lisp
+;;(add-to-list 'load-path "~/.emacs.d/elpa/highlight-parentheses-1.0.1")
+;; (require 'highlight-parentheses)
+;;;; (define-globalized-minor-mode global-highlight-parentheses-mode
+;;   highlight-parentheses-mode
+;;   (lambda ()
+;;     (highlight-parentheses-mode t)))
+;; (global-highlight-parentheses-mode t)
+
+#+end_src
+
+** Mode line
+#+NAME: look-and-feel
+#+BEGIN_SRC emacs-lisp
+(require 'powerline)
+(set-face-attribute 'mode-line nil
+                    :foreground "grey90"
+                    :background "DarkOrange3"
+                    :box nil)
+
+(set-face-attribute 'mode-line-inactive nil
+                    :box nil)
+
+
+
+
+(setq powerline-arrow-shape 'arrow14)
+
+;;(setq powerline-color1 "#222")      ;; dark grey; 
+;;(setq powerline-color2 "#444")      ;; slightly lighter grey
+
+(powerline-center-theme)
+
+
+;; rainbow parentheses
+;;(defun rainbow-delimiters-colors ()
+;;(set-face-foreground 'rainbow-delimiters-depth-1-face "dark red")
+;;  (set-face-foreground 'rainbow-delimiters-depth-2-face "dark green")
+;;(set-face-foreground 'rainbow-delimiters-depth-3-face "deep pink")
+;;  (set-face-foreground 'rainbow-delimiters-depth-4-face "yellow")
+;;(set-face-foreground 'rainbow-delimiters-depth-5-face "green")
+;;  (set-face-foreground 'rainbow-delimiters-depth-6-face "light blue")
+;;(set-face-foreground 'rainbow-delimiters-depth-7-face "orange")
+;;  (set-face-foreground 'rainbow-delimiters-depth-8-face "slate blue")
+;;(set-face-foreground 'rainbow-delimiters-depth-9-face "light gray")
+;;  (set-face-foreground 'rainbow-delimiters-unmatched-face "white"))
+;;(add-hook 'rainbow-delimiters-mode-hook 'rainbow-delimiters-colors)
+#+END_SRC
+
+** indent guide
+#+begin_src emacs-lisp
+;;(require 'indent-guide)
+;;(indent-guide-global-mode)
+#+end_src
+**** icomplete+
+#+begin_src emacs-lisp
+(icomplete-mode 1)
+(require 'icomplete+)
+#+end_src
+
+** ace-jump
+#+begin_src emacs-lisp
+(require 'ace-jump-mode)
+(global-set-key (kbd "M-SPC") 'ace-jump-mode)
+
+
+
+
+#+end_src
+
+** dired+
+#+begin_src emacs-lisp
+(require 'dired+)
+(setq dired-dwim-target t)
+
+(define-key ctl-x-map   "d" 'diredp-dired-files)
+(define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)
+
+(setq dired-listing-switches "-alk")
+
+
+(defun open-in-external-app ()
+  "Open the current file or dired marked files in external app."
+  (interactive)
+  (let ( doIt
+         (myFileList
+          (cond
+           ((string-equal major-mode "dired-mode") (dired-get-marked-files))
+           (t (list (buffer-file-name))) ) ) )
+
+    (setq doIt (if (<= (length myFileList) 5)
+                   t
+                 (y-or-n-p "Open more than 5 files?") ) )
+
+    (when doIt
+      (cond
+       ((string-equal system-type "windows-nt")
+        (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList)
+        )
+       ((string-equal system-type "darwin")
+        (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
+       ((string-equal system-type "gnu/linux")
+        (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
+
+;; quick access to home dir
+(global-set-key (kbd "S-<f1>") ;;Shift-f1 opens dired home folder
+		(lambda ()
+		  (interactive)
+		  (diredp-dired-files "~/")))
+#+end_src
+
+** Auto complete
+#+begin_src emacs-lisp
+(require 'auto-complete)
+(require 'auto-complete-config)
+;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+
+
+(global-set-key (kbd "<C-h>") 'auto-complete)
+
+(define-key control-semi-map (kbd "n") 'auto-complete)
+(define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
+(global-auto-complete-mode t)
+
+(defun auto-complete-mode-maybe ()
+  "No maybe for you. Only AC!"
+  (unless (minibufferp (current-buffer))
+    (auto-complete-mode 1)))
+
+
+(setq ac-auto-show-menu nil)
+(require 'ac-dabbrev)
+(setq-default ac-sources '(ac-source-dabbrev ac-source-semantic ac-source-semantic-raw))
+
+#+end_src
+
+** Buffer management
+#+begin_src emacs-lisp
+(global-set-key (kbd "C-x C-b") 'bs-show)
+#+end_src
+
+** ORG mode
+
+
+#+BEGIN_SRC emacs-lisp
+(setq org-src-fontify-natively t)
+(setq org-src-preserve-indentation t)
+(setq org-startup-indented t)
+(setq org-startup-truncated nil)
+
+
+#+END_SRC
+** Misc behaviour
+
+#+begin_src emacs-lisp
+
+(setq column-number-mode 't)
+
+(delete-selection-mode 1)
+
+(delete-selection-mode 1)
+(show-paren-mode t)
+
+(setq inhibit-splash-screen t)
+(desktop-save-mode t)
+(semantic-mode)
+(setq indent-tabs-mode nil)
+
+
+(eval-after-load "isearch" '(require 'isearch+))
+
+(winner-mode 1)
+(global-set-key (kbd "s-[") 'winner-undo)
+(global-set-key (kbd "s-]") 'winner-redo)
+
+
+(setq backup-by-copying t      ; don't clobber symlinks
+      backup-directory-alist
+      '(("." . "~/.saves"))    ; don't litter my fs tree
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t)       ; use versioned backups
+
+
+#+end_src
+
+** Scrolling behavior
+   #+BEGIN_SRC emacs-lisp
+   (require 'smooth-scroll)
+   (smooth-scroll-mode 1)
+   #+END_SRC
+
+** Programming                                :config:behaviour:programming:
+*** Haskell
+#+begin_src emacs-lisp
+(require 'flymake-haskell-multi)
+(add-hook 'haskell-mode-hook   
+	  (lambda()
+	    ;;(haskell-mode 1)
+	    (haskell-indent-mode 1)
+	    (flymake-haskell-multi-load 1)
+
+	    ))
+#+end_src
+*** C
+#+begin_src emacs-lisp
+(add-hook 'c-mode-common-hook
+	  (lambda()
+	    (hs-minor-mode 1)
+	    (cwarn-mode t)
+	    ;;(control-semi-map (kbd "C-e") 'hs-toggle-hiding)
+	    ;;(local-set-key (kbd "H-z") 'hs-toggle-hiding)
+	    ;;(local-set-key (kbd "H-x") 'hs-show-all)
+	    ;;(local-set-key (kbd "H-c") 'hs-hide-all)
+	    ))
+#+end_src
+** Mode recognition
+#+begin_src emacs-lisp
+
+(setq auto-mode-alist
+      '(
+	("\\.org$" . org-mode)  
+	("\\.org.gpg$" . org-mode)  
+	("\\.ref$" . org-mode)
+	("\\.ref.gpg$" . org-mode)
+	("\\.notes$" . org-mode)
+	("\\.hs$" . haskell-mode)
+	))
+
+(autoload 'glsl-mode "glsl-mode" nil t)
+(add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
+(add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
+
+#+end_src
+
+** custom
+
+#+begin_src emacs-lisp
+(defun reload-emacs-config ()
+(interactive)
+(load-file "~/.emacs")
+)
+
+
+#+end_src
+
+
+* BEHAVIOUR                                                :config:behaviour:
+** key chord
+#+begin_src emacs-lisp
+
+(require 'key-chord)
+(key-chord-mode 1)
+
+(key-chord-define-global "hj"     'undo)
+(key-chord-define-global ",."     "<>\C-b")
+
+
+#+end_src
+** smart forward
+#+begin_src emacs-lisp
+;;(require 'smart-forward)
+;;(global-set-key (kbd "M-C-p") 'smart-up)
+;;(global-set-key (kbd "M-C-n") 'smart-down)
+;;(global-set-key (kbd "M-C-b") 'smart-backward)
+;;(global-set-key (kbd "M-C-f") 'smart-forward)
+#+end_src
+** yas
+#+BEGIN_SRC emacs-lisp
+(require 'yasnippet)
+(yas-global-mode 1)
+#+END_SRC
+** Helm
+#+begin_src emacs-lisp
+(require 'helm-config)
+(define-key ctl-x-map   "b" 'helm-mini)
+(define-key ctl-x-map   "i" 'helm-semantic-or-imenu)
+
+(define-key control-semi-map (kbd "l") 'helm-M-x)
+(define-key control-semi-map (kbd "o") 'helm-occur)
+(define-key control-semi-map (kbd "C-o") 'helm-multi-occur)
+
+(define-key control-semi-map (kbd "r") 'helm-mark-ring)
+(define-key control-semi-map (kbd "C-r") 'helm-all-mark-rings)
+
+(define-key control-semi-map (kbd "b") 'helm-resume)
+(define-key control-semi-map (kbd "C-b") 'helm-resume)
+
+(define-key control-semi-map (kbd "C-m") 'helm-swoop)
+(define-key control-semi-map (kbd "m") 'helm-multi-swoop-all)
+
+(require 'all-ext) ;; C-c C-a jumps to all from helm-occur
+
+
+#+end_src
+
+
+* ALIAS
+#+begin_src emacs-lisp
+
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+
+(defalias 'rel 'reload-emacs-config)
+(defalias 'lp 'list-packages)
+(defalias 'igf 'igrep-find)
+(defalias 'msf 'menu-set-font)
+#+end_src
