@@ -304,7 +304,6 @@
 ** Misc behaviour
 
 #+begin_src emacs-lisp
-
 (setq column-number-mode 't)
 
 (delete-selection-mode 1)
@@ -317,13 +316,11 @@
 (semantic-mode)
 (setq indent-tabs-mode nil)
 
-
 (eval-after-load "isearch" '(require 'isearch+))
 
 (winner-mode 1)
 (global-set-key (kbd "s-[") 'winner-undo)
 (global-set-key (kbd "s-]") 'winner-redo)
-
 
 (setq backup-by-copying t      ; don't clobber symlinks
       backup-directory-alist
@@ -332,8 +329,6 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t)       ; use versioned backups
-
-
 #+end_src
 
 ** Scrolling behavior
