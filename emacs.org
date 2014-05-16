@@ -397,7 +397,6 @@
 
 #+end_src
 
-
 * BEHAVIOUR                                                :config:behaviour:
 ** key chord
 #+begin_src emacs-lisp
@@ -447,8 +446,7 @@
 
 #+end_src
 
-
-* ALIAS
+* ALIAS                                                        :config:alias:
 #+begin_src emacs-lisp
 
 (defalias 'yes-or-no-p 'y-or-n-p)
