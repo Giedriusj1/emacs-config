@@ -272,6 +272,7 @@
 (define-key control-semi-map (kbd "n") 'auto-complete)
 (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
 (global-auto-complete-mode t)
+(setq ac-auto-show-menu nil)
 
 (defun auto-complete-mode-maybe ()
   "No maybe for you. Only AC!"
