@@ -264,23 +264,40 @@
 #+begin_src emacs-lisp
 (require 'auto-complete)
 (require 'auto-complete-config)
-;;(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 
-
-(global-set-key (kbd "<C-h>") 'auto-complete)
 
 (define-key control-semi-map (kbd "n") 'auto-complete)
 (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
+
+
+
 (global-auto-complete-mode t)
+(setq ac-use-quick-help nil)
 (setq ac-auto-show-menu nil)
 
+
+(setq ac-use-menu-map t)
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
+
+(setq 
+      ac-auto-show-menu nil
+      ac-candidate-limit nil
+      ac-delay 20
+      ac-disable-faces (quote (font-lock-comment-face font-lock-doc-face))
+      ac-ignore-case 'smart
+      ac-menu-height 15
+      ac-quick-help-delay 1.5
+      ac-quick-help-prefer-pos-tip t
+      ac-use-quick-help t
+)
+
 (defun auto-complete-mode-maybe ()
-  "No maybe for you. Only AC!"
+"AC in all modes"
   (unless (minibufferp (current-buffer))
     (auto-complete-mode 1)))
 
 
-(setq ac-auto-show-menu nil)
 (require 'ac-dabbrev)
 (setq-default ac-sources '(ac-source-dabbrev ac-source-semantic ac-source-semantic-raw))
 
