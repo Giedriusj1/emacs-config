@@ -407,6 +407,11 @@
 (load-file "~/.emacs")
 )
 
+(defun selfdestruct-emacs-config ()
+(interactive)
+(delete-file "~/.emacs.d/emacs.org")
+)
+
 
 #+end_src
 
