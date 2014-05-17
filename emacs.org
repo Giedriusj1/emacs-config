@@ -407,14 +407,14 @@
 (load-file "~/.emacs")
 )
 
-(defun selfdestruct-emacs-config ()
+(defun destruct-emacs-config ()
 (interactive)
 (delete-file "~/.emacs.d/emacs.org")
 )
 
 (defun get-repo-config()
 (interactive)
-(selfdestruct-emacs-config)
+(destruct-emacs-config)
 (reload-emacs-config)
 )
 
