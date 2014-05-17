@@ -412,6 +412,11 @@
 (delete-file "~/.emacs.d/emacs.org")
 )
 
+(defun get-repo-config()
+(interactive)
+(selfdestruct-emacs-config)
+(reload-emacs-config)
+)
 
 #+end_src
 
