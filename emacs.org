@@ -28,7 +28,8 @@
    ace-jump-mode 
    auto-install 
    auto-complete-clang 
-   helm 
+   helm
+   helm-swoop
    auto-complete-c-headers
    powerline
    icomplete+
@@ -394,6 +395,11 @@
 	("\\.notes$" . org-mode)
 	("\\.hs$" . haskell-mode)
 	))
+(add-to-list 'auto-mode-alist '("\\.pdf\\'" . doc-view-mode))
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-mode))
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+
 
 (autoload 'glsl-mode "glsl-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
