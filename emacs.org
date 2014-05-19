@@ -20,6 +20,7 @@
  '(yasnippet 
    igrep
    magit 
+   highline
    rainbow-mode 
    smooth-scrolling 
    elpy
@@ -119,7 +120,7 @@
 * LOOKS                                                       :config::looks:
 ** themes and colours
 #+BEGIN_SRC emacs-lisp
-;;(highline-mode)
+(highline-mode)
 
 (custom-set-variables
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
@@ -225,13 +226,9 @@
 (define-key control-semi-map (kbd "n") 'auto-complete)
 (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
 
-
-
 (global-auto-complete-mode t)
 (setq ac-use-quick-help nil)
 (setq ac-auto-show-menu nil)
-
-
 
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
@@ -264,7 +261,6 @@
 #+end_src
 
 ** ORG mode
-
 
 #+BEGIN_SRC emacs-lisp
 (setq org-src-fontify-natively t)
@@ -319,7 +315,7 @@
 (require 'flymake-haskell-multi)
 (add-hook 'haskell-mode-hook   
 	  (lambda()
-	    ;;(haskell-mode 1)
+	    (haskell-mode 1)
 	    (haskell-indent-mode 1)
 	    (flymake-haskell-multi-load 1)
 
@@ -350,12 +346,10 @@
 (add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-mode))
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 
-
 (autoload 'glsl-mode "glsl-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
 (add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
 (add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
-
 #+end_src
 
 ** custom
@@ -376,7 +370,6 @@
 (destruct-emacs-config)
 (reload-emacs-config)
 )
-
 #+end_src
 
 * BEHAVIOUR                                                :config:behaviour:
