@@ -149,18 +149,6 @@
      (require 'uniquify)
      (setq uniquify-buffer-name-style 'forward)
    #+END_SRC
-** Highlight parentheses
-#+begin_src emacs-lisp
-;;(add-to-list 'load-path "~/.emacs.d/elpa/highlight-parentheses-1.0.1")
-;; (require 'highlight-parentheses)
-;;;; (define-globalized-minor-mode global-highlight-parentheses-mode
-;;   highlight-parentheses-mode
-;;   (lambda ()
-;;     (highlight-parentheses-mode t)))
-;; (global-highlight-parentheses-mode t)
-
-#+end_src
-
 ** Mode line
 #+NAME: look-and-feel
 #+BEGIN_SRC emacs-lisp
@@ -177,47 +165,20 @@
 
 
 (setq powerline-arrow-shape 'arrow14)
-
-;;(setq powerline-color1 "#222")      ;; dark grey; 
-;;(setq powerline-color2 "#444")      ;; slightly lighter grey
-
 (powerline-center-theme)
-
-
-;; rainbow parentheses
-;;(defun rainbow-delimiters-colors ()
-;;(set-face-foreground 'rainbow-delimiters-depth-1-face "dark red")
-;;  (set-face-foreground 'rainbow-delimiters-depth-2-face "dark green")
-;;(set-face-foreground 'rainbow-delimiters-depth-3-face "deep pink")
-;;  (set-face-foreground 'rainbow-delimiters-depth-4-face "yellow")
-;;(set-face-foreground 'rainbow-delimiters-depth-5-face "green")
-;;  (set-face-foreground 'rainbow-delimiters-depth-6-face "light blue")
-;;(set-face-foreground 'rainbow-delimiters-depth-7-face "orange")
-;;  (set-face-foreground 'rainbow-delimiters-depth-8-face "slate blue")
-;;(set-face-foreground 'rainbow-delimiters-depth-9-face "light gray")
-;;  (set-face-foreground 'rainbow-delimiters-unmatched-face "white"))
-;;(add-hook 'rainbow-delimiters-mode-hook 'rainbow-delimiters-colors)
 #+END_SRC
 
-** indent guide
-#+begin_src emacs-lisp
-;;(require 'indent-guide)
-;;(indent-guide-global-mode)
-#+end_src
-**** icomplete+
+** icomplete+
 #+begin_src emacs-lisp
 (icomplete-mode 1)
 (require 'icomplete+)
 #+end_src
 
+
 ** ace-jump
 #+begin_src emacs-lisp
 (require 'ace-jump-mode)
 (global-set-key (kbd "M-SPC") 'ace-jump-mode)
-
-
-
-
 #+end_src
 
 ** dired+
@@ -277,7 +238,7 @@
 (setq ac-auto-show-menu nil)
 
 
-(setq ac-use-menu-map t)
+
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
@@ -301,7 +262,6 @@
 
 (require 'ac-dabbrev)
 (setq-default ac-sources '(ac-source-dabbrev ac-source-semantic ac-source-semantic-raw))
-
 #+end_src
 
 ** Buffer management
@@ -438,17 +398,8 @@
 
 (key-chord-define-global "hj"     'undo)
 (key-chord-define-global ",."     "<>\C-b")
-
-
 #+end_src
-** smart forward
-#+begin_src emacs-lisp
-;;(require 'smart-forward)
-;;(global-set-key (kbd "M-C-p") 'smart-up)
-;;(global-set-key (kbd "M-C-n") 'smart-down)
-;;(global-set-key (kbd "M-C-b") 'smart-backward)
-;;(global-set-key (kbd "M-C-f") 'smart-forward)
-#+end_src
+
 ** yas
 #+BEGIN_SRC emacs-lisp
 (require 'yasnippet)
@@ -474,15 +425,12 @@
 (define-key control-semi-map (kbd "m") 'helm-multi-swoop-all)
 
 (require 'all-ext) ;; C-c C-a jumps to all from helm-occur
-
-
 #+end_src
 
 * ALIAS                                                        :config:alias:
 #+begin_src emacs-lisp
 
 (defalias 'yes-or-no-p 'y-or-n-p)
-
 
 (defalias 'rel 'reload-emacs-config)
 (defalias 'lp 'list-packages)
