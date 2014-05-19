@@ -131,13 +131,11 @@
  '(scroll-bar-mode nil)
  '(send-mail-function (quote sendmail-send-it))
  '(tool-bar-mode nil)
-
  (custom-set-faces
   '(highline-face ((t (:background "#303030"))))
   '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 98 :width normal))))
   )
  )
-
 
 #+END_SRC
  
@@ -161,9 +159,6 @@
 (set-face-attribute 'mode-line-inactive nil
                     :box nil)
 
-
-
-
 (setq powerline-arrow-shape 'arrow14)
 (powerline-center-theme)
 #+END_SRC
@@ -173,7 +168,6 @@
 (icomplete-mode 1)
 (require 'icomplete+)
 #+end_src
-
 
 ** ace-jump
 #+begin_src emacs-lisp
@@ -337,10 +331,6 @@
 	  (lambda()
 	    (hs-minor-mode 1)
 	    (cwarn-mode t)
-	    ;;(control-semi-map (kbd "C-e") 'hs-toggle-hiding)
-	    ;;(local-set-key (kbd "H-z") 'hs-toggle-hiding)
-	    ;;(local-set-key (kbd "H-x") 'hs-show-all)
-	    ;;(local-set-key (kbd "H-c") 'hs-hide-all)
 	    ))
 #+end_src
 ** Mode recognition
