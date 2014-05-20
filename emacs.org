@@ -164,6 +164,7 @@
 (powerline-center-theme)
 #+END_SRC
 
+* BEHAVIOUR                                                :config:behaviour:
 ** icomplete+
 #+begin_src emacs-lisp
 (icomplete-mode 1)
@@ -352,27 +353,6 @@
 (add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
 #+end_src
 
-** custom
-
-#+begin_src emacs-lisp
-(defun reload-emacs-config ()
-(interactive)
-(load-file "~/.emacs")
-)
-
-(defun destruct-emacs-config ()
-(interactive)
-(delete-file "~/.emacs.d/emacs.org")
-)
-
-(defun get-repo-config()
-(interactive)
-(destruct-emacs-config)
-(reload-emacs-config)
-)
-#+end_src
-
-* BEHAVIOUR                                                :config:behaviour:
 ** key chord
 #+begin_src emacs-lisp
 
@@ -382,7 +362,6 @@
 (key-chord-define-global "hj"     'undo)
 (key-chord-define-global ",."     "<>\C-b")
 #+end_src
-
 ** yas
 #+BEGIN_SRC emacs-lisp
 (require 'yasnippet)
@@ -410,9 +389,35 @@
 (require 'all-ext) ;; C-c C-a jumps to all from helm-occur
 #+end_src
 
+** custom
+#+begin_src emacs-lisp
+(defun reload-emacs-config ()
+(interactive)
+(load-file "~/.emacs")
+)
+
+(defun destruct-emacs-config ()
+(interactive)
+(delete-file "~/.emacs.d/emacs.org")
+)
+
+(defun get-repo-config()
+(interactive)
+(destruct-emacs-config)
+(reload-emacs-config)
+)
+#+end_src
+
+** magit
+#+begin_src emacs-lisp
+(define-key control-semi-map (kbd "1") 'magit-status)
+
+#+end_src
+
 * ALIAS                                                        :config:alias:
 #+begin_src emacs-lisp
 
+;;Too lazy for this
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 (defalias 'rel 'reload-emacs-config)
@@ -420,3 +425,4 @@
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
 #+end_src
+
