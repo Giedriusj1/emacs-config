@@ -331,6 +331,23 @@
 	    (cwarn-mode t)
 	    ))
 #+end_src
+
+*** Python
+#+begin_src emacs-lisp
+(add-hook 'python-mode-hook
+	  (lambda()
+		 (setq indent-tabs-mode t)
+		 (setq python-indednt 8)
+		 (setq tab-width 4)
+		 (hs-minor-mode 1)
+		 (global-set-key (kbd "H-z") 'hs-toggle-hiding)
+		 (global-set-key (kbd "H-x") 'hs-hide-all)
+		 (global-set-key (kbd "H-c") 'hs-show-all)
+		 ;;(elpy-mode 1)
+		 )
+	  )
+#+end_src
+
 ** Mode recognition
 #+begin_src emacs-lisp
 (autoload 'glsl-mode "glsl-mode" nil t)
