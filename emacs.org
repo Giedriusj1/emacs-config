@@ -341,12 +341,18 @@
 	("\\.ref$" . org-mode)
 	("\\.ref.gpg$" . org-mode)
 	("\\.notes$" . org-mode)
-	("\\.hs$" . haskell-mode)
+
 	("\\.pdf\\'" . doc-view-mode)
+
+	;;programming modes
+	("\\.hs$" . haskell-mode)
 	("\\.py\\'" . python-mode)
 	("\\.cpp\\'" . c++-mode)
 	("\\.h\\'" . c++-mode)
 	("\\.lua\\'" . lua-mode)
+
+	("\\.el\\'" . emacs-lisp-mode)
+
 	("\\.vert\\'" . glsl-mode)
 	("\\.frag\\'" . glsl-mode)
 	("\\.glsl\\'" . glsl-mode)
