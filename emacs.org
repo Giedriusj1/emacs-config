@@ -120,7 +120,7 @@
 * LOOKS                                                       :config::looks:
 ** themes and colours
 #+BEGIN_SRC emacs-lisp
-(highline-mode)
+(highline-mode 1)
 
 (custom-set-variables
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
