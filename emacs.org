@@ -21,7 +21,8 @@
    igrep
    magit 
    highline
-   rainbow-mode 
+   rainbow-mode
+   lua-mode 
    smooth-scrolling 
    elpy
    auctex 
@@ -332,7 +333,7 @@
 #+end_src
 ** Mode recognition
 #+begin_src emacs-lisp
-
+(autoload 'glsl-mode "glsl-mode" nil t)
 (setq auto-mode-alist
       '(
 	("\\.org$" . org-mode)  
@@ -341,16 +342,15 @@
 	("\\.ref.gpg$" . org-mode)
 	("\\.notes$" . org-mode)
 	("\\.hs$" . haskell-mode)
+	("\\.pdf\\'" . doc-view-mode)
+	("\\.py\\'" . python-mode)
+	("\\.cpp\\'" . c++-mode)
+	("\\.h\\'" . c++-mode)
+	("\\.lua\\'" . lua-mode)
+	("\\.vert\\'" . glsl-mode)
+	("\\.frag\\'" . glsl-mode)
+	("\\.glsl\\'" . glsl-mode)
 	))
-(add-to-list 'auto-mode-alist '("\\.pdf\\'" . doc-view-mode))
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-(add-to-list 'auto-mode-alist '("\\.cpp\\'" . c++-mode))
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-
-(autoload 'glsl-mode "glsl-mode" nil t)
-(add-to-list 'auto-mode-alist '("\\.vert\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.frag\\'" . glsl-mode))
-(add-to-list 'auto-mode-alist '("\\.glsl\\'" . glsl-mode))
 #+end_src
 
 ** key chord
