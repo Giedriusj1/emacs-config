@@ -17,19 +17,19 @@
  (lambda (package)
    (if (not (package-installed-p package))
        (package-install package)))
- '(yasnippet 
+ '(yasnippet
    igrep
-   magit 
+   magit
    highline
    rainbow-mode
-   lua-mode 
-   smooth-scrolling 
+   lua-mode
+   smooth-scrolling
    elpy
-   auctex 
-   emacs-eclim 
-   ace-jump-mode 
-   auto-install 
-   auto-complete-clang 
+   auctex
+   emacs-eclim
+   ace-jump-mode
+   auto-install
+   auto-complete-clang
    helm
    helm-swoop
    auto-complete-c-headers
@@ -70,7 +70,7 @@
 (define-key control-semi-map (kbd "C-h") 'highlight-phrase)
 (define-key control-semi-map (kbd "M-h") 'highlight-phrase)
 (define-key control-semi-map (kbd "C-M-h") 'highlight-phrase)
-(define-key control-semi-map (kbd "C-w") 'window-configuration-to-register) 
+(define-key control-semi-map (kbd "C-w") 'window-configuration-to-register)
 
 (define-key control-semi-map (kbd "q") 'goto-line)
 (define-key control-semi-map (kbd "C-q") 'goto-line)
@@ -140,7 +140,7 @@
  )
 
 #+END_SRC
- 
+
 ** Buffer names
    Setup uniquify so that non-unique buffer names get the parent path
    included to make them unique.
@@ -235,7 +235,7 @@
 (define-key ac-menu-map "\C-n" 'ac-next)
 (define-key ac-menu-map "\C-p" 'ac-previous)
 
-(setq 
+(setq
       ac-auto-show-menu nil
       ac-candidate-limit nil
       ac-delay 20
@@ -315,7 +315,7 @@
 *** Haskell
 #+begin_src emacs-lisp
 (require 'flymake-haskell-multi)
-(add-hook 'haskell-mode-hook   
+(add-hook 'haskell-mode-hook
 	  (lambda()
 	    (haskell-mode 1)
 	    (haskell-indent-mode 1)
@@ -336,8 +336,8 @@
 (autoload 'glsl-mode "glsl-mode" nil t)
 (setq auto-mode-alist
       '(
-	("\\.org$" . org-mode)  
-	("\\.org.gpg$" . org-mode)  
+	("\\.org$" . org-mode)
+	("\\.org.gpg$" . org-mode)
 	("\\.ref$" . org-mode)
 	("\\.ref.gpg$" . org-mode)
 	("\\.notes$" . org-mode)
@@ -425,4 +425,3 @@
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
 #+end_src
-
