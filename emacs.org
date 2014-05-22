@@ -32,6 +32,7 @@
    auto-complete-clang
    helm
    helm-swoop
+   icicles
    auto-complete-c-headers
    powerline
    icomplete+
@@ -175,6 +176,13 @@
 #+END_SRC
 
 * BEHAVIOUR                                                :config:behaviour:
+** icicles
+#+begin_src emacs-lisp
+(icy-mode 1)
+
+
+#+end_src
+
 ** icomplete+
 #+begin_src emacs-lisp
 (icomplete-mode 1)
