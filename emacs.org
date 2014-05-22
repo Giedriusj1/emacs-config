@@ -121,6 +121,7 @@
 * LOOKS                                                       :config::looks:
 ** themes and colours
 #+BEGIN_SRC emacs-lisp
+
 (highline-mode 1)
 
 (custom-set-variables
@@ -135,10 +136,18 @@
  '(tool-bar-mode nil)
  (custom-set-faces
   '(highline-face ((t (:background "#303030"))))
-  '(default ((t (:family "DejaVu Sans Mono" :foundry "unknown" :slant normal :weight normal :height 98 :width normal))))
   )
  )
 
+;; Loading font based on platform
+(cond
+ ((string-equal system-type "windows-nt")
+  (set-frame-font "Consolas-10"))
+ ((string-equal system-type "darwin")
+  (message "what?"))
+ ((string-equal system-type "gnu/linux")
+  (set-frame-font "Monospace-8"))
+)
 #+END_SRC
 
 ** Buffer names
