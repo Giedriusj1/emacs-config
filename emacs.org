@@ -32,6 +32,7 @@
    auto-complete-clang
    helm
    helm-swoop
+   projectile
    icicles
    auto-complete-c-headers
    powerline
@@ -176,6 +177,11 @@
 #+END_SRC
 
 * BEHAVIOUR                                                :config:behaviour:
+** projectile
+#+begin_src emacs-lisp
+(projectile-global-mode 1)
+#+end_src
+
 ** icicles
 #+begin_src emacs-lisp
 (icy-mode 1)
