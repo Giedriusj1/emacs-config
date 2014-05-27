@@ -32,8 +32,9 @@
    auto-complete-clang
    helm
    helm-swoop
-   projectile
+   bind-key
    icicles
+   projectile
    auto-complete-c-headers
    powerline
    icomplete+
@@ -52,18 +53,73 @@
 #+end_src
 
 ** Keyboard
-## The purpose of this code block is to define key maps + bindings that do not rely on external packages
-
+*** maps
 #+begin_src emacs-lisp
 (define-prefix-command 'alt-semi-map)
 (define-prefix-command 'control-semi-map)
+(define-prefix-command 'tab-map)
+(define-prefix-command 'ret-map)
 (define-prefix-command 'hyper-semi-map)
 (define-prefix-command 'meta-semi-map)
 
-(global-set-key (kbd "H-;") 'hyper-semi-map)
-(global-set-key (kbd "C-;") 'control-semi-map)
-(global-set-key (kbd "M-;") 'meta-semi-map)
+(require 'bind-key)
+(bind-key* "C-;" 'control-semi-map)
+(bind-key* "H-;" 'hyper-semi-map)
+(bind-key* "M-;" 'meta-semi-map)
+(bind-key* "<tab>" 'tab-map)
 
+(global-set-key (kbd "C-d") 'delete-backward-char)
+
+(bind-key* "C-h" 'delete-backward-char)
+(bind-key* "C-j" 'delete-forward-char)
+
+(bind-key* "C-z" (message ""))
+(bind-key* "C-u" 'backward-kill-word)
+
+#+end_src
+
+*** global map
+#+begin_src emacs-lisp
+(global-set-key [f11] 'toggle-truncate-lines)
+(global-set-key [f12] 'whitespace-mode)
+
+(global-set-key (kbd "<Scroll_Lock>") 'scroll-lock-mode)
+(global-set-key (kbd "<up>") 'scroll-down-line)
+(global-set-key (kbd "<down>") 'scroll-up-line)
+
+(global-set-key (kbd "M-,") 'beginning-of-buffer)
+(global-set-key (kbd "M-.") 'end-of-buffer)
+
+(global-set-key (kbd "M-p") 'backward-paragraph)
+(global-set-key (kbd "M-n") 'forward-paragraph)
+
+(global-set-key (kbd "M-o") 'other-window)
+#+end_src
+
+**** Hyper key
+#+begin_src emacs-lisp
+(global-set-key (kbd "H-M-j") 'next-multiframe-window)
+(global-set-key (kbd "H-M-k") 'previous-multiframe-window)
+(global-set-key (kbd "H-M-c") 'delete-window)
+(global-set-key (kbd "H-j") 'backward-delete-char-untabify)
+(global-set-key (kbd "H-k") 'delete-forward-char)
+
+(global-set-key (kbd "H-1") 'delete-other-windows)
+(global-set-key (kbd "H-2") 'split-window-below)
+(global-set-key (kbd "H-3") 'split-window-right)
+(global-set-key (kbd "H-0") 'delete-window)
+(global-set-key (kbd "H-e") 'execute-extended-command)
+
+(global-set-key (kbd "H-o") 'other-window)
+(global-set-key (kbd "H-f") 'backward-delete-char-untabify)
+(global-set-key (kbd "H-j") 'delete-char)
+
+(global-set-key (kbd "H-h") 'backward-kill-word)
+(global-set-key (kbd "H-l") 'kill-word)
+#+end_src
+
+*** control-semi-map 
+#+begin_src emacs-lisp
 (define-key control-semi-map (kbd "SPC") 'point-to-register)
 (define-key control-semi-map (kbd "C-SPC") 'point-to-register)
 (define-key control-semi-map (kbd "j") 'jump-to-register)
@@ -78,52 +134,25 @@
 (define-key control-semi-map (kbd "C-q") 'goto-line)
 
 (define-key control-semi-map (kbd "C-l") 'execute-extended-command)
+#+end_src
 
-;;(define-key hyper-semi-map (kbd "H-j") 'shell-pop)
+*** tab map
+#+begin_src emacs-lisp
+(define-key tab-map (kbd "TAB") 'comment-dwim)
+(define-key tab-map (kbd "u") 'universal-argument)
 
-(global-set-key [f11] 'toggle-truncate-lines)
-(global-set-key [f12] 'whitespace-mode)
+(define-key tab-map (kbd "1") 'ace-jump-char-mode)
+(define-key tab-map (kbd "2") 'ace-jump-line-mode)
 
-(global-set-key (kbd "H-o") 'other-window)
-(global-set-key (kbd "H-f") 'backward-delete-char-untabify)
-(global-set-key (kbd "H-j") 'delete-char)
+(define-key tab-map (kbd "p") 'projectile-command-map)
+(define-key tab-map (kbd "m") 'magit-command-map)
 
-(global-set-key (kbd "H-h") 'backward-kill-word)
-(global-set-key (kbd "H-l") 'kill-word)
-
-(global-set-key (kbd "H-1") 'delete-other-windows)
-(global-set-key (kbd "H-2") 'split-window-below)
-(global-set-key (kbd "H-3") 'split-window-right)
-(global-set-key (kbd "H-0") 'delete-window)
-(global-set-key (kbd "H-e") 'execute-extended-command)
-
-(global-set-key (kbd "<Scroll_Lock>") 'scroll-lock-mode)
-(global-set-key (kbd "<up>") 'scroll-down-line)
-(global-set-key (kbd "<down>") 'scroll-up-line)
-
-(global-set-key (kbd "H-j") 'backward-delete-char-untabify)
-(global-set-key (kbd "H-k") 'delete-forward-char)
-
-(global-set-key (kbd "M-,") 'beginning-of-buffer)
-(global-set-key (kbd "M-.") 'end-of-buffer)
-
-(global-set-key (kbd "M-p") 'backward-paragraph)
-(global-set-key (kbd "M-n") 'forward-paragraph)
-
-
-(global-set-key (kbd "H-M-j") 'next-multiframe-window)
-(global-set-key (kbd "H-M-k") 'previous-multiframe-window)
-(global-set-key (kbd "H-M-c") 'delete-window)
-
-
-(global-set-key (kbd "M-o") 'other-window)
-
+(define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
 
 * LOOKS                                                       :config::looks:
 ** themes and colours
 #+BEGIN_SRC emacs-lisp
-
 (highline-mode 1)
 
 (custom-set-variables
@@ -148,7 +177,7 @@
  ((string-equal system-type "darwin")
   (message "what?"))
  ((string-equal system-type "gnu/linux")
-  (set-frame-font "Monospace-8"))
+  (set-frame-font "Monospace-10"))
 )
 #+END_SRC
 
@@ -185,8 +214,10 @@
 ** icicles
 #+begin_src emacs-lisp
 (icy-mode 1)
-
-
+#+end_src
+** ido
+#+begin_src emacs-lisp
+(ido-mode 1)
 #+end_src
 
 ** icomplete+
@@ -457,10 +488,19 @@
 )
 #+end_src
 
+# 
 ** magit
 #+begin_src emacs-lisp
 (define-key control-semi-map (kbd "1") 'magit-status)
 
+(defvar magit-command-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "m") 'magit-status)
+    (define-key map (kbd "s") 'magit-stash)
+    (define-key map (kbd "p") 'magit-stash-pop)
+    (define-key map (kbd "l") 'magit-log)
+    map))
+(fset 'magit-command-map magit-command-map)
 #+end_src
 
 * ALIAS                                                        :config:alias:
@@ -473,4 +513,6 @@
 (defalias 'lp 'list-packages)
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
+
+
 #+end_src
