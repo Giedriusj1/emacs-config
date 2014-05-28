@@ -138,8 +138,10 @@
 
 *** tab map
 #+begin_src emacs-lisp
+
+
 (define-key tab-map (kbd "TAB") 'comment-dwim)
-(define-key tab-map (kbd "u") 'universal-argument)
+  (define-key tab-map (kbd "u") 'universal-argument)
 
 (define-key tab-map (kbd "1") 'ace-jump-char-mode)
 (define-key tab-map (kbd "2") 'ace-jump-line-mode)
@@ -383,6 +385,16 @@
 	  (lambda()
 	    (hs-minor-mode 1)
 	    (cwarn-mode t)
+      (flyspell-prog-mode t)
+	    ))
+#+end_src
+*** COMMENT C++
+#+begin_src emacs-lisp
+(add-hook 'c++-mode-common-hook
+	  (lambda()
+	    (hs-minor-mode 1)
+	    (cwarn-mode t)
+      (flyspell-prog-mode t)
 	    ))
 #+end_src
 
