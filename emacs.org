@@ -451,7 +451,7 @@
 (require 'key-chord)
 (key-chord-mode 1)
 
-(key-chord-define-global "hj"     'undo)
+(key-chord-define-global "j;"     'control-semi-map)
 (key-chord-define-global ",."     "<>\C-b")
 #+end_src
 ** yas
