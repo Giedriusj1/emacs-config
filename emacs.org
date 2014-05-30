@@ -19,6 +19,7 @@
        (package-install package)))
  '(yasnippet
    igrep
+   helm-descbinds
    magit
    highline
    rainbow-mode
@@ -544,6 +545,9 @@
 
 ;;Too lazy for this
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+
+(defalias 'describe-bindings 'helm-descbinds)
 
 (defalias 'rel 'reload-emacs-config)
 (defalias 'lp 'list-packages)
