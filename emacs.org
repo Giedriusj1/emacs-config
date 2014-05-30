@@ -87,13 +87,37 @@
 (global-set-key (kbd "<up>") 'scroll-down-line)
 (global-set-key (kbd "<down>") 'scroll-up-line)
 
-(global-set-key (kbd "M-,") 'beginning-of-buffer)
-(global-set-key (kbd "M-.") 'end-of-buffer)
 
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
-(global-set-key (kbd "M-o") 'other-window)
+(global-set-key (kbd "M-,") 'backward-kill-word)
+(global-set-key (kbd "M-.") 'kill-word)
+
+
+(bind-key* "C-," 'delete-backward-char)
+(global-set-key (kbd "C-.") 'delete-char)
+
+
+(bind-key* "M-h" 'other-window)
+
+(bind-key* "C-u" 'backward-char)
+(bind-key* "C-o" 'forward-char)
+
+(bind-key* "M-u" 'backward-word)
+(bind-key* "M-o" 'forward-word)
+
+(defun nope ()
+(interactive)
+(message "NOPE!")
+)
+
+(bind-key* "C-f" 'nope)
+(bind-key* "C-b" 'nope)
+
+(bind-key* "M-f" 'nope)
+(bind-key* "M-b" 'nope)
+
 #+end_src
 
 **** Hyper key
