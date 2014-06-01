@@ -71,11 +71,8 @@
 
 (global-set-key (kbd "C-d") 'delete-backward-char)
 
-(bind-key* "C-h" 'delete-backward-char)
-(bind-key* "C-j" 'delete-forward-char)
 
-(bind-key* "C-z" (message ""))
-(bind-key* "C-u" 'backward-kill-word)
+
 
 #+end_src
 
@@ -100,7 +97,7 @@
 (global-set-key (kbd "C-.") 'delete-char)
 
 
-(bind-key* "M-h" 'other-window)
+(bind-key* "M-h" 'open-line)
 
 (bind-key* "C-u" 'backward-char)
 (bind-key* "C-o" 'forward-char)
@@ -113,12 +110,25 @@
 (message "NOPE!")
 )
 
-(bind-key* "C-f" 'nope)
-(bind-key* "C-b" 'nope)
+;; yo, these keys have better alternatives. Use them!
+(bind-key "C-f" 'nope)
+(bind-key "C-b" 'nope)
 
-(bind-key* "M-f" 'nope)
-(bind-key* "M-b" 'nope)
+(bind-key "M-f" 'nope)
+(bind-key "M-b" 'nope)
 
+(bind-key "M-b" 'nope)
+
+
+(bind-key "DEL" 'nope)
+
+
+(bind-key* "C-z" 'nope)
+
+;;(bind-key "<return>" 'Control-X-prefix)
+
+(bind-key* "C-j" 'helm-mini)
+(bind-key* "M-j" 'other-window)
 #+end_src
 
 **** Hyper key
@@ -143,7 +153,7 @@
 (global-set-key (kbd "H-l") 'kill-word)
 #+end_src
 
-*** control-semi-map 
+*** control-semi-map
 #+begin_src emacs-lisp
 (define-key control-semi-map (kbd "SPC") 'point-to-register)
 (define-key control-semi-map (kbd "C-SPC") 'point-to-register)
@@ -487,7 +497,7 @@
 ** Helm
 #+begin_src emacs-lisp
 (require 'helm-config)
-(define-key ctl-x-map   "b" 'helm-mini)
+;;(define-key ctl-x-map   "b" 'helm-mini)
 (define-key ctl-x-map   "i" 'helm-semantic-or-imenu)
 
 (define-key control-semi-map (kbd "l") 'helm-M-x)
@@ -525,11 +535,9 @@
 )
 #+end_src
 
-# 
+#
 ** magit
 #+begin_src emacs-lisp
-(define-key control-semi-map (kbd "1") 'magit-status)
-
 (defvar magit-command-map
   (let ((map (make-sparse-keymap)))
     (define-key map (kbd "m") 'magit-status)
