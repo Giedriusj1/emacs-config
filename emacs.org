@@ -20,6 +20,7 @@
  '(yasnippet
    igrep
    helm-descbinds
+   haskell-mode
    magit
    highline
    rainbow-mode
@@ -85,7 +86,6 @@
 (global-set-key (kbd "<up>") 'scroll-down-line)
 (global-set-key (kbd "<down>") 'scroll-up-line)
 
-
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
@@ -95,7 +95,6 @@
 
 (bind-key* "C-," 'delete-backward-char)
 (global-set-key (kbd "C-.") 'delete-char)
-
 
 (bind-key* "M-h" 'open-line)
 
@@ -119,16 +118,23 @@
 
 (bind-key "M-b" 'nope)
 
+(bind-key* "C-a" 'nope)
 
 (bind-key "DEL" 'nope)
 
-
 (bind-key* "C-z" 'nope)
+
+(bind-key* "C-a" 'Control-X-prefix)
+;;(bind-key* "C-x" 'nope)
 
 ;;(bind-key "<return>" 'Control-X-prefix)
 
 (bind-key* "C-j" 'helm-mini)
 (bind-key* "M-j" 'other-window)
+
+(bind-key* "C-q" 'beginning-of-line)
+(bind-key* "C-w" 'back-to-indentation)
+
 #+end_src
 
 **** Hyper key
@@ -169,8 +175,15 @@
 (define-key control-semi-map (kbd "C-q") 'goto-line)
 
 (define-key control-semi-map (kbd "C-l") 'execute-extended-command)
-#+end_src
 
+(define-key control-semi-map (kbd "C-1") 'delete-other-windows)
+(define-key control-semi-map (kbd "C-2") 'split-window-below)
+(define-key control-semi-map (kbd "C-3") 'split-window-right)
+(define-key control-semi-map (kbd "C-0") 'delete-window)
+(define-key control-semi-map (kbd "C-4") 'balance-windows)
+
+(define-key control-semi-map (kbd "C-f") 'follow-mode)
+#+end_src
 *** tab map
 #+begin_src emacs-lisp
 
@@ -190,8 +203,6 @@
 * LOOKS                                                       :config::looks:
 ** themes and colours
 #+BEGIN_SRC emacs-lisp
-(highline-mode 1)
-
 (custom-set-variables
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-enabled-themes (quote (wombat)))
@@ -206,6 +217,8 @@
   '(highline-face ((t (:background "#303030"))))
   )
  )
+
+(highline-mode 1)
 
 ;; Loading font based on platform
 (cond
@@ -350,7 +363,7 @@
 
 ** Buffer management
 #+begin_src emacs-lisp
-(global-set-key (kbd "C-x C-b") 'bs-show)
+;;(global-set-key (kbd "C-x C-b") 'bs-show)
 #+end_src
 
 ** ORG mode
@@ -404,14 +417,13 @@
 
 ** Programming                                :config:behaviour:programming:
 *** Haskell
-#+begin_src emacs-lisp
+ #+begin_src emacs-lisp
 (require 'flymake-haskell-multi)
 (add-hook 'haskell-mode-hook
 	  (lambda()
 	    (haskell-mode 1)
 	    (haskell-indent-mode 1)
 	    (flymake-haskell-multi-load 1)
-
 	    ))
 #+end_src
 *** C
@@ -498,7 +510,7 @@
 #+begin_src emacs-lisp
 (require 'helm-config)
 ;;(define-key ctl-x-map   "b" 'helm-mini)
-(define-key ctl-x-map   "i" 'helm-semantic-or-imenu)
+(define-key ctl-x-map   "C-i" 'helm-semantic-or-imenu)
 
 (define-key control-semi-map (kbd "l") 'helm-M-x)
 (define-key control-semi-map (kbd "o") 'helm-occur)
