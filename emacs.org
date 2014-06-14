@@ -89,12 +89,12 @@
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
-(global-set-key (kbd "M-,") 'backward-kill-word)
-(global-set-key (kbd "M-.") 'kill-word)
+(bind-key* "M-," 'backward-kill-word)
+(bind-key* "M-." 'kill-word)
 
 
 (bind-key* "C-," 'delete-backward-char)
-(global-set-key (kbd "C-.") 'delete-char)
+(bind-key* "C-." 'delete-char)
 
 (bind-key* "M-h" 'open-line)
 
@@ -219,6 +219,8 @@
  )
 
 (highline-mode 1)
+(blink-cursor-mode -1)
+(set-cursor-color "Orange")
 
 ;; Loading font based on platform
 (cond
@@ -421,9 +423,9 @@
 (require 'flymake-haskell-multi)
 (add-hook 'haskell-mode-hook
 	  (lambda()
-	    (haskell-mode 1)
+	   ;; (haskell-mode 1)
 	    (haskell-indent-mode 1)
-	    (flymake-haskell-multi-load 1)
+	    ;;(flymake-haskell-multi-load 1)
 	    ))
 #+end_src
 *** C
