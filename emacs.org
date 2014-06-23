@@ -258,6 +258,16 @@
 #+END_SRC
 
 * BEHAVIOUR                                                :config:behaviour:
+
+** windmove
+#+begin_src emacs-lisp
+(setq windmove-wrap-around t )
+(bind-key* "C-1" 'windmove-up)
+(bind-key* "C-2" 'windmove-right)
+
+
+#+end_src
+
 ** projectile
 #+begin_src emacs-lisp
 (projectile-global-mode 1)
@@ -270,6 +280,8 @@
 ** multi-term
 #+begin_src emacs-lisp
 (require 'multi-term)
+(bind-key* "C-`" 'multi-term-next)
+(bind-key* "C-0" 'multi-term)
 #+end_src
 
 ** ido
@@ -454,8 +466,16 @@
 
 *** Python
 #+begin_src emacs-lisp
+
+(require 'jedi)
+
+ (setq jedi:server-command (list "python" jedi:server-script))
+
 (add-hook 'python-mode-hook
 	  (lambda()
+
+    (jedi:setup)
+    (setq jedi:complete-on-dot t)                 ; optional
 		 (setq indent-tabs-mode t)
 		 (setq python-indednt 8)
 		 (setq tab-width 4)
