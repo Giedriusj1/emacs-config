@@ -20,6 +20,7 @@
  '(yasnippet
    igrep
    helm-descbinds
+   multi-term
    haskell-mode
    magit
    highline
@@ -266,6 +267,11 @@
 #+begin_src emacs-lisp
 (icy-mode 1)
 #+end_src
+** multi-term
+#+begin_src emacs-lisp
+(require 'multi-term)
+#+end_src
+
 ** ido
 #+begin_src emacs-lisp
 (ido-mode 1)
