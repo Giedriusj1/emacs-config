@@ -203,6 +203,16 @@
 * LOOKS                                                       :config::looks:
 ** themes and colours
 #+BEGIN_SRC emacs-lisp
+;; Loading font based on platform
+(cond
+ ((string-equal system-type "windows-nt")
+  (set-frame-font "Consolas-10"))
+ ((string-equal system-type "darwin")
+  (message "what?"))
+ ((string-equal system-type "gnu/linux")
+  (set-frame-font "Monospace-10"))
+)
+
 (custom-set-variables
  '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
  '(custom-enabled-themes (quote (wombat)))
@@ -214,23 +224,12 @@
  '(send-mail-function (quote sendmail-send-it))
  '(tool-bar-mode nil)
  (custom-set-faces
-  '(highline-face ((t (:background "#303030"))))
-  )
+ '(highline-face ((t (:background "#303030")))))
  )
 
-(highline-mode 1)
+(global-highline-mode 1)
 (blink-cursor-mode -1)
-(set-cursor-color "Orange")
-
-;; Loading font based on platform
-(cond
- ((string-equal system-type "windows-nt")
-  (set-frame-font "Consolas-10"))
- ((string-equal system-type "darwin")
-  (message "what?"))
- ((string-equal system-type "gnu/linux")
-  (set-frame-font "Monospace-10"))
-)
+(set-cursor-color "BlueViolet")
 #+END_SRC
 
 ** Buffer names
@@ -254,7 +253,7 @@
                     :box nil)
 
 (setq powerline-arrow-shape 'arrow14)
-(powerline-center-theme)
+(powerline-default-theme)
 #+END_SRC
 
 * BEHAVIOUR                                                :config:behaviour:
@@ -567,7 +566,6 @@
 
 ;;Too lazy for this
 (defalias 'yes-or-no-p 'y-or-n-p)
-
 
 (defalias 'describe-bindings 'helm-descbinds)
 
