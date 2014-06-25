@@ -20,7 +20,10 @@
  '(yasnippet
    igrep
    helm-descbinds
+   dired-toggle-sudo
    multi-term
+   iasm-mode
+   jedi
    haskell-mode
    magit
    highline
@@ -262,8 +265,9 @@
 ** windmove
 #+begin_src emacs-lisp
 (setq windmove-wrap-around t )
-(bind-key* "C-1" 'windmove-up)
-(bind-key* "C-2" 'windmove-right)
+(bind-key* "C-1" 'other-frame)
+(bind-key* "C-2" 'windmove-up)
+(bind-key* "C-3" 'windmove-right)
 
 
 #+end_src
@@ -469,7 +473,8 @@
 
 (require 'jedi)
 
- (setq jedi:server-command (list "python" jedi:server-script))
+(setq jedi:server-command
+      (list "/usr/bin/python" jedi:server-script))
 
 (add-hook 'python-mode-hook
 	  (lambda()
@@ -536,8 +541,7 @@
 ** Helm
 #+begin_src emacs-lisp
 (require 'helm-config)
-;;(define-key ctl-x-map   "b" 'helm-mini)
-(define-key ctl-x-map   "C-i" 'helm-semantic-or-imenu)
+(define-key control-semi-map (kbd "C-s") 'helm-semantic-or-imenu)
 
 (define-key control-semi-map (kbd "l") 'helm-M-x)
 (define-key control-semi-map (kbd "o") 'helm-occur)
