@@ -20,6 +20,8 @@
  '(yasnippet
    igrep
    helm-descbinds
+   helm-projectile
+   helm-projectile-all
    dired-toggle-sudo
    multi-term
    iasm-mode
@@ -134,7 +136,7 @@
 ;;(bind-key "<return>" 'Control-X-prefix)
 
 (bind-key* "C-j" 'helm-mini)
-(bind-key* "M-j" 'other-window)
+;;(bind-key* "M-j" 'other-window)
 
 (bind-key* "C-q" 'beginning-of-line)
 (bind-key* "C-w" 'back-to-indentation)
@@ -256,7 +258,7 @@
 (set-face-attribute 'mode-line-inactive nil
                     :box nil)
 
-(setq powerline-arrow-shape 'arrow14)
+;;(setq powerline-arrow-shape 'arrow14)
 (powerline-default-theme)
 #+END_SRC
 
@@ -275,6 +277,33 @@
 ** projectile
 #+begin_src emacs-lisp
 (projectile-global-mode 1)
+
+(defun projectile-helm-grep-root ()
+  (interactive)
+
+  (projectile-with-default-dir (projectile-project-root)
+    (call-interactively (helm-do-grep-1 
+			 'default-directory
+			 '(10)
+			 nil
+			 '("*")
+			 ))))
+
+(define-key projectile-command-map (kbd "a") 'projectile-helm-grep-root)
+
+(defun projectile-helm-grep-root-src ()
+  (interactive)
+
+  (projectile-with-default-dir (projectile-project-root)
+    (call-interactively (helm-do-grep-1 
+			 'default-directory
+			 '(10)
+			 nil
+			 '("*.cpp" "*.h" "*.lua" "*.py" "*.pl" "*.xml", "*.el" ".org" ) ;; Only interesting files
+			 ))))
+
+(define-key projectile-command-map (kbd "p") 'projectile-helm-grep-root-src)
+
 #+end_src
 
 ** icicles
@@ -283,9 +312,14 @@
 #+end_src
 ** multi-term
 #+begin_src emacs-lisp
-(require 'multi-term)
-(bind-key* "C-`" 'multi-term-next)
-(bind-key* "C-0" 'multi-term)
+(add-hook 'eshell-load-hook 
+	  (lambda()
+      (nyan-prompt-enable)
+      (eshell-fringe-status-mode t)
+	 ))
+
+(bind-key* "C-`" 'eshell)
+;;(bind-key* "C-0" 'multi-term)
 #+end_src
 
 ** ido
