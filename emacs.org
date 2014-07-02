@@ -299,7 +299,7 @@
 			 'default-directory
 			 '(10)
 			 nil
-			 '("*.cpp" "*.h" "*.lua" "*.py" "*.pl" "*.xml", "*.el" ".org" ) ;; Only interesting files
+			 '("*.cpp" "*.h" "*.lua" "*.py" "*.pl" "*.xml" "*.el" ".org" ) ;; Only interesting files
 			 ))))
 
 (define-key projectile-command-map (kbd "p") 'projectile-helm-grep-root-src)
@@ -314,7 +314,6 @@
 #+begin_src emacs-lisp
 (add-hook 'eshell-load-hook 
 	  (lambda()
-      (nyan-prompt-enable)
       (eshell-fringe-status-mode t)
 	 ))
 
