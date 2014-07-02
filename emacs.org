@@ -20,6 +20,7 @@
  '(yasnippet
    igrep
    helm-descbinds
+   auto-highlight-symbol
    helm-projectile
    helm-projectile-all
    dired-toggle-sudo
@@ -258,6 +259,12 @@
 ;;(setq powerline-arrow-shape 'arrow14)
 (powerline-default-theme)
 #+END_SRC
+** auto highlight symbol
+#+begin_src emacs-lisp
+(auto-highlight-symbol-mode 1)
+
+#+end_src
+
 
 * BEHAVIOUR                                                :config:behaviour:
 
