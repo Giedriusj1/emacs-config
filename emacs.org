@@ -56,6 +56,7 @@
    key-chord
    yasnippet
    all-ext
+   yafolding
    )
  )
 #+end_src
@@ -77,10 +78,6 @@
 (bind-key* "<tab>" 'tab-map)
 
 (global-set-key (kbd "C-d") 'delete-backward-char)
-
-
-
-
 #+end_src
 
 *** global map
@@ -195,7 +192,7 @@
 
 
 (define-key tab-map (kbd "TAB") 'comment-dwim)
-  (define-key tab-map (kbd "u") 'universal-argument)
+(define-key tab-map (kbd "u") 'universal-argument)
 
 (define-key tab-map (kbd "1") 'ace-jump-char-mode)
 (define-key tab-map (kbd "2") 'ace-jump-line-mode)
@@ -252,7 +249,7 @@
 (require 'powerline)
 (set-face-attribute 'mode-line nil
                     :foreground "grey90"
-                    :background "DarkOrange3"
+                    :background "SaddleBrown"
                     :box nil)
 
 (set-face-attribute 'mode-line-inactive nil
@@ -263,6 +260,12 @@
 #+END_SRC
 
 * BEHAVIOUR                                                :config:behaviour:
+
+** yafolding
+#+begin_src emacs-lisp
+(yafolding-mode)
+(bind-key* "C-f" 'yafolding-toggle-element)
+#+end_src
 
 ** windmove
 #+begin_src emacs-lisp
