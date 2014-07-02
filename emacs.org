@@ -190,8 +190,6 @@
 #+end_src
 *** tab map
 #+begin_src emacs-lisp
-
-
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
 
@@ -261,7 +259,7 @@
 #+END_SRC
 ** auto highlight symbol
 #+begin_src emacs-lisp
-(auto-highlight-symbol-mode 1)
+(global-auto-highlight-symbol-mode 1)
 
 #+end_src
 
@@ -288,12 +286,112 @@
 #+begin_src emacs-lisp
 (projectile-global-mode 1)
 
+
+(defun helm-grep (targets &optional recurse zgrep exts)
+  "Launch grep on a list of TARGETS files.
+When RECURSE is given use -r option of grep and prompt user
+to set the --include args of grep.
+You can give more than one arg separated by space.
+e.g *.el *.py *.tex.
+If you are using ack-grep, you will be prompted for --type
+instead.
+If prompt is empty '--exclude `grep-find-ignored-files' is used instead.
+ZGREP when non--nil use zgrep instead, without prompting for a choice
+in recurse, search being made on `helm-zgrep-file-extension-regexp'."
+
+  (let* ((exts (and recurse
+                    ;; [FIXME] I could handle this from helm-walk-directory.
+                    (not zgrep) ; zgrep doesn't handle -r opt.
+                    (not (helm-grep-use-ack-p :where 'recursive))
+                    (or exts (helm-grep-get-file-extensions targets))))
+         (include-files (and exts
+                             (mapconcat #'(lambda (x)
+                                            (concat "--include="
+                                                    (shell-quote-argument x)))
+                                        (if (> (length exts) 1)
+                                            (remove "*" exts)
+                                          exts) " ")))
+         (types (and (not include-files)
+                     (not zgrep)
+                     recurse
+                     ;; When %e format spec is not specified
+                     ;; ignore types and do not prompt for choice.
+                     (string-match "%e" helm-grep-default-command)
+                     (helm-grep-read-ack-type)))
+         (follow (and helm-follow-mode-persistent
+                      (assoc-default 'follow helm-source-grep))))
+    ;; When called as action from an other source e.g *-find-files
+    ;; we have to kill action buffer.
+    (when (get-buffer helm-action-buffer)
+      (kill-buffer helm-action-buffer))
+    ;; If `helm-find-files' haven't already started,
+    ;; give a default value to `helm-ff-default-directory'.
+    (unless helm-ff-default-directory
+      (setq helm-ff-default-directory default-directory))
+    ;; We need to store these vars locally
+    ;; to pass infos later to `helm-resume'.
+    (with-helm-temp-hook 'helm-after-initialize-hook
+      (with-helm-buffer
+        (set (make-local-variable 'helm-zgrep-recurse-flag)
+             (and recurse zgrep))
+        (set (make-local-variable 'helm-grep-last-targets) targets)
+        (set (make-local-variable 'helm-grep-include-files)
+             (or include-files types))
+        (set (make-local-variable 'helm-grep-in-recurse) recurse)
+        (set (make-local-variable 'helm-grep-use-zgrep) zgrep)
+        (set (make-local-variable 'helm-grep-last-default-directory)
+             helm-ff-default-directory)
+        (set (make-local-variable 'helm-grep-default-command)
+             (cond (helm-grep-use-zgrep helm-default-zgrep-command)
+                   (helm-grep-in-recurse helm-grep-default-recurse-command)
+                   ;; When resuming the local value of
+                   ;; `helm-grep-default-command' is used, only git-grep
+                   ;; should need this.
+                   (t helm-grep-default-command)))))
+    ;; Setup the source.
+    (setq helm-source-grep
+          `((name . ,(if zgrep "Zgrep" (capitalize (if recurse
+                                                       (helm-grep-command t)
+                                                     (helm-grep-command)))))
+            (header-name . (lambda (name)
+                             (concat name "(C-c ? Help)")))
+            (candidates-process . helm-grep-collect-candidates)
+            (filter-one-by-one . helm-grep-filter-one-by-one)
+            (candidate-number-limit . 9999)
+            (no-matchplugin)
+            (nohighlight)
+            (mode-line . helm-grep-mode-line-string)
+            ;; We need to specify keymap here and as :keymap arg [1]
+            ;; to make it available in further resuming.
+            (keymap . ,helm-grep-map)
+            (history . ,'helm-grep-history)
+            (action . ,(delq
+                        nil
+                        `(("Find File" . helm-grep-action)
+                          ("Find file other frame" . helm-grep-other-frame)
+                          ,(and (locate-library "elscreen")
+                                '("Find file in Elscreen"
+                                  . helm-grep-jump-elscreen))
+                          ("Save results in grep buffer" . helm-grep-save-results)
+                          ("Find file other window" . helm-grep-other-window))))
+            (persistent-action . helm-grep-persistent-action)
+            (persistent-help . "Jump to line (`C-u' Record in mark ring)")
+            (requires-pattern . 2)))
+    (and follow (helm-attrset 'follow follow helm-source-grep))
+    (helm
+     :sources '(helm-source-grep)
+     :buffer (format "*helm %s*" (if zgrep "zgrep" (helm-grep-command recurse)))
+     :default-directory helm-grep-last-default-directory
+     :keymap helm-grep-map ; [1]
+     :history 'helm-grep-history
+     :truncate-lines t)))
+
 (defun projectile-helm-grep-root ()
   (interactive)
 
   (projectile-with-default-dir (projectile-project-root)
     (call-interactively (helm-do-grep-1 
-			 'default-directory
+                      nil
 			 '(10)
 			 nil
 			 '("*")
@@ -305,8 +403,8 @@
   (interactive)
 
   (projectile-with-default-dir (projectile-project-root)
-    (call-interactively (helm-do-grep-1 
-			 'default-directory
+    (call-interactively (helm-do-grep-1
+                      nil
 			 '(10)
 			 nil
 			 '("*.cpp" "*.h" "*.lua" "*.py" "*.pl" "*.xml" "*.el" ".org" ) ;; Only interesting files
