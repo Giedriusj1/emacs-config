@@ -422,7 +422,6 @@ in recurse, search being made on `helm-zgrep-file-extension-regexp'."
 #+begin_src emacs-lisp
 (add-hook 'eshell-load-hook 
 	  (lambda()
-      (eshell-fringe-status-mode t)
 	 ))
 
 (bind-key* "C-`" 'eshell)
