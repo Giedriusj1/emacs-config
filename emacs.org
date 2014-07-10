@@ -2,6 +2,8 @@
 
 * INIT BASICS                                                 :config:basics:
 ** repo load
+
+(setq debug-on-error t)
 #+begin_src emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
@@ -42,7 +44,7 @@
    helm
    helm-swoop
    bind-key
-   icicles
+   ;;icicles
    projectile
    auto-complete-c-headers
    powerline
@@ -284,20 +286,11 @@
 
 ** projectile
 #+begin_src emacs-lisp
+(require 'cl)
+(require 'helm)
 (projectile-global-mode 1)
 
-
-(defun helm-grep (targets &optional recurse zgrep exts)
-  "Launch grep on a list of TARGETS files.
-When RECURSE is given use -r option of grep and prompt user
-to set the --include args of grep.
-You can give more than one arg separated by space.
-e.g *.el *.py *.tex.
-If you are using ack-grep, you will be prompted for --type
-instead.
-If prompt is empty '--exclude `grep-find-ignored-files' is used instead.
-ZGREP when non--nil use zgrep instead, without prompting for a choice
-in recurse, search being made on `helm-zgrep-file-extension-regexp'."
+(defun helm-megagrep (targets &optional recurse zgrep exts)
 
   (let* ((exts (and recurse
                     ;; [FIXME] I could handle this from helm-walk-directory.
@@ -326,8 +319,9 @@ in recurse, search being made on `helm-zgrep-file-extension-regexp'."
       (kill-buffer helm-action-buffer))
     ;; If `helm-find-files' haven't already started,
     ;; give a default value to `helm-ff-default-directory'.
-    (unless helm-ff-default-directory
-      (setq helm-ff-default-directory default-directory))
+
+    ;;(setq helm-ff-default-directory default-directory)
+
     ;; We need to store these vars locally
     ;; to pass infos later to `helm-resume'.
     (with-helm-temp-hook 'helm-after-initialize-hook
@@ -339,8 +333,7 @@ in recurse, search being made on `helm-zgrep-file-extension-regexp'."
              (or include-files types))
         (set (make-local-variable 'helm-grep-in-recurse) recurse)
         (set (make-local-variable 'helm-grep-use-zgrep) zgrep)
-        (set (make-local-variable 'helm-grep-last-default-directory)
-             helm-ff-default-directory)
+
         (set (make-local-variable 'helm-grep-default-command)
              (cond (helm-grep-use-zgrep helm-default-zgrep-command)
                    (helm-grep-in-recurse helm-grep-default-recurse-command)
@@ -381,16 +374,23 @@ in recurse, search being made on `helm-zgrep-file-extension-regexp'."
     (helm
      :sources '(helm-source-grep)
      :buffer (format "*helm %s*" (if zgrep "zgrep" (helm-grep-command recurse)))
-     :default-directory helm-grep-last-default-directory
+     ;;:default-directory helm-grep-last-default-directory
+     :default-directory default-directory
      :keymap helm-grep-map ; [1]
      :history 'helm-grep-history
      :truncate-lines t)))
 
+
 (defun projectile-helm-grep-root ()
   (interactive)
 
-  (projectile-with-default-dir (projectile-project-root)
-    (call-interactively (helm-do-grep-1 
+
+  (declare (debug t) (indent 1))
+  `(let ((default-directory ,projectile-project-root)
+)
+,
+
+    (call-interactively (helm-megagrep
                       nil
 			 '(10)
 			 nil
@@ -403,12 +403,23 @@ in recurse, search being made on `helm-zgrep-file-extension-regexp'."
   (interactive)
 
   (projectile-with-default-dir (projectile-project-root)
-    (call-interactively (helm-do-grep-1
+    (call-interactively
+
+(unless nil
+
+(message "jou")
+
+ (helm-megagrep
                       nil
 			 '(10)
 			 nil
 			 '("*.cpp" "*.h" "*.lua" "*.py" "*.pl" "*.xml" "*.el" ".org" ) ;; Only interesting files
-			 ))))
+			 )
+
+)
+
+)
+))
 
 (define-key projectile-command-map (kbd "p") 'projectile-helm-grep-root-src)
 
@@ -416,13 +427,10 @@ in recurse, search being made on `helm-zgrep-file-extension-regexp'."
 
 ** icicles
 #+begin_src emacs-lisp
-(icy-mode 1)
+;;(icy-mode 1)
 #+end_src
 ** multi-term
 #+begin_src emacs-lisp
-(add-hook 'eshell-load-hook 
-	  (lambda()
-	 ))
 
 (bind-key* "C-`" 'eshell)
 ;;(bind-key* "C-0" 'multi-term)
@@ -554,7 +562,7 @@ in recurse, search being made on `helm-zgrep-file-extension-regexp'."
 
 (setq inhibit-splash-screen t)
 (desktop-save-mode t)
-(semantic-mode)
+;;(semantic-mode)
 (setq indent-tabs-mode nil)
 
 (eval-after-load "isearch" '(require 'isearch+))
@@ -595,7 +603,7 @@ in recurse, search being made on `helm-zgrep-file-extension-regexp'."
 	  (lambda()
 	    (hs-minor-mode 1)
 	    (cwarn-mode t)
-      (flyspell-prog-mode t)
+      ;;(flyspell-prog-mode t)
 	    ))
 #+end_src
 *** COMMENT C++
@@ -604,7 +612,7 @@ in recurse, search being made on `helm-zgrep-file-extension-regexp'."
 	  (lambda()
 	    (hs-minor-mode 1)
 	    (cwarn-mode t)
-      (flyspell-prog-mode t)
+      ;;(flyspell-prog-mode t)
 	    ))
 #+end_src
 
