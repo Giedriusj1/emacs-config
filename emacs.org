@@ -341,7 +341,7 @@
                              (concat name "(C-c ? Help)")))
             (candidates-process . helm-grep-collect-candidates)
             (filter-one-by-one . helm-grep-filter-one-by-one)
-            (candidate-number-limit . 99999)
+            (candidate-number-limit . 50000)
             (no-matchplugin)
             (nohighlight)
             (mode-line . helm-grep-mode-line-string)
