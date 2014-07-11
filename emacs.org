@@ -368,6 +368,7 @@
      :default-directory default-directory
      :keymap helm-grep-map ; [1]
      :history 'helm-grep-history
+     :input  (thing-at-point 'symbol)
      :truncate-lines t)))
 
 (defun hgrep()
