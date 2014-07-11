@@ -2,18 +2,15 @@
 
 * INIT BASICS                                                 :config:basics:
 ** repo load
-
-(setq debug-on-error t)
+(require 'cl)
 #+begin_src emacs-lisp
 (add-to-list 'load-path "~/.emacs.d/")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("malade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-
-;; update list of available packages: this should be changed
-  (package-refresh-contents)
-
+;; ;; update list of available packages: this should be changed
+(package-refresh-contents)
 ;; check if the packages are installed: if not, install them with ELPA...
 (mapc
  (lambda (package)
@@ -55,10 +52,7 @@
    isearch+
    smooth-scroll
    flymake-haskell-multi
-   key-chord
-   yasnippet
    all-ext
-   yafolding
    )
  )
 #+end_src
@@ -127,7 +121,7 @@
 
 (bind-key "DEL" 'nope)
 
-(bind-key* "C-z" 'nope)
+ ;;(bind-key* "C-z" 'nope)
 
 (bind-key* "C-a" 'Control-X-prefix)
 ;;(bind-key* "C-x" 'nope)
@@ -255,7 +249,7 @@
 (set-face-attribute 'mode-line-inactive nil
                     :box nil)
 
-;;(setq powerline-arrow-shape 'arrow14)
+(setq powerline-arrow-shape 'arrow14)
 (powerline-default-theme)
 #+END_SRC
 ** auto highlight symbol
@@ -266,10 +260,11 @@
 
 * BEHAVIOUR                                                :config:behaviour:
 
-** yafolding
+** recentf
 #+begin_src emacs-lisp
-(yafolding-mode)
-(bind-key* "C-f" 'yafolding-toggle-element)
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-max-menu-items 500)
 #+end_src
 
 ** windmove
@@ -278,8 +273,6 @@
 (bind-key* "C-1" 'other-frame)
 (bind-key* "C-2" 'windmove-up)
 (bind-key* "C-3" 'windmove-right)
-
-
 #+end_src
 
 ** projectile
@@ -288,8 +281,8 @@
 (require 'helm)
 (projectile-global-mode 1)
 
+;; Custom helm grep
 (defun helm-megagrep (targets &optional recurse zgrep exts)
-
   (let* ((exts (and recurse
                     ;; [FIXME] I could handle this from helm-walk-directory.
                     (not zgrep) ; zgrep doesn't handle -r opt.
@@ -343,11 +336,12 @@
           `((name . ,(if zgrep "Zgrep" (capitalize (if recurse
                                                        (helm-grep-command t)
                                                      (helm-grep-command)))))
+
             (header-name . (lambda (name)
                              (concat name "(C-c ? Help)")))
             (candidates-process . helm-grep-collect-candidates)
             (filter-one-by-one . helm-grep-filter-one-by-one)
-            (candidate-number-limit . 9999)
+            (candidate-number-limit . 99999)
             (no-matchplugin)
             (nohighlight)
             (mode-line . helm-grep-mode-line-string)
@@ -370,13 +364,11 @@
     (and follow (helm-attrset 'follow follow helm-source-grep))
     (helm
      :sources '(helm-source-grep)
-     :buffer (format "*helm %s*" (if zgrep "zgrep" (helm-grep-command recurse)))
-     ;;:default-directory helm-grep-last-default-directory
+     :buffer (format "*project root helm %s*" (helm-grep-command))
      :default-directory default-directory
      :keymap helm-grep-map ; [1]
      :history 'helm-grep-history
      :truncate-lines t)))
-
 
 (defun hgrep()
   (interactive)
@@ -495,20 +487,16 @@
 #+end_src
 
 ** ORG mode
-
 #+BEGIN_SRC emacs-lisp
 (setq org-src-fontify-natively t)
 (setq org-src-preserve-indentation t)
 (setq org-startup-indented t)
 (setq org-startup-truncated nil)
 
-
 (setq org-export-with-toc nil)
 (define-key control-semi-map (kbd "M-e") 'org-export)
-
 #+END_SRC
 ** Misc behaviour
-
 #+begin_src emacs-lisp
 (setq column-number-mode 't)
 
@@ -518,9 +506,11 @@
 (show-paren-mode t)
 
 (setq inhibit-splash-screen t)
-(desktop-save-mode t)
+
+;;(desktop-save-mode t)
 ;;(semantic-mode t)
 (setq indent-tabs-mode nil)
+(setq history-length 25)
 
 (eval-after-load "isearch" '(require 'isearch+))
 
@@ -629,15 +619,6 @@
 	))
 #+end_src
 
-** key chord
-#+begin_src emacs-lisp
-
-(require 'key-chord)
-(key-chord-mode 1)
-
-(key-chord-define-global "j;"     'control-semi-map)
-(key-chord-define-global ",."     "<>\C-b")
-#+end_src
 ** yas
 #+BEGIN_SRC emacs-lisp
 (require 'yasnippet)
@@ -663,27 +644,6 @@
 
 (require 'all-ext) ;; C-c C-a jumps to all from helm-occur
 #+end_src
-
-** custom
-#+begin_src emacs-lisp
-(defun reload-emacs-config ()
-(interactive)
-(load-file "~/.emacs")
-)
-
-(defun destruct-emacs-config ()
-(interactive)
-(delete-file "~/.emacs.d/emacs.org")
-)
-
-(defun get-repo-config()
-(interactive)
-(destruct-emacs-config)
-(reload-emacs-config)
-)
-#+end_src
-
-#
 ** magit
 #+begin_src emacs-lisp
 (defvar magit-command-map
@@ -694,6 +654,22 @@
     (define-key map (kbd "l") 'magit-log)
     map))
 (fset 'magit-command-map magit-command-map)
+#+end_src
+
+** custom
+#+begin_src emacs-lisp
+(defun reload-emacs-config ()
+(interactive)
+(load-file "~/.emacs"))
+
+(defun destruct-emacs-config ()
+(interactive)
+(delete-file "~/.emacs.d/emacs.org"))
+
+(defun get-repo-config()
+(interactive)
+(destruct-emacs-config)
+(reload-emacs-config))
 #+end_src
 
 * ALIAS                                                        :config:alias:
@@ -708,6 +684,4 @@
 (defalias 'lp 'list-packages)
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
-
-
 #+end_src
