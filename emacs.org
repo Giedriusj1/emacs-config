@@ -44,7 +44,6 @@
    helm
    helm-swoop
    bind-key
-   ;;icicles
    projectile
    auto-complete-c-headers
    powerline
@@ -265,7 +264,6 @@
 
 #+end_src
 
-
 * BEHAVIOUR                                                :config:behaviour:
 
 ** yafolding
@@ -320,7 +318,6 @@
     ;; If `helm-find-files' haven't already started,
     ;; give a default value to `helm-ff-default-directory'.
 
-    ;;(setq helm-ff-default-directory default-directory)
 
     ;; We need to store these vars locally
     ;; to pass infos later to `helm-resume'.
@@ -328,7 +325,7 @@
       (with-helm-buffer
         (set (make-local-variable 'helm-zgrep-recurse-flag)
              (and recurse zgrep))
-        (set (make-local-variable 'helm-grep-last-targets) targets)
+        ;;(set (make-local-variable 'helm-grep-last-targets) targets)
         (set (make-local-variable 'helm-grep-include-files)
              (or include-files types))
         (set (make-local-variable 'helm-grep-in-recurse) recurse)
@@ -381,59 +378,25 @@
      :truncate-lines t)))
 
 
-(defun projectile-helm-grep-root ()
+(defun hgrep()
   (interactive)
-
-
-  (declare (debug t) (indent 1))
-  `(let ((default-directory ,projectile-project-root)
-)
-,
-
-    (call-interactively (helm-megagrep
-                      nil
-			 '(10)
-			 nil
-			 '("*")
-			 ))))
-
-(define-key projectile-command-map (kbd "a") 'projectile-helm-grep-root)
+  (helm-megagrep nil
+		 '(10)
+		 nil
+		 '("*.cpp" "*.h" "*.lua" "*.py" "*.pl" "*.xml" "*.el" ".org" ) ;; Only interesting files
+		 ))
 
 (defun projectile-helm-grep-root-src ()
   (interactive)
-
   (projectile-with-default-dir (projectile-project-root)
-    (call-interactively
-
-(unless nil
-
-(message "jou")
-
- (helm-megagrep
-                      nil
-			 '(10)
-			 nil
-			 '("*.cpp" "*.h" "*.lua" "*.py" "*.pl" "*.xml" "*.el" ".org" ) ;; Only interesting files
-			 )
-
-)
-
-)
-))
+    (call-interactively 'hgrep )))
 
 (define-key projectile-command-map (kbd "p") 'projectile-helm-grep-root-src)
 
 #+end_src
-
-** icicles
+** eshell
 #+begin_src emacs-lisp
-;;(icy-mode 1)
-#+end_src
-** multi-term
-#+begin_src emacs-lisp
-
 (bind-key* "C-`" 'eshell)
-;;(bind-key* "C-0" 'multi-term)
 #+end_src
 
 ** ido
@@ -499,7 +462,6 @@
 (require 'auto-complete)
 (require 'auto-complete-config)
 
-
 (define-key control-semi-map (kbd "n") 'auto-complete)
 (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
 
@@ -532,11 +494,6 @@
 (setq-default ac-sources '(ac-source-dabbrev ac-source-semantic ac-source-semantic-raw))
 #+end_src
 
-** Buffer management
-#+begin_src emacs-lisp
-;;(global-set-key (kbd "C-x C-b") 'bs-show)
-#+end_src
-
 ** ORG mode
 
 #+BEGIN_SRC emacs-lisp
@@ -562,7 +519,7 @@
 
 (setq inhibit-splash-screen t)
 (desktop-save-mode t)
-;;(semantic-mode)
+;;(semantic-mode t)
 (setq indent-tabs-mode nil)
 
 (eval-after-load "isearch" '(require 'isearch+))
