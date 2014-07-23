@@ -18,6 +18,8 @@
        (package-install package)))
  '(yasnippet
    igrep
+   zygospore
+   bookmark+
    helm-descbinds
    auto-highlight-symbol
    helm-projectile
@@ -25,11 +27,9 @@
    dired-toggle-sudo
    multi-term
    iasm-mode
-   jedi
    haskell-mode
    magit
    highline
-   rainbow-mode
    lua-mode
    smooth-scrolling
    elpy
@@ -175,7 +175,7 @@
 
 (define-key control-semi-map (kbd "C-l") 'execute-extended-command)
 
-(define-key control-semi-map (kbd "C-1") 'delete-other-windows)
+(define-key control-semi-map (kbd "C-1") 'zygospore-toggle-delete-other-windows)
 (define-key control-semi-map (kbd "C-2") 'split-window-below)
 (define-key control-semi-map (kbd "C-3") 'split-window-right)
 (define-key control-semi-map (kbd "C-0") 'delete-window)
@@ -231,7 +231,7 @@
 
 ** Buffer names
    Setup uniquify so that non-unique buffer names get the parent path
-   included to make them unique.
+   included to make them unique.!!!!
    #+NAME: look-and-feel
    #+BEGIN_SRC emacs-lisp
      (require 'uniquify)
@@ -567,16 +567,8 @@
 *** Python
 #+begin_src emacs-lisp
 
-(require 'jedi)
-
-(setq jedi:server-command
-      (list "/usr/bin/python" jedi:server-script))
-
 (add-hook 'python-mode-hook
 	  (lambda()
-
-    (jedi:setup)
-    (setq jedi:complete-on-dot t)                 ; optional
 		 (setq indent-tabs-mode t)
 		 (setq python-indednt 8)
 		 (setq tab-width 4)
