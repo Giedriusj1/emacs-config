@@ -2,59 +2,72 @@
 
 * INIT BASICS                                                 :config:basics:
 ** repo load
-(require 'cl)
 #+begin_src emacs-lisp
+(require 'package)
+(require 'cl)
+
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("malade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-;; ;; update list of available packages: this should be changed
-(package-refresh-contents)
-;; check if the packages are installed: if not, install them with ELPA...
-(mapc
- (lambda (package)
-   (if (not (package-installed-p package))
-       (package-install package)))
- '(yasnippet
-   igrep
-   zygospore
-   bookmark+
-   helm-descbinds
-   auto-highlight-symbol
-   helm-projectile
-   helm-projectile-all
-   dired-toggle-sudo
-   multi-term
-   iasm-mode
-   haskell-mode
-   magit
-   highline
-   lua-mode
-   smooth-scrolling
-   elpy
-   auctex
-   emacs-eclim
-   ace-jump-mode
-   auto-install
-   auto-complete-clang
-   helm
-   helm-swoop
-   bind-key
-   projectile
-   auto-complete-c-headers
-   powerline
-   icomplete+
-   ace-jump-mode
-   dired+
-   auto-complete
-   ac-dabbrev
-   isearch+
-   smooth-scroll
-   flymake-haskell-multi
-   all-ext
-   )
- )
+(package-initialize)
+
+(setq url-http-attempt-keepalives nil)
+
+(defvar package-list
+  '(yasnippet
+    igrep
+    zygospore
+    bookmark+
+    helm-descbinds
+    auto-highlight-symbol
+    helm-projectile
+    helm-projectile-all
+    dired-toggle-sudo
+    multi-term
+    iasm-mode
+    haskell-mode
+    magit
+    highline
+    lua-mode
+    smooth-scrolling
+    elpy
+    auctex
+    emacs-eclim
+    ace-jump-mode
+    auto-install
+    auto-complete-clang
+    helm
+    helm-swoop
+    bind-key
+    projectile
+    auto-complete-c-headers
+    powerline
+    icomplete+
+    ace-jump-mode
+    dired+
+    dired-ranger
+    auto-complete
+    ac-dabbrev
+    isearch+
+    smooth-scroll
+    flymake-haskell-multi
+    all-ext)
+)
+
+(defun packages-installed ()
+  (loop for p in package-list
+        when (not (package-installed-p p)) do (return nil)
+        finally (return t)))
+
+(unless (packages-installed)
+  (package-refresh-contents)
+
+  (dolist (p package-list)
+    (when (not (package-installed-p p))
+      (package-install p))))
+
 #+end_src
 
 ** Keyboard
@@ -88,9 +101,10 @@
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
+(bind-key* "C-M-w" 'kill-region)
+
 (bind-key* "M-," 'backward-kill-word)
 (bind-key* "M-." 'kill-word)
-
 
 (bind-key* "C-," 'delete-backward-char)
 (bind-key* "C-." 'delete-char)
@@ -121,7 +135,7 @@
 
 (bind-key "DEL" 'nope)
 
- ;;(bind-key* "C-z" 'nope)
+(bind-key* "C-z" 'nope)
 
 (bind-key* "C-a" 'Control-X-prefix)
 ;;(bind-key* "C-x" 'nope)
@@ -258,7 +272,6 @@
 #+end_src
 
 * BEHAVIOUR                                                :config:behaviour:
-
 ** recentf
 #+begin_src emacs-lisp
 (require 'recentf)
@@ -386,9 +399,9 @@
 (define-key projectile-command-map (kbd "p") 'projectile-helm-grep-root-src)
 
 #+end_src
-** eshell
+** shell
 #+begin_src emacs-lisp
-(bind-key* "C-`" 'eshell)
+(bind-key* "C-`" 'shell)
 #+end_src
 
 ** ido
