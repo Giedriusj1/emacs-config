@@ -4,7 +4,7 @@
 ** repo load
 (require 'cl)
 #+begin_src emacs-lisp
-(add-to-list 'load-path "~/.emacs.d/")
+(add-to-list 'load-path "~/.emacs.d/elpa")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("malade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
@@ -200,7 +200,6 @@
 * LOOKS                                                       :config::looks:
 ** themes and colours
 #+BEGIN_SRC emacs-lisp
-;; Loading font based on platform
 (cond
  ((string-equal system-type "windows-nt")
   (set-frame-font "Consolas-10"))
