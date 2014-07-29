@@ -264,6 +264,9 @@
 
 (setq powerline-arrow-shape 'arrow14)
 (powerline-default-theme)
+
+(defadvice desktop-kill(before clear-power-line-cache () activate)
+  (set-frame-parameter nil 'powerline-cache nil))
 #+END_SRC
 ** auto highlight symbol
 #+begin_src emacs-lisp
