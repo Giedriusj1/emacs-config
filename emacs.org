@@ -13,6 +13,7 @@
 
 (package-initialize)
 
+;;(byte-recompile-directory (expand-file-name "~/.emacs.d/elpa") 0)
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
@@ -253,17 +254,22 @@
 ** Mode line
 #+NAME: look-and-feel
 #+BEGIN_SRC emacs-lisp
-(require 'powerline)
-(set-face-attribute 'mode-line nil
-                    :foreground "grey90"
-                    :background "SaddleBrown"
-                    :box nil)
+;; (require 'powerline)
+;; (set-face-attribute 'mode-line nil
+;;                    :foreground "grey90"
+;;                    :background "SaddleBrown"
+;;                    :box nil)
 
-(set-face-attribute 'mode-line-inactive nil
-                    :box nil)
+;; (set-face-attribute 'mode-line-inactive nil
+;;                    :box nil)
 
-(setq powerline-arrow-shape 'arrow14)
-(powerline-default-theme)
+;; (setq powerline-arrow-shape 'arrow14)
+;; (powerline-default-theme)
+
+;; ;; Workaroung to prevent desktop save from messing up powerline colours
+;; (defadvice desktop-kill(before clear-power-line-cache () activate)
+;;   (set-frame-parameter nil 'powerline-cache nil))
+
 #+END_SRC
 ** auto highlight symbol
 #+begin_src emacs-lisp
@@ -520,9 +526,9 @@
 
 (setq inhibit-splash-screen t)
 
-;;(desktop-save-mode t)
-;;(semantic-mode t)
-(setq indent-tabs-mode nil)
+(desktop-save-mode t)
+(semantic-mode t)
+;;(setq indent-tabs-mode nil)
 (setq history-length 25)
 
 (eval-after-load "isearch" '(require 'isearch+))
@@ -557,23 +563,45 @@
 	    ;;(flymake-haskell-multi-load 1)
 	    ))
 #+end_src
+*** indent modes
+#+begin_src emacs-lisp
+(defun c-lineup-arglist-tabs-only (ignored)
+  "Line up argument lists by tabs, not spaces"
+  (let* ((anchor (c-langelem-pos c-syntactic-element))
+	 (column (c-langelem-2nd-pos c-syntactic-element))
+	 (offset (- (1+ column) anchor))
+	 (steps (floor offset c-basic-offset)))
+    (* (max steps 1)
+       c-basic-offset)))
+
+
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            ;; Add kernel style
+            (c-add-style
+             "linux-tabs-only"
+             '("linux" (c-offsets-alist
+                        (arglist-cont-nonempty
+                         c-lineup-gcc-asm-reg
+                         c-lineup-arglist-tabs-only))))))
+#+end_src
+
 *** C
 #+begin_src emacs-lisp
-(add-hook 'c-mode-common-hook
-	  (lambda()
-	    (hs-minor-mode 1)
-	    (cwarn-mode t)
-      ;;(flyspell-prog-mode t)
-	    ))
+
+(add-hook 'c-mode-hook
+          (lambda ()
+                (setq indent-tabs-mode t)
+                (c-set-style "linux-tabs-only")))
+
 #+end_src
-*** COMMENT C++
+
+*** C++
 #+begin_src emacs-lisp
-(add-hook 'c++-mode-common-hook
+(add-hook 'c++-mode-hook
 	  (lambda()
-	    (hs-minor-mode 1)
-	    (cwarn-mode t)
-      ;;(flyspell-prog-mode t)
-	    ))
+      (setq indent-tabs-mode t)
+      (c-set-style "linux-tabs-only")))
 #+end_src
 
 *** Python
@@ -582,7 +610,7 @@
 (add-hook 'python-mode-hook
 	  (lambda()
 		 (setq indent-tabs-mode t)
-		 (setq python-indednt 8)
+		 (setq python-indent 8)
 		 (setq tab-width 4)
 		 (hs-minor-mode 1)
 		 (global-set-key (kbd "H-z") 'hs-toggle-hiding)
