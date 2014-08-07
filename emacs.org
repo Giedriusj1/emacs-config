@@ -32,7 +32,6 @@
     highline
     lua-mode
     smooth-scrolling
-    elpy
     auctex
     emacs-eclim
     ace-jump-mode
@@ -689,7 +688,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 		 (global-set-key (kbd "H-z") 'hs-toggle-hiding)
 		 (global-set-key (kbd "H-x") 'hs-hide-all)
 		 (global-set-key (kbd "H-c") 'hs-show-all)
-		 ;;(elpy-mode 1)
 		 )
 	  )
 #+end_src
