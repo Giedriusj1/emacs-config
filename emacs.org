@@ -124,22 +124,27 @@
 )
 
 ;; yo, these keys have better alternatives. Use them!
-;;(bind-key "C-f" 'nope)
+(bind-key "C-f" 'nope)
 (bind-key "C-b" 'nope)
 
 (bind-key "M-f" 'nope)
 (bind-key "M-b" 'nope)
 
-(bind-key "M-b" 'nope)
 
 (bind-key* "C-a" 'nope)
-
-(bind-key "DEL" 'nope)
 
 (bind-key* "C-z" 'nope)
 
 (bind-key* "C-a" 'Control-X-prefix)
 ;;(bind-key* "C-x" 'nope)
+
+
+;;cua-mode
+(bind-key "C-w" 'nope)
+(bind-key "M-C-w" 'nope)
+(bind-key "C-y" 'nope)
+
+
 
 ;;(bind-key "<return>" 'Control-X-prefix)
 
@@ -283,6 +288,11 @@
 #+end_src
 
 * BEHAVIOUR                                                :config:behaviour:
+** cua-mode
+#+begin_src emacs-lisp
+(cua-mode 1)
+#+end_src
+
 ** speedbar
 #+begin_src emacs-lisp
   (defconst my-speedbar-buffer-name "SPEEDBAR")
