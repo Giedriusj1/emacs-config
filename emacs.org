@@ -33,7 +33,6 @@
     highline
     lua-mode
     smooth-scrolling
-    elpy
     auctex
     emacs-eclim
     ace-jump-mode
@@ -124,7 +123,7 @@
 )
 
 ;; yo, these keys have better alternatives. Use them!
-(bind-key "C-f" 'nope)
+;;(bind-key "C-f" 'nope)
 (bind-key "C-b" 'nope)
 
 (bind-key "M-f" 'nope)
@@ -270,6 +269,14 @@
 ;; (defadvice desktop-kill(before clear-power-line-cache () activate)
 ;;   (set-frame-parameter nil 'powerline-cache nil))
 
+<<<<<<< HEAD
+=======
+(setq powerline-arrow-shape 'arrow14)
+(powerline-default-theme)
+
+(defadvice desktop-kill(before clear-power-line-cache () activate)
+  (set-frame-parameter nil 'powerline-cache nil))
+>>>>>>> 37e6876d6c683adb284507c0c292c8c873f357b6
 #+END_SRC
 ** auto highlight symbol
 #+begin_src emacs-lisp
@@ -278,6 +285,104 @@
 #+end_src
 
 * BEHAVIOUR                                                :config:behaviour:
+** speedbar
+#+begin_src emacs-lisp
+  (defconst my-speedbar-buffer-name "SPEEDBAR")
+  ; (defconst my-speedbar-buffer-name " SPEEDBAR") ; try this if you get "Wrong type argument: stringp, nil"
+
+
+  (defun my-speedbar-no-separate-frame ()
+    (interactive)
+    (when (not (buffer-live-p speedbar-buffer))
+      (setq speedbar-buffer (get-buffer-create my-speedbar-buffer-name)
+            speedbar-frame (selected-frame)
+            dframe-attached-frame (selected-frame)
+            speedbar-select-frame-method 'attached
+            speedbar-verbosity-level 0
+            speedbar-last-selected-file nil)
+      (set-buffer speedbar-buffer)
+      (speedbar-mode)
+      (speedbar-reconfigure-keymaps)
+      (speedbar-update-contents)
+      (speedbar-set-timer 1)
+      (make-local-hook 'kill-buffer-hook)
+      (add-hook 'kill-buffer-hook
+                (lambda () (when (eq (current-buffer) speedbar-buffer)
+                             (setq speedbar-frame nil
+                                   dframe-attached-frame nil
+                                   speedbar-buffer nil)
+                             (speedbar-set-timer nil)))))
+    (set-window-buffer (selected-window) 
+                       (get-buffer my-speedbar-buffer-name)))
+
+#+end_src
+
+** gdb
+#+begin_src emacs-lisp
+;; For the consistency of gdb-select-window's calling convention...
+(defun gdb-comint-buffer-name ()
+  (buffer-name gud-comint-buffer))
+(defun gdb-source-buffer-name ()
+  (buffer-name (window-buffer gdb-source-window)))
+
+(defun gdb-select-window (header)
+  "Switch directly to the specified GDB window.
+Moves the cursor to the requested window, switching between
+`gdb-many-windows' \"tabs\" if necessary in order to get there.
+
+Recognized window header names are: 'comint, 'locals, 'registers,
+'stack, 'breakpoints, 'threads, and 'source."
+
+  (interactive "Sheader: ")
+
+  (let* ((header-alternate (case header
+                             ('locals      'registers)
+                             ('registers   'locals)
+                             ('breakpoints 'threads)
+                             ('threads     'breakpoints)))
+         (buffer (intern (concat "gdb-" (symbol-name header) "-buffer")))
+         (buffer-names (mapcar (lambda (header)
+                                 (funcall (intern (concat "gdb-"
+                                                          (symbol-name header)
+                                                          "-buffer-name"))))
+                               (if (null header-alternate)
+                                   (list header)
+                                 (list header header-alternate))))
+         (window (if (eql header 'source)
+                     gdb-source-window
+                   (or (get-buffer-window (car buffer-names))
+                       (when (not (null (cadr buffer-names)))
+                         (get-buffer-window (cadr buffer-names)))))))
+
+    (when (not (null window))
+      (let ((was-dedicated (window-dedicated-p window)))
+        (select-window window)
+        (set-window-dedicated-p window nil)
+        (when (member header '(locals registers breakpoints threads))
+          (switch-to-buffer (gdb-get-buffer-create buffer))
+          (setq header-line-format (gdb-set-header buffer)))
+        (set-window-dedicated-p window was-dedicated))
+      t)))
+
+;; Use global keybindings for the window selection functions so that they
+;; work from the source window too...
+(mapcar (lambda (setting)
+          (lexical-let ((key    (car setting))
+                        (header (cdr setting)))
+            ;;(global-set-key (concat "\C-c\C-g" key) #'(lambda ()
+            (global-set-key (concat "\M-;" key) #'(lambda ()
+                                                                    (interactive)
+                                                        (gdb-select-window header)))))
+        '(("c" . comint)
+          ("l" . locals)
+          ("r" . registers)
+          ("u" . source)
+          ("s" . stack)
+          ("b" . breakpoints)
+          ("t" . threads)))
+
+#+end_src
+
 ** recentf
 #+begin_src emacs-lisp
 (require 'recentf)
@@ -528,7 +633,11 @@
 
 (desktop-save-mode t)
 (semantic-mode t)
+<<<<<<< HEAD
 ;;(setq indent-tabs-mode nil)
+=======
+(setq indent-tabs-mode nil)
+>>>>>>> 37e6876d6c683adb284507c0c292c8c873f357b6
 (setq history-length 25)
 
 (eval-after-load "isearch" '(require 'isearch+))
@@ -616,7 +725,6 @@
 		 (global-set-key (kbd "H-z") 'hs-toggle-hiding)
 		 (global-set-key (kbd "H-x") 'hs-hide-all)
 		 (global-set-key (kbd "H-c") 'hs-show-all)
-		 ;;(elpy-mode 1)
 		 )
 	  )
 #+end_src
