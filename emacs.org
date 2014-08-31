@@ -548,6 +548,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (define-key ctl-x-map   "d" 'diredp-dired-files)
 (define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)
 
+(define-key dired-mode-map ";" 'diredp-up-directory)
+
 (define-key dired-mode-map "x" 'dired-ranger-move)
 (define-key dired-mode-map "c" 'dired-ranger-copy)
 (define-key dired-mode-map "v" 'dired-ranger-paste)
@@ -583,6 +585,16 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 		(lambda ()
 		  (interactive)
 		  (diredp-dired-files "~/")))
+
+(global-set-key (kbd "S-<f2>")
+		(lambda ()
+		  (interactive)
+		  (diredp-dired-files "~/mount")))
+
+(global-set-key (kbd "S-<f3>")
+		(lambda ()
+		  (interactive)
+		  (diredp-dired-files "~/prog")))
 #+end_src
 
 ** Auto complete
