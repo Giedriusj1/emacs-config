@@ -33,6 +33,7 @@
     highline
     lua-mode
     smooth-scrolling
+    elpy
     auctex
     emacs-eclim
     ace-jump-mode
@@ -269,14 +270,11 @@
 ;; (defadvice desktop-kill(before clear-power-line-cache () activate)
 ;;   (set-frame-parameter nil 'powerline-cache nil))
 
-<<<<<<< HEAD
-=======
 (setq powerline-arrow-shape 'arrow14)
 (powerline-default-theme)
 
 (defadvice desktop-kill(before clear-power-line-cache () activate)
   (set-frame-parameter nil 'powerline-cache nil))
->>>>>>> 37e6876d6c683adb284507c0c292c8c873f357b6
 #+END_SRC
 ** auto highlight symbol
 #+begin_src emacs-lisp
@@ -633,11 +631,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (desktop-save-mode t)
 (semantic-mode t)
-<<<<<<< HEAD
 ;;(setq indent-tabs-mode nil)
-=======
-(setq indent-tabs-mode nil)
->>>>>>> 37e6876d6c683adb284507c0c292c8c873f357b6
 (setq history-length 25)
 
 (eval-after-load "isearch" '(require 'isearch+))
@@ -725,6 +719,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 		 (global-set-key (kbd "H-z") 'hs-toggle-hiding)
 		 (global-set-key (kbd "H-x") 'hs-hide-all)
 		 (global-set-key (kbd "H-c") 'hs-show-all)
+		 ;;(elpy-mode 1)
 		 )
 	  )
 #+end_src
