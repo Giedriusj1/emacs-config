@@ -87,7 +87,7 @@
 (bind-key* "M-;" 'meta-semi-map)
 (bind-key* "<tab>" 'tab-map)
 
-(global-set-key (kbd "C-d") 'delete-backward-char)
+;;(global-set-key (kbd "C-d") 'delete-backward-char)
 #+end_src
 
 *** global map
