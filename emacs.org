@@ -28,6 +28,7 @@
     dired-toggle-sudo
     multi-term
     iasm-mode
+    matlab-mode
     haskell-mode
     magit
     highline
@@ -118,6 +119,12 @@
 (bind-key* "M-u" 'backward-word)
 (bind-key* "M-o" 'forward-word)
 
+;;(unbind-key (kbd "C-x"))
+
+;;(bind-key* "C-c" 'kill-ring-save)
+;;(bind-key* "C-v" 'yank)
+;;(bind-key* "C-x" 'kill-region)
+
 (defun nope ()
 (interactive)
 (message "NOPE!")
@@ -140,11 +147,9 @@
 
 
 ;;cua-mode
-(bind-key "C-w" 'nope)
-(bind-key "M-C-w" 'nope)
-(bind-key "C-y" 'nope)
-
-
+;;(bind-key "C-w" 'nope)
+;;(bind-key "M-C-w" 'nope)
+;;(bind-key "C-y" 'nope)
 
 ;;(bind-key "<return>" 'Control-X-prefix)
 
@@ -778,6 +783,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 	("\\.vert\\'" . glsl-mode)
 	("\\.frag\\'" . glsl-mode)
 	("\\.glsl\\'" . glsl-mode)
+
+	("\\.m\\'" . matlab-mode)
 	))
 #+end_src
 
@@ -821,6 +828,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** custom
 #+begin_src emacs-lisp
 (defun reload-emacs-config ()
+(interactive)
 (interactive)
 (load-file "~/.emacs"))
 
