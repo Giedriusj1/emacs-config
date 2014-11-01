@@ -244,8 +244,6 @@
  '(scroll-bar-mode nil)
  '(send-mail-function (quote sendmail-send-it))
  '(tool-bar-mode nil)
-     ;;'(term-default-bg-color "#000000")        ;; background color (black)
-     ;;'(term-default-fg-color "#dddd00")       ;; foreground color (yellow)
  (custom-set-faces
  '(highline-face ((t (:background "#303030")))))
  )
@@ -662,26 +660,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (setq inhibit-splash-screen t)
 
-
-;;; desktop-override-stale-locks.el begins here
-(defun emacs-process-p (pid)
-  "If pid is the process ID of an emacs process, return t, else nil.
-Also returns nil if pid is nil."
-  (when pid
-    (let* ((cmdline-file (concat "/proc/" (int-to-string pid) "/cmdline")))
-      (when (file-exists-p cmdline-file)
-        (with-temp-buffer
-          (insert-file-contents-literally cmdline-file)
-          (goto-char (point-min))
-          (search-forward "emacs" nil t)
-          pid)))))
-
-(defadvice desktop-owner (after pry-from-cold-dead-hands activate)
-  "Don't allow dead emacsen to own the desktop file."
-  (when (not (emacs-process-p ad-return-value))
-    (setq ad-return-value nil)))
-;;; desktop-override-stale-locks.el ends here
-
 (desktop-save-mode t)
 (semantic-mode t)
 ;;(setq indent-tabs-mode nil)
@@ -877,20 +855,4 @@ Also returns nil if pid is nil."
 (defalias 'lp 'list-packages)
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
-
-;;(defvar internal-lisp-face-attributes
-;;  [nil
-;;   :family :foundry :swidth :height :weight :slant :underline :inverse
-;;   :foreground :background :stipple :overline :strike :box
-;;buf   :font :inherit :fontset :vector])
-
-(defun buffer-background-black ()
-(interactive)
-  (setq buffer-face-mode-face `(:background "black"))
-(setq buffer-face-mode-face `(:foreground "black"))
-  (buffer-face-mode 1))
-
-
-
-
 #+end_src
