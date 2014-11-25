@@ -648,6 +648,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (setq org-export-with-toc nil)
 (define-key control-semi-map (kbd "M-e") 'org-export)
+
+
+(setq org-hierarchical-todo-statistics nil)
 #+END_SRC
 ** Misc behaviour
 #+begin_src emacs-lisp
