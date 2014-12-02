@@ -1,6 +1,32 @@
 #+TITLE: Emacs config
 
 * INIT BASICS                                                 :config:basics:
+** customize-set
+#+BEGIN_SRC emacs-lisp
+(customize-set-variable 'scroll-bar-mode nil)
+(customize-set-variable 'horizontal-scroll-bar-mode nil)
+(customize-set-variable 'menu-bar-mode nil)
+(customize-set-variable 'tool-bar-mode nil)
+
+(cond
+ ((string-equal system-type "windows-nt")
+  (set-frame-font "Consolas-10"))
+ ((string-equal system-type "darwin")
+  (message "what?"))
+ ((string-equal system-type "gnu/linux")
+  (set-frame-font "Monospace-10")))
+
+(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
+
+(customize-set-variable 'fci-rule-color "#BBBBBB")
+(customize-set-variable 'electric-pair-mode t)
+(customize-set-variable 'directory-free-space-args "-Pkh")
+
+(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
+
+(custom-set-faces '(highline-face ((t (:background "#303030")))))
+#+END_SRC
+
 ** repo load
 #+begin_src emacs-lisp
 (require 'package)
@@ -95,6 +121,8 @@
 #+begin_src emacs-lisp
 (global-set-key [f11] 'toggle-truncate-lines)
 (global-set-key [f12] 'whitespace-mode)
+
+(global-set-key (kbd "C-<f11>") 'toggle-frame-fullscreen)
 
 (global-set-key (kbd "<Scroll_Lock>") 'scroll-lock-mode)
 (global-set-key (kbd "<up>") 'scroll-down-line)
@@ -221,77 +249,6 @@
 
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
-
-* LOOKS                                                       :config::looks:
-** themes and colours
-#+BEGIN_SRC emacs-lisp
-(cond
- ((string-equal system-type "windows-nt")
-  (set-frame-font "Consolas-10"))
- ((string-equal system-type "darwin")
-  (message "what?"))
- ((string-equal system-type "gnu/linux")
-  (set-frame-font "Monospace-10"))
-)
-
-(custom-set-variables
- '(bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks")
- '(custom-enabled-themes (quote (wombat)))
- '(directory-free-space-args "-Pkh")
- '(electric-pair-mode t)
- '(fci-rule-color "#BBBBBB")
- '(menu-bar-mode nil)
- '(scroll-bar-mode nil)
- '(send-mail-function (quote sendmail-send-it))
- '(tool-bar-mode nil)
- (custom-set-faces
- '(highline-face ((t (:background "#303030")))))
- )
-
-(global-highline-mode 1)
-(blink-cursor-mode -1)
-(set-cursor-color "BlueViolet")
-#+END_SRC
-
-** Buffer names
-   Setup uniquify so that non-unique buffer names get the parent path
-   included to make them unique.!!!!
-   #+NAME: look-and-feel
-   #+BEGIN_SRC emacs-lisp
-     (require 'uniquify)
-     (setq uniquify-buffer-name-style 'forward)
-   #+END_SRC
-** Mode line
-#+NAME: look-and-feel
-#+BEGIN_SRC emacs-lisp
-;; (require 'powerline)
-;; (set-face-attribute 'mode-line nil
-;;                    :foreground "grey90"
-;;                    :background "SaddleBrown"
-;;                    :box nil)
-
-;; (set-face-attribute 'mode-line-inactive nil
-;;                    :box nil)
-
-;; (setq powerline-arrow-shape 'arrow14)
-;; (powerline-default-theme)
-
-;; ;; Workaroung to prevent desktop save from messing up powerline colours
-;; (defadvice desktop-kill(before clear-power-line-cache () activate)
-;;   (set-frame-parameter nil 'powerline-cache nil))
-
-;;(setq powerline-arrow-shape 'arrow14)
-;;(powerline-default-theme)
-
-;;(defadvice desktop-kill(before clear-power-line-cache () activate)
-;;  (set-frame-parameter nil 'powerline-cache nil))
-#+END_SRC
-** auto highlight symbol
-#+begin_src emacs-lisp
-(global-auto-highlight-symbol-mode 1)
-
-#+end_src
-
 * BEHAVIOUR                                                :config:behaviour:
 ** cua-mode
 #+begin_src emacs-lisp
@@ -586,20 +543,20 @@ Recognized window header names are: 'comint, 'locals, 'registers,
         (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
 
 ;; quick access to home dir
-(global-set-key (kbd "S-<f1>") ;;Shift-f1 opens dired home folder
+(global-set-key (kbd "C-<f1>") ;;Shift-f1 opens dired home folder
 		(lambda ()
 		  (interactive)
-		  (diredp-dired-files "~/")))
+		  (dired-read-dir-and-switches "~/")))
 
-(global-set-key (kbd "S-<f2>")
+(global-set-key (kbd "C-<f2>")
 		(lambda ()
 		  (interactive)
-		  (diredp-dired-files "~/mount")))
+		  (dired-read-dir-and-switches "~/mount")))
 
-(global-set-key (kbd "S-<f3>")
+(global-set-key (kbd "C-<f3>")
 		(lambda ()
 		  (interactive)
-		  (diredp-dired-files "~/prog")))
+		  (dired-read-dir-and-switches "~/prog")))
 #+end_src
 
 ** Auto complete
@@ -844,6 +801,51 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (interactive)
 (destruct-emacs-config)
 (reload-emacs-config))
+#+end_src
+* LOOKS                                                       :config::looks:
+** themes and colours
+#+begin_src emacs-lisp
+(global-highline-mode 1)
+(blink-cursor-mode -1)
+(set-cursor-color "BlueViolet")
+#+END_SRC
+** Buffer names
+   Setup uniquify so that non-unique buffer names get the parent path
+   included to make them unique.!!!!
+   #+NAME: look-and-feel
+   #+BEGIN_SRC emacs-lisp
+     (require 'uniquify)
+     (setq uniquify-buffer-name-style 'forward)
+   #+END_SRC
+** Mode line
+#+NAME: look-and-feel
+#+BEGIN_SRC emacs-lisp
+
+;;(require 'powerline)
+;; (set-face-attribute 'mode-line nil
+;;                    :foreground "grey90"
+;;                    :background "SaddleBrown"
+;;                    :box nil)
+;;
+;; (set-face-attribute 'mode-line-inactive nil
+;;                    :box nil)
+;;
+;; (setq powerline-arrow-shape 'arrow14)
+;; (powerline-default-theme)
+;;
+;;;; Workaroung to prevent desktop save from messing up powerline colours
+;;(defadvice desktop-kill(before clear-power-line-cache () activate)
+;;   (set-frame-parameter nil 'powerline-cache nil))
+
+;;(setq powerline-arrow-shape 'arrow14)
+;;(powerline-default-theme)
+
+;;(defadvice desktop-kill(before clear-power-line-cache () activate)
+;;  (set-frame-parameter nil 'powerline-cache nil))
+#+END_SRC
+** auto highlight symbol
+#+begin_src emacs-lisp
+(global-auto-highlight-symbol-mode 1)
 #+end_src
 
 * ALIAS                                                        :config:alias:
