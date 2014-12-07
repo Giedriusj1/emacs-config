@@ -542,8 +542,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
        ((string-equal system-type "gnu/linux")
         (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
 
-;; quick access to home dir
-(global-set-key (kbd "C-<f1>") ;;Shift-f1 opens dired home folder
+(global-set-key (kbd "C-<f1>"
 		(lambda ()
 		  (interactive)
               (find-file "~/")
@@ -558,6 +557,24 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 		(lambda ()
 		  (interactive)
 		  (find-file "~/annex")))
+
+(global-set-key (kbd "C-8")
+		(lambda ()
+		  (interactive)
+		  (find-file "~/annex/notes/todo.org")))
+
+(global-set-key (kbd "C-9")
+		(lambda ()
+		  (interactive)
+		  (find-file "~/annex/notes/technical-notes.org")))
+
+(global-set-key (kbd "C-0")
+		(lambda ()
+		  (interactive)
+		  (find-file "~/annex/notes/notes.org")))
+
+
+
 #+end_src
 
 ** Auto complete
