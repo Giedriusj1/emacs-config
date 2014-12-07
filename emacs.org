@@ -542,7 +542,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
        ((string-equal system-type "gnu/linux")
         (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
 
-(global-set-key (kbd "C-<f1>"
+(global-set-key (kbd "C-<f1>")
 		(lambda ()
 		  (interactive)
               (find-file "~/")
