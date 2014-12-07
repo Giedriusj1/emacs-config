@@ -546,17 +546,18 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (global-set-key (kbd "C-<f1>") ;;Shift-f1 opens dired home folder
 		(lambda ()
 		  (interactive)
-		  (dired-read-dir-and-switches "~/")))
+              (find-file "~/")
+))
 
 (global-set-key (kbd "C-<f2>")
 		(lambda ()
 		  (interactive)
-		  (dired-read-dir-and-switches "~/mount")))
+		  (find-file "~/mount")))
 
 (global-set-key (kbd "C-<f3>")
 		(lambda ()
 		  (interactive)
-		  (dired-read-dir-and-switches "~/prog")))
+		  (find-file "~/annex")))
 #+end_src
 
 ** Auto complete
