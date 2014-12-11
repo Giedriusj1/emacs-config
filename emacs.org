@@ -45,6 +45,7 @@
 (defvar package-list
   '(yasnippet
     igrep
+    google-this
     zygospore
     bookmark+
     helm-descbinds
