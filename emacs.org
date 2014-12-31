@@ -559,6 +559,11 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 		  (interactive)
 		  (find-file "~/annex")))
 
+(global-set-key (kbd "C-7")
+		(lambda ()
+		  (interactive)
+		  (find-file "~/annex/notes/links.org")))
+
 (global-set-key (kbd "C-8")
 		(lambda ()
 		  (interactive)
