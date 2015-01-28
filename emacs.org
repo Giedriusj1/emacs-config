@@ -108,6 +108,7 @@
 (define-prefix-command 'ret-map)
 (define-prefix-command 'hyper-semi-map)
 (define-prefix-command 'meta-semi-map)
+(define-prefix-command 'tab-org-map)
 
 (require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
@@ -115,7 +116,7 @@
 (bind-key* "M-;" 'meta-semi-map)
 (bind-key* "<tab>" 'tab-map)
 
-;;(global-set-key (kbd "C-d") 'delete-backward-char)
+(define-key tab-map (kbd "o") 'tab-org-map)
 #+end_src
 
 *** global map
@@ -622,16 +623,28 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
+(define-key tab-org-map (kbd "o") 'org-metaright)
+(define-key tab-org-map (kbd "u") 'org-metaleft)
+(define-key tab-org-map (kbd "p") 'org-metaup)
+(define-key tab-org-map (kbd "n") 'org-metadown)
+
+(define-key tab-org-map (kbd "C-o") 'org-shiftright)
+(define-key tab-org-map (kbd "C-u") 'org-shiftleft)
+(define-key tab-org-map (kbd "C-p") 'org-shiftup)
+(define-key tab-org-map (kbd "C-n") 'org-shiftdown)
+
+(define-key tab-org-map (kbd "e") 'org-export-dispatch)
+
+
 (setq org-src-fontify-natively t)
 (setq org-src-preserve-indentation t)
 (setq org-startup-indented t)
 (setq org-startup-truncated nil)
 
 (setq org-export-with-toc nil)
-(define-key control-semi-map (kbd "M-e") 'org-export)
-
 
 (setq org-hierarchical-todo-statistics nil)
+
 #+END_SRC
 ** Misc behaviour
 #+begin_src emacs-lisp
