@@ -51,7 +51,7 @@
     helm-descbinds
     auto-highlight-symbol
     helm-projectile
-    helm-projectile-all
+;;    helm-projectile-all
     dired-toggle-sudo
     multi-term
     iasm-mode
@@ -82,7 +82,10 @@
     isearch+
     smooth-scroll
     flymake-haskell-multi
-    all-ext)
+    all-ext
+    hydra
+    swiper
+    swiper-helm)
 )
 
 (defun packages-installed ()
@@ -338,20 +341,20 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ;; Use global keybindings for the window selection functions so that they
 ;; work from the source window too...
-(mapcar (lambda (setting)
-          (lexical-let ((key    (car setting))
-                        (header (cdr setting)))
-            ;;(global-set-key (concat "\C-c\C-g" key) #'(lambda ()
-            (global-set-key (concat "\M-;" key) #'(lambda ()
-                                                                    (interactive)
-                                                        (gdb-select-window header)))))
-        '(("c" . comint)
-          ("l" . locals)
-          ("r" . registers)
-          ("u" . source)
-          ("s" . stack)
-          ("b" . breakpoints)
-          ("t" . threads)))
+;;(mapcar (lambda (setting)
+;;          (lexical-let ((key    (car setting))
+;;                        (header (cdr setting)))
+;;            ;;(global-set-key (concat "\C-c\C-g" key) #'(lambda ()
+;;            (global-set-key (concat "\M-;" key) #'(lambda ()
+;;                                                                    (interactive)
+;;                                                        (gdb-select-window header)))))
+;;        '(("c" . comint)
+;;          ("l" . locals)
+;;          ("r" . registers)
+;;          ("u" . source)
+;;          ("s" . stack)
+;;          ("b" . breakpoints)
+;;          ("t" . threads)))
 
 #+end_src
 
@@ -502,6 +505,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 (require 'ace-jump-mode)
 (global-set-key (kbd "M-SPC") 'ace-jump-mode)
+(define-key control-semi-map (kbd "C-a") 'ace-jump-line-mode)
 #+end_src
 
 ** dired+
@@ -749,10 +753,10 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (add-hook 'python-mode-hook
 	  (lambda()
-		 (setq indent-tabs-mode t)
-		 (setq python-indent 8)
+		 (setq indent-tabs-mode nil)
+		 (setq python-indent 4)
 		 (setq tab-width 4)
-		 (hs-minor-mode 1)
+		 ;;(hs-minor-mode 1)
 		 (global-set-key (kbd "H-z") 'hs-toggle-hiding)
 		 (global-set-key (kbd "H-x") 'hs-hide-all)
 		 (global-set-key (kbd "H-c") 'hs-show-all)
@@ -806,7 +810,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (define-key control-semi-map (kbd "C-s") 'helm-semantic-or-imenu)
 
 (define-key control-semi-map (kbd "l") 'helm-M-x)
-(define-key control-semi-map (kbd "o") 'helm-occur)
+(define-key control-semi-map (kbd "o") 'swiper-helm)
 (define-key control-semi-map (kbd "C-o") 'helm-multi-occur)
 
 (define-key control-semi-map (kbd "r") 'helm-mark-ring)
@@ -906,4 +910,26 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (defalias 'lp 'list-packages)
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
+
+
+
+(require 'hydra)
+(defhydra hydra-zoom (global-map "<f2>")
+  "zoom"
+  ("g" text-scale-increase "in")
+  ("l" text-scale-decrease "out"))
+
+;;(require 'hydra)
+;;(hydra-create "<f2>"
+;;  '(("g" text-scale-increase)
+;;    ("l" text-scale-decrease)))
+
+(require 'hydra)
+(defhydra hydra-split (global-map "<f3>")
+"hydrasplit"
+  ("h" hydra-move-splitter-left)
+    ("j" hydra-move-splitter-down)
+    ("k" hydra-move-splitter-up)
+    ("l" hydra-move-splitter-right))
+
 #+end_src
