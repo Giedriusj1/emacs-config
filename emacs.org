@@ -49,6 +49,7 @@
     zygospore
     bookmark+
     helm-descbinds
+    ace-jump-helm-line
     auto-highlight-symbol
     helm-projectile
 ;;    helm-projectile-all
@@ -377,6 +378,12 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 (require 'cl)
 (require 'helm)
+
+  (eval-after-load "helm"
+   '(define-key helm-map (kbd "C-a") 'ace-jump-helm-line))
+
+
+
 (projectile-global-mode 1)
 
 ;; Custom helm grep
