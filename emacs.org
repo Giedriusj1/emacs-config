@@ -1,32 +1,6 @@
 #+TITLE: Emacs config
 
 * INIT BASICS                                                 :config:basics:
-** customize-set
-#+BEGIN_SRC emacs-lisp
-(customize-set-variable 'scroll-bar-mode nil)
-(customize-set-variable 'horizontal-scroll-bar-mode nil)
-(customize-set-variable 'menu-bar-mode nil)
-(customize-set-variable 'tool-bar-mode nil)
-
-(cond
- ((string-equal system-type "windows-nt")
-  (set-frame-font "Consolas-10"))
- ((string-equal system-type "darwin")
-  (message "what?"))
- ((string-equal system-type "gnu/linux")
-  (set-frame-font "Monospace-10")))
-
-(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
-
-(customize-set-variable 'fci-rule-color "#BBBBBB")
-(customize-set-variable 'electric-pair-mode t)
-(customize-set-variable 'directory-free-space-args "-Pkh")
-
-(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
-
-(custom-set-faces '(highline-face ((t (:background "#303030")))))
-#+END_SRC
-
 ** repo load
 #+begin_src emacs-lisp
 (require 'package)
@@ -49,10 +23,10 @@
     zygospore
     bookmark+
     helm-descbinds
+    monokai-theme
     ace-jump-helm-line
     auto-highlight-symbol
     helm-projectile
-;;    helm-projectile-all
     dired-toggle-sudo
     multi-term
     iasm-mode
@@ -102,6 +76,32 @@
       (package-install p))))
 
 #+end_src
+** customize-set
+#+BEGIN_SRC emacs-lisp
+(customize-set-variable 'scroll-bar-mode nil)
+(customize-set-variable 'horizontal-scroll-bar-mode nil)
+(customize-set-variable 'menu-bar-mode nil)
+(customize-set-variable 'tool-bar-mode nil)
+
+(cond
+ ((string-equal system-type "windows-nt")
+  (set-frame-font "Consolas-10"))
+ ((string-equal system-type "darwin")
+  (message "what?"))
+ ((string-equal system-type "gnu/linux")
+  (set-frame-font "Monospace-10")))
+
+;;(custom-set-variables '(custom-enabled-themes (quote (monokai))) )
+(load-theme 'monokai t)
+
+(customize-set-variable 'fci-rule-color "#BBBBBB")
+(customize-set-variable 'electric-pair-mode t)
+(customize-set-variable 'directory-free-space-args "-Pkh")
+
+(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
+
+(custom-set-faces '(highline-face ((t (:background "#303030")))))
+#+END_SRC
 
 ** Keyboard
 *** maps
@@ -864,7 +864,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 (global-highline-mode 1)
 (blink-cursor-mode -1)
-(set-cursor-color "BlueViolet")
+;;(set-cursor-color "BlueViolet")
+(set-cursor-color "DarkOrange1")
 #+END_SRC
 ** Buffer names
    Setup uniquify so that non-unique buffer names get the parent path
@@ -883,10 +884,10 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ;;                    :foreground "grey90"
 ;;                    :background "SaddleBrown"
 ;;                    :box nil)
-;;
+
 ;; (set-face-attribute 'mode-line-inactive nil
 ;;                    :box nil)
-;;
+
 ;; (setq powerline-arrow-shape 'arrow14)
 ;; (powerline-default-theme)
 ;;
@@ -925,11 +926,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   "zoom"
   ("g" text-scale-increase "in")
   ("l" text-scale-decrease "out"))
-
-;;(require 'hydra)
-;;(hydra-create "<f2>"
-;;  '(("g" text-scale-increase)
-;;    ("l" text-scale-decrease)))
 
 (require 'hydra)
 (defhydra hydra-split (global-map "<f3>")
