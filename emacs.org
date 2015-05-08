@@ -1,6 +1,9 @@
 #+TITLE: Emacs config
 
 * INIT BASICS                                                 :config:basics:
+#+begin_src emacs-lisp
+(message "emacs.org : starting init stage")
+#+end_src
 ** repo load
 #+begin_src emacs-lisp
 (require 'package)
@@ -17,14 +20,14 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
-  '(yasnippet
+  '(avy
+    yasnippet
     igrep
     google-this
     zygospore
     bookmark+
     helm-descbinds
     monokai-theme
-    ace-jump-helm-line
     auto-highlight-symbol
     helm-projectile
     dired-toggle-sudo
@@ -39,7 +42,6 @@
     elpy
     auctex
     emacs-eclim
-    ace-jump-mode
     auto-install
     auto-complete-clang
     helm
@@ -49,7 +51,6 @@
     auto-complete-c-headers
     powerline
     icomplete+
-    ace-jump-mode
     dired+
     dired-ranger
     auto-complete
@@ -247,8 +248,8 @@
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
 
-(define-key tab-map (kbd "1") 'ace-jump-char-mode)
-(define-key tab-map (kbd "2") 'ace-jump-line-mode)
+(define-key tab-map (kbd "1") 'avy-goto-char)
+(define-key tab-map (kbd "2") 'avy-goto-line)
 
 (define-key tab-map (kbd "p") 'projectile-command-map)
 (define-key tab-map (kbd "m") 'magit-command-map)
@@ -256,6 +257,9 @@
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
 * BEHAVIOUR                                                :config:behaviour:
+#+begin_src emacs-lisp
+(message "emacs.org : starting behaviour stage")
+#+end_src
 ** cua-mode
 #+begin_src emacs-lisp
 (cua-mode 1)
@@ -263,33 +267,33 @@
 
 ** speedbar
 #+begin_src emacs-lisp
-  (defconst my-speedbar-buffer-name "SPEEDBAR")
-  ; (defconst my-speedbar-buffer-name " SPEEDBAR") ; try this if you get "Wrong type argument: stringp, nil"
+;; (defconst my-speedbar-buffer-name "SPEEDBAR")
+  ;; ; (defconst my-speedbar-buffer-name " SPEEDBAR") ; try this if you get "Wrong type argument: stringp, nil"
 
 
-  (defun my-speedbar-no-separate-frame ()
-    (interactive)
-    (when (not (buffer-live-p speedbar-buffer))
-      (setq speedbar-buffer (get-buffer-create my-speedbar-buffer-name)
-            speedbar-frame (selected-frame)
-            dframe-attached-frame (selected-frame)
-            speedbar-select-frame-method 'attached
-            speedbar-verbosity-level 0
-            speedbar-last-selected-file nil)
-      (set-buffer speedbar-buffer)
-      (speedbar-mode)
-      (speedbar-reconfigure-keymaps)
-      (speedbar-update-contents)
-      (speedbar-set-timer 1)
-      (make-local-hook 'kill-buffer-hook)
-      (add-hook 'kill-buffer-hook
-                (lambda () (when (eq (current-buffer) speedbar-buffer)
-                             (setq speedbar-frame nil
-                                   dframe-attached-frame nil
-                                   speedbar-buffer nil)
-                             (speedbar-set-timer nil)))))
-    (set-window-buffer (selected-window) 
-                       (get-buffer my-speedbar-buffer-name)))
+  ;; (defun my-speedbar-no-separate-frame ()
+  ;;   (interactive)
+  ;;   (when (not (buffer-live-p speedbar-buffer))
+  ;;     (setq speedbar-buffer (get-buffer-create my-speedbar-buffer-name)
+  ;;           speedbar-frame (selected-frame)
+  ;;           dframe-attached-frame (selected-frame)
+  ;;           speedbar-select-frame-method 'attached
+  ;;           speedbar-verbosity-level 0
+  ;;           speedbar-last-selected-file nil)
+  ;;     (set-buffer speedbar-buffer)
+  ;;     (speedbar-mode)
+  ;;     (speedbar-reconfigure-keymaps)
+  ;;     (speedbar-update-contents)
+  ;;     (speedbar-set-timer 1)
+  ;;     (make-local-hook 'kill-buffer-hook)
+  ;;     (add-hook 'kill-buffer-hook
+  ;;               (lambda () (when (eq (current-buffer) speedbar-buffer)
+  ;;                            (setq speedbar-frame nil
+  ;;                                  dframe-attached-frame nil
+  ;;                                  speedbar-buffer nil)
+  ;;                            (speedbar-set-timer nil)))))
+  ;;   (set-window-buffer (selected-window) 
+  ;;                      (get-buffer my-speedbar-buffer-name)))
 
 #+end_src
 
@@ -378,11 +382,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 (require 'cl)
 (require 'helm)
-
-  (eval-after-load "helm"
-   '(define-key helm-map (kbd "C-a") 'ace-jump-helm-line))
-
-
 
 (projectile-global-mode 1)
 
@@ -508,11 +507,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (require 'icomplete+)
 #+end_src
 
-** ace-jump
+** avy
 #+begin_src emacs-lisp
-(require 'ace-jump-mode)
-(global-set-key (kbd "M-SPC") 'ace-jump-mode)
-(define-key control-semi-map (kbd "C-a") 'ace-jump-line-mode)
+(define-key control-semi-map (kbd "C-a") 'avy-goto-line)
 #+end_src
 
 ** dired+
@@ -614,7 +611,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
       ac-auto-show-menu nil
       ac-candidate-limit nil
       ac-delay 20
-      ac-disable-faces (quote (font-lock-comment-face font-lock-doc-face))
+      ac-disable-facess (quote (font-lock-comment-face font-lock-doc-face))
       ac-ignore-case 'smart
       ac-menu-height 15
       ac-quick-help-delay 1.5
@@ -740,6 +737,30 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 *** C
 #+begin_src emacs-lisp
 
+(setq
+ helm-gtags-ignore-case t
+ helm-gtags-auto-update t
+ helm-gtags-use-input-at-cursor t
+ helm-gtags-pulse-at-cursor t
+ helm-gtags-prefix-key "\C-cg"
+ helm-gtags-suggested-key-mapping t
+ )
+
+;; (require 'helm-gtags)
+;; ;; Enable helm-gtags-mode
+;; (add-hook 'dired-mode-hook 'helm-gtags-mode)
+;; (add-hook 'eshell-mode-hook 'helm-gtags-mode)
+;; (add-hook 'c-mode-hook 'helm-gtags-mode)
+;; (add-hook 'c++-mode-hook 'helm-gtags-mode)
+;; (add-hook 'asm-mode-hook 'helm-gtags-mode)
+
+;; (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
+;; (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
+;; (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
+;; (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
+;; (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
+;; (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
+
 (add-hook 'c-mode-hook
           (lambda ()
                 (setq indent-tabs-mode t)
@@ -860,6 +881,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (reload-emacs-config))
 #+end_src
 * LOOKS                                                       :config::looks:
+#+begin_src emacs-lisp
+(message "emacs.org : starting looks stage")
+#+end_src
 ** themes and colours
 #+begin_src emacs-lisp
 (global-highline-mode 1)
@@ -908,6 +932,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 * ALIAS                                                        :config:alias:
 #+begin_src emacs-lisp
+(message "emacs.org : starting alias stage")
+#+end_src
+#+begin_src emacs-lisp
 
 ;;Too lazy for this
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -935,4 +962,5 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     ("k" hydra-move-splitter-up)
     ("l" hydra-move-splitter-right))
 
+(message "emacs.org : done loading!j")
 #+end_src
