@@ -512,6 +512,13 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (define-key control-semi-map (kbd "C-a") 'avy-goto-line)
 #+end_src
 
+** search
+#+begin_src emacs-lisp
+(eval-after-load "isearch" '(require 'isearch+))
+(bind-key "C-s" 'swiper)
+#+end_src
+
+
 ** dired+
 #+begin_src emacs-lisp
 (require 'dired+)
@@ -669,8 +676,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (semantic-mode t)
 ;;(setq indent-tabs-mode nil)
 (setq history-length 25)
-
-(eval-after-load "isearch" '(require 'isearch+))
 
 (winner-mode 1)
 (global-set-key (kbd "s-[") 'winner-undo)
@@ -880,6 +885,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (destruct-emacs-config)
 (reload-emacs-config))
 #+end_src
+
+** 
 * LOOKS                                                       :config::looks:
 #+begin_src emacs-lisp
 (message "emacs.org : starting looks stage")
