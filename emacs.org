@@ -92,8 +92,8 @@
  ((string-equal system-type "gnu/linux")
   (set-frame-font "Monospace-10")))
 
-;;(custom-set-variables '(custom-enabled-themes (quote (monokai))) )
-(load-theme 'monokai t)
+(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
+;;(load-theme 'monokai t)
 
 (customize-set-variable 'fci-rule-color "#BBBBBB")
 (customize-set-variable 'electric-pair-mode t)
@@ -166,7 +166,6 @@
 )
 
 ;; yo, these keys have better alternatives. Use them!
-(bind-key "C-f" 'nope)
 (bind-key "C-b" 'nope)
 
 (bind-key "M-f" 'nope)
@@ -263,6 +262,7 @@
 ** cua-mode
 #+begin_src emacs-lisp
 (cua-mode 1)
+(bind-key "C-f" 'cua-exchange-point-and-mark)
 #+end_src
 
 ** speedbar
@@ -481,8 +481,27 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   (helm-megagrep nil
 		 '(10)
 		 nil
-		 '("*.cpp" "*.h" "*.lua" "*.py" "*.pl" "*.xml" "*.el" ".org" ) ;; Only interesting files
+		 '("*.cpp" "*.h" ".c" ".cc" "*.lua" "*.py" "*.pl" "*.xml" "*.el" ".org" ) ;; Only interesting files
 		 ))
+
+
+(defun cpp-root-grep()
+  (interactive)
+  (helm-megagrep nil
+		 '(10)
+		 nil
+		 '("*.cpp" "*.h" ".c" ".cc" ) ;; Only interesting files
+		 ))
+
+
+;; Prevent issues with the Windows null device (NUL)
+;; when using cygwin find with rgrep.
+(defadvice grep-compute-defaults (around grep-compute-defaults-advice-null-device)
+  "Use cygwin's /dev/null as the null-device."
+  (let ((null-device "/dev/null"))
+	ad-do-it))
+(ad-activate 'grep-compute-defaults)
+
 
 (defun projectile-helm-grep-root-src ()
   (interactive)
@@ -490,6 +509,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (call-interactively 'hgrep )))
 
 (define-key projectile-command-map (kbd "p") 'projectile-helm-grep-root-src)
+(define-key projectile-command-map (kbd "j") 'hgrep)
+(define-key projectile-command-map (kbd "J") 'cpp-root-grep)
+
 
 #+end_src
 ** shell
@@ -900,6 +922,19 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (interactive)
 (destruct-emacs-config)
 (reload-emacs-config))
+
+(defun igf-clean()
+(interactive)
+(flush-lines "No such file or directory")
+(flush-lines "Is a directory")
+(flush-lines ".svn-base")
+)
+
+(defun org-babel-reload-emacs-org()
+(interactive)
+(org-babel-load-file "~/.emacs.d/emacs.org")
+)
+
 #+end_src
 
 ** 
@@ -968,7 +1003,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (defalias 'lp 'list-packages)
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
-
+(defalias 'obr 'org-babel-reload-emacs-org)
 
 
 (require 'hydra)
@@ -985,5 +1020,5 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     ("k" hydra-move-splitter-up)
     ("l" hydra-move-splitter-right))
 
-(message "emacs.org : done loading!j")
+(message "emacs.org : done loading!")
 #+end_src
