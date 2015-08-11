@@ -61,7 +61,9 @@
     all-ext
     hydra
     swiper
-    swiper-helm)
+    swiper-helm
+    flycheck
+    )
 )
 
 (defun packages-installed ()
@@ -538,7 +540,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** search
 #+begin_src emacs-lisp
 (eval-after-load "isearch" '(require 'isearch+))
-(bind-key "C-s" 'swiper)
+;;(bind-key "C-s" 'swiper)
 #+end_src
 
 
@@ -729,6 +731,11 @@ Recognized window header names are: 'comint, 'locals, 'registers,
    #+END_SRC
 
 ** Programming                                :config:behaviour:programming:
+*** Flycheck
+#+begin_src emacs-lisp
+(add-hook 'after-init-hook #'global-flycheck-mode)
+#+end_src
+
 *** Generic
 #+begin_src emacs-lisp
 ;;(setq-default tab-width 4)
