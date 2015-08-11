@@ -27,7 +27,6 @@
     zygospore
     bookmark+
     helm-descbinds
-    monokai-theme
     auto-highlight-symbol
     helm-projectile
     dired-toggle-sudo
@@ -39,8 +38,8 @@
     highline
     lua-mode
     smooth-scrolling
-    elpy
-    auctex
+    ;;elpy
+    ;;auctex
     emacs-eclim
     auto-install
     auto-complete-clang
@@ -49,7 +48,7 @@
     bind-key
     projectile
     auto-complete-c-headers
-    powerline
+    ;;powerline
     icomplete+
     dired+
     dired-ranger
@@ -543,7 +542,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ;;(bind-key "C-s" 'swiper)
 #+end_src
 
-
 ** dired+
 #+begin_src emacs-lisp
 (require 'dired+)
@@ -993,6 +991,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** auto highlight symbol
 #+begin_src emacs-lisp
 (global-auto-highlight-symbol-mode 1)
+
 #+end_src
 
 * ALIAS                                                        :config:alias:
