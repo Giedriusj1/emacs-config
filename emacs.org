@@ -35,11 +35,8 @@
     matlab-mode
     haskell-mode
     magit
-    highline
     lua-mode
     smooth-scrolling
-    ;;elpy
-    ;;auctex
     emacs-eclim
     auto-install
     auto-complete-clang
