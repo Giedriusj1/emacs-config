@@ -1,4 +1,4 @@
-#+TITLE: Emacs config
+hi#+TITLE: Emacs config
 
 * INIT BASICS                                                 :config:basics:
 #+begin_src emacs-lisp
@@ -37,7 +37,6 @@
     magit
     lua-mode
     smooth-scrolling
-    emacs-eclim
     auto-install
     auto-complete-clang
     helm
@@ -946,7 +945,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+end_src
 ** themes and colours
 #+begin_src emacs-lisp
-(global-highline-mode 1)
 (blink-cursor-mode -1)
 ;;(set-cursor-color "BlueViolet")
 (set-cursor-color "DarkOrange1")
