@@ -11,7 +11,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("malade" . "http://marmalade-repo.org/packages/")
+			 ("marmalade" . "https://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (package-initialize)
@@ -25,7 +25,6 @@
     igrep
     google-this
     zygospore
-    bookmark+
     helm-descbinds
     auto-highlight-symbol
     helm-projectile
@@ -37,20 +36,14 @@
     magit
     lua-mode
     smooth-scrolling
-    auto-install
     auto-complete-clang
     helm
     helm-swoop
     bind-key
     projectile
     auto-complete-c-headers
-    ;;powerline
-    icomplete+
-    dired+
     dired-ranger
     auto-complete
-    ac-dabbrev
-    isearch+
     smooth-scroll
     flymake-haskell-multi
     all-ext
@@ -523,8 +516,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ** icomplete+
 #+begin_src emacs-lisp
-(icomplete-mode 1)
-(require 'icomplete+)
+;;(icomplete-mode 1)
+;;(require 'icomplete+)
 #+end_src
 
 ** avy
@@ -534,88 +527,13 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ** search
 #+begin_src emacs-lisp
-(eval-after-load "isearch" '(require 'isearch+))
+;; (eval-after-load "isearch" '(require 'isearch+))
 ;;(bind-key "C-s" 'swiper)
 #+end_src
 
-** dired+
+** dired
 #+begin_src emacs-lisp
-(require 'dired+)
-(setq dired-dwim-target t)
-
-(define-key ctl-x-map   "d" 'diredp-dired-files)
-(define-key ctl-x-4-map "d" 'diredp-dired-files-other-window)
-
-(define-key dired-mode-map ";" 'diredp-up-directory)
-
-(define-key dired-mode-map "x" 'dired-ranger-move)
-(define-key dired-mode-map "c" 'dired-ranger-copy)
-(define-key dired-mode-map "v" 'dired-ranger-paste)
-
-(setq dired-listing-switches "-alk")
-
-
-(defun open-in-external-app ()
-  "Open the current file or dired marked files in external app."
-  (interactive)
-  (let ( doIt
-         (myFileList
-          (cond
-           ((string-equal major-mode "dired-mode") (dired-get-marked-files))
-           (t (list (buffer-file-name))) ) ) )
-
-    (setq doIt (if (<= (length myFileList) 5)
-                   t
-                 (y-or-n-p "Open more than 5 files?") ) )
-
-    (when doIt
-      (cond
-       ((string-equal system-type "windows-nt")
-        (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList)
-        )
-       ((string-equal system-type "darwin")
-        (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
-       ((string-equal system-type "gnu/linux")
-        (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
-
-(global-set-key (kbd "C-<f1>")
-		(lambda ()
-		  (interactive)
-              (find-file "~/")
-))
-
-(global-set-key (kbd "C-<f2>")
-		(lambda ()
-		  (interactive)
-		  (find-file "~/mount")))
-
-(global-set-key (kbd "C-<f3>")
-		(lambda ()
-		  (interactive)
-		  (find-file "~/annex")))
-
-(global-set-key (kbd "C-7")
-		(lambda ()
-		  (interactive)
-		  (find-file "~/annex/notes/links.org")))
-
-(global-set-key (kbd "C-8")
-		(lambda ()
-		  (interactive)
-		  (find-file "~/annex/notes/todo.org")))
-
-(global-set-key (kbd "C-9")
-		(lambda ()
-		  (interactive)
-		  (find-file "~/annex/notes/technical-notes.org")))
-
-(global-set-key (kbd "C-0")
-		(lambda ()
-		  (interactive)
-		  (find-file "~/annex/notes/notes.org")))
-
-
-
+(define-key dired-mode-map ";" 'dired-up-directory)
 #+end_src
 
 ** Auto complete
@@ -651,8 +569,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (auto-complete-mode 1)))
 
 
-(require 'ac-dabbrev)
-(setq-default ac-sources '(ac-source-dabbrev ac-source-semantic ac-source-semantic-raw))
+;;(require 'ac-dabbrev)
+;;(setq-default ac-sources '(ac-source-dabbrev ac-source-semantic ac-source-semantic-raw))
 #+end_src
 
 ** ORG mode
@@ -961,27 +879,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+NAME: look-and-feel
 #+BEGIN_SRC emacs-lisp
 
-;;(require 'powerline)
-;; (set-face-attribute 'mode-line nil
-;;                    :foreground "grey90"
-;;                    :background "SaddleBrown"
-;;                    :box nil)
 
-;; (set-face-attribute 'mode-line-inactive nil
-;;                    :box nil)
-
-;; (setq powerline-arrow-shape 'arrow14)
-;; (powerline-default-theme)
-;;
-;;;; Workaroung to prevent desktop save from messing up powerline colours
-;;(defadvice desktop-kill(before clear-power-line-cache () activate)
-;;   (set-frame-parameter nil 'powerline-cache nil))
-
-;;(setq powerline-arrow-shape 'arrow14)
-;;(powerline-default-theme)
-
-;;(defadvice desktop-kill(before clear-power-line-cache () activate)
-;;  (set-frame-parameter nil 'powerline-cache nil))
 #+END_SRC
 ** auto highlight symbol
 #+begin_src emacs-lisp
