@@ -39,15 +39,13 @@
     bind-key
     projectile
     auto-complete-c-headers
-    dired-ranger
     auto-complete
     smooth-scroll
     flymake-haskell-multi
     all-ext
     swiper
     swiper-helm
-    flycheck
-    )
+    flycheck)
 )
 
 (defun packages-installed ()
