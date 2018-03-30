@@ -16,12 +16,10 @@
 
 (package-initialize)
 
-;;(byte-recompile-directory (expand-file-name "~/.emacs.d/elpa") 0)
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
-  '(avy
-    yasnippet
+  '(yasnippet
     igrep
     google-this
     zygospore
@@ -34,7 +32,6 @@
     matlab-mode
     haskell-mode
     magit
-    lua-mode
     smooth-scrolling
     auto-complete-clang
     helm
@@ -47,7 +44,6 @@
     smooth-scroll
     flymake-haskell-multi
     all-ext
-    hydra
     swiper
     swiper-helm
     flycheck
@@ -107,8 +103,8 @@
 
 (require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
-(bind-key* "H-;" 'hyper-semi-map)
-(bind-key* "M-;" 'meta-semi-map)
+;;(bind-key* "H-;" 'hyper-semi-map)
+;;(bind-key* "M-;" 'meta-semi-map)
 (bind-key* "<tab>" 'tab-map)
 
 (define-key tab-map (kbd "o") 'tab-org-map)
@@ -144,39 +140,32 @@
 (bind-key* "M-u" 'backward-word)
 (bind-key* "M-o" 'forward-word)
 
-;;(unbind-key (kbd "C-x"))
-
-;;(bind-key* "C-c" 'kill-ring-save)
-;;(bind-key* "C-v" 'yank)
-;;(bind-key* "C-x" 'kill-region)
-
 (defun nope ()
 (interactive)
-(message "NOPE!")
+
+  (dotimes (number 3)
+    (message "NOPE")
+    (sleep-for 0.1)
+    (message "    NOPE!")
+    (sleep-for 0.1)
+    (message "        NOPE!")
+    (sleep-for 0.1)
+  )
+
+(message ":-)")
 )
 
 ;; yo, these keys have better alternatives. Use them!
 (bind-key "C-b" 'nope)
-
 (bind-key "M-f" 'nope)
 (bind-key "M-b" 'nope)
-
-
 (bind-key* "C-a" 'nope)
-
 (bind-key* "C-z" 'nope)
 
+
+
+
 (bind-key* "C-a" 'Control-X-prefix)
-;;(bind-key* "C-x" 'nope)
-
-
-;;cua-mode
-;;(bind-key "C-w" 'nope)
-;;(bind-key "M-C-w" 'nope)
-;;(bind-key "C-y" 'nope)
-
-;;(bind-key "<return>" 'Control-X-prefix)
-
 (bind-key* "C-j" 'helm-mini)
 ;;(bind-key* "M-j" 'other-window)
 
@@ -253,38 +242,6 @@
 #+begin_src emacs-lisp
 (cua-mode 1)
 (bind-key "C-f" 'cua-exchange-point-and-mark)
-#+end_src
-
-** speedbar
-#+begin_src emacs-lisp
-;; (defconst my-speedbar-buffer-name "SPEEDBAR")
-  ;; ; (defconst my-speedbar-buffer-name " SPEEDBAR") ; try this if you get "Wrong type argument: stringp, nil"
-
-
-  ;; (defun my-speedbar-no-separate-frame ()
-  ;;   (interactive)
-  ;;   (when (not (buffer-live-p speedbar-buffer))
-  ;;     (setq speedbar-buffer (get-buffer-create my-speedbar-buffer-name)
-  ;;           speedbar-frame (selected-frame)
-  ;;           dframe-attached-frame (selected-frame)
-  ;;           speedbar-select-frame-method 'attached
-  ;;           speedbar-verbosity-level 0
-  ;;           speedbar-last-selected-file nil)
-  ;;     (set-buffer speedbar-buffer)
-  ;;     (speedbar-mode)
-  ;;     (speedbar-reconfigure-keymaps)
-  ;;     (speedbar-update-contents)
-  ;;     (speedbar-set-timer 1)
-  ;;     (make-local-hook 'kill-buffer-hook)
-  ;;     (add-hook 'kill-buffer-hook
-  ;;               (lambda () (when (eq (current-buffer) speedbar-buffer)
-  ;;                            (setq speedbar-frame nil
-  ;;                                  dframe-attached-frame nil
-  ;;                                  speedbar-buffer nil)
-  ;;                            (speedbar-set-timer nil)))))
-  ;;   (set-window-buffer (selected-window) 
-  ;;                      (get-buffer my-speedbar-buffer-name)))
-
 #+end_src
 
 ** gdb
@@ -514,25 +471,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (ido-mode 1)
 #+end_src
 
-** icomplete+
-#+begin_src emacs-lisp
-;;(icomplete-mode 1)
-;;(require 'icomplete+)
-#+end_src
-
-** avy
-#+begin_src emacs-lisp
-(define-key control-semi-map (kbd "C-a") 'avy-goto-line)
-#+end_src
-
-** search
-#+begin_src emacs-lisp
-;; (eval-after-load "isearch" '(require 'isearch+))
-;;(bind-key "C-s" 'swiper)
-#+end_src
-
 ** dired
 #+begin_src emacs-lisp
+(require 'dired)
 (define-key dired-mode-map ";" 'dired-up-directory)
 #+end_src
 
@@ -568,9 +509,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   (unless (minibufferp (current-buffer))
     (auto-complete-mode 1)))
 
-
-;;(require 'ac-dabbrev)
-;;(setq-default ac-sources '(ac-source-dabbrev ac-source-semantic ac-source-semantic-raw))
 #+end_src
 
 ** ORG mode
@@ -693,31 +631,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 *** C
 #+begin_src emacs-lisp
-
-(setq
- helm-gtags-ignore-case t
- helm-gtags-auto-update t
- helm-gtags-use-input-at-cursor t
- helm-gtags-pulse-at-cursor t
- helm-gtags-prefix-key "\C-cg"
- helm-gtags-suggested-key-mapping t
- )
-
-;; (require 'helm-gtags)
-;; ;; Enable helm-gtags-mode
-;; (add-hook 'dired-mode-hook 'helm-gtags-mode)
-;; (add-hook 'eshell-mode-hook 'helm-gtags-mode)
-;; (add-hook 'c-mode-hook 'helm-gtags-mode)
-;; (add-hook 'c++-mode-hook 'helm-gtags-mode)
-;; (add-hook 'asm-mode-hook 'helm-gtags-mode)
-
-;; (define-key helm-gtags-mode-map (kbd "C-c g a") 'helm-gtags-tags-in-this-function)
-;; (define-key helm-gtags-mode-map (kbd "C-j") 'helm-gtags-select)
-;; (define-key helm-gtags-mode-map (kbd "M-.") 'helm-gtags-dwim)
-;; (define-key helm-gtags-mode-map (kbd "M-,") 'helm-gtags-pop-stack)
-;; (define-key helm-gtags-mode-map (kbd "C-c <") 'helm-gtags-previous-history)
-;; (define-key helm-gtags-mode-map (kbd "C-c >") 'helm-gtags-next-history)
-
 (add-hook 'c-mode-hook
           (lambda ()
                 ;;(setq indent-tabs-mode t)
@@ -733,9 +646,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ;;	  (lambda()
 ;;
 ;;))
-
-      ;;(setq indent-tabs-mode t)
-      ;;(c-set-style "linux-tabs-only"))
 #+end_src
 
 *** Python
@@ -773,7 +683,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 	("\\.py\\'" . python-mode)
 	("\\.cpp\\'" . c++-mode)
 	("\\.h\\'" . c++-mode)
-	("\\.lua\\'" . lua-mode)
+	;;("\\.lua\\'" . lua-mode)
 	("\\.java\\'" . java-mode)
 
 	("\\.s\\'" . c++-mode)
@@ -828,31 +738,14 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ** custom
 #+begin_src emacs-lisp
+
 (defun reload-emacs-config ()
-(interactive)
 (interactive)
 (load-file "~/.emacs"))
 
-(defun destruct-emacs-config ()
-(interactive)
-(delete-file "~/.emacs.d/emacs.org"))
-
-(defun get-repo-config()
-(interactive)
-(destruct-emacs-config)
-(reload-emacs-config))
-
-(defun igf-clean()
-(interactive)
-(flush-lines "No such file or directory")
-(flush-lines "Is a directory")
-(flush-lines ".svn-base")
-)
-
 (defun org-babel-reload-emacs-org()
 (interactive)
-(org-babel-load-file "~/.emacs.d/emacs.org")
-)
+(org-babel-load-file "~/.emacs.d/emacs.org"))
 
 #+end_src
 
@@ -863,9 +756,11 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+end_src
 ** themes and colours
 #+begin_src emacs-lisp
+
 (blink-cursor-mode -1)
 ;;(set-cursor-color "BlueViolet")
 (set-cursor-color "DarkOrange1")
+
 #+END_SRC
 ** Buffer names
    Setup uniquify so that non-unique buffer names get the parent path
@@ -875,12 +770,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
      (require 'uniquify)
      (setq uniquify-buffer-name-style 'forward)
    #+END_SRC
-** Mode line
-#+NAME: look-and-feel
-#+BEGIN_SRC emacs-lisp
 
-
-#+END_SRC
 ** auto highlight symbol
 #+begin_src emacs-lisp
 (global-auto-highlight-symbol-mode 1)
@@ -895,7 +785,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ;;Too lazy for this
 (defalias 'yes-or-no-p 'y-or-n-p)
-
 (defalias 'describe-bindings 'helm-descbinds)
 
 (defalias 'rel 'reload-emacs-config)
@@ -903,21 +792,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
 (defalias 'obr 'org-babel-reload-emacs-org)
-
-
-(require 'hydra)
-(defhydra hydra-zoom (global-map "<f2>")
-  "zoom"
-  ("g" text-scale-increase "in")
-  ("l" text-scale-decrease "out"))
-
-(require 'hydra)
-(defhydra hydra-split (global-map "<f3>")
-"hydrasplit"
-  ("h" hydra-move-splitter-left)
-    ("j" hydra-move-splitter-down)
-    ("k" hydra-move-splitter-up)
-    ("l" hydra-move-splitter-right))
 
 (message "emacs.org : done loading!")
 #+end_src
