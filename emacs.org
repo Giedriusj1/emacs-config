@@ -32,7 +32,6 @@
     matlab-mode
     haskell-mode
     magit
-    smooth-scrolling
     auto-complete-clang
     helm
     helm-swoop
@@ -40,7 +39,6 @@
     projectile
     auto-complete-c-headers
     auto-complete
-    smooth-scroll
     flymake-haskell-multi
     all-ext
     swiper
@@ -77,7 +75,6 @@
   (set-frame-font "Monospace-10")))
 
 (custom-set-variables '(custom-enabled-themes (quote (wombat))) )
-;;(load-theme 'monokai t)
 
 (customize-set-variable 'fci-rule-color "#BBBBBB")
 (customize-set-variable 'electric-pair-mode t)
@@ -140,7 +137,6 @@
 
 (defun nope ()
 (interactive)
-
   (dotimes (number 3)
     (message "NOPE")
     (sleep-for 0.1)
@@ -149,7 +145,6 @@
     (message "        NOPE!")
     (sleep-for 0.1)
   )
-
 (message ":-)")
 )
 
@@ -159,8 +154,6 @@
 (bind-key "M-b" 'nope)
 (bind-key* "C-a" 'nope)
 (bind-key* "C-z" 'nope)
-
-
 
 
 (bind-key* "C-a" 'Control-X-prefix)
@@ -572,12 +565,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 #+end_src
 
-** Scrolling behavior
-   #+BEGIN_SRC emacs-lisp
-   (require 'smooth-scroll)
-   (smooth-scroll-mode 1)
-   #+END_SRC
-
 ** Programming                                :config:behaviour:programming:
 *** Flycheck
 #+begin_src emacs-lisp
@@ -679,6 +666,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 	;;programming modes
 	("\\.hs$" . haskell-mode)
 	("\\.py\\'" . python-mode)
+	("\\.c\\'" . c-mode)
 	("\\.cpp\\'" . c++-mode)
 	("\\.h\\'" . c++-mode)
 	;;("\\.lua\\'" . lua-mode)
@@ -761,13 +749,10 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 #+END_SRC
 ** Buffer names
-   Setup uniquify so that non-unique buffer names get the parent path
-   included to make them unique.!!!!
-   #+NAME: look-and-feel
-   #+BEGIN_SRC emacs-lisp
-     (require 'uniquify)
-     (setq uniquify-buffer-name-style 'forward)
-   #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+#+END_SRC
 
 ** auto highlight symbol
 #+begin_src emacs-lisp
