@@ -10,6 +10,7 @@
 (require 'cl)
 
 (add-to-list 'load-path "~/.emacs.d/elpa")
+(add-to-list 'load-path "~/.emacs.d/custom-packages")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
 			 ("marmalade" . "https://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
@@ -464,8 +465,35 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ** dired
 #+begin_src emacs-lisp
-(require 'dired)
-(define-key dired-mode-map ";" 'dired-up-directory)
+(require 'dired+)
+(setq dired-dwim-target t)
+
+(define-key dired-mode-map ";" 'diredp-up-directory)
+
+(setq dired-listing-switches "-alk")
+
+(defun open-in-external-app ()
+  "Open the current file or dired marked files in external app."
+  (interactive)
+  (let ( doIt
+         (myFileList
+          (cond
+           ((string-equal major-mode "dired-mode") (dired-get-marked-files))
+           (t (list (buffer-file-name))) ) ) )
+
+    (setq doIt (if (<= (length myFileList) 5)
+                   t
+                 (y-or-n-p "Open more than 5 files?") ) )
+
+    (when doIt
+      (cond
+       ((string-equal system-type "windows-nt")
+        (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList)
+        )
+       ((string-equal system-type "darwin")
+        (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
+       ((string-equal system-type "gnu/linux")
+        (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
 #+end_src
 
 ** Auto complete
