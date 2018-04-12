@@ -12,7 +12,7 @@
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "https://marmalade-repo.org/packages/")
+			 ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (package-initialize)
@@ -69,11 +69,18 @@
 
 (cond
  ((string-equal system-type "windows-nt")
-  (set-frame-font "Consolas-10"))
+  (cond
+   ((member "ProggyClean" (font-family-list))
+	(set-frame-font "ProggyClean"))
+
+   ((member "Consolas-10" (font-family-list))
+	(set-frame-font "Consolas-10")))
+  )
  ((string-equal system-type "darwin")
   (message "what?"))
  ((string-equal system-type "gnu/linux")
-  (set-frame-font "Monospace-10")))
+  (set-frame-font "Monospace-10"))
+ )
 
 (custom-set-variables '(custom-enabled-themes (quote (wombat))) )
 
