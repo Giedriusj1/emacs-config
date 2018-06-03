@@ -38,7 +38,7 @@
     helm-swoop
     bind-key
     projectile
-    auto-complete-c-headers
+    auto-complete-c-headers-20150911
     auto-complete
     flymake-haskell-multi
     all-ext
@@ -150,15 +150,22 @@
 )
 
 ;; yo, these keys have better alternatives. Use them!
-(bind-key "C-b" 'nope)
-(bind-key "M-f" 'nope)
-(bind-key "M-b" 'nope)
-(bind-key* "C-a" 'nope)
-(bind-key* "C-z" 'nope)
-
+;;(bind-key "C-b" 'nope)
+;;(bind-key "M-f" 'nope)
+;;(bind-key "M-b" 'nope)
+;;(bind-key* "C-a" 'nope)
+;;(bind-key* "C-z" 'nope)
 
 (bind-key* "C-a" 'Control-X-prefix)
-(bind-key* "C-j" 'helm-mini)
+
+(add-hook 'c-mode-hook
+          (lambda ()
+))
+
+(add-hook 'after-change-major-mode-hook
+          (lambda ()
+))
+
 ;;(bind-key* "M-j" 'other-window)
 
 (bind-key* "C-q" 'beginning-of-line)
@@ -306,7 +313,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 (require 'recentf)
 (recentf-mode 1)
-(setq recentf-max-menu-items 500)
+(setq recentf-max-menu-items 100)
 #+end_src
 
 ** windmove
@@ -721,6 +728,10 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** Helm
 #+begin_src emacs-lisp
 (require 'helm-config)
+
+(global-set-key (kbd "C-j") 'helm-mini)
+(define-key org-mode-map (kbd "C-j") 'helm-mini)
+
 (define-key control-semi-map (kbd "C-s") 'helm-semantic-or-imenu)
 
 (define-key control-semi-map (kbd "l") 'helm-M-x)
@@ -806,3 +817,11 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (message "emacs.org : done loading!")
 #+end_src
+
+* NOTES
+** building emacs on Linux
+./configure --without-toolkit-scroll-bars --without-sound --enable-link-time-optimization --without-pop --without-xpm --without-jpeg --without-tiff --without-gif --without-png --without-rsvg --without-imagemagick --without-xaw3d --without-compress-install --without-libsystemd CFLAGS='-O3 -march=native'
+
+make
+
+sudo make install
