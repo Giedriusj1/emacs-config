@@ -38,7 +38,7 @@
     helm-swoop
     bind-key
     projectile
-    auto-complete-c-headers-20150911
+    auto-complete-c-headers
     auto-complete
     flymake-haskell-multi
     all-ext
