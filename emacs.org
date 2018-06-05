@@ -736,6 +736,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 (require 'helm-config)
 
+(define-key ido-common-completion-map (kbd "C-a") 'helm-find-files)
+
 (global-set-key (kbd "C-j") 'helm-mini)
 (define-key org-mode-map (kbd "C-j") 'helm-mini)
 
@@ -753,6 +755,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (define-key control-semi-map (kbd "C-m") 'helm-swoop)
 (define-key control-semi-map (kbd "m") 'helm-multi-swoop-all)
+
+(define-key control-semi-map (kbd "C-a") 'helm-find-files)
 
 (require 'all-ext) ;; C-c C-a jumps to all from helm-occur
 #+end_src
@@ -827,7 +831,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 * NOTES
 ** building emacs on Linux
-./configure --without-toolkit-scroll-bars --without-sound --enable-link-time-optimization --without-pop --without-xpm --without-jpeg --without-tiff --without-gif --without-png --without-rsvg --without-imagemagick --without-xaw3d --without-compress-install --without-libsystemd CFLAGS='-O3 -march=native'
+./configure --without-toolkit-scroll-bars --without-sound --enable-link-time-optimization --without-pop --without-xpm --without-jpeg --without-tiff --without-gif --without-png --without-rsvg --without-imagemagick --without-xaw3d --without-compress-install --without-libsystemd CFLAGS='-Ofast -march=native'
 
 make
 
