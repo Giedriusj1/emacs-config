@@ -809,6 +809,13 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 #+end_src
 
+** highline
+#+begin_src emacs-lisp
+(require 'highline)
+(customize-set-variable 'global-highline-mode t)
+
+#+end_src
+
 * ALIAS                                                        :config:alias:
 #+begin_src emacs-lisp
 (message "emacs.org : starting alias stage")
