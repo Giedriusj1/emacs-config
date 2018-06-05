@@ -736,7 +736,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 (require 'helm-config)
 
-(define-key ido-common-completion-map (kbd "C-a") 'helm-find-files)
 
 (global-set-key (kbd "C-j") 'helm-mini)
 (define-key org-mode-map (kbd "C-j") 'helm-mini)
