@@ -41,7 +41,6 @@
     projectile
     auto-complete-c-headers
     auto-complete
-    ;;flymake-haskell-multi
     all-ext
     swiper
     swiper-helm
@@ -166,16 +165,6 @@
 ;;(bind-key* "C-z" 'nope)
 
 (bind-key* "C-a" 'Control-X-prefix)
-
-(add-hook 'c-mode-hook
-          (lambda ()
-))
-
-(add-hook 'after-change-major-mode-hook
-          (lambda ()
-))
-
-;;(bind-key* "M-j" 'other-window)
 
 (bind-key* "C-q" 'beginning-of-line)
 (bind-key* "C-w" 'back-to-indentation)
@@ -514,35 +503,35 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ** Auto complete
 #+begin_src emacs-lisp
-;; (require 'auto-complete)
-;; (require 'auto-complete-config)
+(require 'auto-complete)
+(require 'auto-complete-config)
 
-;; (define-key control-semi-map (kbd "n") 'auto-complete)
-;; (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
+(define-key control-semi-map (kbd "n") 'auto-complete)
+(define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
 
-;; (global-auto-complete-mode t)
-;; (setq ac-use-quick-help nil)
-;; (setq ac-auto-show-menu nil)
+(global-auto-complete-mode t)
+(setq ac-use-quick-help nil)
+(setq ac-auto-show-menu nil)
 
-;; (define-key ac-menu-map "\C-n" 'ac-next)
-;; (define-key ac-menu-map "\C-p" 'ac-previous)
+(define-key ac-menu-map "\C-n" 'ac-next)
+(define-key ac-menu-map "\C-p" 'ac-previous)
 
-;; (setq
-;;       ac-auto-show-menu nil
-;;       ac-candidate-limit nil
-;;       ac-delay 20
-;;       ac-disable-facess (quote (font-lock-comment-face font-lock-doc-face))
-;;       ac-ignore-case 'smart
-;;       ac-menu-height 15
-;;       ac-quick-help-delay 1.5
-;;       ac-quick-help-prefer-pos-tip t
-;;       ac-use-quick-help t
-;; )
+(setq
+      ac-auto-show-menu nil
+      ac-candidate-limit nil
+      ac-delay 20
+      ac-disable-facess (quote (font-lock-comment-face font-lock-doc-face))
+      ac-ignore-case 'smart
+      ac-menu-height 15
+      ac-quick-help-delay 1.5
+      ac-quick-help-prefer-pos-tip t
+      ac-use-quick-help t
+)
 
-;; (defun auto-complete-mode-maybe ()
-;; "AC in all modes"
-;;   (unless (minibufferp (current-buffer))
-;;     (auto-complete-mode 1)))
+(defun auto-complete-mode-maybe ()
+"AC in all modes"
+  (unless (minibufferp (current-buffer))
+    (auto-complete-mode 1)))
 
 #+end_src
 
@@ -621,20 +610,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (setq-default c-basic-offset 4 c-default-style "linux")
 (setq-default tab-width 4 indent-tabs-mode t)
-;;(define-key c-mode-base-map (kbd "RET") 'newline-and-indent)
 
 #+end_src
 
-*** Haskell
- #+begin_src emacs-lisp
-;;(require 'flymake-haskell-multi)
-;;(add-hook 'haskell-mode-hook
-;;	  (lambda()
-	   ;; (haskell-mode 1)
-;;	    (haskell-indent-mode 1)
-	    ;;(flymake-haskell-multi-load 1)
-;;	    ))
-#+end_src
 *** indent modes
 #+begin_src emacs-lisp
 ;;(defun c-lineup-arglist-tabs-only (ignored)
