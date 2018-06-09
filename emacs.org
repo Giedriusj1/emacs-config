@@ -1,4 +1,3 @@
-
 #+TITLE: Emacs config
 
 * INIT BASICS                                                 :config:basics:
@@ -469,6 +468,14 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+end_src
 
 ** dired
+#+begin_src emacs-lisp
+(require 'dired)
+(define-key dired-mode-map (kbd "l") 'dired-up-directory)
+(define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
+#+end_src
+
+
+** dired+
 #+begin_src emacs-lisp
 ;;(require 'dired+)
 ;;(setq dired-dwim-target t)
