@@ -478,7 +478,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (require 'dired-extension)
 #+end_src
 
-
 ** dired+
 #+begin_src emacs-lisp
 ;;(require 'dired+)
