@@ -310,6 +310,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (require 'recentf)
 (recentf-mode 1)
 (setq recentf-max-menu-items 100)
+(setq recentf-max-saved-items 100)
 #+end_src
 
 ** windmove
@@ -563,7 +564,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (setq inhibit-splash-screen t)
 
-(desktop-save-mode t)
+;;(desktop-save-mode t)
 (semantic-mode t)
 ;;(setq indent-tabs-mode nil)
 (setq history-length 25)
@@ -704,6 +705,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (global-set-key (kbd "C-j") 'helm-mini)
 (define-key org-mode-map (kbd "C-j") 'helm-mini)
+(define-key lisp-interaction-mode-map (kbd "C-j") 'helm-mini)
 
 (define-key control-semi-map (kbd "C-s") 'helm-semantic-or-imenu)
 
