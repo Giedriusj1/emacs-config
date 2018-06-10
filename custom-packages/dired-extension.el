@@ -80,12 +80,13 @@
    
    ;; Regular file names.
    (list "\\(^..*-\\).*\\( [0-9:]* \\)\\(.*\\)$"
-         '(".+" (dired-move-to-filename) nil (0 '((:foreground "Dodgerblue3")))))
+         '(".+" (dired-move-to-filename) nil (0 '((:foreground "White")))))
+            ;;'(".+" (dired-move-to-filename) nil (0 '((:foreground "Dodgerblue3")))))
 
    
    ;; Filenames extensions.
    ;(list "[^ .]\\.\\([a-zA-Z]*\\)[*]?$" '(1 '((:foreground "purple")) t))
-   (list "[^ .]\\.\\([a-zA-Z]*\\)$" '(1 '((:foreground "purple")) t))
+   (list "[^ .]\\.\\([a-zA-Z]*\\)$" '(1 '((:foreground "DarkViolet")) t))
    ;(list "[^ .]\\.\\([^. /]+\\)$" '(1 '((:foreground "purple")) t))
 
    ;; Executable flags (Use C-u s)

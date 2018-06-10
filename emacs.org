@@ -522,6 +522,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (global-auto-complete-mode t)
 
+
 (setq ac-use-menu-map t)
 
 (ac-config-default)
@@ -711,6 +712,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (define-key control-semi-map (kbd "l") 'helm-M-x)
 (define-key control-semi-map (kbd "o") 'swiper-helm)
+(define-key control-semi-map (kbd "C-;") 'swiper-helm)
+
 (define-key control-semi-map (kbd "C-o") 'helm-multi-occur)
 
 (define-key control-semi-map (kbd "r") 'helm-mark-ring)
@@ -751,7 +754,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 #+end_src
 
-** 
+**
 * LOOKS                                                       :config::looks:
 #+begin_src emacs-lisp
 (message "emacs.org : starting looks stage")
