@@ -473,6 +473,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
 
 (setq dired-listing-switches "-alFh")
+
+(require 'dired-extension)
 #+end_src
 
 
