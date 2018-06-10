@@ -24,16 +24,16 @@
     igrep
     google-this
     zygospore
-    helm-descbinds
     auto-highlight-symbol
-    helm-projectile
     dired-toggle-sudo
     multi-term
     iasm-mode
     haskell-mode
     magit
     helm
+    helm-projectile
     helm-swoop
+    helm-descbinds
     swiper
     swiper-helm
     bind-key
