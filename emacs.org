@@ -3,9 +3,7 @@
 * INIT BASICS
 #+begin_src emacs-lisp
 (message "emacs.org : starting init stage")
-#+end_src
-** fetch packages
-#+begin_src emacs-lisp
+
 (require 'package)
 (require 'cl)
 
@@ -16,7 +14,59 @@
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 (package-initialize)
+#+end_src
 
+* LOOKS
+#+begin_src emacs-lisp
+(message "emacs.org : starting looks stage")
+#+end_src
+** customize-set
+#+BEGIN_SRC emacs-lisp
+(customize-set-variable 'scroll-bar-mode nil)
+(customize-set-variable 'horizontal-scroll-bar-mode nil)
+(customize-set-variable 'menu-bar-mode nil)
+(customize-set-variable 'tool-bar-mode nil)
+
+(cond
+ ((string-equal system-type "windows-nt")
+  (cond
+   ((member "ProggyClean" (font-family-list))
+	(set-frame-font "ProggyClean"))
+
+   ((member "Consolas-10" (font-family-list))
+	(set-frame-font "Consolas-10")))
+  )
+ ((string-equal system-type "darwin")
+  (message "what?"))
+ ((string-equal system-type "gnu/linux")
+  (set-frame-font "Monospace-10"))
+ )
+
+(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
+
+(customize-set-variable 'fci-rule-color "#BBBBBB")
+(customize-set-variable 'electric-pair-mode t)
+(customize-set-variable 'directory-free-space-args "-Pkh")
+
+(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
+
+(custom-set-faces '(default ((t (:background "#101515")))))
+(custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
+#+END_SRC
+
+** themes and colours
+#+begin_src emacs-lisp
+(blink-cursor-mode -1)
+#+END_SRC
+** Buffer names
+#+BEGIN_SRC emacs-lisp
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+#+END_SRC
+
+* PACKAGES
+#+begin_src emacs-lisp
+(message "emacs.org : package fetching stage")
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
@@ -190,8 +240,6 @@
 (define-key control-semi-map (kbd "C-f") 'follow-mode)
 #+end_src
 *** tab map
-
-
 #+begin_src emacs-lisp
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
@@ -515,6 +563,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+END_SRC
 ** Misc behaviour
 #+begin_src emacs-lisp
+(global-auto-highlight-symbol-mode 1)
+
 (setq column-number-mode 't)
 
 (delete-selection-mode 1)
@@ -709,64 +759,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (interactive)
 (org-babel-load-file "~/.emacs.d/emacs.org"))
 
-#+end_src
-
-**
-* LOOKS
-#+begin_src emacs-lisp
-(message "emacs.org : starting looks stage")
-#+end_src
-** customize-set
-#+BEGIN_SRC emacs-lisp
-(customize-set-variable 'scroll-bar-mode nil)
-(customize-set-variable 'horizontal-scroll-bar-mode nil)
-(customize-set-variable 'menu-bar-mode nil)
-(customize-set-variable 'tool-bar-mode nil)
-
-(cond
- ((string-equal system-type "windows-nt")
-  (cond
-   ((member "ProggyClean" (font-family-list))
-	(set-frame-font "ProggyClean"))
-
-   ((member "Consolas-10" (font-family-list))
-	(set-frame-font "Consolas-10")))
-  )
- ((string-equal system-type "darwin")
-  (message "what?"))
- ((string-equal system-type "gnu/linux")
-  (set-frame-font "Monospace-10"))
- )
-
-(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
-
-(customize-set-variable 'fci-rule-color "#BBBBBB")
-(customize-set-variable 'electric-pair-mode t)
-(customize-set-variable 'directory-free-space-args "-Pkh")
-
-(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
-
-(custom-set-faces '(default ((t (:background "#101515")))))
-(custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
-#+END_SRC
-
-** themes and colours
-#+begin_src emacs-lisp
-(blink-cursor-mode -1)
-;;(set-cursor-color "BlueViolet")
-;;(set-cursor-color "DarkOrange1")
-
-
-#+END_SRC
-** Buffer names
-#+BEGIN_SRC emacs-lisp
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-#+END_SRC
-
-** auto highlight symbol
-#+begin_src emacs-lisp
-(global-auto-highlight-symbol-mode 1)
 #+end_src
 
 * ALIAS
