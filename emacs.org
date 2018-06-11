@@ -1,10 +1,10 @@
 #+TITLE: Emacs config
 
-* INIT BASICS                                                 :config:basics:
+* INIT BASICS
 #+begin_src emacs-lisp
 (message "emacs.org : starting init stage")
 #+end_src
-** repo load
+** fetch packages
 #+begin_src emacs-lisp
 (require 'package)
 (require 'cl)
@@ -44,8 +44,7 @@
     auto-complete-clang
     all-ext
     flycheck
-    ;;highline
-)
+    )
 )
 
 (defun packages-installed ()
@@ -61,39 +60,11 @@
       (package-install p))))
 
 #+end_src
-** customize-set
-#+BEGIN_SRC emacs-lisp
-(customize-set-variable 'scroll-bar-mode nil)
-(customize-set-variable 'horizontal-scroll-bar-mode nil)
-(customize-set-variable 'menu-bar-mode nil)
-(customize-set-variable 'tool-bar-mode nil)
 
-(cond
- ((string-equal system-type "windows-nt")
-  (cond
-   ((member "ProggyClean" (font-family-list))
-	(set-frame-font "ProggyClean"))
-
-   ((member "Consolas-10" (font-family-list))
-	(set-frame-font "Consolas-10")))
-  )
- ((string-equal system-type "darwin")
-  (message "what?"))
- ((string-equal system-type "gnu/linux")
-  (set-frame-font "Monospace-10"))
- )
-
-(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
-
-(customize-set-variable 'fci-rule-color "#BBBBBB")
-(customize-set-variable 'electric-pair-mode t)
-(customize-set-variable 'directory-free-space-args "-Pkh")
-
-(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
-
-;;(custom-set-faces '(highline-face ((t (:background "#303030")))))
-#+END_SRC
-
+* BEHAVIOUR
+#+begin_src emacs-lisp
+(message "emacs.org : starting behaviour stage")
+#+end_src
 ** Keyboard
 *** maps
 #+begin_src emacs-lisp
@@ -219,22 +190,18 @@
 (define-key control-semi-map (kbd "C-f") 'follow-mode)
 #+end_src
 *** tab map
+
+
 #+begin_src emacs-lisp
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
-
-(define-key tab-map (kbd "1") 'avy-goto-char)
-(define-key tab-map (kbd "2") 'avy-goto-line)
 
 (define-key tab-map (kbd "p") 'projectile-command-map)
 (define-key tab-map (kbd "m") 'magit-command-map)
 
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
-* BEHAVIOUR                                                :config:behaviour:
-#+begin_src emacs-lisp
-(message "emacs.org : starting behaviour stage")
-#+end_src
+
 ** cua-mode
 #+begin_src emacs-lisp
 (cua-mode 1)
@@ -478,41 +445,32 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (setq dired-listing-switches "-alFh")
 
 (require 'dired-extension)
+
+
+(defun open-in-external-app ()
+  "Open the current file or dired marked files in external app."
+  (interactive)
+  (let ( doIt
+         (myFileList
+          (cond
+           ((string-equal major-mode "dired-mode") (dired-get-marked-files))
+           (t (list (buffer-file-name))) ) ) )
+
+    (setq doIt (if (<= (length myFileList) 5)
+                   t
+                 (y-or-n-p "Open more than 5 files?") ) )
+
+    (when doIt
+      (cond
+       ((string-equal system-type "windows-nt")
+        (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList)
+        )
+       ((string-equal system-type "darwin")
+        (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
+       ((string-equal system-type "gnu/linux")
+        (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
+
 #+end_src
-
-** dired+
-#+begin_src emacs-lisp
-;;(require 'dired+)
-;;(setq dired-dwim-target t)
-
-;;(define-key dired-mode-map ";" 'diredp-up-directory)
-
-;; (setq dired-listing-switches "-alk")
-
-;; (defun open-in-external-app ()
-;;   "Open the current file or dired marked files in external app."
-;;   (interactive)
-;;   (let ( doIt
-;;          (myFileList
-;;           (cond
-;;            ((string-equal major-mode "dired-mode") (dired-get-marked-files))
-;;            (t (list (buffer-file-name))) ) ) )
-
-;;     (setq doIt (if (<= (length myFileList) 5)
-;;                    t
-;;                  (y-or-n-p "Open more than 5 files?") ) )
-
-;;     (when doIt
-;;       (cond
-;;        ((string-equal system-type "windows-nt")
-;;         (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList)
-;;         )
-;;        ((string-equal system-type "darwin")
-;;         (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
-;;        ((string-equal system-type "gnu/linux")
-;;         (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
-#+end_src
-
 ** Auto complete
 #+begin_src emacs-lisp
 (require 'auto-complete)
@@ -594,10 +552,10 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (setq gc-cons-threshold 20000000)
 #+end_src
 
-** Programming                                :config:behaviour:programming:
+** Programming
 *** Flycheck
 #+begin_src emacs-lisp
-(add-hook 'after-init-hook #'global-flycheck-mode)
+;;(add-hook 'after-init-hook #'global-flycheck-mode)
 #+end_src
 
 *** Generic
@@ -670,7 +628,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ** Mode recognition
 #+begin_src emacs-lisp
-(autoload 'glsl-mode "glsl-mode" nil t)
 (setq auto-mode-alist
       '(
 	("\\.org$" . org-mode)
@@ -690,9 +647,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 	("\\.s\\'" . c++-mode)
 	("\\.mc\\'" . c++-mode)
 	("\\.el\\'" . emacs-lisp-mode)
-	("\\.vert\\'" . glsl-mode)
-	("\\.frag\\'" . glsl-mode)
-	("\\.glsl\\'" . glsl-mode)
 	))
 #+end_src
 
@@ -758,16 +712,50 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+end_src
 
 **
-* LOOKS                                                       :config::looks:
+* LOOKS
 #+begin_src emacs-lisp
 (message "emacs.org : starting looks stage")
 #+end_src
+** customize-set
+#+BEGIN_SRC emacs-lisp
+(customize-set-variable 'scroll-bar-mode nil)
+(customize-set-variable 'horizontal-scroll-bar-mode nil)
+(customize-set-variable 'menu-bar-mode nil)
+(customize-set-variable 'tool-bar-mode nil)
+
+(cond
+ ((string-equal system-type "windows-nt")
+  (cond
+   ((member "ProggyClean" (font-family-list))
+	(set-frame-font "ProggyClean"))
+
+   ((member "Consolas-10" (font-family-list))
+	(set-frame-font "Consolas-10")))
+  )
+ ((string-equal system-type "darwin")
+  (message "what?"))
+ ((string-equal system-type "gnu/linux")
+  (set-frame-font "Monospace-10"))
+ )
+
+(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
+
+(customize-set-variable 'fci-rule-color "#BBBBBB")
+(customize-set-variable 'electric-pair-mode t)
+(customize-set-variable 'directory-free-space-args "-Pkh")
+
+(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
+
+(custom-set-faces '(default ((t (:background "#101515")))))
+(custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
+#+END_SRC
+
 ** themes and colours
 #+begin_src emacs-lisp
-
 (blink-cursor-mode -1)
 ;;(set-cursor-color "BlueViolet")
-(set-cursor-color "DarkOrange1")
+;;(set-cursor-color "DarkOrange1")
+
 
 #+END_SRC
 ** Buffer names
@@ -779,17 +767,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** auto highlight symbol
 #+begin_src emacs-lisp
 (global-auto-highlight-symbol-mode 1)
-
 #+end_src
 
-** highline
-#+begin_src emacs-lisp
-;; (require 'highline)
-;; (customize-set-variable 'global-highline-mode nil)
-
-#+end_src
-
-* ALIAS                                                        :config:alias:
+* ALIAS
 #+begin_src emacs-lisp
 (message "emacs.org : starting alias stage")
 #+end_src

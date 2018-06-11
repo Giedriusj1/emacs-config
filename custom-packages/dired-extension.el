@@ -6,6 +6,8 @@
 (require 'dired)
 (require 'cl-lib)
 
+(set-face-foreground 'dired-directory "LightSlateBlue" )
+
 ;;; Dired config
 
 (setq dired-font-lock-keywords
@@ -31,22 +33,22 @@
    (list dired-subdir-regexp '(1 dired-header-face))
    
    ;; Size used in dir (second line).
-   (list "^..\\([a-zA-Z ]*\\)\\([0-9.,]+[kKMGTPEZY]?\\)\\( [a-zA-Z]*\\)?\\( [0-9.,]+[kKMGTPEZY]?\\)?" '(2 '((:foreground "cyan"))))
+   ;; (list "^..\\([a-zA-Z ]*\\)\\([0-9.,]+[kKMGTPEZY]?\\)\\( [a-zA-Z]*\\)?\\( [0-9.,]+[kKMGTPEZY]?\\)?" '(2 '((:foreground "cyan"))))
 
    ;; Dired marks. (C,D, etc... at beginning of line)
    (list dired-re-mark '(0 dired-mark-face))
    
    ;; Match from beginning of line to filename.
-   (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
-         '(1 '((:foreground "IndianRed"))))
-   (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
-         '(2 '((:foreground "cyan"))))
-   (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
-         '(3 '((:foreground "ForestGreen"))))
-   (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
-         '(4 '((:foreground "cyan"))))
-   (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
-         '(5 '((:foreground "Gold"))))
+   ;; (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
+   ;;       '(1 '((:foreground "IndianRed"))))
+   ;; (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
+   ;;       '(2 '((:foreground "cyan"))))
+   ;; (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
+   ;;       '(3 '((:foreground "ForestGreen"))))
+   ;; (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
+   ;;       '(4 '((:foreground "cyan"))))
+   ;; (list "^..\\([drwxslt-]*\\) *\\([0-9]*\\) *\\([a-z ]*\\) *\\([0-9.,]*[kKMGTPEZY]?\\)\\( *[ 0-9a-zA-Z-éèû.]* [0-9:]*[ 0-9:]* \\)"
+   ;;       '(5 '((:foreground "Gold"))))
    
    ;; We make heavy use of MATCH-ANCHORED, since the regexps don't identify the
    ;; file name itself.  We search for Dired defined regexps, and then use the
@@ -80,13 +82,12 @@
    
    ;; Regular file names.
    (list "\\(^..*-\\).*\\( [0-9:]* \\)\\(.*\\)$"
-         '(".+" (dired-move-to-filename) nil (0 '((:foreground "White")))))
-            ;;'(".+" (dired-move-to-filename) nil (0 '((:foreground "Dodgerblue3")))))
-
+         '(".+" (dired-move-to-filename) nil (0 '((:foreground "yellow")))))
+            ;; '(".+" (dired-move-to-filename) nil (0 '((:foreground "Dodgerblue3")))))
    
    ;; Filenames extensions.
    ;(list "[^ .]\\.\\([a-zA-Z]*\\)[*]?$" '(1 '((:foreground "purple")) t))
-   (list "[^ .]\\.\\([a-zA-Z]*\\)$" '(1 '((:foreground "DarkViolet")) t))
+   (list "[^ .]\\.\\([a-zA-Z]*\\)$" '(1 '((:foreground "green2")) t))
    ;(list "[^ .]\\.\\([^. /]+\\)$" '(1 '((:foreground "purple")) t))
 
    ;; Executable flags (Use C-u s)
@@ -96,7 +97,7 @@
    (list "[^ .]\\.\\([tz7]?[bgi]?[pzZ]2?\\)[*]?$" '(1 '((:foreground "yellow")) t))
   
    ;; Total available size (second line), not used by tramp so put it after all.
-   (list "^..\\([a-zA-Z ]*\\)\\([0-9.,]+[kKMGTPEZY]?\\)\\( [a-zA-Z]*\\)?\\( [0-9.,]+[kKMGTPEZY]?\\)?" '(4 '((:foreground "cyan")) t))
+   ;; (list "^..\\([a-zA-Z ]*\\)\\([0-9.,]+[kKMGTPEZY]?\\)\\( [a-zA-Z]*\\)?\\( [0-9.,]+[kKMGTPEZY]?\\)?" '(4 '((:foreground "cyan")) t))
    
    ;; Files that are group or world writable.
   (list (concat dired-re-maybe-mark dired-re-inode-size
@@ -106,44 +107,10 @@
 
    ;; Explicitly put the default face on file names ending in a colon to
    ;; avoid fontifying them as directory header.
-   (list (concat dired-re-maybe-mark dired-re-inode-size dired-re-perms ".*:$")
-	 '(".+" (dired-move-to-filename) nil (0 'default)))))
+   ;; (list (concat dired-re-maybe-mark dired-re-inode-size dired-re-perms ".*:$")
+   ;; 		 '(".+" (dired-move-to-filename) nil (0 'default)))
 
-
-;;; showup size available when -h arg of ls used.
-
-(defun tv--advice-get-free-disk-space (dir &optional human)
-  (save-match-data
-    (unless (file-remote-p dir)
-      ;; That is for windows.
-      (if (fboundp 'file-system-info)
-	  (let ((fsinfo (file-system-info dir)))
-	    (if fsinfo
-	        (format "%.0f" (/ (nth 2 fsinfo) 1024))))
-        ;; And this is for Unix/GNULinux.
-        (when (executable-find directory-free-space-program)
-          (cl-getf (tv-get-disk-info dir human) :available))))))
-
-(defun tv-get-disk-info (directory &optional human)
-  (let* ((directory-free-space-args
-          (if (and dired-actual-switches
-                   (string-match "h" dired-actual-switches))
-              (concat directory-free-space-args "h")
-            directory-free-space-args))
-         (dir     (expand-file-name directory))
-         (args    (if human
-                      (concat directory-free-space-args "h")
-                      directory-free-space-args))
-         (data   (with-temp-buffer
-                   (call-process directory-free-space-program
-                                 nil t nil args dir)
-                   (split-string (buffer-string) "\n" t)))
-         (values (split-string (cadr data))))
-    (cl-loop for i in '(:device :blocks :used :available :capacity :mount-point)
-             for j in values
-             append (list i j))))
-
-(advice-add 'get-free-disk-space :override 'tv--advice-get-free-disk-space)
+   ))
 
 
 (provide 'dired-extension)
