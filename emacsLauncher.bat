@@ -1,2 +1,4 @@
-set HOME=%cd%\..\
+set HOME=%cd%\..
+
+
 ..\emacs.exe
