@@ -13,7 +13,9 @@
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-(package-initialize)
+;; not needed since emacs 27
+(if (< emacs-major-version 27) (package-initialize))
+
 #+end_src
 
 * LOOKS
