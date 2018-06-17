@@ -1,0 +1,11 @@
+#+TITLE: Emacs config
+
+* EMACS
+** building emacs on Linux
+./autogen.sh
+
+./configure --without-toolkit-scroll-bars --without-sound --enable-link-time-optimization --without-pop --without-xpm --without-jpeg --without-tiff --without-gif --without-png --without-rsvg --without-imagemagick --without-xaw3d --without-compress-install --without-libsystemd CFLAGS='-Ofast -march=native'
+
+make
+
+sudo make install

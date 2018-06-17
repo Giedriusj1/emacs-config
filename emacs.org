@@ -13,14 +13,8 @@
 			 ("marmalade" . "http://marmalade-repo.org/packages/")
 			 ("melpa" . "http://melpa.milkbox.net/packages/")))
 
-
-
-
 ;; not needed since emacs 27
 (when (not package--initialized) (package-initialize) )
-
-
-
 #+end_src
 
 * LOOKS
@@ -786,13 +780,3 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (message "emacs.org : done loading!")
 #+end_src
-
-* NOTES
-** building emacs on Linux
-./autogen.sh
-
-./configure --without-toolkit-scroll-bars --without-sound --enable-link-time-optimization --without-pop --without-xpm --without-jpeg --without-tiff --without-gif --without-png --without-rsvg --without-imagemagick --without-xaw3d --without-compress-install --without-libsystemd CFLAGS='-Ofast -march=native'
-
-make
-
-sudo make install
