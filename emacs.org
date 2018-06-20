@@ -524,6 +524,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+END_SRC
 ** Misc behaviour
 #+begin_src emacs-lisp
+(setq redisplay-dont-pause t)
+
 (setq debug-on-error nil)
 
 (global-auto-highlight-symbol-mode 1)
@@ -786,8 +788,5 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   swift-mode
   :init-value nil
   )
-
-
-(setq garbage-collection-message 1)
 #+end_src
 
