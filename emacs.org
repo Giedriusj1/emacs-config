@@ -4,6 +4,9 @@
 #+begin_src emacs-lisp
 (message "emacs.org : starting init stage")
 
+;; Increase garbage collector threshold for better performance
+(setq gc-cons-threshold (* 5 gc-cons-threshold))
+
 (require 'package)
 (require 'cl)
 
@@ -129,8 +132,6 @@
 
 (require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
-;;(bind-key* "H-;" 'hyper-semi-map)
-;;(bind-key* "M-;" 'meta-semi-map)
 (bind-key* "<tab>" 'tab-map)
 
 (define-key tab-map (kbd "o") 'tab-org-map)
@@ -155,6 +156,9 @@
 (bind-key* "M-," 'backward-kill-word)
 (bind-key* "M-." 'kill-word)
 
+(global-set-key (kbd "M-,") 'backward-kill-word)
+(global-set-key (kbd "<down>") 'scroll-up-line)
+
 (bind-key* "C-," 'delete-backward-char)
 (bind-key* "C-." 'delete-char)
 
@@ -170,29 +174,6 @@
 
 (bind-key* "C-q" 'beginning-of-line)
 (bind-key* "C-w" 'back-to-indentation)
-
-#+end_src
-
-**** Hyper key
-#+begin_src emacs-lisp
-(global-set-key (kbd "H-M-j") 'next-multiframe-window)
-(global-set-key (kbd "H-M-k") 'previous-multiframe-window)
-(global-set-key (kbd "H-M-c") 'delete-window)
-(global-set-key (kbd "H-j") 'backward-delete-char-untabify)
-(global-set-key (kbd "H-k") 'delete-forward-char)
-
-(global-set-key (kbd "H-1") 'delete-other-windows)
-(global-set-key (kbd "H-2") 'split-window-below)
-(global-set-key (kbd "H-3") 'split-window-right)
-(global-set-key (kbd "H-0") 'delete-window)
-(global-set-key (kbd "H-e") 'execute-extended-command)
-
-(global-set-key (kbd "H-o") 'other-window)
-(global-set-key (kbd "H-f") 'backward-delete-char-untabify)
-(global-set-key (kbd "H-j") 'delete-char)
-
-(global-set-key (kbd "H-h") 'backward-kill-word)
-(global-set-key (kbd "H-l") 'kill-word)
 #+end_src
 
 *** control-semi-map
@@ -510,7 +491,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (global-auto-complete-mode t)
 
-
 (setq ac-use-menu-map t)
 
 (ac-config-default)
@@ -544,6 +524,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+END_SRC
 ** Misc behaviour
 #+begin_src emacs-lisp
+(setq debug-on-error nil)
+
 (global-auto-highlight-symbol-mode 1)
 
 (setq column-number-mode 't)
@@ -580,7 +562,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
-(setq gc-cons-threshold 20000000)
 #+end_src
 
 ** Programming
@@ -765,143 +746,48 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** swift
 #+begin_src emacs-lisp
 
-;; (global-set-key (kbd "ESC") 'global-swift-mode)
+(define-key control-semi-map (kbd "C-d") 'global-swift-mode)
 
-;; (define-prefix-command 'swift-semi-command-map)
+(defvar swift-command-map
+  (let ((map (make-keymap)))
+    (define-key map (kbd "i") 'scroll-down-line)
+    (define-key map (kbd "k") 'scroll-up-line)
 
-;; (define-key swift-semi-command-map (kbd "1") 'zygospore-toggle-delete-other-windows)
-;; (define-key swift-semi-command-map (kbd "2") 'split-window-below)
-;; (define-key swift-semi-command-map (kbd "3") 'split-window-right)
+    (define-key map (kbd "p") 'beginning-of-defun)
+    (define-key map (kbd "n") 'end-of-defun)
 
-;;  (define-key swift-semi-command-map (kbd "j")     
-;;  (lambda ()
-;;  (interactive)
-;;      (let ((x (assq 'swift-mode minor-mode-map-alist)))
-;;      (setq minor-mode-map-ali (delete x minor-mode-map-alist) )
-;;      (helm-mini)
-;;      (setq minor-mode-map-alist (cons x minor-mode-map-alist))))
-
-;;      )
+    map))
 
 
-;;  (define-key swift-semi-command-map (kbd ";")     
-;;  (lambda ()
-;;  (interactive)
-;;      (let ((x (assq 'swift-mode minor-mode-map-alist)))
+(define-minor-mode swift-mode
+       "Toggle SWIFT buffer mode."
+      ;; The initial value.
+      :init-value nil
+      ;; The indicator for the mode line.
+      :lighter " SWIFT"
+      ;; The minor mode bindings.
+      :keymap swift-command-map
 
-;;      (setq minor-mode-map-alist (delete x minor-mode-map-alist) )
-;;      (swiper-helm)
-;;      (setq minor-mode-map-alist (cons x minor-mode-map-alist)))))
-    
-;;  (define-key swift-semi-command-map (kbd "m")     
-;;  (lambda ()
-;;  (interactive)
-;;      (let ((x (assq 'swift-mode minor-mode-map-alist)))
+(if (bound-and-true-p swift-mode)
+    (progn 
+    (custom-set-faces '(cursor ((t (:background "blue")))))
+    (custom-set-faces '(mode-line ((t (:background "SlateBlue4")))))
+    )
 
-;;      (setq minor-mode-map-alist (delete x minor-mode-map-alist) )
-;;      (helm-swoop)
-;;      (setq minor-mode-map-alist (cons x minor-mode-map-alist)))))
-
-;;  (define-key swift-semi-command-map (kbd "s")     
-;;  (lambda ()
-;;  (interactive)
-;;      (let ((x (assq 'swift-mode minor-mode-map-alist)))
-
-;;      (setq minor-mode-map-alist (delete x minor-mode-map-alist) )
-;;      (helm-semantic-or-imenu "")
-;;      (setq minor-mode-map-alist (cons x minor-mode-map-alist)))))
-
-;;  (define-key swift-semi-command-map (kbd "l")     
-;;  (lambda ()
-;;  (interactive)
-;;      (let ((x (assq 'swift-mode minor-mode-map-alist)))
-
-;;      (setq minor-mode-map-alist (delete x minor-mode-map-alist) )
-;;      (execute-extended-command)
-;;      (setq minor-mode-map-alist (cons x minor-mode-map-alist)))))
-
-;;  (define-key swift-semi-command-map (kbd "C-l")     
-;;  (lambda ()
-;;  (interactive)
-;;      (let ((x (assq 'swift-mode minor-mode-map-alist)))
-
-;;      (setq minor-mode-map-alist (delete x minor-mode-map-alist) )
-;;      (helm-M-x)
-;;      (setq minor-mode-map-alist (cons x minor-mode-map-alist)))))
-
-;; (defvar swift-command-map
-;;   (let ((map (make-keymap)))
-;;     (define-key map (kbd "p") 'previous-line)
-;;     (define-key map (kbd "n") 'next-line)
-;;     (define-key map (kbd "o") 'forward-char)
-;;     (define-key map (kbd "u") 'backward-char)
-
-;;      (define-key map (kbd "j")
-;;      (lambda ()
-;;      (interactive)
-;;      (let ((x (assq 'swift-mode minor-mode-map-alist)))
-
-;;      (setq minor-mode-map-alist (delete x minor-mode-map-alist) )
-;;      (helm-mini)
-;;      (setq minor-mode-map-alist (cons x minor-mode-map-alist)))))
-    
-;;     (define-key map (kbd "f") 'exchange-point-and-mark)
-
-;;     (define-key map (kbd "g") 'keyboard-quit)
-
-;;     (define-key map (kbd "l") 'recenter-top-bottom)
-;;     (define-key map (kbd "SPC") 'set-mark-command)
-
-;;     (define-key map (kbd "k") 'kill-line)
-;;     (define-key map (kbd "m") 'newline)
-
-;;     (define-key map (kbd "q") 'beginninswift-of-line)
-;;     (define-key map (kbd "w") 'back-to-indentation)
-;;     (define-key map (kbd "e") 'end-of-line)
-
-;;     (define-key map (kbd "c") 'kill-rinswift-save)
-;;     (define-key map (kbd "v") 'yank)
-;;     (define-key map (kbd "x") 'kill-region)
-
-;;     (define-key map (kbd "3") 'windmove-right)
-;;     (define-key map (kbd "2") 'windmove-up)
-;;     (define-key map (kbd ";") 'swift-semi-command-map)
-
-;;     (define-key map (kbd "2") 'windmove-up)
-;;     (define-key map (kbd ";") 'swift-semi-command-map)
-;;     map))
+    (progn
+    (custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
+    (custom-set-faces '(mode-line ((t (:background "#444444")))))
+    )
+)
+)
 
 
-;; (define-minor-mode swift-mode
-;;        "Toggle G editing mode."
-;;       ;; The initial value.
-;;       :init-value nil
-;;       ;; The indicator for the mode line.
-;;       :lighter " SWIFT"
-;;       ;; The minor mode bindings.
-;;       :keymap swift-command-map
-
-;; (setq swift-map (assq 'swift-mode minor-mode-map-alist))
-
-;; ;; (message swift-map);;aaq
-      
-;; (if (bound-and-true-p swift-mode)
-;;     (progn 
-;;     (custom-set-faces '(cursor ((t (:background "blue")))))
-;;     (custom-set-faces '(mode-line ((t (:background "SlateBlue4")))))
-;;     )
-
-;;     (progn
-;;     (custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
-;;     (custom-set-faces '(mode-line ((t (:background "#444444")))))
-;;     )
-;; )
-;; )
+(define-globalized-minor-mode global-swift-mode swift-mode
+  swift-mode
+  :init-value nil
+  )
 
 
-;; (define-globalized-minor-mode global-swift-mode swift-mode
-;;   swift-mode
-;;   :init-value nil
-;;   )
+(setq garbage-collection-message 1)
 #+end_src
 
