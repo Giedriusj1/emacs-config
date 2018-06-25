@@ -13,8 +13,8 @@
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-			 ("marmalade" . "http://marmalade-repo.org/packages/")
-			 ("melpa" . "http://melpa.milkbox.net/packages/")))
+             ("marmalade" . "http://marmalade-repo.org/packages/")
+             ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 ;; not needed since emacs 27
 (when (not package--initialized) (package-initialize) )
@@ -35,10 +35,10 @@
  ((string-equal system-type "windows-nt")
   (cond
    ((member "ProggyClean" (font-family-list))
-	(set-frame-font "ProggyClean"))
+    (set-frame-font "ProggyClean"))
 
    ((member "Consolas-10" (font-family-list))
-	(set-frame-font "Consolas-10")))
+    (set-frame-font "Consolas-10")))
   )
  ((string-equal system-type "darwin")
   (message "what?"))
@@ -447,9 +447,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ;;(defun c-lineup-arglist-tabs-only (ignored)
 ;;  "Line up argument lists by tabs, not spaces"
 ;;  (let* ((anchor (c-langelem-pos c-syntactic-element))
-;;	 (column (c-langelem-2nd-pos c-syntactic-element))
-;;	 (offset (- (1+ column) anchor))
-;;	 (steps (floor offset c-basic-offset)))
+;;   (column (c-langelem-2nd-pos c-syntactic-element))
+;;   (offset (- (1+ column) anchor))
+;;   (steps (floor offset c-basic-offset)))
 ;;    (* (max steps 1)
 ;;       c-basic-offset)))
 
@@ -479,7 +479,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 *** C++
 #+begin_src emacs-lisp
 ;;(add-hook 'c++-mode-hook
-;;	  (lambda()
+;;    (lambda()
 ;;
 ;;))
 #+end_src
@@ -488,41 +488,41 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 
 (add-hook 'python-mode-hook
-	  (lambda()
-		 (setq indent-tabs-mode nil)
-		 (setq python-indent 4)
-		 (setq tab-width 4)
-		 ;;(hs-minor-mode 1)
-		 (global-set-key (kbd "H-z") 'hs-toggle-hiding)
-		 (global-set-key (kbd "H-x") 'hs-hide-all)
-		 (global-set-key (kbd "H-c") 'hs-show-all)
-		 ;;(elpy-mode 1)
-		 )
-	  )
+      (lambda()
+         (setq indent-tabs-mode nil)
+         (setq python-indent 4)
+         (setq tab-width 4)
+         ;;(hs-minor-mode 1)
+         (global-set-key (kbd "H-z") 'hs-toggle-hiding)
+         (global-set-key (kbd "H-x") 'hs-hide-all)
+         (global-set-key (kbd "H-c") 'hs-show-all)
+         ;;(elpy-mode 1)
+         )
+      )
 #+end_src
 
 ** Mode recognition
 #+begin_src emacs-lisp
 (setq auto-mode-alist
       '(
-	("\\.org$" . org-mode)
-	("\\.org.gpg$" . org-mode)
-	("\\.ref$" . org-mode)
-	("\\.ref.gpg$" . org-mode)
-	("\\.notes$" . org-mode)
-	("\\.pdf\\'" . doc-view-mode)
+    ("\\.org$" . org-mode)
+    ("\\.org.gpg$" . org-mode)
+    ("\\.ref$" . org-mode)
+    ("\\.ref.gpg$" . org-mode)
+    ("\\.notes$" . org-mode)
+    ("\\.pdf\\'" . doc-view-mode)
 
-	;;programming modes
-	("\\.hs$" . haskell-mode)
-	("\\.py\\'" . python-mode)
-	("\\.c\\'" . c-mode)
-	("\\.cpp\\'" . c++-mode)
-	("\\.h\\'" . c++-mode)
-	("\\.java\\'" . java-mode)
-	("\\.s\\'" . c++-mode)
-	("\\.mc\\'" . c++-mode)
-	("\\.el\\'" . emacs-lisp-mode)
-	))
+    ;;programming modes
+    ("\\.hs$" . haskell-mode)
+    ("\\.py\\'" . python-mode)
+    ("\\.c\\'" . c-mode)
+    ("\\.cpp\\'" . c++-mode)
+    ("\\.h\\'" . c++-mode)
+    ("\\.java\\'" . java-mode)
+    ("\\.s\\'" . c++-mode)
+    ("\\.mc\\'" . c++-mode)
+    ("\\.el\\'" . emacs-lisp-mode)
+    ))
 #+end_src
 
 ** yas
@@ -638,21 +638,17 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   (interactive)
   (if (eq global-swift-mode t)
 
-	(progn
+    (progn
       (custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
       (custom-set-faces '(mode-line ((t (:background "#444444")))))
-	  (global-swift-mode -1)
-		)
+      (global-swift-mode -1)
+        )
 
-	(progn
+    (progn
       (custom-set-faces '(cursor ((t (:background "blue")))))
       (custom-set-faces '(mode-line ((t (:background "SlateBlue4")))))
-	  (global-swift-mode)
-	  )
-	)
+      (global-swift-mode)
+      )
+    )
   )
-
-
-
 #+end_src
-
