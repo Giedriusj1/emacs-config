@@ -348,22 +348,11 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (require 'company)
 (global-company-mode t)
 
-#+end_src
+(define-key company-active-map (kbd "C-n") #'company-select-next)
+(define-key company-active-map (kbd "C-p") #'company-select-previous)
 
-** Auto complete
-#+begin_src emacs-lisp
-;; (require 'auto-complete)
-;; (require 'auto-complete-config)
-
-;; (define-key control-semi-map (kbd "n") 'auto-complete)
-;; (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
-
-;; (global-auto-complete-mode t)
-
-;; (setq ac-use-menu-map t)
-
-;; (ac-config-default)
-
+(define-key control-semi-map (kbd "n") 'company-complete)
+(define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
 #+end_src
 
 ** ORG mode
@@ -588,6 +577,18 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (defun org-babel-reload-emacs-org()
 (interactive)
 (org-babel-load-file "~/.emacs.d/emacs.org"))
+
+
+(defun emacs-init-time ()
+  "Return a string giving the duration of the Emacs initialization."
+  (interactive)
+  (let ((str
+	 (format "%.2f seconds"
+		 (float-time
+		  (time-subtract after-init-time before-init-time)))))
+    (if (called-interactively-p 'interactive)
+        (message "%s" str)
+      str)))
 
 (defun display-startup-echo-area-message ()
   (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))

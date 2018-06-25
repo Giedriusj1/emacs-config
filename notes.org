@@ -4,7 +4,7 @@
 ** building emacs on Linux
 ./autogen.sh
 
-./configure --without-toolkit-scroll-bars --without-sound --enable-link-time-optimization --without-pop --without-xpm --without-jpeg --without-tiff --without-gif --without-png --without-rsvg --without-imagemagick --without-xaw3d --without-compress-install --without-libsystemd CFLAGS='-Ofast -march=native'
+./configure --without-toolkit-scroll-bars --without-gconf --without-sound --enable-link-time-optimization --without-pop --without-xpm --without-jpeg --without-tiff --without-gif --without-png --without-rsvg --without-lcms2 --without-imagemagick --without-xaw3d --without-gpm --without-gsettings --without-dbus --without-compress-install --without-libsystemd CC=clang CFLAGS='-Ofast -march=native'
 
 make
 
