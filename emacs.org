@@ -92,11 +92,9 @@
     swiper
     swiper-helm
     bind-key
-    auto-complete
-    auto-complete-c-headers
-    auto-complete-clang
     all-ext
     flycheck
+    company
     )
 )
 
@@ -343,19 +341,28 @@ Recognized window header names are: 'comint, 'locals, 'registers,
         (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
 
 #+end_src
+
+** company
+
+#+begin_src emacs-lisp
+(require 'company)
+(global-company-mode t)
+
+#+end_src
+
 ** Auto complete
 #+begin_src emacs-lisp
-(require 'auto-complete)
-(require 'auto-complete-config)
+;; (require 'auto-complete)
+;; (require 'auto-complete-config)
 
-(define-key control-semi-map (kbd "n") 'auto-complete)
-(define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
+;; (define-key control-semi-map (kbd "n") 'auto-complete)
+;; (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
 
-(global-auto-complete-mode t)
+;; (global-auto-complete-mode t)
 
-(setq ac-use-menu-map t)
+;; (setq ac-use-menu-map t)
 
-(ac-config-default)
+;; (ac-config-default)
 
 #+end_src
 
