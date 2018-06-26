@@ -24,7 +24,7 @@
 #+begin_src emacs-lisp
 (message "emacs.org : starting looks stage")
 #+end_src
-** customize-set
+** themes and colours
 #+BEGIN_SRC emacs-lisp
 (customize-set-variable 'scroll-bar-mode nil)
 (customize-set-variable 'horizontal-scroll-bar-mode nil)
@@ -40,30 +40,17 @@
    ((member "Consolas-10" (font-family-list))
     (set-frame-font "Consolas-10")))
   )
- ((string-equal system-type "darwin")
-  (message "what?"))
+
  ((string-equal system-type "gnu/linux")
   (set-frame-font "Monospace-10"))
  )
 
 (custom-set-variables '(custom-enabled-themes (quote (wombat))) )
-
-(customize-set-variable 'fci-rule-color "#BBBBBB")
-(customize-set-variable 'electric-pair-mode t)
-(customize-set-variable 'directory-free-space-args "-Pkh")
-
-(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
-
 (custom-set-faces '(default ((t (:background "#101515")))))
 (custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
-(custom-set-faces '(mode-line-inactive ((t (:background "#222222")))))
-
+(custom-set-faces '(mode-line-inactive ((t (:background "#333333")))))
 #+END_SRC
 
-** themes and colours
-#+begin_src emacs-lisp
-(blink-cursor-mode -1)
-#+END_SRC
 ** Buffer names
 #+BEGIN_SRC emacs-lisp
 (require 'uniquify)
@@ -313,6 +300,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
 
 (setq dired-listing-switches "-alFh")
+;;(customize-set-variable 'directory-free-space-args "-Pkh")
 
 (require 'dired-extension)
 
@@ -369,41 +357,37 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (define-key tab-org-map (kbd "e") 'org-export-dispatch)
 
-
 (setq org-src-fontify-natively t)
 (setq org-src-preserve-indentation t)
 (setq org-startup-indented t)
 (setq org-startup-truncated nil)
-
 (setq org-export-with-toc nil)
-
 (setq org-hierarchical-todo-statistics nil)
 
 #+END_SRC
+** winner mode
+#+begin_src emacs-lisp
+(winner-mode 1)
+(define-key control-semi-map (kbd "C-u") 'winner-undo)
+(define-key control-semi-map (kbd "C-o") 'winner-redo)
+#+end_src
+
 ** Misc behaviour
 #+begin_src emacs-lisp
 (setq redisplay-dont-pause t)
-
 (setq debug-on-error nil)
-
-(global-auto-highlight-symbol-mode 1)
-
-(setq column-number-mode 't)
-
-(delete-selection-mode 1)
-
-(delete-selection-mode 1)
-(show-paren-mode t)
-
 (setq inhibit-splash-screen t)
-
-(semantic-mode t)
-
+(setq column-number-mode t)
 (setq history-length 25)
 
-(winner-mode 1)
-(global-set-key (kbd "s-[") 'winner-undo)
-(global-set-key (kbd "s-]") 'winner-redo)
+(blink-cursor-mode -1)
+(global-auto-highlight-symbol-mode 1)
+(delete-selection-mode 1)
+(show-paren-mode t)
+(semantic-mode t)
+
+(customize-set-variable 'electric-pair-mode t)
+(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
 
 (setq backup-by-copying t      ; don't clobber symlinks
       backup-directory-alist
@@ -424,60 +408,10 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+end_src
 
 ** Programming
-*** Flycheck
-#+begin_src emacs-lisp
-;;(add-hook 'after-init-hook #'global-flycheck-mode)
-#+end_src
-
-*** Generic
-#+begin_src emacs-lisp
-;;(setq-default tab-width 4)
-
-(setq-default c-basic-offset 4 c-default-style "linux")
-(setq-default tab-width 4 indent-tabs-mode t)
-
-#+end_src
-
 *** indent modes
 #+begin_src emacs-lisp
-;;(defun c-lineup-arglist-tabs-only (ignored)
-;;  "Line up argument lists by tabs, not spaces"
-;;  (let* ((anchor (c-langelem-pos c-syntactic-element))
-;;   (column (c-langelem-2nd-pos c-syntactic-element))
-;;   (offset (- (1+ column) anchor))
-;;   (steps (floor offset c-basic-offset)))
-;;    (* (max steps 1)
-;;       c-basic-offset)))
-
-
-;;(add-hook 'c-mode-common-hook
-;;          (lambda ()
-;;            ;; Add kernel style
-;;            (c-add-style
-;;             "linux-tabs-only"
-;;             '("linux" (c-offsets-alist
-;;                        (arglist-cont-nonempty
-;;                         c-lineup-gcc-asm-reg
-;;                         c-lineup-arglist-tabs-only))))))
-#+end_src
-
-*** C
-#+begin_src emacs-lisp
-(add-hook 'c-mode-hook
-          (lambda ()
-                ;;(setq indent-tabs-mode t)
-                ;;(c-set-style "linux-tabs-only")
-)
-)
-
-#+end_src
-
-*** C++
-#+begin_src emacs-lisp
-;;(add-hook 'c++-mode-hook
-;;    (lambda()
-;;
-;;))
+(setq-default c-basic-offset 4 c-default-style "linux")
+(setq-default tab-width 4 indent-tabs-mode t)
 #+end_src
 
 *** Python
@@ -488,11 +422,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
          (setq indent-tabs-mode nil)
          (setq python-indent 4)
          (setq tab-width 4)
-         ;;(hs-minor-mode 1)
-         (global-set-key (kbd "H-z") 'hs-toggle-hiding)
-         (global-set-key (kbd "H-x") 'hs-hide-all)
-         (global-set-key (kbd "H-c") 'hs-show-all)
-         ;;(elpy-mode 1)
          )
       )
 #+end_src
@@ -540,10 +469,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (define-key control-semi-map (kbd "o") 'swiper-helm)
 (define-key control-semi-map (kbd "C-;") 'swiper-helm)
 
-(define-key control-semi-map (kbd "C-o") 'helm-multi-occur)
-
 (define-key control-semi-map (kbd "r") 'helm-mark-ring)
-(define-key control-semi-map (kbd "C-r") 'helm-all-mark-rings)
+(define-key control-semi-map (kbd "C-r") 'helm-global-mark-ring)
 
 (define-key control-semi-map (kbd "b") 'helm-resume)
 (define-key control-semi-map (kbd "C-b") 'helm-resume)
