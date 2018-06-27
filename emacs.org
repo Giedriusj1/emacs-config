@@ -183,7 +183,7 @@
 (define-key control-semi-map (kbd "C-0") 'delete-window)
 (define-key control-semi-map (kbd "C-4") 'balance-windows)
 
-(define-key control-semi-map (kbd "C-f") 'follow-mode)
+(define-key control-semi-map (kbd "C-d") 'follow-mode)
 #+end_src
 *** tab map
 #+begin_src emacs-lisp
@@ -545,7 +545,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** swift
 #+begin_src emacs-lisp
 
-(define-key control-semi-map (kbd "C-d") 'toggle-swift-mode)
+(define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
 
 (defvar swift-command-map
   (let ((map (make-keymap)))
