@@ -109,7 +109,6 @@
 (setq uniquify-buffer-name-style 'forward)
 #+END_SRC
 
-
 * BEHAVIOUR
 #+begin_src emacs-lisp
 (message "emacs.org : starting behaviour stage")
