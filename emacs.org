@@ -20,43 +20,6 @@
 (when (not package--initialized) (package-initialize) )
 #+end_src
 
-* LOOKS
-#+begin_src emacs-lisp
-(message "emacs.org : starting looks stage")
-#+end_src
-** themes and colours
-#+BEGIN_SRC emacs-lisp
-(customize-set-variable 'scroll-bar-mode nil)
-(customize-set-variable 'horizontal-scroll-bar-mode nil)
-(customize-set-variable 'menu-bar-mode nil)
-(customize-set-variable 'tool-bar-mode nil)
-
-(cond
- ((string-equal system-type "windows-nt")
-  (cond
-   ((member "ProggyClean" (font-family-list))
-    (set-frame-font "ProggyClean"))
-
-   ((member "Consolas-10" (font-family-list))
-    (set-frame-font "Consolas-10")))
-  )
-
- ((string-equal system-type "gnu/linux")
-  (set-frame-font "Monospace-10"))
- )
-
-(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
-(custom-set-faces '(default ((t (:background "#101515")))))
-(custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
-(custom-set-faces '(mode-line-inactive ((t (:background "#333333")))))
-#+END_SRC
-
-** Buffer names
-#+BEGIN_SRC emacs-lisp
-(require 'uniquify)
-(setq uniquify-buffer-name-style 'forward)
-#+END_SRC
-
 * PACKAGES
 #+begin_src emacs-lisp
 (message "emacs.org : package fetching stage")
@@ -82,6 +45,7 @@
     all-ext
     flycheck
     company
+    smart-mode-line
     )
 )
 
@@ -98,6 +62,53 @@
       (package-install p))))
 
 #+end_src
+
+* LOOKS
+#+begin_src emacs-lisp
+(message "emacs.org : starting looks stage")
+#+end_src
+** themes and colours
+#+BEGIN_SRC emacs-lisp
+(customize-set-variable 'scroll-bar-mode nil)
+(customize-set-variable 'horizontal-scroll-bar-mode nil)
+(customize-set-variable 'menu-bar-mode nil)
+(customize-set-variable 'tool-bar-mode nil)
+
+(custom-set-variables
+ '(custom-safe-themes
+   (quote
+	("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
+    "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))))
+
+(cond
+ ((string-equal system-type "windows-nt")
+  (cond
+   ((member "ProggyClean" (font-family-list))
+    (set-frame-font "ProggyClean"))
+
+   ((member "Consolas-10" (font-family-list))
+    (set-frame-font "Consolas-10")))
+  )
+
+ ((string-equal system-type "gnu/linux")
+  (set-frame-font "Monospace-10"))
+ )
+
+(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
+(custom-set-faces '(default ((t (:background "#101515")))))
+(custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
+(custom-set-faces '(mode-line-inactive ((t (:background "#202020")))))
+(custom-set-faces '(mode-line ((t (:background "#404040")))))
+
+(sml/setup)
+#+END_SRC
+
+** Buffer names
+#+BEGIN_SRC emacs-lisp
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+#+END_SRC
+
 
 * BEHAVIOUR
 #+begin_src emacs-lisp
@@ -483,6 +494,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (require 'all-ext) ;; C-c C-a jumps to all from helm-occur
 #+end_src
 ** magit
+
 #+begin_src emacs-lisp
 (defvar magit-command-map
   (let ((map (make-sparse-keymap)))
@@ -493,58 +505,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     map))
 (fset 'magit-command-map magit-command-map)
 #+end_src
-
-** custom
-#+begin_src emacs-lisp
-
-(defun reload-emacs-config ()
-(interactive)
-(load-file "~/.emacs"))
-
-(defun org-babel-reload-emacs-org()
-(interactive)
-(org-babel-load-file "~/.emacs.d/emacs.org"))
-
-
-(defun emacs-init-time ()
-  "Return a string giving the duration of the Emacs initialization."
-  (interactive)
-  (let ((str
-	 (format "%.2f seconds"
-		 (float-time
-		  (time-subtract after-init-time before-init-time)))))
-    (if (called-interactively-p 'interactive)
-        (message "%s" str)
-      str)))
-
-(defun display-startup-echo-area-message ()
-  (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))
-
-#+end_src
-
-* ALIAS
-#+begin_src emacs-lisp
-(message "emacs.org : starting alias stage")
-#+end_src
-#+begin_src emacs-lisp
-
-;;Too lazy for this
-(defalias 'yes-or-no-p 'y-or-n-p)
-(defalias 'describe-bindings 'helm-descbinds)
-
-(defalias 'rel 'reload-emacs-config)
-(defalias 'lp 'list-packages)
-(defalias 'igf 'igrep-find)
-(defalias 'msf 'menu-set-font)
-(defalias 'obr 'org-babel-reload-emacs-org)
-
-(message "emacs.org : done loading!")
-#+end_src
-
-* HACKS
 ** swift
 #+begin_src emacs-lisp
-
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
 
 (defvar swift-command-map
@@ -606,15 +568,62 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
     (progn
       (custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
-      (custom-set-faces '(mode-line ((t (:background "#444444")))))
+      (custom-set-faces '(mode-line ((t (:background "#404040")))))
       (global-swift-mode -1)
         )
 
     (progn
       (custom-set-faces '(cursor ((t (:background "blue")))))
-      (custom-set-faces '(mode-line ((t (:background "SlateBlue4")))))
+      (custom-set-faces '(mode-line ((t (:background "#333377")))))
       (global-swift-mode)
       )
     )
   )
 #+end_src
+** custom
+#+begin_src emacs-lisp
+
+(defun reload-emacs-config ()
+(interactive)
+(load-file "~/.emacs"))
+
+(defun org-babel-reload-emacs-org()
+(interactive)
+(org-babel-load-file "~/.emacs.d/emacs.org"))
+
+
+(defun emacs-init-time ()
+  "Return a string giving the duration of the Emacs initialization."
+  (interactive)
+  (let ((str
+	 (format "%.2f seconds"
+		 (float-time
+		  (time-subtract after-init-time before-init-time)))))
+    (if (called-interactively-p 'interactive)
+        (message "%s" str)
+      str)))
+
+(defun display-startup-echo-area-message ()
+  (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))
+
+#+end_src
+
+* ALIAS
+#+begin_src emacs-lisp
+(message "emacs.org : starting alias stage")
+#+end_src
+#+begin_src emacs-lisp
+
+;;Too lazy for this
+(defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'describe-bindings 'helm-descbinds)
+
+(defalias 'rel 'reload-emacs-config)
+(defalias 'lp 'list-packages)
+(defalias 'igf 'igrep-find)
+(defalias 'msf 'menu-set-font)
+(defalias 'obr 'org-babel-reload-emacs-org)
+
+(message "emacs.org : done loading!")
+#+end_src
+
