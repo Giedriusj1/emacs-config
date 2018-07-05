@@ -506,12 +506,25 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+end_src
 ** swift
 #+begin_src emacs-lisp
+
+(defun swift-up()
+  (interactive)
+  (scroll-down-line)
+  (previous-line)
+  )
+
+(defun swift-down()
+  (interactive)
+  (scroll-up-line)
+  (next-line)
+  )
+
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
 
 (defvar swift-command-map
   (let ((map (make-keymap)))
-    (define-key map (kbd "i") 'scroll-down-line)
-    (define-key map (kbd "k") 'scroll-up-line)
+    (define-key map (kbd "i") 'swift-up)
+    (define-key map (kbd "k") 'swift-down)
     (define-key map (kbd "p") 'beginning-of-defun)
     (define-key map (kbd "n") 'end-of-defun)
 
@@ -564,11 +577,10 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (defun toggle-swift-mode()
   (interactive)
   (if (eq global-swift-mode t)
-
-    (progn
-      (custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
-      (custom-set-faces '(mode-line ((t (:background "#404040")))))
-      (global-swift-mode -1)
+      (progn
+		(custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
+		(custom-set-faces '(mode-line ((t (:background "#404040")))))
+		(global-swift-mode -1)
         )
 
     (progn
