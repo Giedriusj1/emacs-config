@@ -26,26 +26,28 @@
 (setq url-http-attempt-keepalives nil)
 
 (defvar package-list
-  '(yasnippet
-    igrep
-    google-this
-    zygospore
+  '(
+    all-ext
     auto-highlight-symbol
+    bind-key
+    company
+    dired-filetype-face
     dired-toggle-sudo
-    multi-term
-    iasm-mode
+    flycheck
+    google-this
     haskell-mode
-    magit
     helm
-    helm-swoop
     helm-descbinds
+    helm-swoop
+    iasm-mode
+    igrep
+    magit
+    multi-term
+    smart-mode-line
     swiper
     swiper-helm
-    bind-key
-    all-ext
-    flycheck
-    company
-    smart-mode-line
+    zygospore
+    yasnippet
     )
 )
 
@@ -387,8 +389,17 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (setq redisplay-dont-pause t)
 (setq debug-on-error nil)
 (setq inhibit-splash-screen t)
+(setq initial-scratch-message "")
 (setq column-number-mode t)
 (setq history-length 25)
+(setq select-enable-clipboard t) ;; Merge OS and Emacs' clipboards
+
+;; We'll ask emacs to put all customizations made via it's customize package in a
+;; separate file... so we can ignore it later :)
+(setq custom-file (concat user-emacs-directory "/custom.el"))
+
+;; Let's garbage collect when focusing out of the window.
+(add-hook 'focus-out-hook #'garbage-collect)
 
 (blink-cursor-mode -1)
 (global-auto-highlight-symbol-mode 1)
