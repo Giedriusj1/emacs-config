@@ -37,6 +37,7 @@
     google-this
     haskell-mode
     helm
+    helm-c-yasnippet
     helm-descbinds
     helm-swoop
     iasm-mode
@@ -46,8 +47,10 @@
     smart-mode-line
     swiper
     swiper-helm
-    zygospore
     yasnippet
+    yasnippet-classic-snippets
+    yasnippet-snippets
+    zygospore
     )
 )
 
@@ -79,7 +82,7 @@
 (custom-set-variables
  '(custom-safe-themes
    (quote
-	("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
     "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))))
 
 (cond
@@ -589,9 +592,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   (interactive)
   (if (eq global-swift-mode t)
       (progn
-		(custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
-		(custom-set-faces '(mode-line ((t (:background "#404040")))))
-		(global-swift-mode -1)
+        (custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
+        (custom-set-faces '(mode-line ((t (:background "#404040")))))
+        (global-swift-mode -1)
         )
 
     (progn
@@ -618,9 +621,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   "Return a string giving the duration of the Emacs initialization."
   (interactive)
   (let ((str
-	 (format "%.2f seconds"
-		 (float-time
-		  (time-subtract after-init-time before-init-time)))))
+     (format "%.2f seconds"
+         (float-time
+          (time-subtract after-init-time before-init-time)))))
     (if (called-interactively-p 'interactive)
         (message "%s" str)
       str)))
@@ -648,4 +651,3 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (message "emacs.org : done loading!")
 #+end_src
-
