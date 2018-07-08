@@ -470,6 +470,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     ("\\.s\\'" . c++-mode)
     ("\\.mc\\'" . c++-mode)
     ("\\.el\\'" . emacs-lisp-mode)
+    ("\\.scm\\'" . scheme-mode)
     ))
 #+end_src
 
