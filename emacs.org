@@ -48,7 +48,6 @@
     swiper
     swiper-helm
     yasnippet
-    yasnippet-classic-snippets
     yasnippet-snippets
     zygospore
     )
