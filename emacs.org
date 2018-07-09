@@ -123,14 +123,12 @@
 (define-prefix-command 'alt-semi-map)
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
-(define-prefix-command 'ret-map)
-(define-prefix-command 'hyper-semi-map)
-(define-prefix-command 'meta-semi-map)
 (define-prefix-command 'tab-org-map)
 
 (require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
 (bind-key* "<tab>" 'tab-map)
+(bind-key* "C-;" 'control-semi-map)
 
 (define-key tab-map (kbd "o") 'tab-org-map)
 #+end_src
@@ -156,6 +154,9 @@
 
 (global-set-key (kbd "M-,") 'backward-kill-word)
 (global-set-key (kbd "<down>") 'scroll-up-line)
+
+(global-set-key (kbd "C-d") 'global-superword-mode)
+(global-set-key (kbd "C-M-SPC") 'rectangle-mark-mode)
 
 (bind-key* "C-," 'delete-backward-char)
 (bind-key* "C-." 'delete-char)
@@ -213,6 +214,9 @@
 #+begin_src emacs-lisp
 (cua-mode 1)
 (bind-key "C-f" 'cua-exchange-point-and-mark)
+
+(bind-key* "C-c" 'kill-ring-save)
+(bind-key* "C-v" 'yank)
 #+end_src
 
 ** gdb
@@ -515,6 +519,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (define-key map (kbd "s") 'magit-stash)
     (define-key map (kbd "p") 'magit-stash-pop)
     (define-key map (kbd "l") 'magit-log)
+    (define-key map (kbd "d") 'magit-diff)
     map))
 (fset 'magit-command-map magit-command-map)
 #+end_src
@@ -553,10 +558,19 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (defvar swift-command-map
   (let ((map (make-keymap)))
+	;; movement
     (define-key map (kbd "i") 'swift-up)
     (define-key map (kbd "k") 'swift-down)
     (define-key map (kbd "p") 'beginning-of-defun)
     (define-key map (kbd "n") 'end-of-defun)
+
+	;; cua mode
+    (define-key map (kbd "C-z") 'toggle-swift-mode)
+    (define-key map (kbd "C-x") 'kill-region)
+    (define-key map (kbd "C-c") 'kill-ring-save)
+    (define-key map (kbd "C-v") 'yank)
+
+
 
     (define-key map (kbd "q") 'toggle-swift-mode)
     (define-key map (kbd "w") 'toggle-swift-mode)
@@ -579,10 +593,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (define-key map (kbd ";") 'toggle-swift-mode)
     (define-key map (kbd "'") 'toggle-swift-mode)
     (define-key map (kbd "#") 'toggle-swift-mode)
-    (define-key map (kbd "z") 'toggle-swift-mode)
-    (define-key map (kbd "x") 'toggle-swift-mode)
-    (define-key map (kbd "c") 'toggle-swift-mode)
-    (define-key map (kbd "v") 'toggle-swift-mode)
     (define-key map (kbd "b") 'toggle-swift-mode)
     (define-key map (kbd "m") 'toggle-swift-mode)
     (define-key map (kbd ",") 'toggle-swift-mode)
@@ -609,7 +619,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   (if (eq global-swift-mode t)
       (progn
         ;; turning mode off
-        (un-hl)
         (custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
         (custom-set-faces '(mode-line ((t (:background "#404040")))))
         (global-swift-mode -1)
@@ -617,7 +626,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
     (progn
       ;; turning mode off
-      (hl)
       (custom-set-faces '(cursor ((t (:background "blue")))))
       (custom-set-faces '(mode-line ((t (:background "#333377")))))
       (global-swift-mode)
@@ -665,6 +673,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (defalias 'rel 'reload-emacs-config)
 (defalias 'lp 'list-packages)
+(defalias 'hlp 'helm-list-elisp-packages-no-fetch)
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
 (defalias 'obr 'org-babel-reload-emacs-org)
