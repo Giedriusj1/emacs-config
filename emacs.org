@@ -215,7 +215,7 @@
 (cua-mode 1)
 (bind-key "C-f" 'cua-exchange-point-and-mark)
 
-(bind-key* "C-c" 'kill-ring-save)
+;; (bind-key* "C-c" 'kill-ring-save)
 (bind-key* "C-v" 'yank)
 #+end_src
 
@@ -564,11 +564,16 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (define-key map (kbd "p") 'beginning-of-defun)
     (define-key map (kbd "n") 'end-of-defun)
 
+    (define-key map (kbd "u") 'cua-scroll-down)
+    (define-key map (kbd "j") 'cua-scroll-up)
+
 	;; cua mode
     (define-key map (kbd "C-z") 'toggle-swift-mode)
     (define-key map (kbd "C-x") 'kill-region)
     (define-key map (kbd "C-c") 'kill-ring-save)
     (define-key map (kbd "C-v") 'yank)
+
+
 
 
 
@@ -578,7 +583,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (define-key map (kbd "r") 'toggle-swift-mode)
     (define-key map (kbd "t") 'toggle-swift-mode)
     (define-key map (kbd "y") 'toggle-swift-mode)
-    (define-key map (kbd "u") 'toggle-swift-mode)
+
     (define-key map (kbd "o") 'toggle-swift-mode)
     (define-key map (kbd "[") 'toggle-swift-mode)
     (define-key map (kbd "]") 'toggle-swift-mode)
@@ -588,7 +593,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (define-key map (kbd "f") 'toggle-swift-mode)
     (define-key map (kbd "g") 'toggle-swift-mode)
     (define-key map (kbd "h") 'toggle-swift-mode)
-    (define-key map (kbd "j") 'toggle-swift-mode)
+
     (define-key map (kbd "l") 'toggle-swift-mode)
     (define-key map (kbd ";") 'toggle-swift-mode)
     (define-key map (kbd "'") 'toggle-swift-mode)
