@@ -309,7 +309,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** windmove
 #+begin_src emacs-lisp
 (setq windmove-wrap-around t )
-(bind-key* "C-1" 'other-frame)
+(bind-key* "C-1" 'window-swap-states)
 (bind-key* "C-2" 'windmove-up)
 (bind-key* "C-3" 'windmove-right)
 #+end_src
