@@ -88,7 +88,7 @@
 (custom-set-faces
      '(default ((t (:background "#101515"))))
      '(cursor ((t (:background "OrangeRed"))))
-     '(mode-line-inactive ((t (:background "#202020"))))
+     '(mode-line-inactive ((t (:background "#101010"))))
      '(mode-line ((t (:background "#404040"))))
      '(hl-line ((t (:inherit nil :background "#222222"))))
 )
