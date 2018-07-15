@@ -77,6 +77,7 @@
 (customize-set-variable 'horizontal-scroll-bar-mode nil)
 (customize-set-variable 'menu-bar-mode nil)
 (customize-set-variable 'tool-bar-mode nil)
+(global-hl-line-mode t)
 
 (custom-set-variables
  '(custom-safe-themes
@@ -98,11 +99,15 @@
   (set-frame-font "Monospace-10"))
  )
 
+
 (custom-set-variables '(custom-enabled-themes (quote (wombat))) )
-(custom-set-faces '(default ((t (:background "#101515")))))
-(custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
-(custom-set-faces '(mode-line-inactive ((t (:background "#202020")))))
-(custom-set-faces '(mode-line ((t (:background "#404040")))))
+(custom-set-faces
+     '(default ((t (:background "#101515"))))
+     '(cursor ((t (:background "DarkOrange1"))))
+     '(mode-line-inactive ((t (:background "#202020"))))
+     '(mode-line ((t (:background "#404040"))))
+     '(hl-line ((t (:inherit nil :background "#222222"))))
+)
 
 (sml/setup)
 #+END_SRC
