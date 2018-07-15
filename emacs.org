@@ -179,6 +179,15 @@
 (bind-key* "C-w" 'back-to-indentation)
 #+end_src
 
+*** ctl-x-map
+#+begin_src emacs-lisp
+(define-key ctl-x-map "\C-f" 'helm-find-files)
+(define-key ctl-x-map "\C-d" (lambda ()
+                             (interactive)
+                             (dired default-directory)
+))
+
+#+end_src
 *** control-semi-map
 #+begin_src emacs-lisp
 (define-key control-semi-map (kbd "SPC") 'point-to-register)
@@ -490,6 +499,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** Helm
 #+begin_src emacs-lisp
 (require 'helm-config)
+
 
 (global-set-key (kbd "C-j") 'helm-mini)
 (define-key org-mode-map (kbd "C-j") 'helm-mini)
