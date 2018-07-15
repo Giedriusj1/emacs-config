@@ -76,13 +76,22 @@
 (customize-set-variable 'horizontal-scroll-bar-mode nil)
 (customize-set-variable 'menu-bar-mode nil)
 (customize-set-variable 'tool-bar-mode nil)
-(global-hl-line-mode t)
 
 (custom-set-variables
+'(custom-enabled-themes (quote (wombat))) 
  '(custom-safe-themes
    (quote
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
-    "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))))
+    "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+)
+
+(custom-set-faces
+     '(default ((t (:background "#101515"))))
+     '(cursor ((t (:background "OrangeRed"))))
+     '(mode-line-inactive ((t (:background "#202020"))))
+     '(mode-line ((t (:background "#404040"))))
+     '(hl-line ((t (:inherit nil :background "#222222"))))
+)
 
 (cond
  ((string-equal system-type "windows-nt")
@@ -99,15 +108,7 @@
  )
 
 
-(custom-set-variables '(custom-enabled-themes (quote (wombat))) )
-(custom-set-faces
-     '(default ((t (:background "#101515"))))
-     '(cursor ((t (:background "DarkOrange1"))))
-     '(mode-line-inactive ((t (:background "#202020"))))
-     '(mode-line ((t (:background "#404040"))))
-     '(hl-line ((t (:inherit nil :background "#222222"))))
-)
-
+(global-hl-line-mode t)
 (sml/setup)
 #+END_SRC
 
@@ -357,7 +358,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+end_src
 
 ** company
-
 #+begin_src emacs-lisp
 (require 'company)
 (global-company-mode t)
@@ -638,7 +638,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   (if (eq global-swift-mode t)
       (progn
         ;; turning mode off
-        (custom-set-faces '(cursor ((t (:background "DarkOrange1")))))
+        (custom-set-faces '(cursor ((t (:background "OrangeRed")))))
         (custom-set-faces '(mode-line ((t (:background "#404040")))))
         (global-swift-mode -1)
         )
