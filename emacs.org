@@ -310,11 +310,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (bind-key* "C-`" 'shell)
 #+end_src
 
-** ido
-#+begin_src emacs-lisp
-(ido-mode 1)
-#+end_src
-
 ** dired
 #+begin_src emacs-lisp
 (require 'dired)
