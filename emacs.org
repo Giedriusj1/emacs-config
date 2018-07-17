@@ -40,6 +40,7 @@
     helm-descbinds
     helm-projectile
     helm-swoop
+    hydra
     iasm-mode
     igrep
     magit
@@ -221,24 +222,28 @@
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
 
-(define-key tab-map (kbd "m") 'magit-command-map)
-(define-key tab-map (kbd "p") 'alt-projectile-command-map)
+(define-key tab-map (kbd "m") 'hydra-magit/body)
+(define-key tab-map (kbd "p") 'hydra-projectile/body)
 
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
+
+
+** hydra
+#+BEGIN_SRC emacs-lisp
+(require 'hydra)
+#+END_SRC
 
 ** projectile
 #+BEGIN_SRC emacs-lisp
 (projectile-global-mode t)
 
-(defvar alt-projectile-command-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "m") 'helm-projectile-grep)
-    (define-key map (kbd "h") 'helm-projectile)
-    (define-key map (kbd "d") 'projectile-dired)
-    map))
- (fset 'alt-projectile-command-map alt-projectile-command-map)
-
+(defhydra hydra-projectile (:color blue)
+    "projectile"
+    ("m" helm-projectile-grep "grep")
+    ("h" helm-projectile "helm files")
+    ("d" projectile-dired "dired")
+)
 #+END_SRC
 
 ** cua-mode
@@ -439,9 +444,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ;; (semantic-mode t)
 
 (which-function-mode 1)
-(custom-set-faces '(which-func ((t (:foreground "DarkOrange1" :box (:line-width 1 :color "grey75"))))))
-
-
+(custom-set-faces '(which-func ((t (:foreground "LightSlateBlue")))))
 
 (customize-set-variable 'electric-pair-mode t)
 (customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
@@ -543,15 +546,16 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+end_src
 ** magit
 #+begin_src emacs-lisp
-(defvar magit-command-map
-  (let ((map (make-sparse-keymap)))
-    (define-key map (kbd "m") 'magit-status)
-    (define-key map (kbd "s") 'magit-stash)
-    (define-key map (kbd "p") 'magit-stash-pop)
-    (define-key map (kbd "l") 'magit-log)
-    (define-key map (kbd "d") 'magit-diff)
-    map))
- (fset 'magit-command-map magit-command-map)
+(defhydra hydra-magit (:color red)
+    "magit"
+     ("m" magit-status "status")
+     ("s" magit-stash "stash")
+     ("p" magit-stash-pop "stash-pop")
+     ("l" magit-log "log")
+     ("d" magit-diff-dwim "diff-dwim")
+     ("D" magit-diff "diff-dwim")
+)
+
 #+end_src
 ** swift
 #+begin_src emacs-lisp
