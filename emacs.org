@@ -52,6 +52,8 @@
     yasnippet
     yasnippet-snippets
     zygospore
+    treemacs
+    treemacs-projectile
     )
 )
 
@@ -224,9 +226,26 @@
 
 (define-key tab-map (kbd "m") 'hydra-magit/body)
 (define-key tab-map (kbd "p") 'hydra-projectile/body)
+(define-key tab-map (kbd "t") 'hydra-treemacs/body)
 
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
+
+** treemacs
+#+BEGIN_SRC emacs-lisp
+(require 'treemacs)
+(require 'treemacs-projectile)
+
+(defhydra hydra-treemacs (:color blue)
+    "treemacs"
+    ("t" treemacs "treemacs")
+    ("a" treemacs-add-project "add project")
+    ("r" treemacs-remove-project "remove-project")
+    ("h" treemacs-helpful-hydra "halp")
+)
+
+
+#+END_SRC
 
 ** isearch+
 #+BEGIN_SRC emacs-lisp
