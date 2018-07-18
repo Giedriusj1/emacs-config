@@ -228,6 +228,11 @@
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
 
+** isearch+
+#+BEGIN_SRC emacs-lisp
+(require 'isearch+)
+(eval-after-load "isearch" '(require 'isearch+))
+#+END_SRC
 
 ** hydra
 #+BEGIN_SRC emacs-lisp
@@ -546,7 +551,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+end_src
 ** magit
 #+begin_src emacs-lisp
-(defhydra hydra-magit (:color red)
+(defhydra hydra-magit (:color blue)
     "magit"
      ("m" magit-status "status")
      ("s" magit-stash "stash")
