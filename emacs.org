@@ -731,6 +731,10 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (defun display-startup-echo-area-message ()
   (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))
 
+(global-set-key [f5] (lambda ()
+    (interactive)
+    (find-file "~/notes.org"))
+
 #+end_src
 
 * ALIAS
