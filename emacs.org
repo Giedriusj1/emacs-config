@@ -735,6 +735,12 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (interactive)
     (find-file "~/notes.org")))
 
+
+(global-set-key [f6] (lambda ()
+    (interactive)
+    (find-file "~/.emacs.d/emacs.org")))
+
+
 #+end_src
 
 * ALIAS
