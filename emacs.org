@@ -738,7 +738,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (global-set-key [f5] (lambda ()
     (interactive)
-    (find-file "~/notes.org")))
+    (find-file "~/notes/notes.org")))
 
 
 (global-set-key [f6] (lambda ()
