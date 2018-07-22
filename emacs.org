@@ -132,6 +132,11 @@
 (setq uniquify-buffer-name-style 'forward)
 #+END_SRC
 
+** fringe
+#+BEGIN_SRC emacs-lisp
+(fringe-mode '(4 . 8)) ;; make left fringe half size
+#+END_SRC
+
 * BEHAVIOUR
 #+begin_src emacs-lisp
 (message "emacs.org : starting behaviour stage")
