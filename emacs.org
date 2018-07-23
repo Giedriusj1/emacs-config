@@ -241,6 +241,8 @@
 (define-key tab-map (kbd "m") 'hydra-magit/body)
 (define-key tab-map (kbd "p") 'hydra-projectile/body)
 (define-key tab-map (kbd "t") 'hydra-treemacs/body)
+(define-key tab-map (kbd ";") 'hydra-quickopen/body)
+
 
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
@@ -277,7 +279,10 @@
 (projectile-global-mode t)
 
 (defhydra hydra-projectile (:color blue)
-    "projectile"
+
+    "
+projectile  (\\/)(Ö,,,,Ö)(\\/) 
+"
     ("m" helm-projectile-grep "grep")
     ("h" helm-projectile "helm files")
     ("d" projectile-dired "dired")
@@ -585,13 +590,17 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** magit
 #+begin_src emacs-lisp
 (defhydra hydra-magit (:color blue)
-    "magit"
+    "
+magit
+"
      ("m" magit-status "status")
      ("s" magit-stash "stash")
      ("p" magit-stash-pop "stash-pop")
      ("l" magit-log "log")
      ("d" magit-diff-dwim "diff-dwim")
      ("D" magit-diff "diff-dwim")
+
+     ("q" nil "quit")
 )
 
 #+end_src
@@ -736,17 +745,44 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (defun display-startup-echo-area-message ()
   (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))
 
-(global-set-key [f5] (lambda ()
-    (interactive)
-    (find-file "~/notes/notes.org")))
-
-
-(global-set-key [f6] (lambda ()
-    (interactive)
-    (find-file "~/.emacs.d/emacs.org")))
 
 
 #+end_src
+
+** quick open hydra
+#+BEGIN_SRC emacs-lisp
+
+(defun qo-emacs-org ()
+(interactive)
+(find-file "~/.emacs.d/emacs.org")
+)
+
+(defun qo-notes-org ()
+(interactive)
+(find-file "~/notes/notes.org")
+)
+
+(defun qo-temp ()
+(interactive)
+(find-file "~/notes/temp")
+)
+
+(defhydra hydra-quickopen (:color pink)
+"
+龴ↀ◡ↀ龴
+[_t_] ~/notes/temp
+[_n_] ~/notes/notes.org
+[_c_] ~/.emacs.d/emacs.org \\
+"
+
+("t" qo-temp nil)
+("n" qo-notes-org nil)
+("c" qo-emacs-org nil)
+
+("q"  nil "cacel")
+)
+
+#+END_SRC
 
 * ALIAS
 #+begin_src emacs-lisp
