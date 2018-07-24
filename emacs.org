@@ -769,12 +769,11 @@ magit
 
 (defhydra hydra-quickopen (:color pink)
 "
-龴ↀ◡ↀ龴
+龴ↀ◡ↀ龴   ʕ•ᴥ•ʔ
 [_t_] ~/notes/temp
 [_n_] ~/notes/notes.org
-[_c_] ~/.emacs.d/emacs.org \\
+[_c_] ~/.emacs.d/emacs.org
 "
-
 ("t" qo-temp nil)
 ("n" qo-notes-org nil)
 ("c" qo-emacs-org nil)
