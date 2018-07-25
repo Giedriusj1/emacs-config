@@ -594,8 +594,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 magit
 "
      ("m" magit-status "status")
-     ("s" magit-stash "stash")
-     ("p" magit-stash-pop "stash-pop")
+     ("p" magit-pull "pull")
+     ("c" magit-commit "commit")
      ("l" magit-log "log")
      ("d" magit-diff-dwim "diff-dwim")
      ("D" magit-diff "diff-dwim")
