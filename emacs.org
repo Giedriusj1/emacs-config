@@ -595,6 +595,7 @@ magit
 "
      ("m" magit-status "status")
      ("p" magit-pull "pull")
+     ("P" magit-push "push")
      ("c" magit-commit "commit")
      ("l" magit-log "log")
      ("d" magit-diff-dwim "diff-dwim")
