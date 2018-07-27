@@ -285,12 +285,19 @@
 #+BEGIN_SRC emacs-lisp
 (projectile-global-mode t)
 
-(defhydra hydra-projectile (:color blue)
+(defun helm-projectile-projects ()
+  (interactive)
+    (let ((helm-ff-transformer-show-only-basename nil))
+      (helm :sources '(helm-source-projectile-projects)
+            :buffer "*helm projectile projects*"
+            :truncate-lines helm-projectile-truncate-lines)))
 
+(defhydra hydra-projectile (:color blue)
     "projectile"
     ("m" helm-projectile-grep "grep")
-    ("h" helm-projectile "helm files")
+    ("j" helm-projectile "helm files")
     ("d" projectile-dired "dired")
+    ("p" helm-projectile-projects "projects")
 )
 #+END_SRC
 
