@@ -283,11 +283,12 @@
 
 ** projectile
 #+BEGIN_SRC emacs-lisp
+(require 'helm-projectile)
 (projectile-global-mode t)
 
 (defun helm-projectile-projects ()
   (interactive)
-    (let ((helm-ff-transformer-show-only-basename nil))
+  (let ((helm-ff-transformer-show-only-basename nil))
       (helm :sources '(helm-source-projectile-projects)
             :buffer "*helm projectile projects*"
             :truncate-lines helm-projectile-truncate-lines)))
