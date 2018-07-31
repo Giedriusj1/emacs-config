@@ -84,7 +84,7 @@
 	(progn
 
 	  (custom-set-variables
-	   '(custom-enabled-themes (quote (wombat))) 
+	   '(custom-enabled-themes (quote (wombat)))
 	   '(custom-safe-themes
 		 (quote
 		  ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
@@ -251,22 +251,6 @@
 
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
-
-** treemacs
-#+BEGIN_SRC emacs-lisp
-(require 'treemacs)
-(require 'treemacs-projectile)
-
-(defhydra hydra-treemacs (:color blue)
-    "treemacs"
-    ("t" treemacs "treemacs")
-    ("a" treemacs-add-project "add project")
-    ("r" treemacs-remove-project "remove-project")
-    ("h" treemacs-helpful-hydra "halp")
-)
-
-
-#+END_SRC
 
 ** isearch+
 #+BEGIN_SRC emacs-lisp
