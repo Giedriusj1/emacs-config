@@ -28,10 +28,12 @@
 (defvar package-list
   '(
     all-ext
+    anzu
     auto-highlight-symbol
     bind-key
     company
     dired-toggle-sudo
+    electric-spacing
     flycheck
     google-this
     haskell-mode
@@ -45,6 +47,7 @@
     igrep
     magit
     multi-term
+    paradox
     projectile
     smart-mode-line
     swiper
@@ -252,6 +255,13 @@
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
 
+** anzu
+#+BEGIN_SRC emacs-lisp
+;; Show number of matches in mode-line while searching
+(require 'anzu)
+(global-anzu-mode t)
+#+END_SRC
+
 ** isearch+
 #+BEGIN_SRC emacs-lisp
 (require 'isearch+)
@@ -383,13 +393,23 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** dired
 #+begin_src emacs-lisp
 (require 'dired)
+(require 'dired-extension)
+
 (define-key dired-mode-map (kbd "l") 'dired-up-directory)
 (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
 
 (setq dired-listing-switches "-alFh")
-;;(customize-set-variable 'directory-free-space-args "-Pkh")
 
-(require 'dired-extension)
+
+;; Taken from: https://github.com/aculich/.emacs.d/blob/master/init.el
+  (when (or (memq system-type '(gnu gnu/linux))
+            (string= (file-name-nondirectory insert-directory-program) "gls"))
+    ;; If we are on a GNU system or have GNU ls, add some more `ls' switches:
+    ;; `--group-directories-first' lists directories before files, and `-v'
+    ;; sorts numbers in file names naturally, i.e. "image1" goes before
+    ;; "image02"
+    (setq dired-listing-switches
+(concat dired-listing-switches " --group-directories-first -v")))
 
 
 (defun open-in-external-app ()
@@ -512,16 +532,29 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (setq-default tab-width 4 indent-tabs-mode t)
 #+end_src
 
+*** C/C++ common
+#+begin_src emacs-lisp
+(add-hook 'c-mode-common-hook
+      (lambda()
+		;; Automagically adds spaces between symbols like + > < etc...
+      (electric-spacing-mode t)))
+#+end_src
+
+
 *** Python
 #+begin_src emacs-lisp
-
 (add-hook 'python-mode-hook
       (lambda()
          (setq indent-tabs-mode nil)
          (setq python-indent 4)
-         (setq tab-width 4)
-         )
-      )
+         (setq tab-width 4)))
+#+end_src
+
+*** Scheme
+#+begin_src emacs-lisp
+(add-hook 'scheme-mode-hook
+      (lambda()
+         (setq indent-tabs-mode nil)))
 #+end_src
 
 ** Mode recognition
@@ -735,6 +768,13 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))
 #+end_src
 
+** paradox
+#+BEGIN_SRC emacs-lisp
+(require 'paradox)
+(setq paradox-display-download-count t
+      paradox-display-star-count t
+      paradox-automatically-star nil)
+#+END_SRC
 ** quick open hydra
 #+BEGIN_SRC emacs-lisp
 
@@ -777,11 +817,12 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (defalias 'describe-bindings 'helm-descbinds)
 
 (defalias 'rel 'reload-emacs-config)
-(defalias 'lp 'list-packages)
+(defalias 'lp 'paradox-list-packages)
 (defalias 'hlp 'helm-list-elisp-packages-no-fetch)
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
 (defalias 'obr 'org-babel-reload-emacs-org)
 
 (message "emacs.org : done loading!")
+
 #+end_src
