@@ -442,11 +442,14 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 (require 'company)
 (global-company-mode t)
 
+(add-to-list 'company-backends '(company-dabbrev))
+
 (define-key company-active-map (kbd "C-n") #'company-select-next)
 (define-key company-active-map (kbd "C-p") #'company-select-previous)
 
 (define-key control-semi-map (kbd "n") 'company-complete)
 (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
+
 #+end_src
 
 ** ORG mode
@@ -634,8 +637,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   ("l" magit-log "log")
   ("d" magit-diff-dwim "diff-dwim")
   ("D" magit-diff "diff-dwim")
-
-  ("q" nil "quit")
   )
 
 #+end_src
