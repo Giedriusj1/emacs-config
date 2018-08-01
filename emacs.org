@@ -258,7 +258,6 @@
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
 
-
 ** anzu
 #+BEGIN_SRC emacs-lisp
 ;; Show number of matches in mode-line while searching
@@ -809,13 +808,11 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 #+END_SRC
 
-
 ** diminish
 #+begin_src emacs-lisp
 (require 'diminish)
 (diminish 'anzu-mode)
 #+end_src
-
 
 * ALIAS
 #+begin_src emacs-lisp
