@@ -240,12 +240,6 @@
 #+begin_src emacs-lisp
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
-
-(define-key tab-map (kbd "m") 'hydra-magit/body)
-(define-key tab-map (kbd "p") 'hydra-projectile/body)
-(define-key tab-map (kbd "t") 'hydra-treemacs/body)
-(define-key tab-map (kbd ";") 'hydra-quickopen/body)
-
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
 
@@ -264,6 +258,19 @@
 ** hydra
 #+BEGIN_SRC emacs-lisp
 (require 'hydra)
+
+(defun spawn-local-mode-hydra ()
+  (interactive)
+  (cond
+   (( string= "org-mode" major-mode)
+    (hydra-tab-org/body))
+   (t (message "Argh...hydra for your current mode does not exist :("))))
+
+(define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
+(define-key tab-map (kbd "m") 'hydra-magit/body)
+(define-key tab-map (kbd "p") 'hydra-projectile/body)
+(define-key tab-map (kbd "t") 'hydra-treemacs/body)
+(define-key tab-map (kbd ";") 'hydra-quickopen/body)
 #+END_SRC
 
 ** projectile
@@ -445,11 +452,11 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
 (define-key tab-map (kbd "o") 'hydra-tab-org/body)
-
 (defhydra hydra-tab-org (:color blue)
   "
-  [_o_]   metaright  [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
-  [_C-o_] shiftright [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
+ [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
+ [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
+ [_e_]   edit source [_s_] exit source edit buffer
   "
 
   ( "o" org-metaright nil)
@@ -462,8 +469,8 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   ( "C-p" org-shiftup nil)
   ( "C-n" org-shiftdown nil)
 
-  ( "e" org-edit-src-code "edit source")
-  ( "s" org-edit-src-exit "exit source edit buffer")
+  ( "e" org-edit-src-code nil)
+  ( "s" org-edit-src-exit nil)
   )
 
 (setq org-src-fontify-natively t)
