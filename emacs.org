@@ -13,8 +13,8 @@
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-             ("marmalade" . "http://marmalade-repo.org/packages/")
-             ("melpa" . "http://melpa.milkbox.net/packages/")))
+                         ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 ;; not needed since emacs 27
 (when (not package--initialized) (package-initialize) )
@@ -84,17 +84,17 @@
 (customize-set-variable 'tool-bar-mode nil)
 
 (if (display-graphic-p)
-	(progn
+    (progn
 
-	  (custom-set-variables
-	   '(custom-enabled-themes (quote (wombat)))
-	   '(custom-safe-themes
-		 (quote
-		  ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
-		   "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
-	   )
+      (custom-set-variables
+       '(custom-enabled-themes (quote (wombat)))
+       '(custom-safe-themes
+         (quote
+          ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
+           "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+       )
 
-	  (custom-set-faces
+      (custom-set-faces
        '(default ((t (:background "#101515"))))
        '(cursor ((t (:background "OrangeRed"))))
        '(mode-line-inactive ((t (:background "#101010"))))
@@ -102,36 +102,36 @@
        '(hl-line ((t (:inherit nil :background "#222222"))))
        '(minibuffer-prompt ((t (:foreground "#ff584d"))))
 
-	   ;; Make some default wombat colours a bit more lively
+       ;; Make some default wombat colours a bit more lively
        '(font-lock-builtin-face ((((class color) (min-colors 89)) (:foreground "#ff685d"))))
        '(font-lock-constant-face ((((class color) (min-colors 89)) (:foreground "#ff685d"))))
 
-	   ;; Some default helm faces are quite ugly... let's fix em up.
+       ;; Some default helm faces are quite ugly... let's fix em up.
        '(helm-selection ((t (:background "grey24" :distant-foreground "black"))))
        '(helm-buffer-directory ((t (:weight bold :foreground "LightSlateBlue" :distant-foreground "black"))))
        '(helm-ff-directory ((t :inherit helm-buffer-directory )))
        '(helm-source-header ((t (:background "#450a6b" :foreground "#dddddd" :weight bold :height 1.3 :family "Sans Serif"))))
 
-	   )
+       )
 
-	  (cond
-	   ((string-equal system-type "windows-nt")
-		(cond
-		 ((member "ProggyClean" (font-family-list))
-		  (set-frame-font "ProggyClean"))
+      (cond
+       ((string-equal system-type "windows-nt")
+        (cond
+         ((member "ProggyClean" (font-family-list))
+          (set-frame-font "ProggyClean"))
 
-		 ((member "Consolas-10" (font-family-list))
-		  (set-frame-font "Consolas-10")))
-		)
+         ((member "Consolas-10" (font-family-list))
+          (set-frame-font "Consolas-10")))
+        )
 
-	   ((string-equal system-type "gnu/linux")
-		(set-frame-font "Monospace-10"))
-	   )
+       ((string-equal system-type "gnu/linux")
+        (set-frame-font "Monospace-10"))
+       )
 
        (global-hl-line-mode t)
        (sml/setup)
 
-	  ))
+      ))
 #+END_SRC
 
 ** Buffer names
@@ -152,17 +152,12 @@
 ** Keyboard
 *** maps
 #+begin_src emacs-lisp
-(define-prefix-command 'alt-semi-map)
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
-(define-prefix-command 'tab-org-map)
 
 (require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
 (bind-key* "<tab>" 'tab-map)
-(bind-key* "C-;" 'control-semi-map)
-
-(define-key tab-map (kbd "o") 'tab-org-map)
 #+end_src
 
 *** global map
@@ -179,7 +174,6 @@
 (global-set-key (kbd "M-p") 'backward-paragraph)
 (global-set-key (kbd "M-n") 'forward-paragraph)
 
-(bind-key* "C-M-w" 'kill-region)
 
 (bind-key* "M-," 'backward-kill-word)
 (bind-key* "M-." 'kill-word)
@@ -214,10 +208,8 @@
 #+begin_src emacs-lisp
 (define-key ctl-x-map "\C-f" 'helm-find-files)
 (define-key ctl-x-map "\C-d" (lambda ()
-                             (interactive)
-                             (dired default-directory)
-))
-
+                               (interactive)
+                               (dired default-directory)))
 #+end_src
 *** control-semi-map
 #+begin_src emacs-lisp
@@ -254,7 +246,6 @@
 (define-key tab-map (kbd "t") 'hydra-treemacs/body)
 (define-key tab-map (kbd ";") 'hydra-quickopen/body)
 
-
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
 
@@ -283,17 +274,17 @@
 (defun helm-projectile-projects ()
   (interactive)
   (let ((helm-ff-transformer-show-only-basename nil))
-      (helm :sources '(helm-source-projectile-projects)
-            :buffer "*helm projectile projects*"
-            :truncate-lines helm-projectile-truncate-lines)))
+    (helm :sources '(helm-source-projectile-projects)
+          :buffer "*helm projectile projects*"
+          :truncate-lines helm-projectile-truncate-lines)))
 
 (defhydra hydra-projectile (:color blue)
-    "projectile"
-    ("m" helm-projectile-grep "grep")
-    ("j" helm-projectile "helm files")
-    ("d" projectile-dired "dired")
-    ("p" helm-projectile-projects "projects")
-)
+  "projectile"
+  ("m" helm-projectile-grep "grep")
+  ("j" helm-projectile "helm files")
+  ("d" projectile-dired "dired")
+  ("p" helm-projectile-projects "projects")
+  )
 #+END_SRC
 
 ** cua-mode
@@ -404,14 +395,14 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 
 ;; Taken from: https://github.com/aculich/.emacs.d/blob/master/init.el
-  (when (or (memq system-type '(gnu gnu/linux))
-            (string= (file-name-nondirectory insert-directory-program) "gls"))
-    ;; If we are on a GNU system or have GNU ls, add some more `ls' switches:
-    ;; `--group-directories-first' lists directories before files, and `-v'
-    ;; sorts numbers in file names naturally, i.e. "image1" goes before
-    ;; "image02"
-    (setq dired-listing-switches
-(concat dired-listing-switches " --group-directories-first -v")))
+(when (or (memq system-type '(gnu gnu/linux))
+          (string= (file-name-nondirectory insert-directory-program) "gls"))
+  ;; If we are on a GNU system or have GNU ls, add some more `ls' switches:
+  ;; `--group-directories-first' lists directories before files, and `-v'
+  ;; sorts numbers in file names naturally, i.e. "image1" goes before
+  ;; "image02"
+  (setq dired-listing-switches
+        (concat dired-listing-switches " --group-directories-first -v")))
 
 
 (defun open-in-external-app ()
@@ -453,17 +444,27 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
-(define-key tab-org-map (kbd "o") 'org-metaright)
-(define-key tab-org-map (kbd "u") 'org-metaleft)
-(define-key tab-org-map (kbd "p") 'org-metaup)
-(define-key tab-org-map (kbd "n") 'org-metadown)
+(define-key tab-map (kbd "o") 'hydra-tab-org/body)
 
-(define-key tab-org-map (kbd "C-o") 'org-shiftright)
-(define-key tab-org-map (kbd "C-u") 'org-shiftleft)
-(define-key tab-org-map (kbd "C-p") 'org-shiftup)
-(define-key tab-org-map (kbd "C-n") 'org-shiftdown)
+(defhydra hydra-tab-org (:color blue)
+  "
+  [_o_]   metaright  [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
+  [_C-o_] shiftright [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
+  "
 
-(define-key tab-org-map (kbd "e") 'org-export-dispatch)
+  ( "o" org-metaright nil)
+  ( "u" org-metaleft nil)
+  ( "p" org-metaup nil)
+  ( "n" org-metadown nil)
+
+  ( "C-o" org-shiftright nil)
+  ( "C-u" org-shiftleft nil)
+  ( "C-p" org-shiftup nil)
+  ( "C-n" org-shiftdown nil)
+
+  ( "e" org-edit-src-code "edit source")
+  ( "s" org-edit-src-exit "exit source edit buffer")
+  )
 
 (setq org-src-fontify-natively t)
 (setq org-src-preserve-indentation t)
@@ -518,10 +519,10 @@ Recognized window header names are: 'comint, 'locals, 'registers,
       version-control t)       ; use versioned backups
 
 (defun my-create-non-existent-directory ()
-      (let ((parent-directory (file-name-directory buffer-file-name)))
-        (when (and (not (file-exists-p parent-directory))
-                   (y-or-n-p (format "Directory `%s' does not exist! Create it?" parent-directory)))
-          (make-directory parent-directory t))))
+  (let ((parent-directory (file-name-directory buffer-file-name)))
+    (when (and (not (file-exists-p parent-directory))
+               (y-or-n-p (format "Directory `%s' does not exist! Create it?" parent-directory)))
+      (make-directory parent-directory t))))
 
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
@@ -538,7 +539,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 (add-hook 'c-mode-common-hook
       (lambda()
-		;; Automagically adds spaces between symbols like + > < etc...
+        ;; Automagically adds spaces between symbols like + > < etc...
       (electric-spacing-mode t)))
 #+end_src
 
@@ -562,25 +563,25 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 #+begin_src emacs-lisp
 (setq auto-mode-alist
       '(
-    ("\\.org$" . org-mode)
-    ("\\.org.gpg$" . org-mode)
-    ("\\.ref$" . org-mode)
-    ("\\.ref.gpg$" . org-mode)
-    ("\\.notes$" . org-mode)
-    ("\\.pdf\\'" . doc-view-mode)
+        ("\\.org$" . org-mode)
+        ("\\.org.gpg$" . org-mode)
+        ("\\.ref$" . org-mode)
+        ("\\.ref.gpg$" . org-mode)
+        ("\\.notes$" . org-mode)
+        ("\\.pdf\\'" . doc-view-mode)
 
-    ;;programming modes
-    ("\\.hs$" . haskell-mode)
-    ("\\.py\\'" . python-mode)
-    ("\\.c\\'" . c-mode)
-    ("\\.cpp\\'" . c++-mode)
-    ("\\.h\\'" . c++-mode)
-    ("\\.java\\'" . java-mode)
-    ("\\.s\\'" . c++-mode)
-    ("\\.mc\\'" . c++-mode)
-    ("\\.el\\'" . emacs-lisp-mode)
-    ("\\.scm\\'" . scheme-mode)
-    ))
+        ;;programming modes
+        ("\\.hs$" . haskell-mode)
+        ("\\.py\\'" . python-mode)
+        ("\\.c\\'" . c-mode)
+        ("\\.cpp\\'" . c++-mode)
+        ("\\.h\\'" . c++-mode)
+        ("\\.java\\'" . java-mode)
+        ("\\.s\\'" . c++-mode)
+        ("\\.mc\\'" . c++-mode)
+        ("\\.el\\'" . emacs-lisp-mode)
+        ("\\.scm\\'" . scheme-mode)
+        ))
 #+end_src
 
 ** yas
@@ -618,17 +619,17 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 ** magit
 #+begin_src emacs-lisp
 (defhydra hydra-magit (:color blue)
-    "magit"
-     ("m" magit-status "status")
-     ("p" magit-pull "pull")
-     ("P" magit-push "push")
-     ("c" magit-commit "commit")
-     ("l" magit-log "log")
-     ("d" magit-diff-dwim "diff-dwim")
-     ("D" magit-diff "diff-dwim")
+  "magit"
+  ("m" magit-status "status")
+  ("p" magit-pull "pull")
+  ("P" magit-push "push")
+  ("c" magit-commit "commit")
+  ("l" magit-log "log")
+  ("d" magit-diff-dwim "diff-dwim")
+  ("D" magit-diff "diff-dwim")
 
-     ("q" nil "quit")
-)
+  ("q" nil "quit")
+  )
 
 #+end_src
 ** swift
@@ -637,17 +638,17 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   '((((background dark)) (:background "#202525" :foreground "black"))
     (t (:background "pink")))
   "Face for hi-lock mode."
-)
+  )
 
 (defun hl ()
-(interactive)
-(highlight-regexp "^[ \t]+" 'hi-space)
-)
+  (interactive)
+  (highlight-regexp "^[ \t]+" 'hi-space)
+  )
 
 (defun un-hl()
-(interactive)
-(unhighlight-regexp "^[ \t]+")
-)
+  (interactive)
+  (unhighlight-regexp "^[ \t]+")
+  )
 
 
 (defun swift-up()
@@ -666,7 +667,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (defvar swift-command-map
   (let ((map (make-keymap)))
-	;; movement
+    ;; movement
     (define-key map (kbd "i") 'swift-up)
     (define-key map (kbd "k") 'swift-down)
     (define-key map (kbd "p") 'beginning-of-defun)
@@ -675,7 +676,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (define-key map (kbd "u") 'cua-scroll-down)
     (define-key map (kbd "j") 'cua-scroll-up)
 
-	;; cua mode
+    ;; cua mode
     (define-key map (kbd "C-z") 'toggle-swift-mode)
     (define-key map (kbd "C-x") 'kill-region)
     (define-key map (kbd "C-c") 'kill-ring-save)
