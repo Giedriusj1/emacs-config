@@ -269,7 +269,6 @@
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
 (define-key tab-map (kbd "m") 'hydra-magit/body)
 (define-key tab-map (kbd "p") 'hydra-projectile/body)
-(define-key tab-map (kbd "t") 'hydra-treemacs/body)
 (define-key tab-map (kbd ";") 'hydra-quickopen/body)
 #+END_SRC
 
