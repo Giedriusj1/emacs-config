@@ -241,6 +241,7 @@
 *** tab map
 #+begin_src emacs-lisp
 (define-key tab-map (kbd "TAB") 'comment-dwim)
+(define-key tab-map (kbd "M-;") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
 (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
