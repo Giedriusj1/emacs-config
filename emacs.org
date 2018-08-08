@@ -158,6 +158,8 @@
 (require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
 (bind-key* "<tab>" 'tab-map)
+(bind-key* "M-;" 'tab-map)
+
 #+end_src
 
 *** global map
@@ -278,10 +280,36 @@
 (require 'helm-projectile)
 (projectile-global-mode t)
 
+(defcustom helm-source-projectile-projects-actions2
+  (helm-make-actions
+   "Open Dired in project's directory `C-d'" #'dired
+   "Switch to project" (lambda (project)
+                         (let ((projectile-completion-system 'helm))
+                           (projectile-switch-project-by-name project)))
+   "Open project root in vc-dir or magit `M-g'" #'helm-projectile-vc
+   "Switch to Eshell `M-e'" #'helm-projectile-switch-to-eshell
+   "Grep in projects `C-s'" #'helm-projectile-grep
+   "Compile project `M-c'. With C-u, new compile command" #'helm-projectile-compile-project
+   "Remove project(s) from project list `M-D'" #'helm-projectile-remove-known-project)
+  "Actions for `helm-source-projectile-projects'."
+  :group 'helm-projectile
+  :type '(alist :key-type string :value-type function))
+
+(defvar helm-source-projectile-projects2
+  (helm-build-sync-source "Projectile projects"
+    :candidates (lambda () (with-helm-current-buffer projectile-known-projects))
+    :fuzzy-match helm-projectile-fuzzy-match
+    :keymap helm-projectile-projects-map
+    :mode-line helm-read-file-name-mode-line-string
+    :action 'helm-source-projectile-projects-actions2)
+  "Helm source for known projectile projects.")
+
+
+
 (defun helm-projectile-projects ()
   (interactive)
   (let ((helm-ff-transformer-show-only-basename nil))
-    (helm :sources '(helm-source-projectile-projects)
+    (helm :sources '(helm-source-projectile-projects2)
           :buffer "*helm projectile projects*"
           :truncate-lines helm-projectile-truncate-lines)))
 
@@ -392,48 +420,47 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 ** dired
 #+begin_src emacs-lisp
-(require 'dired)
-(require 'dired-extension)
+  (require 'dired)
+  (require 'dired-extension)
 
-(define-key dired-mode-map (kbd "l") 'dired-up-directory)
-(define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
+  (define-key dired-mode-map (kbd "l") 'dired-up-directory)
+  (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
 
-(setq dired-listing-switches "-alFh")
+  (setq dired-listing-switches "-alFh")
+
+  ;; Taken from: https://github.com/aculich/.emacs.d/blob/master/init.el
+  (when (or (memq system-type '(gnu gnu/linux))
+	    (string= (file-name-nondirectory insert-directory-program) "gls"))
+    ;; If we are on a GNU system or have GNU ls, add some more `ls' switches:
+    ;; `--group-directories-first' lists directories before files, and `-v'
+    ;; sorts numbers in file names naturally, i.e. "image1" goes before
+    ;; "image02"
+    (setq dired-listing-switches
+	  (concat dired-listing-switches " --group-directories-first -v")))
 
 
-;; Taken from: https://github.com/aculich/.emacs.d/blob/master/init.el
-(when (or (memq system-type '(gnu gnu/linux))
-          (string= (file-name-nondirectory insert-directory-program) "gls"))
-  ;; If we are on a GNU system or have GNU ls, add some more `ls' switches:
-  ;; `--group-directories-first' lists directories before files, and `-v'
-  ;; sorts numbers in file names naturally, i.e. "image1" goes before
-  ;; "image02"
-  (setq dired-listing-switches
-        (concat dired-listing-switches " --group-directories-first -v")))
+  (defun open-in-external-app ()
+    "Open the current file or dired marked files in external app."
+    (interactive)
+    (let ( doIt
+	   (myFileList
+	    (cond
+	     ((string-equal major-mode "dired-mode") (dired-get-marked-files))
+	     (t (list (buffer-file-name))) ) ) )
 
+      (setq doIt (if (<= (length myFileList) 5)
+		     t
+		   (y-or-n-p "Open more than 5 files?") ) )
 
-(defun open-in-external-app ()
-  "Open the current file or dired marked files in external app."
-  (interactive)
-  (let ( doIt
-         (myFileList
-          (cond
-           ((string-equal major-mode "dired-mode") (dired-get-marked-files))
-           (t (list (buffer-file-name))) ) ) )
-
-    (setq doIt (if (<= (length myFileList) 5)
-                   t
-                 (y-or-n-p "Open more than 5 files?") ) )
-
-    (when doIt
-      (cond
-       ((string-equal system-type "windows-nt")
-        (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList)
-        )
-       ((string-equal system-type "darwin")
-        (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
-       ((string-equal system-type "gnu/linux")
-        (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
+      (when doIt
+	(cond
+	 ((string-equal system-type "windows-nt")
+	  (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList)
+	  )
+	 ((string-equal system-type "darwin")
+	  (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
+	 ((string-equal system-type "gnu/linux")
+	  (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
 
 #+end_src
 
@@ -621,8 +648,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 (define-key control-semi-map (kbd "C-m") 'helm-swoop)
 (define-key control-semi-map (kbd "m") 'helm-multi-swoop-all)
-
-(define-key control-semi-map (kbd "C-a") 'helm-find-files)
 
 (require 'all-ext) ;; C-c C-a jumps to all from helm-occur
 #+end_src
