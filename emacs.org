@@ -267,6 +267,8 @@
   (cond
    (( string= "org-mode" major-mode)
     (hydra-tab-org/body))
+   (( string= "c-mode" major-mode)
+    (hydra-c/body))
    (t (message "Argh...hydra for your current mode does not exist :("))))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
@@ -574,10 +576,15 @@ Recognized window header names are: 'comint, 'locals, 'registers,
 
 *** C/C++ common
 #+begin_src emacs-lisp
+
+(defhydra hydra-c (:color blue)
+  ( "j" helm-yas-complete "helm yas complete")
+  )
+
 (add-hook 'c-mode-common-hook
-      (lambda()
-        ;; Automagically adds spaces between symbols like + > < etc...
-      (electric-spacing-mode t)))
+		  (lambda()
+			;; Automagically adds spaces between symbols like + > < etc...
+			(electric-spacing-mode t)))
 #+end_src
 
 *** Python
