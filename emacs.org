@@ -269,6 +269,8 @@
     (hydra-tab-org/body))
    (( string= "c-mode" major-mode)
     (hydra-c/body))
+   (( string= "c++-mode" major-mode)
+    (hydra-c/body))
    (t (message "Argh...hydra for your current mode does not exist :("))))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
