@@ -83,17 +83,18 @@
 (customize-set-variable 'menu-bar-mode nil)
 (customize-set-variable 'tool-bar-mode nil)
 
+(custom-set-variables
+ '(custom-enabled-themes (quote (wombat)))
+ '(custom-safe-themes
+   (quote
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
+     "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
+ )
+
+;; Terminal displays are often not happy about certain colours, so we only set them if we are running
+;; within a graphic display environment
 (if (display-graphic-p)
     (progn
-
-      (custom-set-variables
-       '(custom-enabled-themes (quote (wombat)))
-       '(custom-safe-themes
-         (quote
-          ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
-           "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
-       )
-
       (custom-set-faces
        '(default ((t (:background "#101515"))))
        '(cursor ((t (:background "OrangeRed"))))
@@ -111,7 +112,6 @@
        '(helm-buffer-directory ((t (:weight bold :foreground "LightSlateBlue" :distant-foreground "black"))))
        '(helm-ff-directory ((t :inherit helm-buffer-directory )))
        '(helm-source-header ((t (:background "#450a6b" :foreground "#dddddd" :weight bold :height 1.3 :family "Sans Serif"))))
-
        )
 
       (cond
@@ -119,19 +119,17 @@
         (cond
          ((member "ProggyClean" (font-family-list))
           (set-frame-font "ProggyClean"))
-
          ((member "Consolas-10" (font-family-list))
-          (set-frame-font "Consolas-10")))
-        )
-
+          (set-frame-font "Consolas-10"))))
        ((string-equal system-type "gnu/linux")
-        (set-frame-font "Monospace-10"))
-       )
+        (set-frame-font "Monospace-10")))
 
-       (global-hl-line-mode t)
-       (sml/setup)
 
       ))
+
+(global-hl-line-mode t)
+(sml/setup)
+
 #+END_SRC
 
 ** Buffer names
