@@ -703,6 +703,23 @@ Recognized window header names are: 'comint, 'locals, 'registers,
   (next-line)
   )
 
+(defun swift-2-up()
+  (interactive)
+  (scroll-down-line)
+  (previous-line)
+  (scroll-down-line)
+  (previous-line)
+  )
+
+(defun swift-2-down()
+  (interactive)
+  (scroll-up-line)
+  (next-line)
+  (scroll-up-line)
+  (next-line)
+  )
+
+
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
 
 (defvar swift-command-map
@@ -712,6 +729,9 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (define-key map (kbd "k") 'swift-down)
     (define-key map (kbd "p") 'beginning-of-defun)
     (define-key map (kbd "n") 'end-of-defun)
+
+    (define-key map (kbd "o") 'swift-2-up)
+    (define-key map (kbd "l") 'swift-2-down)
 
     (define-key map (kbd "u") 'cua-scroll-down)
     (define-key map (kbd "j") 'cua-scroll-up)
@@ -729,7 +749,7 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (define-key map (kbd "t") 'toggle-swift-mode)
     (define-key map (kbd "y") 'toggle-swift-mode)
 
-    (define-key map (kbd "o") 'toggle-swift-mode)
+
     (define-key map (kbd "[") 'toggle-swift-mode)
     (define-key map (kbd "]") 'toggle-swift-mode)
     (define-key map (kbd "a") 'toggle-swift-mode)
@@ -739,7 +759,6 @@ Recognized window header names are: 'comint, 'locals, 'registers,
     (define-key map (kbd "g") 'toggle-swift-mode)
     (define-key map (kbd "h") 'toggle-swift-mode)
 
-    (define-key map (kbd "l") 'toggle-swift-mode)
     (define-key map (kbd ";") 'toggle-swift-mode)
     (define-key map (kbd "'") 'toggle-swift-mode)
     (define-key map (kbd "#") 'toggle-swift-mode)
