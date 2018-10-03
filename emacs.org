@@ -269,6 +269,8 @@
     (hydra-c/body))
    (( string= "c++-mode" major-mode)
     (hydra-c/body))
+   (( string= "python-mode" major-mode)
+    (hydra-python/body))
    (t (message "Argh...hydra for your current mode does not exist :("))))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
@@ -594,6 +596,11 @@ Recognized window header names are: 'comint, 'locals, 'registers,
          (setq indent-tabs-mode nil)
          (setq python-indent 4)
          (setq tab-width 4)))
+
+(defhydra hydra-python (:color blue)
+  ( "j" helm-yas-complete "helm yas complete")
+  )
+
 #+end_src
 
 *** Scheme
