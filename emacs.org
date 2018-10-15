@@ -514,7 +514,8 @@
 #+begin_src emacs-lisp
 
 (defhydra hydra-c (:color blue)
-  ( "j" helm-yas-complete "helm yas complete")
+  ( "j" helm-etags-select "helm etags select")
+  ( "c" helm-yas-complete "helm yas complete")
   )
 
 (add-hook 'c-mode-common-hook
@@ -532,7 +533,8 @@
          (setq tab-width 4)))
 
 (defhydra hydra-python (:color blue)
-  ( "j" helm-yas-complete "helm yas complete")
+  ( "j" helm-etags-select "helm etags select")
+  ( "c" helm-yas-complete "helm yas complete")
   )
 
 #+end_src
