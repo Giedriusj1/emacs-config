@@ -198,6 +198,7 @@
 (bind-key* "C-M-u" 'backward-sexp)
 (bind-key* "C-M-o" 'forward-sexp)
 
+(bind-key* "C-d" 'Control-X-prefix)
 (bind-key* "C-a" 'Control-X-prefix)
 
 (bind-key* "C-q" 'beginning-of-line)
