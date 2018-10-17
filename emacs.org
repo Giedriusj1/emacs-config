@@ -27,13 +27,8 @@
 
 (defvar package-list
   '(
-    auto-highlight-symbol
     bind-key
     company
-    dired-toggle-sudo
-    electric-spacing
-    ;; flycheck
-    google-this
     haskell-mode
     helm
     helm-c-yasnippet
@@ -41,10 +36,8 @@
     helm-projectile
     helm-swoop
     hydra
-    iasm-mode
     key-chord ;; Currently only used when dealing with terminals.
     magit
-    multi-term
     paradox
     projectile
     smart-mode-line
@@ -241,7 +234,6 @@
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "M-;") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
-;; (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
 
 ** anzu
@@ -481,6 +473,9 @@
 (global-auto-highlight-symbol-mode 1)
 (delete-selection-mode 1)
 (show-paren-mode t)
+
+;; Semantic currently fails to populate imenu when editing certain .c files (ahem, linux kernel).
+;; I should probably investigate why that fails.
 ;;(semantic-mode t)
 
 (which-function-mode 1)
