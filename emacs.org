@@ -45,6 +45,7 @@
     hydra
     iasm-mode
     igrep
+    key-chord ;; Currently only used when dealing with terminals.
     magit
     multi-term
     paradox
@@ -155,9 +156,17 @@
 
 (require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
+
+(if (display-graphic-p)
+    ()
+    (progn
+    (require 'key-chord)
+    (key-chord-mode 1)
+    (key-chord-define-global ";;" 'control-semi-map)
+))
+
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
-
 #+end_src
 
 *** global map
@@ -217,18 +226,12 @@
 (define-key control-semi-map (kbd "SPC") 'point-to-register)
 (define-key control-semi-map (kbd "C-SPC") 'point-to-register)
 (define-key control-semi-map (kbd "j") 'jump-to-register)
-(define-key control-semi-map (kbd "C-j") 'jump-to-register)
 (define-key control-semi-map (kbd "h") 'highlight-phrase)
-(define-key control-semi-map (kbd "C-h") 'highlight-phrase)
-(define-key control-semi-map (kbd "M-h") 'highlight-phrase)
-(define-key control-semi-map (kbd "C-M-h") 'highlight-phrase)
-(define-key control-semi-map (kbd "C-w") 'window-configuration-to-register)
-
 (define-key control-semi-map (kbd "q") 'goto-line)
+
+(define-key control-semi-map (kbd "C-j") 'jump-to-register)
 (define-key control-semi-map (kbd "C-q") 'goto-line)
-
 (define-key control-semi-map (kbd "C-l") 'execute-extended-command)
-
 (define-key control-semi-map (kbd "C-1") 'zygospore-toggle-delete-other-windows)
 (define-key control-semi-map (kbd "C-2") 'split-window-below)
 (define-key control-semi-map (kbd "C-3") 'split-window-right)
@@ -579,6 +582,9 @@
 #+END_SRC
 ** Helm
 #+begin_src emacs-lisp
+(require 'helm-xref)
+(setq xref-show-xrefs-function 'helm-xref-show-xrefs)
+
 (require 'helm-config)
 
 (global-set-key (kbd "C-j") 'helm-mini)
@@ -839,4 +845,6 @@
 (defalias 'obr 'org-babel-reload-emacs-org)
 
 (message "emacs.org : done loading!")
+
+
 #+end_src
