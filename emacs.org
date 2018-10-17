@@ -345,6 +345,8 @@
 
 ** windmove + frame selection
 #+begin_src emacs-lisp
+(require 'zygospore)
+
 (setq windmove-wrap-around t )
 (bind-key* "C-1" 'window-swap-states)
 (bind-key* "C-2" 'windmove-up)
@@ -470,7 +472,7 @@
 
 ;; We'll ask emacs to put all customizations made via it's customize package in a
 ;; separate file... so we can ignore it later :)
-(setq custom-file (concat user-emacs-directory "/custom.el"))
+(setq custom-file (concat user-emacs-directory "/custom--ignored.el"))
 
 ;; Let's garbage collect when focusing out of the window.
 (add-hook 'focus-out-hook #'garbage-collect)
@@ -479,7 +481,7 @@
 (global-auto-highlight-symbol-mode 1)
 (delete-selection-mode 1)
 (show-paren-mode t)
-;; (semantic-mode t)
+;;(semantic-mode t)
 
 (which-function-mode 1)
 (custom-set-faces '(which-func ((t (:foreground "LightSlateBlue")))))
@@ -580,9 +582,6 @@
 #+END_SRC
 ** Helm
 #+begin_src emacs-lisp
-(require 'helm-xref)
-(setq xref-show-xrefs-function 'helm-xref-show-xrefs)
-
 (require 'helm-config)
 
 (global-set-key (kbd "C-j") 'helm-mini)
@@ -603,8 +602,6 @@
 
 (define-key control-semi-map (kbd "C-m") 'helm-swoop)
 (define-key control-semi-map (kbd "m") 'helm-multi-swoop-all)
-
-(require 'all-ext) ;; C-c C-a jumps to all from helm-occur
 #+end_src
 ** magit
 #+begin_src emacs-lisp
@@ -843,6 +840,4 @@
 (defalias 'obr 'org-babel-reload-emacs-org)
 
 (message "emacs.org : done loading!")
-
-
 #+end_src
