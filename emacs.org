@@ -27,14 +27,12 @@
 
 (defvar package-list
   '(
-    all-ext
-    anzu
     auto-highlight-symbol
     bind-key
     company
     dired-toggle-sudo
     electric-spacing
-    flycheck
+    ;; flycheck
     google-this
     haskell-mode
     helm
@@ -44,7 +42,6 @@
     helm-swoop
     hydra
     iasm-mode
-    igrep
     key-chord ;; Currently only used when dealing with terminals.
     magit
     multi-term
@@ -55,7 +52,6 @@
     swiper-helm
     yasnippet
     yasnippet-snippets
-    zygospore
     )
 )
 
@@ -245,7 +241,7 @@
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "M-;") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
-(define-key tab-map (kbd "f") 'flyspell-mode)
+;; (define-key tab-map (kbd "f") 'flyspell-mode)
 #+end_src
 
 ** anzu
@@ -347,12 +343,14 @@
 (setq recentf-max-saved-items 100)
 #+end_src
 
-** windmove
+** windmove + frame selection
 #+begin_src emacs-lisp
 (setq windmove-wrap-around t )
 (bind-key* "C-1" 'window-swap-states)
 (bind-key* "C-2" 'windmove-up)
 (bind-key* "C-3" 'windmove-right)
+
+(bind-key* "C-5" 'other-frame)
 #+end_src
 
 ** shell
