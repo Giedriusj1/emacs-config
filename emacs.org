@@ -516,7 +516,6 @@
 
 *** C/C++ common
 #+begin_src emacs-lisp
-
 (defhydra hydra-c (:color blue)
   ( "j" helm-etags-select "helm etags select")
   ( "c" helm-yas-complete "helm yas complete")
@@ -549,7 +548,14 @@
       (lambda()
          (setq indent-tabs-mode nil)))
 #+end_src
+** gdb
+#+begin_src emacs-lisp
+(define-key tab-map (kbd "h") 'hydra-gdb-helper/body)
 
+(defhydra hydra-gdb-helper (:color blue)
+  ( "j" gdb-restore-windows "restore gdb windows")
+  )
+#+end_src
 ** Mode recognition
 #+begin_src emacs-lisp
 (setq auto-mode-alist
