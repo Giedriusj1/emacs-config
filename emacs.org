@@ -362,6 +362,8 @@
   (require 'dired)
   (require 'dired-extension)
 
+  (setq dired-dwim-target t)
+
   (define-key dired-mode-map (kbd "l") 'dired-up-directory)
   (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
 
