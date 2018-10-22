@@ -475,6 +475,7 @@
 (add-hook 'focus-out-hook #'garbage-collect)
 
 (blink-cursor-mode -1)
+(require 'auto-highlight-symbol)
 (global-auto-highlight-symbol-mode 1)
 (delete-selection-mode 1)
 (show-paren-mode t)
