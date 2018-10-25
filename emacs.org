@@ -27,7 +27,6 @@
 
 (defvar package-list
   '(
-    bind-key
     company
     haskell-mode
     helm
@@ -316,7 +315,8 @@
 
 (defhydra hydra-projectile (:color blue)
   "projectile"
-  ("m" helm-projectile-grep "grep")
+  ("g" helm-projectile-grep "grep")
+  ("m" helm-projectile-ag "ag")
   ("j" helm-projectile "helm files")
   ("d" projectile-dired "dired")
   ("p" helm-projectile-projects "projects")
