@@ -28,7 +28,7 @@
 (defvar package-list
   '(
     ag
-    company
+    ;; company
     ggtags
     haskell-mode
     helm
@@ -136,7 +136,7 @@
 
 ** fringe
 #+BEGIN_SRC emacs-lisp
-(fringe-mode '(4 . 8)) ;; make left fringe half size
+;; (fringe-mode '(4 . 8)) ;; make left fringe half size
 #+END_SRC
 
 * BEHAVIOUR
@@ -275,6 +275,16 @@
 (define-key tab-map (kbd "m") 'hydra-magit/body)
 (define-key tab-map (kbd "p") 'hydra-projectile/body)
 (define-key tab-map (kbd ";") 'hydra-quickopen/body)
+
+(define-key tab-map (kbd "o") 'hydra-search-helper/body)
+
+(defhydra hydra-search-helper (:color blue)
+ "
+[_o_] find gtag
+ "
+  ("o" ggtags-find-tag-dwim nil)
+  )
+
 #+END_SRC
 
 ** projectile
@@ -409,22 +419,21 @@
 
 ** company
 #+begin_src emacs-lisp
-(require 'company)
-(global-company-mode t)
+;; (require 'company)
+;; (global-company-mode t)
 
-(add-to-list 'company-backends '(company-dabbrev))
+;; (add-to-list 'company-backends '(company-dabbrev))
 
-(define-key company-active-map (kbd "C-n") #'company-select-next)
-(define-key company-active-map (kbd "C-p") #'company-select-previous)
+;; (define-key company-active-map (kbd "C-n") #'company-select-next)
+;; (define-key company-active-map (kbd "C-p") #'company-select-previous)
 
-(define-key control-semi-map (kbd "n") 'company-complete)
-(define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
+;; (define-key control-semi-map (kbd "n") 'company-complete)
+;; (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
 
 #+end_src
 
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
-(define-key tab-map (kbd "o") 'hydra-tab-org/body)
 (defhydra hydra-tab-org (:color blue)
   "
  [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
@@ -522,7 +531,6 @@
 *** C/C++ common
 #+begin_src emacs-lisp
 (defhydra hydra-c (:color blue)
-  ( "j" helm-etags-select "helm etags select")
   ( "c" helm-yas-complete "helm yas complete")
   )
 
@@ -541,7 +549,6 @@
          (setq tab-width 4)))
 
 (defhydra hydra-python (:color blue)
-  ( "j" helm-etags-select "helm etags select")
   ( "c" helm-yas-complete "helm yas complete")
   )
 
