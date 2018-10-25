@@ -29,6 +29,7 @@
   '(
     ag
     company
+    ggtags
     haskell-mode
     helm
     helm-ag
@@ -39,7 +40,6 @@
     hydra
     key-chord ;; Currently only used when dealing with terminals.
     magit
-    paradox
     projectile
     smart-mode-line
     swiper
