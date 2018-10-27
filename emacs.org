@@ -495,7 +495,7 @@
 
 ;; Semantic currently fails to populate imenu when editing certain .c files (ahem, linux kernel).
 ;; I should probably investigate why that fails.
-;;(semantic-mode t)
+(semantic-mode t)
 
 (which-function-mode 1)
 (custom-set-faces '(which-func ((t (:foreground "LightSlateBlue")))))
@@ -606,7 +606,7 @@
 (define-key org-mode-map (kbd "C-j") 'helm-mini)
 (define-key lisp-interaction-mode-map (kbd "C-j") 'helm-mini)
 
-(define-key control-semi-map (kbd "C-s") 'helm-imenu)
+(define-key control-semi-map (kbd "C-s") 'helm-semantic-or-imenu)
 
 (define-key control-semi-map (kbd "l") 'helm-M-x)
 (define-key control-semi-map (kbd "o") 'swiper-helm)
@@ -808,19 +808,35 @@
 (find-file "~/notes/notes.org")
 )
 
+(defun qo-notes-prog-org ()
+(interactive)
+(find-file "~/notes/programming.org")
+)
+
 (defun qo-temp ()
 (interactive)
 (find-file "~/notes/temp")
 )
 
+
+(defhydra hydra-quickopen-notes (:color blue)
+"
+[_n_] ~/notes/notes.org
+[_p_] ~/notes/programming.org
+"
+("n" qo-notes-org nil)
+("p" qo-notes-prog-org nil)
+)
+
+
 (defhydra hydra-quickopen (:color blue)
 "
 [_t_] ~/notes/temp
-[_n_] ~/notes/notes.org
 [_c_] ~/.emacs.d/emacs.org
+[_n_] NOTES
 "
 ("t" qo-temp nil)
-("n" qo-notes-org nil)
+("n" hydra-quickopen-notes/body nil)
 ("c" qo-emacs-org nil)
 )
 
