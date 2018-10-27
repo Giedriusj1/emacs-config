@@ -15,6 +15,6 @@ git config --global user.email "giedriusj1@gmail.com"
 # with images:
 ./configure --without-toolkit-scroll-bars --without-gconf --without-sound --enable-link-time-optimization --without-pop --without-xaw3d --without-gpm --without-gsettings --without-dbus --without-compress-install --without-libsystemd CC=clang CFLAGS='-Ofast -march=native'
 
-make
+make -j 2
 
 sudo make install
