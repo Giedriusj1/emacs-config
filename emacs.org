@@ -864,7 +864,7 @@
 (defalias 'describe-bindings 'helm-descbinds)
 
 (defalias 'rel 'reload-emacs-config)
-(defalias 'lp list-packages)
+(defalias 'lp 'list-packages)
 (defalias 'hlp 'helm-list-elisp-packages-no-fetch)
 (defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
