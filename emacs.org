@@ -161,7 +161,6 @@
 ))
 
 (bind-key* "<tab>" 'tab-map)
-(bind-key* "TAB" 'tab-map)
 (bind-key* "M-;" 'tab-map)
 #+end_src
 
