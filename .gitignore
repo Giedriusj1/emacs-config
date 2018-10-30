@@ -15,3 +15,10 @@ server/
 tramp
 TAGS
 
+recentf
+recentf~
+session.*
+GPATH
+GTAGS
+GRTAGS
+emacs.tex
