@@ -847,6 +847,11 @@
 (require 'diminish)
 (diminish 'anzu-mode)
 #+end_src
+** tags
+#+begin_src emacs-lisp
+;; This should prevent Emacs from asking "Keep current list of tags tables also?"
+(setq tags-add-tables nil)
+#+end_src
 
 * ALIAS
 #+begin_src emacs-lisp
