@@ -28,7 +28,7 @@
 (defvar package-list
   '(
     ag
-    ;; company
+    company
     ggtags
     haskell-mode
     helm
@@ -419,17 +419,16 @@
 
 ** company
 #+begin_src emacs-lisp
-;; (require 'company)
-;; (global-company-mode t)
+(require 'company)
+(global-company-mode t)
 
-;; (add-to-list 'company-backends '(company-dabbrev))
+(add-to-list 'company-backends '(company-dabbrev))
 
-;; (define-key company-active-map (kbd "C-n") #'company-select-next)
-;; (define-key company-active-map (kbd "C-p") #'company-select-previous)
+(define-key company-active-map (kbd "C-n") #'company-select-next)
+(define-key company-active-map (kbd "C-p") #'company-select-previous)
 
-;; (define-key control-semi-map (kbd "n") 'company-complete)
-;; (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
-
+(define-key control-semi-map (kbd "n") 'company-complete)
+(define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
 #+end_src
 
 ** ORG mode
