@@ -422,7 +422,8 @@
 (require 'company)
 (global-company-mode t)
 
-(add-to-list 'company-backends '(company-dabbrev))
+(add-to-list 'company-backends '(company-clang))
+(add-to-list 'company-backends '(company-gtags))
 
 (define-key company-active-map (kbd "C-n") #'company-select-next)
 (define-key company-active-map (kbd "C-p") #'company-select-previous)
