@@ -273,8 +273,11 @@
 
 (defhydra hydra-search-helper (:color blue)
  "
-[_o_] find gtag
+[_q_] update tags        [_o_] find gtag
+[_c_] create gtag
  "
+  ("q" ggtags-update-tags nil)
+  ("c" ggtags-create-tags nil)
   ("o" ggtags-find-tag-dwim nil)
   )
 
