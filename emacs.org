@@ -325,6 +325,7 @@
   ("j" helm-projectile "helm files")
   ("d" projectile-dired "dired")
   ("p" helm-projectile-projects "projects")
+  ("q" projectile-invalidate-cache "invalidate cache")
   )
 #+END_SRC
 
