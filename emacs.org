@@ -283,6 +283,11 @@
 ** projectile
 #+BEGIN_SRC emacs-lisp
 (require 'helm-projectile)
+
+;; Make projectiel use external tools for file indexing.
+;; If this breaks revert to 'native for more reliability.
+(setq projectile-indexing-method 'alien)
+
 (projectile-global-mode t)
 
 (defcustom helm-source-projectile-projects-actions2
