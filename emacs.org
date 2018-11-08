@@ -286,6 +286,11 @@
 ** projectile
 #+BEGIN_SRC emacs-lisp
 (require 'helm-projectile)
+
+;; Make projectiel use external tools for file indexing.
+;; If this breaks revert to 'native for more reliability.
+(setq projectile-indexing-method 'alien)
+
 (projectile-global-mode t)
 
 (defcustom helm-source-projectile-projects-actions2
@@ -328,6 +333,7 @@
   ("j" helm-projectile "helm files")
   ("d" projectile-dired "dired")
   ("p" helm-projectile-projects "projects")
+  ("q" projectile-invalidate-cache "invalidate cache")
   )
 #+END_SRC
 
@@ -848,6 +854,10 @@
 #+begin_src emacs-lisp
 ;; This should prevent Emacs from asking "Keep current list of tags tables also?"
 (setq tags-add-tables nil)
+
+;; Prevent ggtags mode from displaying project name in mode line.
+;; Projectile already displays this information.
+(setq ggtags-mode-line-project-name nil)
 #+end_src
 
 * ALIAS
