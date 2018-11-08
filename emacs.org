@@ -851,6 +851,10 @@
 #+begin_src emacs-lisp
 ;; This should prevent Emacs from asking "Keep current list of tags tables also?"
 (setq tags-add-tables nil)
+
+;; Prevent ggtags mode from displaying project name in mode line.
+;; Projectile already displays this information.
+(setq ggtags-mode-line-project-name nil)
 #+end_src
 
 * ALIAS
