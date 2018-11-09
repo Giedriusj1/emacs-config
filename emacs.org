@@ -775,6 +775,9 @@
 
 ** custom
 #+begin_src emacs-lisp
+(defun recompile-custom-packages ()
+(interactive)
+(byte-recompile-directory (expand-file-name "~/.emacs.d/custom-packages") 0))
 
 (defun reload-emacs-config ()
 (interactive)
