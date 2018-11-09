@@ -532,6 +532,8 @@
 
 *** C/C++ common
 #+begin_src emacs-lisp
+(require 'electric-spacing)
+
 (defhydra hydra-c (:color blue)
   ( "c" helm-yas-complete "helm yas complete")
   )
