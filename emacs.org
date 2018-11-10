@@ -38,7 +38,6 @@
     helm-projectile
     helm-swoop
     hydra
-    key-chord ;; Currently only used when dealing with terminals.
     magit
     projectile
     smart-mode-line
@@ -47,7 +46,13 @@
     yasnippet
     yasnippet-snippets
     )
-)
+  )
+
+(if (not (display-graphic-p))
+    ;; Currently key-chord is only used on terminals to simulate Control-semi
+    (add-to-list 'package-list 'key-chord)
+  )
+
 
 (defun packages-installed ()
   (loop for p in package-list
