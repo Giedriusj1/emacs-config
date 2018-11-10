@@ -526,6 +526,7 @@
 
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
+(require 'google-this)
 #+end_src
 
 ** Programming
@@ -574,7 +575,7 @@
 (define-key tab-map (kbd "h") 'hydra-gdb-helper/body)
 
 (defhydra hydra-gdb-helper (:color blue)
-  ( "j" gdb-restore-windows "restore gdb windows")
+  ( "h" gdb-restore-windows "restore gdb windows")
   )
 #+end_src
 ** Mode recognition
