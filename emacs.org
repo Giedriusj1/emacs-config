@@ -549,6 +549,10 @@
 
 (add-hook 'c-mode-common-hook
 		  (lambda()
+			;; Use C++ style comments
+			(setq comment-start "//"
+				  comment-end   "")
+
 			;; Automagically adds spaces between symbols like + > < etc...
 			(electric-spacing-mode t)))
 #+end_src
