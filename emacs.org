@@ -583,6 +583,7 @@
 
 (defhydra hydra-gdb-helper (:color blue)
   ( "h" gdb-restore-windows "restore gdb windows")
+  ( "m" gdb-many-windows "many windows")
   )
 #+end_src
 ** Mode recognition
