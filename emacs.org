@@ -122,7 +122,12 @@
          ((member "Consolas-10" (font-family-list))
           (set-frame-font "Consolas-10"))))
        ((string-equal system-type "gnu/linux")
-        (set-frame-font "Monospace-10")))
+       (cond 
+       ((member "ProggyCleanTT" (font-family-list))
+       (set-frame-font "ProggyCleanTT-12"))
+       ((member "Monospace" (font-family-list))
+       (set-frame-font "Monospace-12"))
+       )))
 
       (global-hl-line-mode t)
 
@@ -160,6 +165,7 @@
 
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
+(bind-key* "M-SPC" 'tab-map)
 #+end_src
 
 *** global map
@@ -275,6 +281,7 @@
 (define-key tab-map (kbd ";") 'hydra-quickopen/body)
 
 (define-key tab-map (kbd "o") 'hydra-search-helper/body)
+(define-key tab-map (kbd "f") 'hydra-frame-helper/body)
 
 (defhydra hydra-search-helper (:color blue)
  "
@@ -285,6 +292,15 @@
   ("c" ggtags-create-tags nil)
   ("o" ggtags-find-tag-dwim nil)
   )
+
+(defhydra hydra-frame-helper (:color blue)
+ "
+[_m_] make frame        [_o_] other frame
+ "
+  ("m" make-frame nil)
+  ("o" other-frame nil)
+  )
+
 
 #+END_SRC
 
