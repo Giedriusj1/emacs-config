@@ -389,6 +389,8 @@
 ** shell
 #+begin_src emacs-lisp
 (bind-key* "C-`" 'shell)
+
+(add-hook 'shell-mode-hook #'company-mode)
 #+end_src
 
 ** dired
@@ -452,6 +454,8 @@
 
 (define-key control-semi-map (kbd "n") 'company-complete)
 (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
+
+(setq company-tooltip-limit 25)
 #+end_src
 
 ** ORG mode
