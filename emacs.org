@@ -155,8 +155,7 @@
 (require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
 
-(if (display-graphic-p)
-    ()
+(if (not (display-graphic-p))
     (progn
     (require 'key-chord)
     (key-chord-mode 1)
