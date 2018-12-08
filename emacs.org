@@ -40,6 +40,7 @@
     hydra
     magit
     projectile
+    shell-here
     smart-mode-line
     swiper
     swiper-helm
@@ -388,7 +389,7 @@
 
 ** shell
 #+begin_src emacs-lisp
-(bind-key* "C-`" 'shell)
+(bind-key* "C-`" 'shell-here)
 
 (add-hook 'shell-mode-hook #'company-mode)
 #+end_src
