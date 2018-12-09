@@ -165,7 +165,6 @@
 
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
-(bind-key* "M-SPC" 'tab-map)
 #+end_src
 
 *** global map
@@ -722,6 +721,7 @@
 
 
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
+(bind-key* "M-SPC" 'toggle-swift-mode)
 
 (defvar swift-command-map
   (let ((map (make-keymap)))
