@@ -40,6 +40,7 @@
     hydra
     magit
     projectile
+    shell-here
     smart-mode-line
     swiper
     swiper-helm
@@ -122,12 +123,7 @@
          ((member "Consolas-10" (font-family-list))
           (set-frame-font "Consolas-10"))))
        ((string-equal system-type "gnu/linux")
-       (cond 
-       ((member "ProggyCleanTT" (font-family-list))
-       (set-frame-font "ProggyCleanTT-12"))
-       ((member "Monospace" (font-family-list))
-       (set-frame-font "Monospace-12"))
-       )))
+        (set-frame-font "Monospace-10")))
 
       (global-hl-line-mode t)
 
@@ -164,7 +160,6 @@
 
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
-(bind-key* "M-SPC" 'tab-map)
 #+end_src
 
 *** global map
@@ -388,7 +383,9 @@
 
 ** shell
 #+begin_src emacs-lisp
-(bind-key* "C-`" 'shell)
+(bind-key* "C-`" 'shell-here)
+
+(add-hook 'shell-mode-hook #'company-mode)
 #+end_src
 
 ** dired
@@ -452,6 +449,8 @@
 
 (define-key control-semi-map (kbd "n") 'company-complete)
 (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
+
+(setq company-tooltip-limit 25)
 #+end_src
 
 ** ORG mode
@@ -616,8 +615,10 @@
         ("\\.hs$" . haskell-mode)
         ("\\.py\\'" . python-mode)
         ("\\.c\\'" . c-mode)
+        ("\\.cc\\'" . c-mode)
         ("\\.cpp\\'" . c++-mode)
         ("\\.h\\'" . c++-mode)
+        ("\\.hh\\'" . c++-mode)
         ("\\.java\\'" . java-mode)
         ("\\.s\\'" . c++-mode)
         ("\\.mc\\'" . c++-mode)
@@ -717,6 +718,7 @@
 
 
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
+(bind-key* "M-SPC" 'toggle-swift-mode)
 
 (defvar swift-command-map
   (let ((map (make-keymap)))
