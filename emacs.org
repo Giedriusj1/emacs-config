@@ -247,11 +247,6 @@
 (global-anzu-mode t)
 #+END_SRC
 
-** isearch+
-#+BEGIN_SRC emacs-lisp
-(eval-after-load "isearch" '(require 'isearch+))
-#+END_SRC
-
 ** hydra
 #+BEGIN_SRC emacs-lisp
 (require 'hydra)
