@@ -100,7 +100,7 @@
 (defun set-linux-font (mode) 
   (cond
    ((string= mode "normal") (set-frame-font "Monospace-10"))
-   ((string= mode "4k") (set-frame-font "Monospace-18"))
+   ((string= mode "4k") (set-frame-font "Monospace-16"))
    ))
 
 (defun set-font (mode)
@@ -120,7 +120,7 @@
   (set-font "4k")
   )
 
-;; Sets font size to something that's usable under 4k monitor
+;; Default font size
 (defun set-font-normal ()
   (interactive)
   (set-font "normal")
