@@ -126,6 +126,14 @@
   (set-font "normal")
   )
 
+;; (defun set-font () 
+;; (interactive)
+;; todo: look at these and desice which mode do we need
+;; (x-display-pixel-width)
+;; (x-display-pixel-height)
+
+;; )
+
 
 ;; Terminal displays are often not happy about certain colours, so we only set them if we are running
 ;; within a graphic display environment
@@ -571,6 +579,11 @@
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
 (require 'google-this)
+
+(defadvice text-scale-increase (around all-buffers (arg) activate)
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      ad-do-it)))
 #+end_src
 
 ** Programming
@@ -941,10 +954,4 @@
 (defalias 'obr 'org-babel-reload-emacs-org)
 
 (message "emacs.org : done loading!")
-
-  (defadvice text-scale-increase (around all-buffers (arg) activate)
-    (dolist (buffer (buffer-list))
-      (with-current-buffer buffer
-        ad-do-it)))
-
 #+end_src
