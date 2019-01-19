@@ -87,15 +87,15 @@
 	 "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default)))
  )
 
-;; TODO: handle when mode == "4k"
 (defun set-windows-font (mode) 
   (cond
-   ((member "ProggyClean" (font-family-list))
-	(set-frame-font "ProggyClean"))
-   ((member "Consolas-10" (font-family-list))
-	(set-frame-font "Consolas-10")))
-
-  )
+   ((string= mode "normal") ((cond
+							  ((member "ProggyClean" (font-family-list))
+							   (set-frame-font "ProggyClean"))
+							  ((member "Consolas-10" (font-family-list))
+							   (set-frame-font "Consolas-10"))
+							  )))
+   ((string= mode "4k") (set-frame-font "Consolas-12"))))
 
 (defun set-linux-font (mode) 
   (cond
@@ -140,7 +140,6 @@
 ;; within a graphic display environment
 (if (display-graphic-p)
     (progn
-
       (custom-set-variables
        '(custom-enabled-themes (quote (wombat)))
        )
