@@ -585,7 +585,7 @@
     (with-current-buffer buffer
       ad-do-it)))
 
-
+(setq ring-bell-function 'ignore)
 ;; UNCOMMENT THIS TO INVESTIGATE CRASHES
 ;; (setq debug-on-error t)
 
