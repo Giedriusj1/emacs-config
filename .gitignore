@@ -5,6 +5,7 @@ emacs.el
 emacs_backtrace.txt
 eshell/
 custom--ignored.el
+custom--ignored.elc
 ido.last
 network-security.data
 projectile-bookmarks.eld
