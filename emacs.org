@@ -707,6 +707,14 @@
   ("D" magit-diff "diff-dwim")
   )
 
+
+(setq magit-ediff-dwim-show-on-hunks t)
+
+;; turn off whitespace checking:
+(setq ediff-diff-options "-w")
+
+
+
 #+end_src
 ** swift
 #+begin_src emacs-lisp
