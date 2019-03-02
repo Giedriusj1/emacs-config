@@ -543,9 +543,21 @@
 (delete-selection-mode 1)
 (show-paren-mode t)
 
-;; Semantic currently fails to populate imenu when editing certain .c files (ahem, linux kernel).
-;; I should probably investigate why that fails.
-;; (semantic-mode t)
+(defun my-inhibit-semantic-p ()
+  (not (equal major-mode 'c-mode)))
+
+(with-eval-after-load 'semantic
+      (add-to-list 'semantic-inhibit-functions #'my-inhibit-semantic-p))
+
+(semantic-mode t)
+
+
+(defun my-inhibit-semantic-p ()
+  (not (equal major-mode 'python-mode)))
+
+(with-eval-after-load 'semantic
+      (add-to-list 'semantic-inhibit-functions #'my-inhibit-semantic-p))
+
 
 ;; Make the interface a bit more snappy
 (setq idle-update-delay 0.1)
@@ -679,7 +691,7 @@
 (define-key org-mode-map (kbd "C-j") 'helm-mini)
 (define-key lisp-interaction-mode-map (kbd "C-j") 'helm-mini)
 
-(define-key control-semi-map (kbd "C-s") 'helm-imenu)
+(define-key control-semi-map (kbd "C-s") 'helm-semantic-or-imenu)
 
 (define-key control-semi-map (kbd "l") 'helm-M-x)
 (define-key control-semi-map (kbd "o") 'swiper-helm)
