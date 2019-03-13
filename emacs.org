@@ -543,21 +543,7 @@
 (delete-selection-mode 1)
 (show-paren-mode t)
 
-(defun my-inhibit-semantic-p ()
-  (not (equal major-mode 'c-mode)))
-
-(with-eval-after-load 'semantic
-      (add-to-list 'semantic-inhibit-functions #'my-inhibit-semantic-p))
-
-(semantic-mode t)
-
-
-(defun my-inhibit-semantic-p ()
-  (not (equal major-mode 'python-mode)))
-
-(with-eval-after-load 'semantic
-      (add-to-list 'semantic-inhibit-functions #'my-inhibit-semantic-p))
-
+;; (semantic-mode t)
 
 ;; Make the interface a bit more snappy
 (setq idle-update-delay 0.1)
