@@ -40,6 +40,7 @@
     hydra
     magit
     projectile
+    rust-mode
     shell-here
     smart-mode-line
     swiper
@@ -661,6 +662,7 @@
         ("\\.java\\'" . java-mode)
         ("\\.el\\'" . emacs-lisp-mode)
         ("\\.scm\\'" . scheme-mode)
+        ("\\.rs\\'" . rust-mode)
         ))
 #+end_src
 
