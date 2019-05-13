@@ -1040,7 +1040,6 @@
 ** LSP
 #+begin_src emacs-lisp
 (require 'lsp)
-(require 'lsp-clients)
 (add-hook 'c++-mode-hook 'lsp)
 #+end_src
 
