@@ -664,6 +664,7 @@
         ("\\.scm\\'" . scheme-mode)
         ("\\.rs\\'" . rust-mode)
         ("\\.pm\\'" . perl-mode)
+        ("\\.cmd\\'" . bat-mode)
         ))
 #+end_src
 
