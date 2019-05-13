@@ -28,6 +28,7 @@
 (defvar package-list
   '(
     ag
+    company-lsp
     company
     ggtags
     haskell-mode
