@@ -35,9 +35,13 @@
     helm-ag
     helm-c-yasnippet
     helm-descbinds
+    helm-lsp
     helm-projectile
     helm-swoop
+    helm-xref
     hydra
+    lsp-clangd
+    lsp-mode
     magit
     projectile
     rust-mode
@@ -310,11 +314,12 @@
 (defhydra hydra-search-helper (:color blue)
  "
 [_q_] update tags        [_o_] find gtag
-[_c_] create gtag
+[_c_] create gtag        [_p_] xref find references
  "
   ("q" ggtags-update-tags nil)
   ("c" ggtags-create-tags nil)
   ("o" ggtags-find-tag-dwim nil)
+  ("p" lsp-find-references nil)
   )
 
 (defhydra hydra-frame-helper (:color blue)
@@ -469,10 +474,16 @@
 ** company
 #+begin_src emacs-lisp
 (require 'company)
+(require 'company-lsp)
+
 (global-company-mode t)
 
-(add-to-list 'company-backends '(company-clang))
-(add-to-list 'company-backends '(company-gtags))
+(push 'company-lsp company-backends)
+
+;; (add-to-list 'company-backends '(company-clang))
+;; (add-to-list 'company-backends '(company-gtags))
+
+(setq company-backends '(company-lsp))
 
 (define-key company-active-map (kbd "C-n") #'company-select-next)
 (define-key company-active-map (kbd "C-p") #'company-select-previous)
@@ -696,6 +707,15 @@
 (define-key control-semi-map (kbd "C-m") 'helm-swoop)
 (define-key control-semi-map (kbd "m") 'helm-multi-swoop-all)
 #+end_src
+
+** helm-xref
+#+BEGIN_SRC emacs-lisp
+
+(require 'helm-xref)
+(setq xref-show-xrefs-function 'helm-xref-show-xrefs)
+
+#+END_SRC
+
 ** magit
 #+begin_src emacs-lisp
 
@@ -1016,6 +1036,12 @@
 ;; Prevent ggtags mode from displaying project name in mode line.
 ;; Projectile already displays this information.
 (setq ggtags-mode-line-project-name nil)
+#+end_src
+** LSP
+#+begin_src emacs-lisp
+(require 'lsp)
+(require 'lsp-clients)
+(add-hook 'c++-mode-hook 'lsp)
 #+end_src
 
 * ALIAS
