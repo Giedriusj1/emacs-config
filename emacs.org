@@ -663,6 +663,7 @@
         ("\\.el\\'" . emacs-lisp-mode)
         ("\\.scm\\'" . scheme-mode)
         ("\\.rs\\'" . rust-mode)
+        ("\\.pm\\'" . perl-mode)
         ))
 #+end_src
 
