@@ -94,12 +94,15 @@
 
 (defun set-windows-font (mode) 
   (cond
-   ((string= mode "normal") (cond
-                             ((member "ProggyClean" (font-family-list))
-                              (set-frame-font "ProggyClean"))
-                             ((member "Consolas-10" (font-family-list))
-                              (set-frame-font "Consolas-10"))
-                             ))
+   ((string= mode "normal") 
+	;; (cond
+	;; ((member "ProggyClean" (font-family-list))
+	;; (set-frame-font "ProggyClean"))
+	;; ((member "Consolas-10" (font-family-list))
+	;; (set-frame-font "Consolas-10"))
+	;; )
+	(set-frame-font "Consolas-10")
+	)
    ((string= mode "4k") (set-frame-font "Consolas-12"))))
 
 (defun set-linux-font (mode) 
@@ -130,6 +133,7 @@
 
 (defun is-4k-monitor ()
   (and (<= 2840 (x-display-pixel-width)) (<= 2160 (x-display-pixel-height))))
+
 
 (defun set-font-for-current-resolution () 
   (interactive)
@@ -168,7 +172,8 @@
       (global-hl-line-mode t)
 
       (sml/setup)
-      ))
+      )
+     )
 
 #+END_SRC
 
