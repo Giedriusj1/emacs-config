@@ -666,6 +666,7 @@
         ("\\.ref.gpg$" . org-mode)
         ("\\.notes$" . org-mode)
         ("\\.pdf\\'" . doc-view-mode)
+        ("\\.md\\'" . markdown-mode)
 
         ;;programming modes
         ("\\.hs$" . haskell-mode)
@@ -683,6 +684,7 @@
         ("\\.rs\\'" . rust-mode)
         ("\\.pm\\'" . perl-mode)
         ("\\.cmd\\'" . bat-mode)
+        ("\\.bat\\'" . bat-mode)
         ("\\.yml\\'" . yaml-mode)
         ))
 #+end_src
