@@ -28,8 +28,8 @@
 (defvar package-list
   '(
     ag
-    company-lsp
     company
+    company-lsp
     ggtags
     haskell-mode
     helm
@@ -50,6 +50,7 @@
     smart-mode-line
     swiper
     swiper-helm
+    yaml-mode
     yasnippet
     yasnippet-snippets
     )
@@ -682,6 +683,7 @@
         ("\\.rs\\'" . rust-mode)
         ("\\.pm\\'" . perl-mode)
         ("\\.cmd\\'" . bat-mode)
+        ("\\.yml\\'" . yaml-mode)
         ))
 #+end_src
 
@@ -716,16 +718,12 @@
 
 ** helm-xref
 #+BEGIN_SRC emacs-lisp
-
 (require 'helm-xref)
 (setq xref-show-xrefs-function 'helm-xref-show-xrefs)
-
 #+END_SRC
 
 ** magit
 #+begin_src emacs-lisp
-
-
 (defhydra hydra-magit (:color blue)
   "magit"
   ("m" magit-status "status")
@@ -736,7 +734,6 @@
   ("d" magit-diff-dwim "diff-dwim")
   ("D" magit-diff "diff-dwim")
   )
-
 #+end_src
 
 ** ediff
@@ -744,7 +741,6 @@
 ;; We need to make sure ediff library is loaded, otherwise us fiddling with its colours below
 ;; will not end well. TODO: improve this
 (require 'ediff)
-
 
 ;; Setting this to t will only show two panes, but I guess we want more for now.
 ;; (setq magit-ediff-dwim-show-on-hunks t)
