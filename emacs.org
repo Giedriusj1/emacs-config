@@ -53,6 +53,7 @@
     yaml-mode
     yasnippet
     yasnippet-snippets
+    powershell
     )
   )
 
@@ -667,6 +668,8 @@
         ("\\.notes$" . org-mode)
         ("\\.pdf\\'" . doc-view-mode)
         ("\\.md\\'" . markdown-mode)
+        ("[Mm]ake[Ff]ile\\'" . makefile-mode)
+        (".mak'" . makefile-mode)
 
         ;;programming modes
         ("\\.hs$" . haskell-mode)
@@ -686,6 +689,7 @@
         ("\\.cmd\\'" . bat-mode)
         ("\\.bat\\'" . bat-mode)
         ("\\.yml\\'" . yaml-mode)
+
         ))
 #+end_src
 
@@ -772,6 +776,8 @@
       (put face 'theme-face nil)
       (face-spec-set face spec)))
 
+
+  (require 'magit) ;; Needed for all magit-* stuff below
   (dolist (face-map '(
                       ;; (diff-hl-insert              . magit-diff-added)
                       ;; (diff-hl-change              . ediff-current-diff-C)
