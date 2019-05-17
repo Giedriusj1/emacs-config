@@ -702,7 +702,7 @@
 #+begin_src emacs-lisp
 (require 'helm-config)
 
-(setq candidate-number-limit 500)
+(setq helm-candidate-number-limit 500)
 
 (global-set-key (kbd "C-j") 'helm-mini)
 (define-key org-mode-map (kbd "C-j") 'helm-mini)
