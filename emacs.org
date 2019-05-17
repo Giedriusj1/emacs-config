@@ -668,7 +668,8 @@
         ("\\.pdf\\'" . doc-view-mode)
         ("\\.md\\'" . markdown-mode)
         ("[Mm]ake[Ff]ile\\'" . makefile-mode)
-        (".mak'" . makefile-mode)
+        ("\\.mak\\'" . makefile-mode)
+        ("\\.xml\\'" . xml-mode)
 
         ;;programming modes
         ("\\.hs$" . haskell-mode)
@@ -700,6 +701,8 @@
 ** Helm
 #+begin_src emacs-lisp
 (require 'helm-config)
+
+(setq candidate-number-limit 500)
 
 (global-set-key (kbd "C-j") 'helm-mini)
 (define-key org-mode-map (kbd "C-j") 'helm-mini)
