@@ -659,6 +659,7 @@
 #+begin_src emacs-lisp
 (defhydra hydra-emacs-lisp (:color blue)
   ( "j" eval-buffer "eval buffer")
+  ( "c" helm-yas-complete "yas complete")
   )
 
 #+end_src
