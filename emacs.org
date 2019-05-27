@@ -386,13 +386,20 @@
           :truncate-lines helm-projectile-truncate-lines)))
 
 (defhydra hydra-projectile (:color blue)
-  "projectile"
-  ("g" helm-projectile-grep "grep")
-  ("m" helm-projectile-ag "ag")
-  ("j" helm-projectile "helm files")
-  ("d" projectile-dired "dired")
-  ("p" helm-projectile-projects "projects")
-  ("q" projectile-invalidate-cache "invalidate cache")
+  "
+[_q_] invalidate cache [_p_] projects
+[_j_] helm projectile  [_d_] dired projectile root
+[_g_] grep [_m_] ag [_a_] ack
+"
+  ("p" helm-projectile-projects nil)
+  ("q" projectile-invalidate-cache nil)
+
+  ("j" helm-projectile nil)
+  ("d" projectile-dired nil)
+
+  ("g" helm-projectile-grep nil)
+  ("a" helm-projectile-ack nil)
+  ("m" helm-projectile-ag nil)
   )
 #+END_SRC
 
@@ -638,9 +645,7 @@
          (setq tab-width 4)))
 
 (defhydra hydra-python (:color blue)
-  ( "c" helm-yas-complete "helm yas complete")
-  )
-
+  ( "c" helm-yas-complete "helm yas complete"))
 #+end_src
 
 *** Scheme
@@ -648,17 +653,13 @@
 (add-hook 'scheme-mode-hook
       (lambda()
          (setq indent-tabs-mode nil)))
-
-(defhydra hydra-emacs-lisp (:color blue)
-  ( "j" eval-buffer "eval buffer")
-  )
-
 #+end_src
 
 *** emacs-lisp
 #+begin_src emacs-lisp
 (defhydra hydra-emacs-lisp (:color blue)
   ( "j" eval-buffer "eval buffer")
+  ( "k" eval-last-sexp "eval-last-sexp")
   ( "c" helm-yas-complete "yas complete")
   )
 
@@ -836,6 +837,9 @@
       (put face 'theme-face nil)
       (put face 'face-alias alias)))
 
+
+ (with-eval-after-load 'outline
+   (add-hook 'ediff-prepare-buffer-hook #'outline-show-all))
 
 #+end_src
 
