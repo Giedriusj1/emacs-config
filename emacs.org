@@ -308,6 +308,8 @@
     (hydra-c/body))
    (( string= "python-mode" major-mode)
     (hydra-python/body))
+   (( string= "emacs-lisp-mode" major-mode)
+    (hydra-emacs-lisp/body))
    (t (message "Argh...hydra for your current mode does not exist :("))))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
@@ -646,6 +648,19 @@
 (add-hook 'scheme-mode-hook
       (lambda()
          (setq indent-tabs-mode nil)))
+
+(defhydra hydra-emacs-lisp (:color blue)
+  ( "j" eval-buffer "eval buffer")
+  )
+
+#+end_src
+
+*** emacs-lisp
+#+begin_src emacs-lisp
+(defhydra hydra-emacs-lisp (:color blue)
+  ( "j" eval-buffer "eval buffer")
+  )
+
 #+end_src
 ** gdb
 #+begin_src emacs-lisp
