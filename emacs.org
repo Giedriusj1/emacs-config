@@ -392,7 +392,7 @@
   "
 [_q_] invalidate cache [_p_] projects
 [_j_] helm projectile  [_d_] dired projectile root
-[_g_] grep [_m_] ag [_a_] ack
+[_g_]rep [_m_] ag [_a_]ck
 "
   ("p" helm-projectile-projects nil)
   ("q" projectile-invalidate-cache nil)
