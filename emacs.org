@@ -18,6 +18,9 @@
 
 ;; not needed since emacs 27
 (when (not package--initialized) (package-initialize) )
+
+;; Let's byte compile all custom packages
+(byte-recompile-directory (expand-file-name "~/.emacs.d/custom-packages") 0)
 #+end_src
 
 * PACKAGES
@@ -562,8 +565,10 @@
 ;; separate file... so we can ignore it later :)
 (setq custom-file (concat user-emacs-directory "/custom--ignored.el"))
 
-;; Let's garbage collect when focusing out of the window.
+;; Let's garbage collect when focusing out of the window..
 (add-hook 'focus-out-hook #'garbage-collect)
+;; and saving files.
+(add-hook 'after-save-hook       #'garbage-collect)
 
 (blink-cursor-mode -1)
 (require 'auto-highlight-symbol)
