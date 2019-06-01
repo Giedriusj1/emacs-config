@@ -27,3 +27,4 @@ ac-comphist.dat
 custom.el
 transient/history.el
 .lsp-session*
+*.elc
