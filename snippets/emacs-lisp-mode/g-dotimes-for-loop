@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: dotimes for
+# key: dotimes
+# --
+(dotimes (bind 3)
+  (message (number-to-string bind))
+  )
