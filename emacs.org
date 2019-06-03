@@ -44,8 +44,8 @@
     helm-swoop
     helm-xref
     hydra
-    lsp-clangd
-    lsp-mode
+    ;; lsp-clangd
+    ;; lsp-mode
     magit
     projectile
     rust-mode
@@ -493,16 +493,16 @@
 ** company
 #+begin_src emacs-lisp
 (require 'company)
-(require 'company-lsp)
+;; (require 'company-lsp)
 
 (global-company-mode t)
 
-(push 'company-lsp company-backends)
+;; (push 'company-lsp company-backends)
 
 ;; (add-to-list 'company-backends '(company-clang))
 ;; (add-to-list 'company-backends '(company-gtags))
 
-(setq company-backends '(company-lsp))
+;; (setq company-backends '(company-lsp))
 
 (define-key company-active-map (kbd "C-n") #'company-select-next)
 (define-key company-active-map (kbd "C-p") #'company-select-previous)
@@ -1078,8 +1078,8 @@
 #+end_src
 ** LSP
 #+begin_src emacs-lisp
-(require 'lsp)
-(add-hook 'c++-mode-hook 'lsp)
+;; (require 'lsp)
+;; (add-hook 'c++-mode-hook 'lsp)
 #+end_src
 
 * ALIAS
