@@ -3,4 +3,4 @@
 # key: lambda
 # --
 
-[ captures ] ( opt params ) -> opt ret { body } 
+[ ${captures} ] ( ${opt params} ) -> ${opt ret} { ${body} } 
