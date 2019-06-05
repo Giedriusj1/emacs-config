@@ -1030,6 +1030,11 @@
 (find-file "~/org-notes/notes.org")
 )
 
+(defun qo-notes-work ()
+(interactive)
+(find-file "~/org-notes/work.org")
+)
+
 (defun qo-notes-prog-org ()
 (interactive)
 (find-file "~/org-notes/programming.org")
@@ -1043,9 +1048,11 @@
 
 (defhydra hydra-quickopen-notes (:color blue)
 "
-[_n_] ~/notes/notes.org
-[_p_] ~/notes/programming.org
+[_w_] ~/org-notes/work.org
+[_n_] ~/org-notes/notes.org
+[_p_] ~/org-notes/programming.org
 "
+("w" qo-notes-work nil)
 ("n" qo-notes-org nil)
 ("p" qo-notes-prog-org nil)
 )
@@ -1084,7 +1091,23 @@
 ;; (add-hook 'c++-mode-hook 'lsp)
 #+end_src
 
-** git-auto-commit
+** org-notes synching
+*** git pus/pull timer
+#+BEGIN_SRC emacs-lisp
+(defun org-notes-synch-fn ()
+  (let* ((default-directory "~/org-notes"))
+	(message "synching org notes with git repo")
+	(start-process "proc-git-status" "notes-sync-output" "git" "status")
+	(sit-for 5)
+	(start-process "proc-git-pull" "notes-sync-output" "git" "pull")
+	(sit-for 5)
+	(start-process "proc-git-push" "notes-sync-output" "git" "push")))
+
+;; Run the above every hour (if we are idle)
+(run-with-idle-timer (* 60 60) t 'org-notes-synch-fn)
+
+#+END_SRC
+*** git-auto-commit
 #+BEGIN_SRC emacs-lisp
 ;; Make sure we push after commiting too
 ;; (setq gac-automatically-push-p t)
