@@ -30,10 +30,13 @@
 
 (defvar package-list
   '(
+    ;; lsp-clangd
+    ;; lsp-mode
     ag
     company
     company-lsp
     ggtags
+    git-auto-commit-mode
     haskell-mode
     helm
     helm-ag
@@ -44,8 +47,6 @@
     helm-swoop
     helm-xref
     hydra
-    ;; lsp-clangd
-    ;; lsp-mode
     magit
     projectile
     rust-mode
@@ -557,7 +558,7 @@
 
 ** Misc behaviour
 #+begin_src emacs-lisp
-(setq redisplay-dont-pause t)
+;; set to t to investigate crashes
 (setq debug-on-error nil)
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message "")
@@ -617,9 +618,6 @@
       ad-do-it)))
 
 (setq ring-bell-function 'ignore)
-;; UNCOMMENT THIS TO INVESTIGATE CRASHES
-;; (setq debug-on-error t)
-
 #+end_src
 
 ** Programming
@@ -1029,17 +1027,17 @@
 
 (defun qo-notes-org ()
 (interactive)
-(find-file "~/notes/notes.org")
+(find-file "~/org-notes/notes.org")
 )
 
 (defun qo-notes-prog-org ()
 (interactive)
-(find-file "~/notes/programming.org")
+(find-file "~/org-notes/programming.org")
 )
 
 (defun qo-temp ()
 (interactive)
-(find-file "~/notes/temp")
+(find-file "~/emacs-temp")
 )
 
 
@@ -1057,11 +1055,11 @@
 "
 [_t_] ~/notes/temp
 [_c_] ~/.emacs.d/emacs.org
-[_n_] NOTES
+[_n_] org-notes
 "
 ("t" qo-temp nil)
-("n" hydra-quickopen-notes/body nil)
 ("c" qo-emacs-org nil)
+("n" hydra-quickopen-notes/body nil)
 )
 
 #+END_SRC
@@ -1086,6 +1084,11 @@
 ;; (add-hook 'c++-mode-hook 'lsp)
 #+end_src
 
+** git-auto-commit
+#+BEGIN_SRC emacs-lisp
+;; Make sure we push after commiting too
+;; (setq gac-automatically-push-p t)
+#+END_SRC
 * ALIAS
 #+begin_src emacs-lisp
 (message "emacs.org : starting alias stage")
