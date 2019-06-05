@@ -1095,6 +1095,7 @@
 *** git pus/pull timer
 #+BEGIN_SRC emacs-lisp
 (defun org-notes-synch-fn ()
+(interactive)
   (let* ((default-directory "~/org-notes"))
 	(message "synching org notes with git repo")
 	(start-process "proc-git-status" "notes-sync-output" "git" "status")
