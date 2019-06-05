@@ -520,6 +520,8 @@
  [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
  [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
  [_e_]   edit source [_s_] exit source edit buffer
+ [_c_]   yas helm expand
+
   "
 
   ( "o" org-metaright nil)
@@ -534,6 +536,8 @@
 
   ( "e" org-edit-src-code nil)
   ( "s" org-edit-src-exit nil)
+
+  ( "c" helm-yas-complete nil)
   )
 
 (setq org-src-fontify-natively t)
