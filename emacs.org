@@ -4,6 +4,9 @@
 #+begin_src emacs-lisp
 (message "emacs.org : starting init stage")
 
+(setq package-quickstart t)
+
+
 ;; Increase garbage collector threshold for better performance
 (setq gc-cons-threshold (* 5 gc-cons-threshold))
 
@@ -216,6 +219,8 @@
 
 *** global map
 #+begin_src emacs-lisp
+(global-set-key [f9] 'set-font-normal)
+(global-set-key [f10] 'set-font-4k)
 (global-set-key [f11] 'toggle-truncate-lines)
 (global-set-key [f12] 'whitespace-mode)
 
@@ -1144,4 +1149,5 @@
 (defalias 'obr 'org-babel-reload-emacs-org)
 
 (message "emacs.org : done loading!")
+
 #+end_src
