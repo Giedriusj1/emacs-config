@@ -33,6 +33,7 @@
     ;; lsp-clangd
     ;; lsp-mode
     ag
+    clang-format
     company
     company-lsp
     ggtags
@@ -288,6 +289,7 @@
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "M-;") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
+(define-key tab-map (kbd "i") 'clang-format-region)
 #+end_src
 
 ** anzu
@@ -416,6 +418,11 @@
 (bind-key* "C-v" 'yank)
 #+end_src
 
+** clang
+*** clang-format
+#+BEGIN_SRC emacs-lisp
+(setq clang-format-style "google")
+#+END_SRC
 ** recentf
 #+begin_src emacs-lisp
 (require 'recentf)
