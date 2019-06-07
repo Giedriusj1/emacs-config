@@ -44,6 +44,7 @@
     helm-c-yasnippet
     helm-descbinds
     helm-lsp
+    helm-org-rifle
     helm-projectile
     helm-swoop
     helm-xref
@@ -548,6 +549,7 @@
   ( "c" helm-yas-complete nil)
   )
 
+(setq org-directory "~/org-notes")
 (setq org-src-fontify-natively t)
 (setq org-src-preserve-indentation t)
 (setq org-startup-indented t)
@@ -1070,10 +1072,12 @@
 [_t_] ~/notes/temp
 [_c_] ~/.emacs.d/emacs.org
 [_n_] org-notes
+[_;_] org rifle
 "
 ("t" qo-temp nil)
 ("c" qo-emacs-org nil)
 ("n" hydra-quickopen-notes/body nil)
+(";" helm-org-rifle-org-directory nil)
 )
 
 #+END_SRC
