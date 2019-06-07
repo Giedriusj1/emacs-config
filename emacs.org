@@ -715,6 +715,7 @@
         ("\\.cpp\\'" . c++-mode)
         ("\\.h\\'" . c++-mode)
         ("\\.hh\\'" . c++-mode)
+        ("\\.hpp\\'" . c++-mode)
         ("\\.s\\'" . c++-mode)
         ("\\.mc\\'" . c++-mode)
         ("\\.java\\'" . java-mode)
