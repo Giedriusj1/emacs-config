@@ -15,9 +15,6 @@
 
 ;; not needed since emacs 27
 (when (not package--initialized) (package-initialize) )
-
-;; Let's byte compile all custom packages
-;; (byte-recompile-directory (expand-file-name "~/.emacs.d/custom-packages") 0)
 #+end_src
 
 * PACKAGES
@@ -550,7 +547,6 @@
   ( "c" helm-yas-complete nil)
   )
 
-(setq helm-org-rifle-directories-recursive nil)
 (setq org-directory "~/org-notes")
 (setq org-src-fontify-natively t)
 (setq org-src-preserve-indentation t)
@@ -558,8 +554,45 @@
 (setq org-startup-truncated nil)
 (setq org-export-with-toc nil)
 (setq org-hierarchical-todo-statistics nil)
-
 #+END_SRC
+*** org-rifle
+#+BEGIN_SRC emacs-lisp
+;; Recursive search performs quite poorly on Windows systems
+(setq helm-org-rifle-directories-recursive nil)
+
+(defun helm-org-rifle-important ()
+  "Rifle through Org files in the directories below"
+  (interactive)
+  (helm-org-rifle-directories (list
+                               "~/org-notes" 
+                               "~/org-notes/lang-notes" 
+                               "~/org-notes-private"
+                               "~/.emacs.d"
+                               )))
+#+END_SRC
+
+*** org-notes synching
+**** git push/pull timer
+#+BEGIN_SRC emacs-lisp
+(defun org-notes-synch-fn ()
+(interactive)
+  (let* ((default-directory "~/org-notes"))
+	(message "synching org notes with git repo")
+	(start-process "proc-git-status" "notes-sync-output" "git" "status")
+	(sit-for 5)
+	(start-process "proc-git-pull" "notes-sync-output" "git" "pull")
+	(sit-for 5)
+	(start-process "proc-git-push" "notes-sync-output" "git" "push")))
+
+;; Run the above every hour (if we are idle)
+(run-with-idle-timer (* 60 60) t 'org-notes-synch-fn)
+#+END_SRC
+**** git-auto-commit
+#+BEGIN_SRC emacs-lisp
+;; Make sure we push after commiting too
+;; (setq gac-automatically-push-p t)
+#+END_SRC
+
 ** winner mode
 #+begin_src emacs-lisp
 (winner-mode 1)
@@ -1033,56 +1066,55 @@
 #+BEGIN_SRC emacs-lisp
 
 (defun qo-emacs-org ()
-(interactive)
-(find-file "~/.emacs.d/emacs.org")
-)
+  (interactive)
+  (find-file "~/.emacs.d/emacs.org")
+  )
 
 (defun qo-notes-org ()
-(interactive)
-(find-file "~/org-notes/notes.org")
-)
+  (interactive)
+  (find-file "~/org-notes/notes.org")
+  )
 
 (defun qo-notes-work ()
-(interactive)
-(find-file "~/org-notes/work.org")
-)
+  (interactive)
+  (find-file "~/org-notes/work.org")
+  )
 
 (defun qo-notes-prog-org ()
-(interactive)
-(find-file "~/org-notes/programming.org")
-)
+  (interactive)
+  (find-file "~/org-notes/programming.org")
+  )
 
 (defun qo-temp ()
-(interactive)
-(find-file "~/emacs-temp")
-)
+  (interactive)
+  (find-file "~/emacs-temp")
+  )
 
 
 (defhydra hydra-quickopen-notes (:color blue)
-"
+  "
 [_w_] ~/org-notes/work.org
 [_n_] ~/org-notes/notes.org
 [_p_] ~/org-notes/programming.org
 "
-("w" qo-notes-work nil)
-("n" qo-notes-org nil)
-("p" qo-notes-prog-org nil)
-)
+  ("w" qo-notes-work nil)
+  ("n" qo-notes-org nil)
+  ("p" qo-notes-prog-org nil)
+  )
 
 
 (defhydra hydra-quickopen (:color blue)
-"
+  "
 [_t_] ~/notes/temp
 [_c_] ~/.emacs.d/emacs.org
 [_n_] org-notes
 [_;_] org rifle
 "
-("t" qo-temp nil)
-("c" qo-emacs-org nil)
-("n" hydra-quickopen-notes/body nil)
-(";" helm-org-rifle-org-directory nil)
-)
-
+  ("t" qo-temp nil)
+  ("c" qo-emacs-org nil)
+  ("n" hydra-quickopen-notes/body nil)
+  (";" helm-org-rifle-important nil)
+  )
 #+END_SRC
 
 ** diminish
@@ -1105,28 +1137,6 @@
 ;; (add-hook 'c++-mode-hook 'lsp)
 #+end_src
 
-** org-notes synching
-*** git pus/pull timer
-#+BEGIN_SRC emacs-lisp
-(defun org-notes-synch-fn ()
-(interactive)
-  (let* ((default-directory "~/org-notes"))
-	(message "synching org notes with git repo")
-	(start-process "proc-git-status" "notes-sync-output" "git" "status")
-	(sit-for 5)
-	(start-process "proc-git-pull" "notes-sync-output" "git" "pull")
-	(sit-for 5)
-	(start-process "proc-git-push" "notes-sync-output" "git" "push")))
-
-;; Run the above every hour (if we are idle)
-(run-with-idle-timer (* 60 60) t 'org-notes-synch-fn)
-
-#+END_SRC
-*** git-auto-commit
-#+BEGIN_SRC emacs-lisp
-;; Make sure we push after commiting too
-;; (setq gac-automatically-push-p t)
-#+END_SRC
 * ALIAS
 #+begin_src emacs-lisp
 (message "emacs.org : starting alias stage")
@@ -1145,5 +1155,4 @@
 (defalias 'obr 'org-babel-reload-emacs-org)
 
 (message "emacs.org : done loading!")
-
 #+end_src
