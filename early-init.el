@@ -1,9 +1,7 @@
+;; Increase garbage collector threshold for better performance
+(setq gc-cons-threshold (* 5 gc-cons-threshold))
+
 (setq package-quickstart t)
-
-;; (setq tool-bar-mode nil
-;;       menu-bar-mode nil
-;;       scroll-bar-mode nil)
-
 
 (customize-set-variable 'scroll-bar-mode nil)
 (customize-set-variable 'horizontal-scroll-bar-mode nil)
