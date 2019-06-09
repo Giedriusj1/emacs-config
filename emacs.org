@@ -118,37 +118,54 @@
 	;; )
 	(set-frame-font "Consolas-10")
 	)
+   ((string= mode "medium") (set-frame-font "Consolas-11"))
    ((string= mode "4k") (set-frame-font "Consolas-12"))))
 
 (defun set-linux-font (mode) 
   (cond
    ((string= mode "normal") (set-frame-font "Monospace-10"))
+   ((string= mode "medium") (set-frame-font "Monospace-14"))
    ((string= mode "4k") (set-frame-font "Monospace-16"))))
 
 (defun set-font (mode)
-  (cond
-   ((string-equal system-type "windows-nt")
-    ;; We are dealing with Windows sytem
-    (set-windows-font mode))
-   ((string-equal system-type "gnu/linux")
-    ;; We are dealing with linux system:
-    (set-linux-font mode))))
+  (progn
+    (setq current-font mode)
+    (cond
+     ((string-equal system-type "windows-nt")
+      ;; We are dealing with Windows sytem
+      (set-windows-font mode))
+     ((string-equal system-type "gnu/linux")
+      ;; We are dealing with linux system:
+      (set-linux-font mode)))))
 
 
-;; Sets font size to something that's usable under 4k monitor
-(defun set-font-4k ()
+(defun toggle-font-size()
   (interactive)
-  (set-font "4k"))
+  (cond
+   ((string= current-font "normal")
+    (set-font "medium"))
+   ((string= current-font "medium")
+    (set-font "4k"))
+   ((string= current-font "4k")
+    (set-font "normal"))))
 
 ;; Default font size
 (defun set-font-normal ()
   (interactive)
-  (set-font "normal"))
+    (set-font "normal"))
 
+;; Larger than normal, but not as big as 4k
+(defun set-font-medium ()
+  (interactive)
+    (set-font "medium"))
+
+;; Sets font size to something that's usable under 4k monitor
+(defun set-font-4k ()
+  (interactive)
+    (set-font "4k"))
 
 (defun is-4k-monitor ()
   (and (<= 2840 (x-display-pixel-width)) (<= 2160 (x-display-pixel-height))))
-
 
 (defun set-font-for-current-resolution () 
   (interactive)
@@ -222,7 +239,7 @@
 
 *** global map
 #+begin_src emacs-lisp
-(global-set-key [f9] 'set-font-normal)
+(global-set-key [f9] 'toggle-font-size)
 (global-set-key [f10] 'set-font-4k)
 (global-set-key [f11] 'toggle-truncate-lines)
 (global-set-key [f12] 'whitespace-mode)
