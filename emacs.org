@@ -97,6 +97,14 @@
     ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
      "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))))
 
+(custom-set-faces
+  '(org-level-1 ((t (:inherit outline-1 :weight demibold :foreground "orange3" :height 1.4))))
+  '(org-level-2 ((t (:inherit outline-2 :weight demibold :foreground "darkOliveGreen3" :height 1.2))))
+  '(org-level-3 ((t (:inherit outline-3 :weight demibold :height 1.1))))
+  '(org-level-4 ((t (:inherit outline-4 :weight demibold :height 1.0))))
+  '(org-level-5 ((t (:inherit outline-5 :weight demibold :height 1.0))))
+)
+
 (defun set-windows-font (mode) 
   (cond
    ((string= mode "normal") 
