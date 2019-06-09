@@ -102,7 +102,7 @@
 (defun set-linux-font (mode) 
   (cond
    ((string= mode "normal") (set-frame-font "Monospace-10"))
-   ((string= mode "medium") (set-frame-font "Monospace-14"))
+   ((string= mode "medium") (set-frame-font "Monospace-12"))
    ((string= mode "4k") (set-frame-font "Monospace-16"))))
 
 (defun set-font (mode)
