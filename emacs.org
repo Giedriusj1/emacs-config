@@ -80,31 +80,9 @@
 #+begin_src emacs-lisp
 (message "emacs.org : starting looks stage")
 #+end_src
-** themes and colours
+
+** font helper functions
 #+BEGIN_SRC emacs-lisp
-;; On emacs 27 this will be done from early-init.el
-(if (< emacs-major-version 27)
-    (progn
-      (customize-set-variable 'scroll-bar-mode nil)
-      (customize-set-variable 'horizontal-scroll-bar-mode nil)
-      (customize-set-variable 'menu-bar-mode nil)
-      (customize-set-variable 'tool-bar-mode nil)))
-
-
-(custom-set-variables
- '(custom-safe-themes
-   (quote
-    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
-     "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))))
-
-(custom-set-faces
- '(org-level-1 ((t (:inherit outline-1 :weight demibold :foreground "orange3" :height 1.2))))
- '(org-level-2 ((t (:inherit outline-2 :weight demibold :foreground "darkOliveGreen3" :height 1.2))))
- '(org-level-3 ((t (:inherit outline-3 :weight demibold :height 1.1))))
- '(org-level-4 ((t (:inherit outline-4 :weight demibold :height 1.0))))
- '(org-level-5 ((t (:inherit outline-5 :weight demibold :height 1.0))))
- )
-
 (setq current-font "normal")
 
 (defun set-windows-font (mode) 
@@ -172,14 +150,40 @@
   (cond
    ((is-4k-monitor) (set-font-4k))
    (t (set-font-normal))))
+#+END_SRC
+
+** themes and colours
+#+BEGIN_SRC emacs-lisp
+;; On emacs 27 this will be done from early-init.el
+(if (< emacs-major-version 27)
+    (progn
+      (customize-set-variable 'scroll-bar-mode nil)
+      (customize-set-variable 'horizontal-scroll-bar-mode nil)
+      (customize-set-variable 'menu-bar-mode nil)
+      (customize-set-variable 'tool-bar-mode nil)))
+
+
+(custom-set-variables
+ '(custom-safe-themes
+   (quote
+    ("a27c00821ccfd5a78b01e4f35dc056706dd9ede09a8b90c6955ae6a390eb1c1e"
+     "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))))
+
+(custom-set-faces
+ '(org-level-1 ((t (:inherit outline-1 :weight demibold :foreground "orange3" :height 1.2))))
+ '(org-level-2 ((t (:inherit outline-2 :weight demibold :foreground "darkOliveGreen3" :height 1.2))))
+ '(org-level-3 ((t (:inherit outline-3 :weight demibold :height 1.1))))
+ '(org-level-4 ((t (:inherit outline-4 :weight demibold :height 1.0))))
+ '(org-level-5 ((t (:inherit outline-5 :weight demibold :height 1.0))))
+ )
+
 
 ;; Terminal displays are often not happy about certain colours, so we only set them if we are running
 ;; within a graphic display environment
 (if (display-graphic-p)
     (progn
       (custom-set-variables
-       '(custom-enabled-themes (quote (wombat)))
-       )
+       '(custom-enabled-themes (quote (wombat))))
 
       (custom-set-faces
        '(default ((t (:background "#101515"))))
@@ -848,8 +852,9 @@
 ;; will not end well. TODO: improve this
 (require 'ediff)
 
-;; Setting this to t will only show two panes, but I guess we want more for now.
-;; (setq magit-ediff-dwim-show-on-hunks t)
+;; Setting this to t will only show two panes.
+;; This set to nil can be useful when dealing wih merge conflicts.
+(setq magit-ediff-dwim-show-on-hunks t)
 
 ;; turn off whitespace checking:
 (setq ediff-diff-options "-w")
