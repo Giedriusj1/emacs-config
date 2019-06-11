@@ -17,6 +17,20 @@
 (when (not package--initialized) (package-initialize) )
 #+end_src
 
+** garbage collection
+#+BEGIN_SRC emacs-lisp
+(require 'gcmh)
+(gcmh-mode 1)
+
+;; (setq gcmh-verbose t)
+(setq gcmh-time-constant 10)
+
+;; Let's garbage collect when focusing out of the window..
+(add-hook 'focus-out-hook #'garbage-collect)
+;; and saving files.
+(add-hook 'after-save-hook       #'garbage-collect)
+#+END_SRC
+
 * PACKAGES
 #+begin_src emacs-lisp
 (message "emacs.org : package fetching stage")
@@ -73,6 +87,7 @@
   (dolist (p package-list)
     (when (not (package-installed-p p))
       (package-install p))))
+
 
 #+end_src
 
@@ -646,11 +661,6 @@
 ;; We'll ask emacs to put all customizations made via it's customize package in a
 ;; separate file... so we can ignore it later :)
 (setq custom-file (concat user-emacs-directory "/custom--ignored.el"))
-
-;; Let's garbage collect when focusing out of the window..
-(add-hook 'focus-out-hook #'garbage-collect)
-;; and saving files.
-(add-hook 'after-save-hook       #'garbage-collect)
 
 (blink-cursor-mode -1)
 (require 'auto-highlight-symbol)
