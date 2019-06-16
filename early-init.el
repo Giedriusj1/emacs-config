@@ -1,8 +1,7 @@
 (message "early-init.el: starting early init stage")
 
-
 ;; Increase garbage collector threshold for better performance
-(setq gc-cons-threshold (* 5 gc-cons-threshold))
+(setq gc-cons-threshold most-positive-fixnum)
 
 (setq package-quickstart t)
 
