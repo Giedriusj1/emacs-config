@@ -2,6 +2,8 @@
 
 * INIT BASICS
 #+begin_src emacs-lisp
+;;; -*- lexical-binding: t -*-
+
 (message "emacs.org : starting init stage")
 
 (require 'package)
