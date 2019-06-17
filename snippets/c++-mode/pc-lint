@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: pc-lint
+# key: pc-lint
+# --
+//lint !e${errno} ${why?}
