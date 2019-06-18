@@ -386,10 +386,11 @@
 
 (defhydra hydra-frame-helper (:color blue)
  "
-[_m_] make frame        [_o_] other frame
+[_m_] make frame        [_o_] other frame        [_d_] delete frame
  "
   ("m" make-frame nil)
   ("o" other-frame nil)
+  ("d" delete-frame nil)
   )
 
 
@@ -838,25 +839,38 @@
 (define-key control-semi-map (kbd "m") 'helm-multi-swoop-all)
 
 
-(defun helm-buffer--show-details (buf-name prefix help-echo
-                                  size mode dir face1 face2
-                                  proc details type)
-  (append
-   (list
-    (concat prefix
-            (propertize buf-name 'face face1
-                        'help-echo help-echo
-                        'type type)))
-   (and details
-        (list size mode
-              (propertize
-               (if proc
-                   (format "(%s %s in `%s')"
-                           (process-name proc)
-                           (process-status proc) dir)
-                 (format "%s" dir))
-               'face '((((class color) (min-colors 89)) (:foreground "grey"))) )))))
+;; (defun helm-buffer--show-details (buf-name prefix help-echo
+;;                                   size mode dir face1 face2
+;;                                   proc details type)
+;;   (append
+;;    (list
+;;     (concat prefix
+;;             (propertize buf-name 'face face1
+;;                         'help-echo help-echo
+;;                         'type type)))
+;;    (and details
+;;         (list size mode
+;;               (propertize
+;;                (if proc
+;;                    (format "(%s %s in `%s')"
+;;                            (process-name proc)
+;;                            (process-status proc) dir)
+;;                  (format "%s" dir))
+;;                'face font-lock-builtin-face )))
+;; ))
 
+
+               
+               
+;; (defun my-filter-dired-buffers (buffer-list)
+;;   (delq nil (mapcar
+;;              (lambda (buffer)
+;;                (if (eq (with-current-buffer buffer major-mode)  'dired-mode)
+;;                    nil
+;;                  buffer))
+;;              buffer-list)))
+
+;; (advice-add 'helm-skip-boring-buffers :filter-return 'my-filter-dired-buffers)
 
 (setq helm-buffer-max-length 60)
 #+end_src
