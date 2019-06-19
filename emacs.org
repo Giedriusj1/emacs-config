@@ -717,8 +717,6 @@
 
 *** C/C++ common
 #+begin_src emacs-lisp
-(require 'electric-spacing)
-
 (defhydra hydra-c (:color blue)
   ( "c" helm-yas-complete "helm yas complete")
   )
@@ -727,10 +725,7 @@
           (lambda()
             ;; Use C++ style comments
             (setq comment-start "//"
-                  comment-end   "")
-
-            ;; Automagically adds spaces between symbols like + > < etc...
-            (electric-spacing-mode t)))
+                  comment-end   "")))
 #+end_src
 
 *** Python
