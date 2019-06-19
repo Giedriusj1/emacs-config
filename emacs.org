@@ -886,7 +886,8 @@
   ("c" magit-commit "commit")
   ("l" magit-log "log")
   ("d" magit-diff-dwim "diff-dwim")
-  ("D" magit-diff "diff-dwim")
+  ("D" magit-diff "diff")
+  ("b" magit-blame "blame")
   )
 #+end_src
 
