@@ -228,6 +228,10 @@
 
 #+END_SRC
 
+** rendering
+ #+BEGIN_SRC emacs-lisp
+ (setq-default bidi-display-reordering nil)
+ #+END_SRC
 ** Buffer names
 #+BEGIN_SRC emacs-lisp
 (require 'uniquify)
