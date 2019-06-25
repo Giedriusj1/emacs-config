@@ -42,6 +42,7 @@
   '(
     ;; lsp-clangd
     ;; lsp-mode
+    elfeed
     ag
     clang-format
     company
@@ -242,6 +243,12 @@
 #+begin_src emacs-lisp
 (message "emacs.org : starting behaviour stage")
 #+end_src
+** elfeed
+#+BEGIN_SRC emacs-lisp
+(setq elfeed-feeds
+      '("http://nullprogram.com/feed/"
+        "http://planet.emacsen.org/atom.xml"))
+#+END_SRC
 ** Keyboard
 *** maps
 #+begin_src emacs-lisp
