@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: nxml
+# key: nxml
+# --
+#+begin_src nxml
+$0
+#+end_src
