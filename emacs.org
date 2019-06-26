@@ -103,9 +103,9 @@
 #+BEGIN_SRC emacs-lisp
 (setq current-font "normal")
 
-(defun set-windows-font (mode) 
+(defun set-windows-font (mode)
   (cond
-   ((string= mode "normal") 
+   ((string= mode "normal")
 	;; (cond
 	;; ((member "ProggyClean" (font-family-list))
 	;; (set-frame-font "ProggyClean"))
@@ -117,7 +117,7 @@
    ((string= mode "medium") (set-frame-font "Consolas-11"))
    ((string= mode "4k") (set-frame-font "Consolas-12"))))
 
-(defun set-linux-font (mode) 
+(defun set-linux-font (mode)
   (cond
    ((string= mode "normal") (set-frame-font "Monospace-10"))
    ((string= mode "medium") (set-frame-font "Monospace-12"))
@@ -163,7 +163,7 @@
 (defun is-4k-monitor ()
   (and (<= 2840 (x-display-pixel-width)) (<= 2160 (x-display-pixel-height))))
 
-(defun set-font-for-current-resolution () 
+(defun set-font-for-current-resolution ()
   (interactive)
   (cond
    ((is-4k-monitor) (set-font-4k))
@@ -625,8 +625,8 @@
   "Rifle through Org files in the directories below"
   (interactive)
   (helm-org-rifle-directories (list
-                               "~/org-notes" 
-                               "~/org-notes/lang-notes" 
+                               "~/org-notes"
+                               "~/org-notes/lang-notes"
                                "~/org-notes-private"
                                "~/.emacs.d"
                                )))
@@ -816,13 +816,15 @@
 
 ** SGML [XML/HTML]
 #+BEGIN_SRC emacs-lisp
-(require 'sgml-mode)
+;; (require 'sgml-mode)
 
 (defun reformat-xml ()
   (interactive)
+  ;;todo: this only works in xml-mode, we should spit out an error if we are not
+
   (save-excursion
     (sgml-pretty-print (point-min) (point-max))
-    ))
+    (indent-region (point-min) (point-max))))
 #+END_SRC
 
 ** yas
@@ -877,8 +879,8 @@
 ;; ))
 
 
-               
-               
+
+
 ;; (defun my-filter-dired-buffers (buffer-list)
 ;;   (delq nil (mapcar
 ;;              (lambda (buffer)
@@ -1220,6 +1222,10 @@
 #+begin_src emacs-lisp
 (require 'diminish)
 (diminish 'anzu-mode)
+(diminish 'gcmh-mode)
+(diminish 'projectile-mode)
+(diminish 'company-mode)
+(diminish 'yas-minor-mode)
 #+end_src
 ** tags
 #+begin_src emacs-lisp
