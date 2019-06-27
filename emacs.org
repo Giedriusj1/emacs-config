@@ -258,13 +258,11 @@
 (require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
 
-;; TODO: maybe instead check we are on windowed platform?
 (if (not (display-graphic-p))
     (progn
     (require 'key-chord)
     (key-chord-mode 1)
-    (key-chord-define-global ";;" 'control-semi-map)
-))
+    (key-chord-define-global ";;" 'control-semi-map)))
 
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
@@ -273,11 +271,9 @@
 *** global map
 #+begin_src emacs-lisp
 (global-set-key [f9] 'toggle-font-size)
-(global-set-key [f10] 'set-font-4k)
-(global-set-key [f11] 'toggle-truncate-lines)
+(global-set-key [f10] 'toggle-truncate-lines)
+(global-set-key [f11] 'toggle-frame-fullscreen)
 (global-set-key [f12] 'whitespace-mode)
-
-(global-set-key (kbd "C-<f11>") 'toggle-frame-fullscreen)
 
 (global-set-key (kbd "<Scroll_Lock>") 'scroll-lock-mode)
 (global-set-key (kbd "<up>") 'scroll-down-line)
@@ -393,8 +389,7 @@
   ("q" ggtags-update-tags nil)
   ("c" ggtags-create-tags nil)
   ("o" ggtags-find-tag-dwim nil)
-  ("p" lsp-find-references nil)
-  )
+  ("p" lsp-find-references nil))
 
 (defhydra hydra-frame-helper (:color blue)
  "
@@ -439,8 +434,6 @@
     :action 'helm-source-projectile-projects-actions2)
   "Helm source for known projectile projects.")
 
-
-
 (defun helm-projectile-projects ()
   (interactive)
   (let ((helm-ff-transformer-show-only-basename nil))
@@ -462,8 +455,7 @@
 
   ("g" helm-projectile-grep nil)
   ("a" helm-projectile-ack nil)
-  ("m" helm-projectile-ag nil)
-  )
+  ("m" helm-projectile-ag nil))
 #+END_SRC
 
 ** cua-mode
@@ -496,8 +488,6 @@
 (bind-key* "C-1" 'window-swap-states)
 (bind-key* "C-2" 'windmove-up)
 (bind-key* "C-3" 'windmove-right)
-
-(bind-key* "C-5" 'other-frame)
 #+end_src
 
 ** shell
@@ -573,6 +563,7 @@
 (define-key company-active-map (kbd "C-p") #'company-select-previous)
 
 (define-key control-semi-map (kbd "n") 'company-complete)
+
 (define-key control-semi-map (kbd "C-n") 'dabbrev-expand)
 
 (setq company-tooltip-limit 25)
@@ -761,9 +752,7 @@
 (defhydra hydra-emacs-lisp (:color blue)
   ( "j" eval-buffer "eval buffer")
   ( "k" eval-last-sexp "eval-last-sexp")
-  ( "c" helm-yas-complete "yas complete")
-  )
-
+  ( "c" helm-yas-complete "yas complete"))
 #+end_src
 ** gdb
 #+begin_src emacs-lisp
@@ -771,8 +760,7 @@
 
 (defhydra hydra-gdb-helper (:color blue)
   ( "h" gdb-restore-windows "restore gdb windows")
-  ( "m" gdb-many-windows "many windows")
-  )
+  ( "m" gdb-many-windows "many windows"))
 #+end_src
 ** Mode recognition
 #+begin_src emacs-lisp
@@ -807,8 +795,7 @@
         ("\\.pm\\'" . perl-mode)
         ("\\.cmd\\'" . bat-mode)
         ("\\.bat\\'" . bat-mode)
-        ("\\.yml\\'" . yaml-mode)
-        ))
+        ("\\.yml\\'" . yaml-mode)))
 #+end_src
 
 ** SGML [XML/HTML]
@@ -854,40 +841,6 @@
 (define-key control-semi-map (kbd "C-m") 'helm-swoop)
 (define-key control-semi-map (kbd "m") 'helm-multi-swoop-all)
 
-
-;; (defun helm-buffer--show-details (buf-name prefix help-echo
-;;                                   size mode dir face1 face2
-;;                                   proc details type)
-;;   (append
-;;    (list
-;;     (concat prefix
-;;             (propertize buf-name 'face face1
-;;                         'help-echo help-echo
-;;                         'type type)))
-;;    (and details
-;;         (list size mode
-;;               (propertize
-;;                (if proc
-;;                    (format "(%s %s in `%s')"
-;;                            (process-name proc)
-;;                            (process-status proc) dir)
-;;                  (format "%s" dir))
-;;                'face font-lock-builtin-face )))
-;; ))
-
-
-
-
-;; (defun my-filter-dired-buffers (buffer-list)
-;;   (delq nil (mapcar
-;;              (lambda (buffer)
-;;                (if (eq (with-current-buffer buffer major-mode)  'dired-mode)
-;;                    nil
-;;                  buffer))
-;;              buffer-list)))
-
-;; (advice-add 'helm-skip-boring-buffers :filter-return 'my-filter-dired-buffers)
-
 (setq helm-buffer-max-length 60)
 #+end_src
 
@@ -908,8 +861,7 @@
   ("l" magit-log "log")
   ("d" magit-diff-dwim "diff-dwim")
   ("D" magit-diff "diff")
-  ("b" magit-blame "blame")
-  )
+  ("b" magit-blame "blame"))
 #+end_src
 
 ** ediff
@@ -990,6 +942,7 @@
       (put face 'face-alias alias)))
 
 
+ ;; This makes ediff usable with org mode
  (with-eval-after-load 'outline
    (add-hook 'ediff-prepare-buffer-hook #'outline-show-all))
 
@@ -997,34 +950,21 @@
 
 ** swift
 #+begin_src emacs-lisp
-(defface hi-space
-  '((((background dark)) (:background "#202525" :foreground "black"))
-    (t (:background "pink")))
-  "Face for hi-lock mode."
-  )
-
-(defun hl ()
+(defun swift-up(&optional arg)
   (interactive)
-  (highlight-regexp "^[ \t]+" 'hi-space)
-  )
+  (or arg (setq arg 1))
+  (dotimes (bind arg)
+    
+    (scroll-down-line)
+    (previous-line)))
 
-(defun un-hl()
+(defun swift-down(&optional arg)
   (interactive)
-  (unhighlight-regexp "^[ \t]+")
-  )
-
-
-(defun swift-up()
-  (interactive)
-  (scroll-down-line)
-  (previous-line)
-  )
-
-(defun swift-down()
-  (interactive)
-  (scroll-up-line)
-  (next-line)
-  )
+  (or arg (setq arg 1))
+  (dotimes (bind arg)
+    
+    (scroll-up-line)
+    (next-line)))
 
 (defun swift-2-up()
   (interactive)
@@ -1042,7 +982,6 @@
   (next-line)
   )
 
-
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
 (bind-key* "M-SPC" 'toggle-swift-mode)
 
@@ -1057,7 +996,6 @@
 
     (define-key map (kbd "p") 'beginning-of-defun)
     (define-key map (kbd "n") 'end-of-defun)
-
 
 
     (define-key map (kbd "u") 'cua-scroll-down)
@@ -1124,10 +1062,7 @@
       ;; turning mode off
       (custom-set-faces '(cursor ((t (:background "blue")))))
       (custom-set-faces '(mode-line ((t (:background "#333377")))))
-      (global-swift-mode)
-      )
-    )
-  )
+      (global-swift-mode))))
 #+end_src
 
 ** custom
@@ -1162,68 +1097,26 @@
 
 ** quick open hydra
 #+BEGIN_SRC emacs-lisp
-
-(defun qo-emacs-org ()
-  (interactive)
-  (find-file "~/.emacs.d/emacs.org")
-  )
-
-(defun qo-notes-org ()
-  (interactive)
-  (find-file "~/org-notes/notes.org")
-  )
-
-(defun qo-notes-work ()
-  (interactive)
-  (find-file "~/org-notes/work.org")
-  )
-
-(defun qo-notes-prog-org ()
-  (interactive)
-  (find-file "~/org-notes/programming.org")
-  )
-
-(defun qo-temp ()
-  (interactive)
-  (find-file "~/emacs-temp")
-  )
-
-
-(defhydra hydra-quickopen-notes (:color blue)
-  "
-[_w_] ~/org-notes/work.org
-[_n_] ~/org-notes/notes.org
-[_p_] ~/org-notes/programming.org
-"
-  ("w" qo-notes-work nil)
-  ("n" qo-notes-org nil)
-  ("p" qo-notes-prog-org nil)
-  )
-
-
-(defun g/dired-notes()
-  (interactive)
-  (progn
-    (dired "~/org-notes")
-    (helm-find-files-1 default-directory)
-    )
-
-  )
-
 (defhydra hydra-quickopen (:color blue)
   "
 [_t_] ~/notes/temp
 [_c_] ~/.emacs.d/emacs.org
-[_n_] org-notes
 [_;_] org rifle
 [_l_] dired ~/.emacs.d
 "
-  ("t" qo-temp nil)
-  ("c" qo-emacs-org nil)
-  ("n" hydra-quickopen-notes/body nil)
+  ("t" (lambda ()
+         (interactive)
+         (find-file "~/emacs-temp")) nil)
+  ("c" (lambda ()
+         (interactive)
+         (find-file "~/.emacs.d/emacs.org")) nil)
   (";" helm-org-rifle-important nil)
-  ("l" g/dired-notes nil)
-  )
+  ("l" (lambda ()
+         (interactive)
+         (progn
+           (zygospore-toggle-delete-other-windows)
+           (dired "~/org-notes")
+           (helm-find-files-1 default-directory))) nil))
 #+END_SRC
 
 ** diminish
