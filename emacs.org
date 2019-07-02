@@ -1143,6 +1143,18 @@
 ;; (add-hook 'c++-mode-hook 'lsp)
 #+end_src
 
+** smartparens
+#+BEGIN_SRC emacs-lisp
+(require 'smartparens)
+(smartparens-global-mode t)
+
+(setq sp-highlight-pair-overlay nil)
+#+END_SRC
+
+** semantic 
+#+BEGIN_SRC emacs-lisp
+(semantic-mode t)
+#+END_SRC
 * ALIAS
 #+begin_src emacs-lisp
 (message "emacs.org : starting alias stage")
