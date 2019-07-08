@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: cout-line
+# key: cout-line
+# --
+
+
+std::cout << __FILE__<<__LINE__ << std::endl;    
