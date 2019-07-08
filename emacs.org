@@ -65,7 +65,6 @@
     rust-mode
     shell-here
     smart-mode-line
-    smartparens
     swiper
     swiper-helm
     yaml-mode
@@ -1142,12 +1141,9 @@
 ;; (add-hook 'c++-mode-hook 'lsp)
 #+end_src
 
-** smartparens
+** parens
 #+BEGIN_SRC emacs-lisp
-(require 'smartparens)
-(smartparens-global-mode t)
-
-(setq sp-highlight-pair-overlay nil)
+(electric-pair-mode t)
 #+END_SRC
 
 ** semantic 
