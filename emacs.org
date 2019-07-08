@@ -333,8 +333,23 @@
 (define-key control-semi-map (kbd "C-l") 'execute-extended-command)
 (define-key control-semi-map (kbd "C-1") 'zygospore-toggle-delete-other-windows)
 (define-key control-semi-map (kbd "C-2") 'split-window-below)
-(define-key control-semi-map (kbd "C-3") 'split-window-right)
-(define-key control-semi-map (kbd "C-0") 'delete-window)
+
+(define-key control-semi-map (kbd "C-2") '(lambda ()
+                                            (interactive)
+                                            (split-window-below)
+                                            (balance-windows)))
+
+(define-key control-semi-map (kbd "C-3") '(lambda ()
+                                            (interactive)
+                                            (split-window-right)
+                                            (balance-windows)))
+
+
+(define-key control-semi-map (kbd "C-0") '(lambda ()
+                                            (interactive)
+                                            (delete-window)
+                                            (balance-windows)))
+
 (define-key control-semi-map (kbd "C-4") 'balance-windows)
 
 (define-key control-semi-map (kbd "C-d") 'follow-mode)
