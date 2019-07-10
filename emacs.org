@@ -1153,8 +1153,23 @@
 #+end_src
 ** LSP
 #+begin_src emacs-lisp
+
+(defun global-disable-mode (mode-fn)
+  "Disable `MODE-FN' in ALL buffers."
+  (interactive "a")
+  (dolist (buffer (buffer-list))
+    (with-current-buffer buffer
+      (funcall mode-fn -1))))
+
+
+(defun disable-lsp-in-all-buffers ()
+(interactive "a")
+(global-disable-mode lsp-mode)
+)
+
+
 (require 'lsp)
-(add-hook 'c++-mode-hook 'lsp)
+;; (add-hook 'c++-mode-hook 'lsp)
 #+end_src
 
 ** parens
