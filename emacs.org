@@ -459,6 +459,10 @@
           :buffer "*helm projectile projects*"
           :truncate-lines helm-projectile-truncate-lines)))
 
+(customize-set-variable 'helm-projectile-sources-list 
+                        '(helm-source-projectile-buffers-list
+                          helm-source-projectile-files-list))
+
 (defhydra hydra-projectile (:color blue)
   "
 [_q_] invalidate cache [_p_] projects
