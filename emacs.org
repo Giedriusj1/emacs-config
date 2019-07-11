@@ -247,7 +247,10 @@
 #+BEGIN_SRC emacs-lisp
 (setq elfeed-feeds
       '("http://nullprogram.com/feed/"
-        "http://planet.emacsen.org/atom.xml"))
+        "http://planet.emacsen.org/atom.xml"
+        "https://www.spacerogue.net/wordpress/?feed=rss2"
+        "https://mjg59.dreamwidth.org/data/rss"
+))
 #+END_SRC
 ** Keyboard
 *** maps
