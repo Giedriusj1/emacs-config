@@ -428,7 +428,7 @@
 
 (projectile-global-mode t)
 
-(defcustom helm-source-projectile-projects-actions2
+(defcustom g/helm-source-projectile-projects-actions
   (helm-make-actions
    "Open Dired in project's directory `C-d'" #'dired
    "Switch to project" (lambda (project)
@@ -443,19 +443,19 @@
   :group 'helm-projectile
   :type '(alist :key-type string :value-type function))
 
-(defvar helm-source-projectile-projects2
+(defvar g/helm-source-projectile-projects
   (helm-build-sync-source "Projectile projects"
     :candidates (lambda () (with-helm-current-buffer projectile-known-projects))
     :fuzzy-match helm-projectile-fuzzy-match
     :keymap helm-projectile-projects-map
     :mode-line helm-read-file-name-mode-line-string
-    :action 'helm-source-projectile-projects-actions2)
+    :action 'g/helm-source-projectile-projects-actions)
   "Helm source for known projectile projects.")
 
 (defun helm-projectile-projects ()
   (interactive)
   (let ((helm-ff-transformer-show-only-basename nil))
-    (helm :sources '(helm-source-projectile-projects2)
+    (helm :sources '(g/helm-source-projectile-projects)
           :buffer "*helm projectile projects*"
           :truncate-lines helm-projectile-truncate-lines)))
 
