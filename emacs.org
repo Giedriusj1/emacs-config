@@ -859,6 +859,7 @@
 
 (global-set-key (kbd "C-j") 'helm-mini)
 (define-key org-mode-map (kbd "C-j") 'helm-mini)
+(define-key asm-mode-map (kbd "C-j") 'helm-mini)
 (define-key lisp-interaction-mode-map (kbd "C-j") 'helm-mini)
 
 (define-key control-semi-map (kbd "C-s") 'helm-semantic-or-imenu)
