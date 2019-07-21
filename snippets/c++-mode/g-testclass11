@@ -1,0 +1,34 @@
+# -*- mode: snippet -*-
+# name: g/testclass11
+# key: g/testclass11
+# --
+class testclass {
+  public:
+   //! Default constructor
+   testclass() { std::cout << "from  constructor" << std::endl; }
+
+   //! Copy constructor
+   testclass(const testclass &other) { std::cout << "from copy constructor" << std::endl; }
+
+   // ! Move constructor
+   testclass(testclass &&other) noexcept { std::cout << "from move constructor" << std::endl; }
+
+
+   //! Copy assignment operator
+   testclass& operator=(const testclass &other) {
+      std::cout << "from copy assignment" << std::endl;
+   }
+
+   // ! Move assignment operator
+   testclass& operator=(testclass &&other) noexcept {
+      std::cout << "from copy assignment" << std::endl;
+   }
+
+   int a() { return 42; }
+
+   //! Destructor
+   virtual ~testclass() noexcept { std::cout << "from destructor" << std::endl; }
+
+  protected:
+  private:
+};
