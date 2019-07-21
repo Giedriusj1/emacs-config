@@ -535,49 +535,49 @@
 
 ** dired
 #+begin_src emacs-lisp
-  (require 'dired)
-  (require 'dired-extension)
+(require 'dired)
+(require 'dired-extension)
 
-  (setq dired-dwim-target t)
+(setq dired-dwim-target t)
 
-  (define-key dired-mode-map (kbd "l") 'dired-up-directory)
-  (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
+(define-key dired-mode-map (kbd "l") 'dired-up-directory)
+(define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
 
-  (setq dired-listing-switches "-alFh")
+(setq dired-listing-switches "-alFh")
 
-  ;; Taken from: https://github.com/aculich/.emacs.d/blob/master/init.el
-  (when (or (memq system-type '(gnu gnu/linux))
-        (string= (file-name-nondirectory insert-directory-program) "gls"))
-    ;; If we are on a GNU system or have GNU ls, add some more `ls' switches:
-    ;; `--group-directories-first' lists directories before files, and `-v'
-    ;; sorts numbers in file names naturally, i.e. "image1" goes before
-    ;; "image02"
-    (setq dired-listing-switches
-      (concat dired-listing-switches " --group-directories-first -v")))
+;; Taken from: https://github.com/aculich/.emacs.d/blob/master/init.el
+(when (or (memq system-type '(gnu gnu/linux))
+          (string= (file-name-nondirectory insert-directory-program) "gls"))
+  ;; If we are on a GNU system or have GNU ls, add some more `ls' switches:
+  ;; `--group-directories-first' lists directories before files, and `-v'
+  ;; sorts numbers in file names naturally, i.e. "image1" goes before
+  ;; "image02"
+  (setq dired-listing-switches
+        (concat dired-listing-switches " --group-directories-first -v")))
 
 
-  (defun open-in-external-app ()
-    "Open the current file or dired marked files in external app."
-    (interactive)
-    (let ( doIt
-       (myFileList
-        (cond
-         ((string-equal major-mode "dired-mode") (dired-get-marked-files))
-         (t (list (buffer-file-name))) ) ) )
+(defun open-in-external-app ()
+  "Open the current file or dired marked files in external app."
+  (interactive)
+  (let ( doIt
+         (myFileList
+          (cond
+           ((string-equal major-mode "dired-mode") (dired-get-marked-files))
+           (t (list (buffer-file-name))) ) ) )
 
-      (setq doIt (if (<= (length myFileList) 5)
-             t
-           (y-or-n-p "Open more than 5 files?") ) )
+    (setq doIt (if (<= (length myFileList) 5)
+                   t
+                 (y-or-n-p "Open more than 5 files?") ) )
 
-      (when doIt
-    (cond
-     ((string-equal system-type "windows-nt")
-      (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList)
-      )
-     ((string-equal system-type "darwin")
-      (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
-     ((string-equal system-type "gnu/linux")
-      (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList) ) ) ) ) )
+    (when doIt
+      (cond
+       ((string-equal system-type "windows-nt")
+        (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList)
+        )
+       ((string-equal system-type "darwin")
+        (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
+       ((string-equal system-type "gnu/linux")
+        (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList))))))
 
 #+end_src
 
