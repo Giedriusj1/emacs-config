@@ -64,6 +64,7 @@
     magit
     projectile
     rust-mode
+    scala-mode
     shell-here
     smart-mode-line
     swiper
@@ -830,7 +831,8 @@
         ("\\.pm\\'" . perl-mode)
         ("\\.cmd\\'" . bat-mode)
         ("\\.bat\\'" . bat-mode)
-        ("\\.yml\\'" . yaml-mode)))
+        ("\\.yml\\'" . yaml-mode)
+        ("\\.scala\\'" . scala-mode)))
 #+end_src
 
 ** SGML [XML/HTML]
