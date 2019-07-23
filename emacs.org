@@ -856,6 +856,7 @@
 ** Helm
 #+begin_src emacs-lisp
 (require 'helm-config)
+(require 'asm-mode)
 
 (setq helm-candidate-number-limit 500)
 
