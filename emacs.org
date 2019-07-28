@@ -76,7 +76,6 @@
       ;; We are dealing with linux system:
       (set-linux-font mode)))))
 
-
 (defun toggle-font-size()
   (interactive)
   (cond
@@ -204,8 +203,9 @@
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
 
-(require 'bind-key)
 (bind-key* "C-;" 'control-semi-map)
+(bind-key* "<tab>" 'tab-map)
+(bind-key* "M-;" 'tab-map)
 
 (use-package key-chord :if (not (display-graphic-p))
   :init
@@ -213,8 +213,6 @@
   :config
   (key-chord-define-global ";;" 'control-semi-map))
 
-(bind-key* "<tab>" 'tab-map)
-(bind-key* "M-;" 'tab-map)
 #+end_src
 
 *** global map
@@ -388,6 +386,8 @@
   (diminish 'projectile-mode)
 
   :config
+  (remove-hook 'find-file-hook #'projectile-find-file-hook-function)
+
   ;; Make projectiel use external tools for file indexing.
   ;; If this breaks revert to 'native for more reliability.
   (setq projectile-indexing-method 'alien)
@@ -416,7 +416,6 @@
     (helm-build-sync-source "Projectile projects"
       :candidates (lambda ()
                     (with-helm-current-buffer projectile-known-projects))
-      :fuzzy-match helm-projectile-fuzzy-match
       :keymap helm-projectile-projects-map
       :mode-line helm-read-file-name-mode-line-string
       :action 'g/helm-source-projectile-projects-actions)
@@ -459,7 +458,10 @@
 ** clang
 *** clang-format
 #+BEGIN_SRC emacs-lisp
-(setq clang-format-style "{BasedOnStyle: google, ColumnLimit: 100, IndentWidth: 3, BreakBeforeBraces: Stroustrup}")
+(use-package clang-format :defer t
+  :config
+  ;; The following somewhat resembles Resilient's coding style
+  (setq clang-format-style "{BasedOnStyle: google, ColumnLimit: 100, IndentWidth: 3, BreakBeforeBraces: Stroustrup}"))
 #+END_SRC
 ** recentf
 #+begin_src emacs-lisp
@@ -520,10 +522,8 @@
            ((string-equal major-mode "dired-mode") (dired-get-marked-files))
            (t (list (buffer-file-name))) ) ) )
 
-    (setq doIt (if (<= (length myFileList) 5)
-                   t
+    (setq doIt (if (<= (length myFileList) 5) t
                  (y-or-n-p "Open more than 5 files?") ) )
-
     (when doIt
       (cond
        ((string-equal system-type "windows-nt")
@@ -708,7 +708,6 @@
 
 (add-hook 'c-mode-common-hook
           (lambda()
-          (semantic-mode t)
             ;; Use C++ style comments
             (setq comment-start "//"
                   comment-end   "")))
@@ -814,11 +813,20 @@
   :bind (:map asm-mode-map
               ("C-j" . helm-mini)))
 
+
+;; 
+(defun g/helm-semantic-or-imenu (arg)
+  (interactive "P")
+  (remove-hook 'semantic-inhibit-functions #'ds)
+  (semantic-new-buffer-fcn)
+  (helm-semantic-or-imenu arg)
+  (add-hook 'semantic-inhibit-functions  #'ds))
+
 (use-package helm
   :bind
   (("C-j" . helm-mini))
   (:map control-semi-map
-        (( "C-s" . helm-semantic-or-imenu)
+        (( "C-s" . g/helm-semantic-or-imenu)
          ( "l" . helm-M-x)
          ( "r" . helm-mark-ring)
          ( "C-r" . helm-global-mark-ring)
@@ -1118,6 +1126,20 @@
   ;; Projectile already displays this information.
   (setq ggtags-mode-line-project-name nil))
 #+end_src
+** semantic
+#+BEGIN_SRC emacs-lisp
+(semantic-mode 1) ;; global mode
+
+;; This effectively disables idle reparsing for all files
+(setq semantic-idle-scheduler-max-buffer-size 1)
+
+;; We don't care about saving db when exiting emacs
+(remove-hook 'kill-emacs-hook #'semanticdb-kill-emacs-hook)
+
+(defun ds () t)
+(add-hook 'semantic-inhibit-functions  #'ds)
+
+#+END_SRC
 ** ag
 #+BEGIN_SRC emacs-lisp
 (use-package ag :defer t)
