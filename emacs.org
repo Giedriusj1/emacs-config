@@ -579,8 +579,7 @@
   ( "e" org-edit-src-code nil)
   ( "s" org-edit-src-exit nil)
 
-  ( "c" helm-yas-complete nil)
-  )
+  ( "c" helm-yas-complete nil))
 
 (setq org-directory "~/org-notes")
 (setq org-src-fontify-natively t)
@@ -869,8 +868,7 @@
 
 ** ediff
 #+begin_src emacs-lisp
-(use-package ediff
-  :defer t
+(use-package ediff :defer t
   :config
   ;; Setting this to t will only show two panes.
   ;; This set to nil can be useful when dealing wih merge conflicts.
@@ -953,7 +951,6 @@
   (interactive)
   (or arg (setq arg 1))
   (dotimes (bind arg)
-
     (scroll-down-line)
     (previous-line)))
 
@@ -961,7 +958,6 @@
   (interactive)
   (or arg (setq arg 1))
   (dotimes (bind arg)
-
     (scroll-up-line)
     (next-line)))
 
@@ -1063,36 +1059,33 @@
 ** custom
 #+begin_src emacs-lisp
 (defun recompile-custom-packages ()
-(interactive)
-(byte-recompile-directory (expand-file-name "~/.emacs.d/custom-packages") 0))
+  (interactive)
+  (byte-recompile-directory (expand-file-name "~/.emacs.d/custom-packages") 0))
 
 (defun reload-emacs-config ()
-(interactive)
-(load-file "~/.emacs.d/init.el"))
+  (interactive)
+  (load-file "~/.emacs.d/init.el"))
 
 (defun org-babel-reload-emacs-org()
-(interactive)
-(org-babel-load-file "~/.emacs.d/emacs.org"))
-
-(defun emacs-init-time ()
-  "Return a string giving the duration of the Emacs initialization."
   (interactive)
-  (let ((str
-     (format "%.2f seconds"
-         (float-time
-          (time-subtract after-init-time before-init-time)))))
-    (if (called-interactively-p 'interactive)
-        (message "%s" str)
-      str)))
+  (org-babel-load-file "~/.emacs.d/emacs.org"))
 
-(defun display-startup-echo-area-message ()
+(defun emacs-init-time () 
+  "Return a string giving the duration of the Emacs initialization." 
+  (interactive) 
+  (let ((str (format "%.2f seconds"
+                     (float-time (time-subtract after-init-time before-init-time))))) 
+    (if (called-interactively-p 'interactive) 
+        (message "%s" str) str)))
+
+(defun display-startup-echo-area-message () 
   (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))
 #+end_src
 
 ** quick open hydra
 #+BEGIN_SRC emacs-lisp
 ;; Required for helm-find-files-1
-(require 'helm-files)
+(use-package helm-files :defer t :ensure nil)
 
 (defhydra hydra-quickopen (:color blue)
   "
