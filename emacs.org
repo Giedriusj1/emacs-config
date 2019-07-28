@@ -14,7 +14,7 @@
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 ;; not needed since emacs 27
-(when (not package--initialized) (package-initialize) )
+(when (not package--initialized) (package-initialize))
 
 (setq url-http-attempt-keepalives nil)
 
@@ -262,9 +262,7 @@
 *** ctl-x-map
 #+begin_src emacs-lisp
 (define-key ctl-x-map "\C-f" 'helm-find-files)
-(define-key ctl-x-map "\C-d" (lambda ()
-                               (interactive)
-                               (dired default-directory)))
+(define-key ctl-x-map "\C-d" 'dired-jump)
 #+end_src
 *** control-semi-map
 #+begin_src emacs-lisp
