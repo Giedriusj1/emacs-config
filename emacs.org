@@ -536,6 +536,7 @@
 
 ** company
 #+begin_src emacs-lisp
+(use-package company-lsp :defer t)
 (use-package company
   :bind (:map company-active-map
               (("C-n" . company-select-next)
@@ -547,7 +548,7 @@
   (global-company-mode t)
   (diminish 'company-mode)
 
-  ;; (push 'company-lsp company-backends)
+  (push 'company-lsp company-backends)
 
   ;; (add-to-list 'company-backends '(company-clang))
   (add-to-list 'company-backends '(company-gtags))
@@ -741,6 +742,12 @@
 #+BEGIN_SRC emacs-lisp
 (use-package scala-mode :defer t)
 #+END_SRC
+*** java
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-java :defer t)
+
+(add-hook 'java-mode-hook #'lsp)
+#+END_SRC
 ** gdb
 #+begin_src emacs-lisp
 (define-key tab-map (kbd "h") 'hydra-gdb-helper/body)
@@ -752,42 +759,40 @@
 ** Mode recognition
 #+begin_src emacs-lisp
 (setq auto-mode-alist
-      '(
-        ("[Mm]ake[Ff]ile\\'" . makefile-mode)
-        ("\\.mak\\'" . makefile-mode)
-        ("\\.md\\'" . markdown-mode)
-        ("\\.notes$" . org-mode)
-        ("\\.org$" . org-mode)
-        ("\\.org.gpg$" . org-mode)
-        ("\\.pdf\\'" . doc-view-mode)
-        ("\\.ref$" . org-mode)
-        ("\\.ref.gpg$" . org-mode)
-        ("\\.xml\\'" . xml-mode)
+      '(("[Mm]ake[Ff]ile\\'" . makefile-mode) 
+        ("\\.mak\\'" . makefile-mode) 
+        ("\\.md\\'" . markdown-mode) 
+        ("\\.notes$" . org-mode) 
+        ("\\.org$" . org-mode) 
+        ("\\.org.gpg$" . org-mode) 
+        ("\\.pdf\\'" . doc-view-mode) 
+        ("\\.ref$" . org-mode) 
+        ("\\.ref.gpg$" . org-mode) 
+        ("\\.xml\\'" . xml-mode) 
         ("\\.pom\\'" . xml-mode)
 
         ;;programming modes
-        ("\\.bat\\'" . bat-mode)
-        ("\\.c\\'" . c-mode)
-        ("\\.cc\\'" . c-mode)
-        ("\\.cmd\\'" . bat-mode)
-        ("\\.cpp\\'" . c++-mode)
-        ("\\.el\\'" . emacs-lisp-mode)
-        ("\\.h\\'" . c++-mode)
-        ("\\.hh\\'" . c++-mode)
+        ("\\.bat\\'" . bat-mode) 
+        ("\\.c\\'" . c-mode) 
+        ("\\.cc\\'" . c-mode) 
+        ("\\.cmd\\'" . bat-mode) 
+        ("\\.cpp\\'" . c++-mode) 
+        ("\\.el\\'" . emacs-lisp-mode) 
+        ("\\.h\\'" . c++-mode) 
+        ("\\.hh\\'" . c++-mode) 
         ("\\.hpp\\'" . c++-mode)
         ;; ("\\.hs$" . haskell-mode)
-        ("\\.java\\'" . java-mode)
-        ("\\.mc\\'" . c++-mode)
-        ("\\.pm\\'" . perl-mode)
-        ("\\.py\\'" . python-mode)
-        ("\\.rs\\'" . rust-mode)
-        ("\\.scala\\'" . scala-mode)
-        ("\\.scm\\'" . scheme-mode)
-        ("\\.sh\\'" . sh-mode)
-        ("\\.yml\\'" . yaml-mode)
-        ("\\.s\\'" . asm-mode)
-        ("\\.S\\'" . asm-mode)
-))
+        ("\\.java\\'" . java-mode) 
+        ("\\.mc\\'" . c++-mode) 
+        ("\\.pm\\'" . perl-mode) 
+        ("\\.py\\'" . python-mode) 
+        ("\\.rs\\'" . rust-mode) 
+        ("\\.scala\\'" . scala-mode) 
+        ("\\.scm\\'" . scheme-mode) 
+        ("\\.sh\\'" . sh-mode) 
+        ("\\.yml\\'" . yaml-mode) 
+        ("\\.s\\'" . asm-mode) 
+        ("\\.S\\'" . asm-mode)))#
 #+end_src
 
 ** yml
