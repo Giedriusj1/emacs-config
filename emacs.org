@@ -735,6 +735,10 @@
   ( "k" eval-last-sexp "eval-last-sexp")
   ( "c" helm-yas-complete "yas complete"))
 #+end_src
+*** Scala
+#+BEGIN_SRC emacs-lisp
+(use-package scala-mode :defer t)
+#+END_SRC
 ** gdb
 #+begin_src emacs-lisp
 (define-key tab-map (kbd "h") 'hydra-gdb-helper/body)
@@ -783,6 +787,10 @@
 ))
 #+end_src
 
+** yml
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-mode :defer t)
+#+END_SRC
 ** SGML [XML/HTML]
 #+BEGIN_SRC emacs-lisp
 (defun reformat-xml ()
@@ -810,7 +818,7 @@
               ("C-j" . helm-mini)))
 
 
-;; 
+;;
 (defun g/helm-semantic-or-imenu (arg)
   (interactive "P")
   (remove-hook 'semantic-inhibit-functions #'ds)
@@ -944,11 +952,11 @@
   (scroll-down-line)
   (previous-line))
 
-(defun swift-2-down() 
-  (interactive) 
-  (scroll-up-line) 
-  (next-line) 
-  (scroll-up-line) 
+(defun swift-2-down()
+  (interactive)
+  (scroll-up-line)
+  (next-line)
+  (scroll-up-line)
   (next-line))
 
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
@@ -1045,15 +1053,15 @@
   (interactive)
   (org-babel-load-file "~/.emacs.d/emacs.org"))
 
-(defun emacs-init-time () 
-  "Return a string giving the duration of the Emacs initialization." 
-  (interactive) 
+(defun emacs-init-time ()
+  "Return a string giving the duration of the Emacs initialization."
+  (interactive)
   (let ((str (format "%.2f seconds"
-                     (float-time (time-subtract after-init-time before-init-time))))) 
-    (if (called-interactively-p 'interactive) 
+                     (float-time (time-subtract after-init-time before-init-time)))))
+    (if (called-interactively-p 'interactive)
         (message "%s" str) str)))
 
-(defun display-startup-echo-area-message () 
+(defun display-startup-echo-area-message ()
   (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))
 #+end_src
 
