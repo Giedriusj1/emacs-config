@@ -484,6 +484,8 @@
 
 ** shell
 #+begin_src emacs-lisp
+(use-package shell-here :defer t)
+
 (bind-key* "C-`" 'shell-here)
 
 (add-hook 'shell-mode-hook #'company-mode)
