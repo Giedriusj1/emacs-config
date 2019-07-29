@@ -491,7 +491,7 @@
 
 ** dired
 #+begin_src emacs-lisp
-(require 'dired-extension)
+(use-package dired-extension :ensure nil)
 
 (setq dired-dwim-target t)
 
@@ -1067,7 +1067,7 @@
 
 ** quick open hydra
 #+BEGIN_SRC emacs-lisp
-;; Required for helm-find-files-1
+;; Needed for helm-find-files-1
 (use-package helm-files :defer t :ensure nil)
 
 (defhydra hydra-quickopen (:color blue)
