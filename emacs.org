@@ -763,6 +763,7 @@
         ("\\.ref$" . org-mode)
         ("\\.ref.gpg$" . org-mode)
         ("\\.xml\\'" . xml-mode)
+        ("\\.pom\\'" . xml-mode)
 
         ;;programming modes
         ("\\.bat\\'" . bat-mode)
