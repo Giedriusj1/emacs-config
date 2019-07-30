@@ -982,6 +982,10 @@
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
 (bind-key* "M-SPC" 'toggle-swift-mode)
 
+(use-package golden-ratio-scroll-screen :defer t
+  :custom
+  (customize-set-variable 'golden-ratio-scroll-highlight-flag nil))
+
 (defvar swift-command-map
   (let ((map (make-keymap)))
     ;; movement
@@ -994,8 +998,8 @@
     (define-key map (kbd "p") 'beginning-of-defun)
     (define-key map (kbd "n") 'end-of-defun)
 
-    (define-key map (kbd "u") 'cua-scroll-down)
-    (define-key map (kbd "j") 'cua-scroll-up)
+    (define-key map (kbd "u") 'golden-ratio-scroll-screen-down)
+    (define-key map (kbd "j") 'golden-ratio-scroll-screen-up)
 
     ;; cua mode
     (define-key map (kbd "C-z") 'toggle-swift-mode)
