@@ -495,36 +495,21 @@
 
 (setq dired-listing-switches "-alFh")
 
-;; Taken from: https://github.com/aculich/.emacs.d/blob/master/init.el
-(when (or (memq system-type '(gnu gnu/linux))
-          (string= (file-name-nondirectory insert-directory-program) "gls"))
-  ;; If we are on a GNU system or have GNU ls, add some more `ls' switches:
-  ;; `--group-directories-first' lists directories before files, and `-v'
-  ;; sorts numbers in file names naturally, i.e. "image1" goes before
-  ;; "image02"
+(when (memq system-type '(gnu gnu/linux))
   (setq dired-listing-switches
         (concat dired-listing-switches " --group-directories-first -v")))
 
-
 (defun open-in-external-app ()
-  "Open the current file or dired marked files in external app."
   (interactive)
-  (let ( doIt
-         (myFileList
-          (cond
-           ((string-equal major-mode "dired-mode") (dired-get-marked-files))
-           (t (list (buffer-file-name))) ) ) )
-
-    (setq doIt (if (<= (length myFileList) 5) t
-                 (y-or-n-p "Open more than 5 files?") ) )
-    (when doIt
-      (cond
-       ((string-equal system-type "windows-nt")
-        (mapc (lambda (fPath) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" fPath t t)) ) myFileList))
-       ((string-equal system-type "darwin")
-        (mapc (lambda (fPath) (shell-command (format "open \"%s\"" fPath)) )  myFileList) )
-       ((string-equal system-type "gnu/linux")
-        (mapc (lambda (fPath) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" fPath)) ) myFileList))))))
+  (let ((fileList (cond ((string-equal major-mode "dired-mode")
+                           (dired-get-marked-files))
+                          (t (list (buffer-file-name))))))
+    (cond ((string-equal system-type "windows-nt")
+           (mapc (lambda (path) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" path t t))) fileList))
+          ((string-equal system-type "darwin")
+           (mapc (lambda (path) (shell-command (format "open \"%s\"" path))) fileList))
+          ((string-equal system-type "gnu/linux")
+           (mapc (lambda (path) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" path))) fileList)))))
 #+end_src
 
 ** company
@@ -743,39 +728,39 @@
 ** Mode recognition
 #+begin_src emacs-lisp
 (setq auto-mode-alist
-      '(("[Mm]ake[Ff]ile\\'" . makefile-mode) 
-        ("\\.mak\\'" . makefile-mode) 
-        ("\\.md\\'" . markdown-mode) 
-        ("\\.notes$" . org-mode) 
-        ("\\.org$" . org-mode) 
-        ("\\.org.gpg$" . org-mode) 
-        ("\\.pdf\\'" . doc-view-mode) 
-        ("\\.ref$" . org-mode) 
-        ("\\.ref.gpg$" . org-mode) 
-        ("\\.xml\\'" . xml-mode) 
+      '(("[Mm]ake[Ff]ile\\'" . makefile-mode)
+        ("\\.mak\\'" . makefile-mode)
+        ("\\.md\\'" . markdown-mode)
+        ("\\.notes$" . org-mode)
+        ("\\.org$" . org-mode)
+        ("\\.org.gpg$" . org-mode)
+        ("\\.pdf\\'" . doc-view-mode)
+        ("\\.ref$" . org-mode)
+        ("\\.ref.gpg$" . org-mode)
+        ("\\.xml\\'" . xml-mode)
         ("\\.pom\\'" . xml-mode)
 
         ;;programming modes
-        ("\\.bat\\'" . bat-mode) 
-        ("\\.c\\'" . c-mode) 
-        ("\\.cc\\'" . c-mode) 
-        ("\\.cmd\\'" . bat-mode) 
-        ("\\.cpp\\'" . c++-mode) 
-        ("\\.el\\'" . emacs-lisp-mode) 
-        ("\\.h\\'" . c++-mode) 
-        ("\\.hh\\'" . c++-mode) 
+        ("\\.bat\\'" . bat-mode)
+        ("\\.c\\'" . c-mode)
+        ("\\.cc\\'" . c-mode)
+        ("\\.cmd\\'" . bat-mode)
+        ("\\.cpp\\'" . c++-mode)
+        ("\\.el\\'" . emacs-lisp-mode)
+        ("\\.h\\'" . c++-mode)
+        ("\\.hh\\'" . c++-mode)
         ("\\.hpp\\'" . c++-mode)
         ;; ("\\.hs$" . haskell-mode)
-        ("\\.java\\'" . java-mode) 
-        ("\\.mc\\'" . c++-mode) 
-        ("\\.pm\\'" . perl-mode) 
-        ("\\.py\\'" . python-mode) 
-        ("\\.rs\\'" . rust-mode) 
-        ("\\.scala\\'" . scala-mode) 
-        ("\\.scm\\'" . scheme-mode) 
-        ("\\.sh\\'" . sh-mode) 
-        ("\\.yml\\'" . yaml-mode) 
-        ("\\.s\\'" . asm-mode) 
+        ("\\.java\\'" . java-mode)
+        ("\\.mc\\'" . c++-mode)
+        ("\\.pm\\'" . perl-mode)
+        ("\\.py\\'" . python-mode)
+        ("\\.rs\\'" . rust-mode)
+        ("\\.scala\\'" . scala-mode)
+        ("\\.scm\\'" . scheme-mode)
+        ("\\.sh\\'" . sh-mode)
+        ("\\.yml\\'" . yaml-mode)
+        ("\\.s\\'" . asm-mode)
         ("\\.S\\'" . asm-mode)))
 #+end_src
 
@@ -796,7 +781,7 @@
 
 ** yas
 #+BEGIN_SRC emacs-lisp
-(use-package yasnippet-snippets :defer t) 
+(use-package yasnippet-snippets :defer t)
 (use-package yasnippet
   :init
   (yas-global-mode 1)
@@ -1111,6 +1096,13 @@
 ** ag
 #+BEGIN_SRC emacs-lisp
 (use-package ag :defer t)
+#+END_SRC
+** eyebrowse
+#+BEGIN_SRC emacs-lisp
+(use-package eyebrowse :ensure t
+  :config
+  (setq eyebrowse-mode-line-separator " " eyebrowse-new-workspace t)
+  (eyebrowse-mode t))
 #+END_SRC
 * ALIAS
 #+begin_src emacs-lisp
