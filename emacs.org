@@ -206,13 +206,6 @@
 (bind-key* "C-;" 'control-semi-map)
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
-
-(use-package key-chord :if (not (display-graphic-p))
-  :init
-  (key-chord-mode 1)
-  :config
-  (key-chord-define-global ";;" 'control-semi-map))
-
 #+end_src
 
 *** global map
@@ -606,7 +599,6 @@
                                "~/org-notes-private"
                                "~/.emacs.d")))
 #+END_SRC
-
 *** org-notes synching
 **** git push/pull timer
 #+BEGIN_SRC emacs-lisp
@@ -627,14 +619,6 @@
 #+BEGIN_SRC emacs-lisp
 (use-package git-auto-commit-mode :defer t)
 #+END_SRC
-
-** winner mode
-#+begin_src emacs-lisp
-(winner-mode 1)
-(define-key control-semi-map (kbd "C-u") 'winner-undo)
-(define-key control-semi-map (kbd "C-o") 'winner-redo)
-#+end_src
-
 ** Misc behaviour
 #+begin_src emacs-lisp
 ;; set to t to investigate crashes
@@ -792,7 +776,7 @@
         ("\\.sh\\'" . sh-mode) 
         ("\\.yml\\'" . yaml-mode) 
         ("\\.s\\'" . asm-mode) 
-        ("\\.S\\'" . asm-mode)))#
+        ("\\.S\\'" . asm-mode)))
 #+end_src
 
 ** yml
@@ -812,6 +796,7 @@
 
 ** yas
 #+BEGIN_SRC emacs-lisp
+(use-package yasnippet-snippets :defer t) 
 (use-package yasnippet
   :init
   (yas-global-mode 1)
