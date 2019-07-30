@@ -1,7 +1,7 @@
 #+TITLE: Emacs config
 
 * PACKAGES
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 ;;; -*- lexical-binding: t -*-
 (message "emacs.org : starting init stage")
 
@@ -45,7 +45,7 @@
 #+END_SRC
 
 * LOOKS
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting looks stage")
 #+end_src
 
@@ -182,12 +182,42 @@
 #+END_SRC
 
 * BEHAVIOUR
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting behaviour stage")
 #+end_src
-** diminish
-#+begin_src emacs-lisp
+** Miscellaneous
+*** diminish
+#+BEGIN_SRC emacs-lisp
 (use-package diminish :config (diminish 'gcmh-mode))
+#+END_SRC
+*** anzu
+#+BEGIN_SRC emacs-lisp
+;; Show number of matches in mode-line while searching
+(use-package anzu
+  :config
+  (global-anzu-mode t)
+  (diminish 'anzu-mode))
+#+END_SRC
+*** cua
+#+BEGIN_SRC emacs-lisp
+(cua-mode 1)
+(bind-key "C-f" 'cua-exchange-point-and-mark)
+
+;; (bind-key* "C-c" 'kill-ring-save)
+(bind-key* "C-v" 'yank)
+#+END_SRC
+*** recentf
+#+BEGIN_SRC emacs-lisp
+(use-package recentf
+  :config
+  (recentf-mode 1)
+  (setq recentf-max-menu-items 100)
+  (setq recentf-max-saved-items 100))
+#+end_src
+*** shell-here
+#+BEGIN_SRC emacs-lisp
+(use-package shell-here :defer t
+  :bind* (( "C-`" . shell-here)))
 #+end_src
 ** elfeed
 #+BEGIN_SRC emacs-lisp
@@ -199,7 +229,7 @@
 #+END_SRC
 ** Keyboard
 *** maps
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
 
@@ -209,7 +239,7 @@
 #+end_src
 
 *** global map
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (global-set-key [f9] 'toggle-font-size)
 (global-set-key [f10] 'toggle-truncate-lines)
 (global-set-key [f11] 'toggle-frame-fullscreen)
@@ -253,12 +283,12 @@
 #+end_src
 
 *** ctl-x-map
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (define-key ctl-x-map "\C-f" 'helm-find-files)
 (define-key ctl-x-map "\C-d" 'dired-jump)
 #+end_src
 *** control-semi-map
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (define-key control-semi-map (kbd "SPC") 'point-to-register)
 (define-key control-semi-map (kbd "C-SPC") 'point-to-register)
 (define-key control-semi-map (kbd "j") 'jump-to-register)
@@ -291,37 +321,22 @@
 (define-key control-semi-map (kbd "C-d") 'follow-mode)
 #+end_src
 *** tab map
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "M-;") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
-
-(use-package elisp-format :defer t)
-
-(define-key tab-map (kbd "i")
-  '(lambda ()
-     (interactive)
-     (cond ((or ( string= "c++-mode" major-mode)
-                ( string= "c-mode" major-mode))
-            (if (use-region-p)
-                (clang-format-region (region-beginning)
-                                     (region-end) )
-              (clang-format-region (point)
-                                   (point))))
-           (( string= "emacs-lisp-mode" major-mode)
-            (elisp-format-region))
-           (t (message "Argh...don't know how to format in this mode :(")))))
 #+end_src
-
-** anzu
+*** windmove + frame selection
 #+BEGIN_SRC emacs-lisp
-;; Show number of matches in mode-line while searching
-(use-package anzu
-  :config
-  (global-anzu-mode t)
-  (diminish 'anzu-mode))
-#+END_SRC
+(setq windmove-wrap-around t)
 
+(use-package zygospore
+  :bind* (("C-1" . 'window-swap-states)
+          ("C-2" . 'windmove-up)
+          ("C-3" . 'windmove-right)
+          :map control-semi-map
+          ("C-1" . zygospore-toggle-delete-other-windows)))
+#+end_src
 ** hydra
 #+BEGIN_SRC emacs-lisp
 (use-package hydra :ensure t :defer t)
@@ -339,6 +354,30 @@
         (( string= "emacs-lisp-mode" major-mode)
          (hydra-emacs-lisp/body))
         (t (message "Argh...hydra for your current mode does not exist :("))))
+
+;; Needed for helm-find-files-1
+(use-package helm-files :defer t :ensure nil)
+
+(defhydra hydra-quickopen (:color blue)
+  "
+[_t_] ~/notes/temp
+[_c_] ~/.emacs.d/emacs.org
+[_;_] org rifle
+[_l_] dired ~/.emacs.d
+"
+  ("t" (lambda ()
+         (interactive)
+         (find-file "~/emacs-temp")) nil)
+  ("c" (lambda ()
+         (interactive)
+         (find-file "~/.emacs.d/emacs.org")) nil)
+  (";" helm-org-rifle-important nil)
+  ("l" (lambda ()
+         (interactive)
+         (progn
+           (zygospore-toggle-delete-other-windows)
+           (dired "~/org-notes")
+           (helm-find-files-1 default-directory))) nil))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
 (define-key tab-map (kbd "m") 'hydra-magit/body)
@@ -362,9 +401,10 @@
   (:color blue)
   "
 [_m_] make frame        [_o_] other frame        [_d_] delete frame
- " ("m" make-frame nil)
- ("o" other-frame nil)
- ("d" delete-frame nil))
+ "
+  ("m" make-frame nil)
+  ("o" other-frame nil)
+  ("d" delete-frame nil))
 #+END_SRC
 
 ** projectile
@@ -436,56 +476,8 @@
 ("a" helm-projectile-ack nil)
 ("m" helm-projectile-ag nil)))
 #+END_SRC
-
-** cua-mode
-#+begin_src emacs-lisp
-(cua-mode 1)
-(bind-key "C-f" 'cua-exchange-point-and-mark)
-
-;; (bind-key* "C-c" 'kill-ring-save)
-(bind-key* "C-v" 'yank)
-#+end_src
-
-** clang
-*** clang-format
-#+BEGIN_SRC emacs-lisp
-(use-package clang-format :defer t
-  :config
-  ;; The following somewhat resembles Resilient's coding style
-  (setq clang-format-style "{BasedOnStyle: google, ColumnLimit: 100, IndentWidth: 3, BreakBeforeBraces: Stroustrup}"))
-#+END_SRC
-** recentf
-#+begin_src emacs-lisp
-(use-package recentf
-  :config
-  (recentf-mode 1)
-  (setq recentf-max-menu-items 100)
-  (setq recentf-max-saved-items 100))
-#+end_src
-
-** windmove + frame selection
-#+begin_src emacs-lisp
-(setq windmove-wrap-around t)
-
-(use-package zygospore
-  :bind* (("C-1" . 'window-swap-states)
-          ("C-2" . 'windmove-up)
-          ("C-3" . 'windmove-right)
-          :map control-semi-map
-          ("C-1" . zygospore-toggle-delete-other-windows)))
-#+end_src
-
-** shell
-#+begin_src emacs-lisp
-(use-package shell-here :defer t)
-
-(bind-key* "C-`" 'shell-here)
-
-(add-hook 'shell-mode-hook #'company-mode)
-#+end_src
-
 ** dired
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (use-package dired-extension :ensure nil)
 
 (setq dired-dwim-target t)
@@ -510,29 +502,6 @@
            (mapc (lambda (path) (shell-command (format "open \"%s\"" path))) fileList))
           ((string-equal system-type "gnu/linux")
            (mapc (lambda (path) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" path))) fileList)))))
-#+end_src
-
-** company
-#+begin_src emacs-lisp
-(use-package company-lsp :defer t)
-(use-package company
-  :bind (:map company-active-map
-              (("C-n" . company-select-next)
-               ("C-p" . company-select-previous))
-              :map control-semi-map
-              (("n" . company-complete)
-               ("C-n" . dabbrev-expand)))
-  :config
-  (global-company-mode t)
-  (diminish 'company-mode)
-
-  (push 'company-lsp company-backends)
-
-  ;; (add-to-list 'company-backends '(company-clang))
-  (add-to-list 'company-backends '(company-gtags))
-
-  (setq company-tooltip-limit 25))
-
 #+end_src
 
 ** ORG mode
@@ -605,7 +574,7 @@
 (use-package git-auto-commit-mode :defer t)
 #+END_SRC
 ** Misc behaviour
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 ;; set to t to investigate crashes
 (setq debug-on-error nil)
 (setq inhibit-splash-screen t)
@@ -661,16 +630,109 @@
 
 (setq ring-bell-function 'ignore)
 #+end_src
-
 ** Programming
-*** indent modes
-#+begin_src emacs-lisp
+*** finding things
+**** ag
+#+BEGIN_SRC emacs-lisp
+(use-package ag :defer t)
+#+END_SRC
+**** tags
+#+BEGIN_SRC emacs-lisp
+(use-package ggtags :defer t
+  :config
+  ;; This should prevent Emacs from asking "Keep current list of tags tables also?"
+  (setq tags-add-tables nil)
+
+  ;; Prevent ggtags mode from displaying project name in mode line.
+  ;; Projectile already displays this information.
+  (setq ggtags-mode-line-project-name nil))
+#+end_src
+*** code completion
+**** yas
+#+BEGIN_SRC emacs-lisp
+(use-package yasnippet-snippets :defer t)
+(use-package yasnippet
+  :init
+  (yas-global-mode 1)
+  (diminish 'yas-minor-mode))
+
+(use-package helm-c-yasnippet :defer t)
+#+END_SRC
+
+**** company
+#+BEGIN_SRC emacs-lisp
+(use-package company-lsp :defer t)
+(use-package company
+  :bind (:map company-active-map
+              (("C-n" . company-select-next)
+               ("C-p" . company-select-previous))
+              :map control-semi-map
+              (("n" . company-complete)
+               ("C-n" . dabbrev-expand)))
+  :config
+  (global-company-mode t)
+  (diminish 'company-mode)
+
+  (push 'company-lsp company-backends)
+
+  ;; (add-to-list 'company-backends '(company-clang))
+  (add-to-list 'company-backends '(company-gtags))
+
+  (setq company-tooltip-limit 25))
+#+end_src
+*** gdb
+#+BEGIN_SRC emacs-lisp
+(define-key tab-map (kbd "h") 'hydra-gdb-helper/body)
+
+(defhydra hydra-gdb-helper (:color blue)
+  ( "h" gdb-restore-windows "restore gdb windows")
+  ( "m" gdb-many-windows "many windows"))
+#+end_src
+*** semantic
+#+BEGIN_SRC emacs-lisp
+(semantic-mode 1) ;; global mode
+
+;; This effectively disables idle reparsing for all files
+(setq semantic-idle-scheduler-max-buffer-size 1)
+
+;; We don't care about saving db when exiting emacs
+(remove-hook 'kill-emacs-hook #'semanticdb-kill-emacs-hook)
+
+(defun ds () t)
+(add-hook 'semantic-inhibit-functions  #'ds)
+#+END_SRC
+*** code formatting
+#+BEGIN_SRC emacs-lisp
+(use-package clang-format :defer t
+  :config
+  ;; The following somewhat resembles Resilient's coding style
+  (setq clang-format-style "{BasedOnStyle: google, ColumnLimit: 100, IndentWidth: 3, BreakBeforeBraces: Stroustrup}"))
+
+(use-package elisp-format :defer t)
+
+(define-key tab-map (kbd "i")
+  '(lambda ()
+     (interactive)
+     (cond ((or ( string= "c++-mode" major-mode)
+                ( string= "c-mode" major-mode))
+            (if (use-region-p)
+                (clang-format-region (region-beginning)
+                                     (region-end) )
+              (clang-format-region (point)
+                                   (point))))
+           (( string= "emacs-lisp-mode" major-mode)
+            (elisp-format-region))
+           (t (message "Argh...don't know how to format in this mode :(")))))
+
+#+END_SRC
+*** indenting
+#+BEGIN_SRC emacs-lisp
 (setq-default c-basic-offset 3 c-default-style "linux")
 (setq-default tab-width 3 indent-tabs-mode nil)
 #+end_src
-
-*** C/C++ common
-#+begin_src emacs-lisp
+*** Programming languages
+**** C/C++ common
+#+BEGIN_SRC emacs-lisp
 (defhydra hydra-c (:color blue)
   ( "c" helm-yas-complete "helm yas complete"))
 
@@ -681,8 +743,8 @@
                   comment-end   "")))
 #+end_src
 
-*** Python
-#+begin_src emacs-lisp
+**** Python
+#+BEGIN_SRC emacs-lisp
 (add-hook 'python-mode-hook
       (lambda()
          (setq indent-tabs-mode nil)
@@ -693,82 +755,36 @@
   ( "c" helm-yas-complete "helm yas complete"))
 #+end_src
 
-*** Scheme
-#+begin_src emacs-lisp
+**** Scheme
+#+BEGIN_SRC emacs-lisp
 (add-hook 'scheme-mode-hook
       (lambda()
          (setq indent-tabs-mode nil)))
 #+end_src
 
-*** emacs-lisp
-#+begin_src emacs-lisp
+**** emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (defhydra hydra-emacs-lisp (:color blue)
   ( "j" eval-buffer "eval buffer")
   ( "k" eval-last-sexp "eval-last-sexp")
   ( "c" helm-yas-complete "yas complete"))
 #+end_src
-*** Scala
+**** Scala
 #+BEGIN_SRC emacs-lisp
 (use-package scala-mode :defer t)
 #+END_SRC
-*** java
+**** java
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-java :defer t)
 
 (add-hook 'java-mode-hook #'lsp)
 #+END_SRC
-** gdb
-#+begin_src emacs-lisp
-(define-key tab-map (kbd "h") 'hydra-gdb-helper/body)
-
-(defhydra hydra-gdb-helper (:color blue)
-  ( "h" gdb-restore-windows "restore gdb windows")
-  ( "m" gdb-many-windows "many windows"))
-#+end_src
-** Mode recognition
-#+begin_src emacs-lisp
-(setq auto-mode-alist
-      '(("[Mm]ake[Ff]ile\\'" . makefile-mode)
-        ("\\.mak\\'" . makefile-mode)
-        ("\\.md\\'" . markdown-mode)
-        ("\\.notes$" . org-mode)
-        ("\\.org$" . org-mode)
-        ("\\.org.gpg$" . org-mode)
-        ("\\.pdf\\'" . doc-view-mode)
-        ("\\.ref$" . org-mode)
-        ("\\.ref.gpg$" . org-mode)
-        ("\\.xml\\'" . xml-mode)
-        ("\\.pom\\'" . xml-mode)
-
-        ;;programming modes
-        ("\\.bat\\'" . bat-mode)
-        ("\\.c\\'" . c-mode)
-        ("\\.cc\\'" . c-mode)
-        ("\\.cmd\\'" . bat-mode)
-        ("\\.cpp\\'" . c++-mode)
-        ("\\.el\\'" . emacs-lisp-mode)
-        ("\\.h\\'" . c++-mode)
-        ("\\.hh\\'" . c++-mode)
-        ("\\.hpp\\'" . c++-mode)
-        ;; ("\\.hs$" . haskell-mode)
-        ("\\.java\\'" . java-mode)
-        ("\\.mc\\'" . c++-mode)
-        ("\\.pm\\'" . perl-mode)
-        ("\\.py\\'" . python-mode)
-        ("\\.rs\\'" . rust-mode)
-        ("\\.scala\\'" . scala-mode)
-        ("\\.scm\\'" . scheme-mode)
-        ("\\.sh\\'" . sh-mode)
-        ("\\.yml\\'" . yaml-mode)
-        ("\\.s\\'" . asm-mode)
-        ("\\.S\\'" . asm-mode)))
-#+end_src
-
-** yml
+*** Structured formats
+**** YAML
 #+BEGIN_SRC emacs-lisp
 (use-package yaml-mode :defer t)
 #+END_SRC
-** SGML [XML/HTML]
+**** SGML [XML/HTML]
 #+BEGIN_SRC emacs-lisp
 (defun reformat-xml ()
   (interactive)
@@ -778,63 +794,9 @@
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
 #+END_SRC
-
-** yas
+** Verson Control
+*** magit
 #+BEGIN_SRC emacs-lisp
-(use-package yasnippet-snippets :defer t)
-(use-package yasnippet
-  :init
-  (yas-global-mode 1)
-  (diminish 'yas-minor-mode))
-
-(use-package helm-c-yasnippet :defer t)
-#+END_SRC
-** Helm
-#+begin_src emacs-lisp
-(use-package asm-mode :defer t
-  :bind (:map asm-mode-map
-              ("C-j" . helm-mini)))
-
-
-;;
-(defun g/helm-semantic-or-imenu (arg)
-  (interactive "P")
-  (remove-hook 'semantic-inhibit-functions #'ds)
-  (semantic-new-buffer-fcn)
-  (helm-semantic-or-imenu arg)
-  (add-hook 'semantic-inhibit-functions  #'ds))
-
-(use-package helm
-  :bind
-  (("C-j" . helm-mini))
-  (:map control-semi-map
-        (( "C-s" . g/helm-semantic-or-imenu)
-         ( "l" . helm-M-x)
-         ( "r" . helm-mark-ring)
-         ( "C-r" . helm-global-mark-ring)
-         ( "b" . helm-resume)
-         ( "C-b" . helm-resume)))
-  (:map org-mode-map (("C-j" . helm-mini)) )
-  (:map lisp-interaction-mode-map (("C-j" . helm-mini)))
-  :config
-  (setq helm-candidate-number-limit 500)
-  (setq helm-buffer-max-length 60))
-
-(use-package swiper :defer t)
-(use-package swiper-helm
-  :bind (:map control-semi-map (())
-              ("o" . swiper-helm)
-              ("C-;" . swiper-helm)))
-
-(use-package helm-swoop
-  :bind (:map control-semi-map
-              (
-               ("C-m" . helm-swoop)
-               ("m" . helm-multi-swoop-all))))
-#+end_src
-
-** magit
-#+begin_src emacs-lisp
 (use-package magit :defer t)
 
 (defhydra hydra-magit (:color blue)
@@ -849,8 +811,8 @@
   ("b" magit-blame "blame"))
 #+end_src
 
-** ediff
-#+begin_src emacs-lisp
+*** ediff
+#+BEGIN_SRC emacs-lisp
 (use-package ediff :defer t
   :config
   ;; Setting this to t will only show two panes.
@@ -906,9 +868,89 @@
   (with-eval-after-load 'outline
     (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)))
 #+end_src
+** Mode recognition
+#+BEGIN_SRC emacs-lisp
+(setq auto-mode-alist
+      '(("[Mm]ake[Ff]ile\\'" . makefile-mode)
+        ("\\.mak\\'" . makefile-mode)
+        ("\\.md\\'" . markdown-mode)
+        ("\\.notes$" . org-mode)
+        ("\\.org$" . org-mode)
+        ("\\.org.gpg$" . org-mode)
+        ("\\.pdf\\'" . doc-view-mode)
+        ("\\.ref$" . org-mode)
+        ("\\.ref.gpg$" . org-mode)
+        ("\\.xml\\'" . xml-mode)
+        ("\\.pom\\'" . xml-mode)
 
-** swift
-#+begin_src emacs-lisp
+        ;;programming modes
+        ("\\.bat\\'" . bat-mode)
+        ("\\.c\\'" . c-mode)
+        ("\\.cc\\'" . c-mode)
+        ("\\.cmd\\'" . bat-mode)
+        ("\\.cpp\\'" . c++-mode)
+        ("\\.el\\'" . emacs-lisp-mode)
+        ("\\.h\\'" . c++-mode)
+        ("\\.hh\\'" . c++-mode)
+        ("\\.hpp\\'" . c++-mode)
+        ;; ("\\.hs$" . haskell-mode)
+        ("\\.java\\'" . java-mode)
+        ("\\.mc\\'" . c++-mode)
+        ("\\.pm\\'" . perl-mode)
+        ("\\.py\\'" . python-mode)
+        ("\\.rs\\'" . rust-mode)
+        ("\\.scala\\'" . scala-mode)
+        ("\\.scm\\'" . scheme-mode)
+        ("\\.sh\\'" . sh-mode)
+        ("\\.yml\\'" . yaml-mode)
+        ("\\.s\\'" . asm-mode)
+        ("\\.S\\'" . asm-mode)))
+#+end_src
+
+** Navigating around
+*** Helm
+#+BEGIN_SRC emacs-lisp
+(use-package asm-mode :defer t
+  :bind (:map asm-mode-map
+              ("C-j" . helm-mini)))
+
+(defun g/helm-semantic-or-imenu (arg)
+  (interactive "P")
+  (remove-hook 'semantic-inhibit-functions #'ds)
+  (semantic-new-buffer-fcn)
+  (helm-semantic-or-imenu arg)
+  (add-hook 'semantic-inhibit-functions  #'ds))
+
+(use-package helm
+  :bind
+  (("C-j" . helm-mini))
+  (:map control-semi-map
+        (( "C-s" . g/helm-semantic-or-imenu)
+         ( "l" . helm-M-x)
+         ( "r" . helm-mark-ring)
+         ( "C-r" . helm-global-mark-ring)
+         ( "b" . helm-resume)
+         ( "C-b" . helm-resume)))
+  (:map org-mode-map (("C-j" . helm-mini)) )
+  (:map lisp-interaction-mode-map (("C-j" . helm-mini)))
+  :config
+  (setq helm-candidate-number-limit 500)
+  (setq helm-buffer-max-length 60))
+
+(use-package swiper :defer t)
+(use-package swiper-helm
+  :bind (:map control-semi-map (())
+              ("o" . swiper-helm)
+              ("C-;" . swiper-helm)))
+
+(use-package helm-swoop
+  :bind (:map control-semi-map
+              (
+               ("C-m" . helm-swoop)
+               ("m" . helm-multi-swoop-all))))
+#+end_src
+*** SWIFT
+#+BEGIN_SRC emacs-lisp
 (defun swift-up(&optional arg)
   (interactive)
   (or arg (setq arg 1))
@@ -1017,8 +1059,15 @@
       (global-swift-mode))))
 #+end_src
 
-** custom
-#+begin_src emacs-lisp
+*** eyebrowse
+#+BEGIN_SRC emacs-lisp
+(use-package eyebrowse :ensure t
+  :config
+  (setq eyebrowse-mode-line-separator " " eyebrowse-new-workspace t)
+  (eyebrowse-mode t))
+#+END_SRC
+** Utility functions
+#+BEGIN_SRC emacs-lisp
 (defun recompile-custom-packages ()
   (interactive)
   (byte-recompile-directory (expand-file-name "~/.emacs.d/custom-packages") 0))
@@ -1043,72 +1092,10 @@
   (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))
 #+end_src
 
-** quick open hydra
-#+BEGIN_SRC emacs-lisp
-;; Needed for helm-find-files-1
-(use-package helm-files :defer t :ensure nil)
-
-(defhydra hydra-quickopen (:color blue)
-  "
-[_t_] ~/notes/temp
-[_c_] ~/.emacs.d/emacs.org
-[_;_] org rifle
-[_l_] dired ~/.emacs.d
-"
-  ("t" (lambda ()
-         (interactive)
-         (find-file "~/emacs-temp")) nil)
-  ("c" (lambda ()
-         (interactive)
-         (find-file "~/.emacs.d/emacs.org")) nil)
-  (";" helm-org-rifle-important nil)
-  ("l" (lambda ()
-         (interactive)
-         (progn
-           (zygospore-toggle-delete-other-windows)
-           (dired "~/org-notes")
-           (helm-find-files-1 default-directory))) nil))
-#+END_SRC
-** tags
-#+begin_src emacs-lisp
-(use-package ggtags :defer t
-  :config
-  ;; This should prevent Emacs from asking "Keep current list of tags tables also?"
-  (setq tags-add-tables nil)
-
-  ;; Prevent ggtags mode from displaying project name in mode line.
-  ;; Projectile already displays this information.
-  (setq ggtags-mode-line-project-name nil))
-#+end_src
-** semantic
-#+BEGIN_SRC emacs-lisp
-(semantic-mode 1) ;; global mode
-
-;; This effectively disables idle reparsing for all files
-(setq semantic-idle-scheduler-max-buffer-size 1)
-
-;; We don't care about saving db when exiting emacs
-(remove-hook 'kill-emacs-hook #'semanticdb-kill-emacs-hook)
-
-(defun ds () t)
-(add-hook 'semantic-inhibit-functions  #'ds)
-#+END_SRC
-** ag
-#+BEGIN_SRC emacs-lisp
-(use-package ag :defer t)
-#+END_SRC
-** eyebrowse
-#+BEGIN_SRC emacs-lisp
-(use-package eyebrowse :ensure t
-  :config
-  (setq eyebrowse-mode-line-separator " " eyebrowse-new-workspace t)
-  (eyebrowse-mode t))
-#+END_SRC
 * ALIAS
-#+begin_src emacs-lisp
+#+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting alias stage")
 
-;;Too lazy for this
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'describe-bindings 'helm-descbinds)
 
