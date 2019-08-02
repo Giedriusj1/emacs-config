@@ -353,6 +353,8 @@
          (hydra-python/body))
         (( string= "emacs-lisp-mode" major-mode)
          (hydra-emacs-lisp/body))
+         (( string= "scala-mode" major-mode)
+         (hydra-scala/body))
         (t (message "Argh...hydra for your current mode does not exist :("))))
 
 ;; Needed for helm-find-files-1
@@ -425,11 +427,8 @@
 
   (defcustom g/helm-source-projectile-projects-actions
     (helm-make-actions "Open Dired in project's directory `C-d'" #'dired "Switch to project"
-                       (lambda
-                         (project)
-                         (let
-                             ((projectile-completion-system
-                               'helm))
+                       (lambda (project)
+                         (let ((projectile-completion-system 'helm))
                            (projectile-switch-project-by-name
                             project)))
                        "Open project root in vc-dir or magit `M-g'" #'helm-projectile-vc
@@ -771,7 +770,10 @@
 #+end_src
 **** Scala
 #+BEGIN_SRC emacs-lisp
-(use-package scala-mode :defer t)
+(use-package scala-mode :defer t
+  :config
+  (defhydra hydra-scala (:color blue)
+    ( "c" helm-yas-complete "yas complete")))
 #+END_SRC
 **** java
 #+BEGIN_SRC emacs-lisp
@@ -982,9 +984,8 @@
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
 (bind-key* "M-SPC" 'toggle-swift-mode)
 
-(use-package golden-ratio-scroll-screen :defer t
-  :custom
-  (customize-set-variable 'golden-ratio-scroll-highlight-flag nil))
+(use-package golden-ratio-scroll-screen)
+(customize-set-variable 'golden-ratio-scroll-highlight-flag nil)
 
 (defvar swift-command-map
   (let ((map (make-keymap)))
