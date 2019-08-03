@@ -967,31 +967,18 @@
     (scroll-up-line)
     (next-line)))
 
-(defun swift-2-up()
-  (interactive)
-  (scroll-down-line)
-  (previous-line)
-  (scroll-down-line)
-  (previous-line))
-
-(defun swift-2-down()
-  (interactive)
-  (scroll-up-line)
-  (next-line)
-  (scroll-up-line)
-  (next-line))
-
 (define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
-(bind-key* "M-SPC" 'toggle-swift-mode)
-
-(use-package golden-ratio-scroll-screen)
-(customize-set-variable 'golden-ratio-scroll-highlight-flag nil)
 
 (defvar swift-command-map
-  (let ((map (make-keymap)))
+  (let ((map (make-sparse-keymap)))
     ;; movement
-    (define-key map (kbd "i") 'swift-2-up)
-    (define-key map (kbd "k") 'swift-2-down)
+    (define-key map (kbd "i") '(lambda ()
+                                 (interactive)
+                                 (swift-up 2)))
+
+    (define-key map (kbd "k") '(lambda ()
+                                 (interactive)
+                                 (swift-down 2)))
 
     (define-key map (kbd "o") 'swift-up)
     (define-key map (kbd "l") 'swift-down)
@@ -999,40 +986,14 @@
     (define-key map (kbd "p") 'beginning-of-defun)
     (define-key map (kbd "n") 'end-of-defun)
 
-    (define-key map (kbd "u") 'golden-ratio-scroll-screen-down)
-    (define-key map (kbd "j") 'golden-ratio-scroll-screen-up)
+    (define-key map (kbd "u") 'cua-scroll-down)
+    (define-key map (kbd "j") 'cua-scroll-up)
 
     ;; cua mode
     (define-key map (kbd "C-z") 'toggle-swift-mode)
     (define-key map (kbd "C-x") 'kill-region)
     (define-key map (kbd "C-c") 'kill-ring-save)
     (define-key map (kbd "C-v") 'yank)
-
-    (define-key map (kbd "q") 'toggle-swift-mode)
-    (define-key map (kbd "w") 'toggle-swift-mode)
-    (define-key map (kbd "e") 'toggle-swift-mode)
-    (define-key map (kbd "r") 'toggle-swift-mode)
-    (define-key map (kbd "t") 'toggle-swift-mode)
-    (define-key map (kbd "y") 'toggle-swift-mode)
-
-
-    (define-key map (kbd "[") 'toggle-swift-mode)
-    (define-key map (kbd "]") 'toggle-swift-mode)
-    (define-key map (kbd "a") 'toggle-swift-mode)
-    (define-key map (kbd "s") 'toggle-swift-mode)
-    (define-key map (kbd "d") 'toggle-swift-mode)
-    (define-key map (kbd "f") 'toggle-swift-mode)
-    (define-key map (kbd "g") 'toggle-swift-mode)
-    (define-key map (kbd "h") 'toggle-swift-mode)
-
-    (define-key map (kbd ";") 'toggle-swift-mode)
-    (define-key map (kbd "'") 'toggle-swift-mode)
-    (define-key map (kbd "#") 'toggle-swift-mode)
-    (define-key map (kbd "b") 'toggle-swift-mode)
-    (define-key map (kbd "m") 'toggle-swift-mode)
-    (define-key map (kbd ",") 'toggle-swift-mode)
-    (define-key map (kbd ".") 'toggle-swift-mode)
-    (define-key map (kbd "/") 'toggle-swift-mode)
     map))
 
 (define-minor-mode swift-mode
@@ -1070,6 +1031,28 @@
   :config
   (setq eyebrowse-mode-line-separator " " eyebrowse-new-workspace t)
   (eyebrowse-mode t))
+
+(defhydra hydra-eyebrowse (:color red)
+  "
+  ^
+  %s(eyebrowse-mode-line-indicator)
+
+  _u_ left window config
+  _o_ right window config
+
+  _r_ename current window config
+  _c_reate new window config
+  _C_lose current window config
+  ^^
+  "
+  ("q" nil "quit")
+  ("u" eyebrowse-prev-window-config nil)
+  ("o" eyebrowse-next-window-config nil)
+  ("r" eyebrowse-rename-window-config nil)
+  ("c" eyebrowse-create-window-config nil)
+  ("C" eyebrowse-close-window-config nil))
+
+(define-key global-map [(f5)] 'hydra-eyebrowse/body)
 #+END_SRC
 ** Utility functions
 #+BEGIN_SRC emacs-lisp
