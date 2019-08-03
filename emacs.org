@@ -535,6 +535,7 @@
 (setq org-startup-truncated nil)
 (setq org-export-with-toc nil)
 (setq org-hierarchical-todo-statistics nil)
+(setq org-imenu-depth 5)
 #+END_SRC
 *** org-rifle
 #+BEGIN_SRC emacs-lisp
