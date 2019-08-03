@@ -392,12 +392,11 @@
   (:color blue)
   "
 [_q_] update tags        [_o_] find gtag
-[_c_] create gtag        [_p_] xref find references
+[_c_] create gtag        [_p_] hydra-lsp
  " ("q" ggtags-update-tags nil)
  ("c" ggtags-create-tags nil)
  ("o" ggtags-find-tag-dwim nil)
- ("p" lsp-find-references nil)
-)
+ ("p" hydra-lsp/body nil))
 
 (defhydra hydra-frame-helper
   (:color blue)
@@ -669,6 +668,9 @@
               :map control-semi-map
               (("n" . company-complete)
                ("C-n" . dabbrev-expand)))
+
+
+
   :config
   (global-company-mode t)
   (diminish 'company-mode)
@@ -679,6 +681,10 @@
   (add-to-list 'company-backends '(company-gtags))
 
   (setq company-tooltip-limit 25))
+
+
+;; (require 'company-posframe)
+;; (company-posframe-mode 1)
 #+end_src
 *** gdb
 #+BEGIN_SRC emacs-lisp
@@ -775,12 +781,43 @@
   :config
   (defhydra hydra-scala (:color blue)
     ( "c" helm-yas-complete "yas complete")))
+
+(add-hook 'scala-mode-hook #'lsp)
+
 #+END_SRC
 **** java
 #+BEGIN_SRC emacs-lisp
-(use-package lsp-java :defer t)
+(use-package lsp-java)
+
+;; move somewhere else
+(use-package lsp-ui)
 
 (add-hook 'java-mode-hook #'lsp)
+
+(defhydra hydra-lsp (:exit t :hint nil)
+  "
+ Buffer^^               Server^^                   Symbol
+-------------------------------------------------------------------------------------
+ [_f_] format           [_M-r_] restart            [_d_] declaration  [_i_] implementation  [_o_] documentation
+ [_m_] imenu            [_S_]   shutdown           [_D_] definition   [_t_] type            [_r_] rename
+ [_x_] execute action   [_M-s_] describe session   [_R_] references   [_s_] signature"
+  ("d" lsp-find-declaration)
+  ("D" lsp-ui-peek-find-definitions)
+  ("R" lsp-ui-peek-find-references)
+  ("i" lsp-ui-peek-find-implementation)
+  ("t" lsp-find-type-definition)
+  ("s" lsp-signature-help)
+  ("o" lsp-describe-thing-at-point)
+  ("r" lsp-rename)
+
+  ("f" lsp-format-buffer)
+  ("m" lsp-ui-imenu)
+  ("x" lsp-execute-code-action)
+
+  ("M-s" lsp-describe-session)
+  ("M-r" lsp-restart-workspace)
+  ("S" lsp-shutdown-workspace))
+
 #+END_SRC
 *** Structured formats
 **** YAML
