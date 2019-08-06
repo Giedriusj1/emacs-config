@@ -29,7 +29,7 @@
 #+end_src
 
 * INIT BASICS
-** garbage collection
+** Garbage collection
 #+BEGIN_SRC emacs-lisp
 (use-package gcmh
   :config
@@ -49,7 +49,7 @@
 (message "emacs.org : starting looks stage")
 #+end_src
 
-** font helper functions
+** Font helper functions
 #+BEGIN_SRC emacs-lisp
 (setq current-font "normal")
 
@@ -111,7 +111,7 @@
    (t (set-font-normal))))
 #+END_SRC
 
-** themes and colours
+** Themes and colours
 #+BEGIN_SRC emacs-lisp
 ;; On emacs 27 this will be done from early-init.el
 (if (< emacs-major-version 27)
@@ -170,7 +170,7 @@
         (sml/setup))))
 #+END_SRC
 
-** rendering
+** Font rendering
  #+BEGIN_SRC emacs-lisp
  (setq-default bidi-display-reordering nil)
  #+END_SRC
@@ -179,6 +179,18 @@
 (use-package uniquify
   :ensure nil
   :config (setq uniquify-buffer-name-style 'forward))
+#+END_SRC
+** Frame title
+#+BEGIN_SRC emacs-lisp
+(setq-default frame-title-format
+              '(:eval (format "%s@%s: %s %s" (or (file-remote-p default-directory 'user)
+                                                 user-real-login-name)
+                              (or (file-remote-p default-directory 'host)
+                                  system-name)
+                              (buffer-name)
+                              (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
+                                    (dired-directory (concat "{" dired-directory "}"))
+                                    (t "[no file]")))))
 #+END_SRC
 
 * BEHAVIOUR
@@ -817,7 +829,6 @@
   ("M-s" lsp-describe-session)
   ("M-r" lsp-restart-workspace)
   ("S" lsp-shutdown-workspace))
-
 #+END_SRC
 *** Structured formats
 **** YAML
@@ -985,8 +996,7 @@
 
 (use-package helm-swoop
   :bind (:map control-semi-map
-              (
-               ("C-m" . helm-swoop)
+              (("C-m" . helm-swoop)
                ("m" . helm-multi-swoop-all))))
 #+end_src
 *** SWIFT
@@ -1050,14 +1060,12 @@
 (defun toggle-swift-mode()
   (interactive)
   (if (eq global-swift-mode t)
-      (progn
-        ;; turning mode off
+      (progn ;; turning mode off
         (custom-set-faces '(cursor ((t (:background "OrangeRed")))))
         (custom-set-faces '(mode-line ((t (:background "#404040")))))
         (global-swift-mode -1))
 
-    (progn
-      ;; turning mode off
+    (progn ;; turning mode off
       (custom-set-faces '(cursor ((t (:background "blue")))))
       (custom-set-faces '(mode-line ((t (:background "#333377")))))
       (global-swift-mode))))
