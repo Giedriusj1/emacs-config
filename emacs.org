@@ -794,7 +794,7 @@
   (defhydra hydra-scala (:color blue)
     ( "c" helm-yas-complete "yas complete")))
 
-(add-hook 'scala-mode-hook #'lsp)
+;; (add-hook 'scala-mode-hook #'lsp)
 
 #+END_SRC
 **** java
@@ -804,7 +804,7 @@
 ;; move somewhere else
 (use-package lsp-ui)
 
-(add-hook 'java-mode-hook #'lsp)
+;; (add-hook 'java-mode-hook #'lsp)
 
 (defhydra hydra-lsp (:exit t :hint nil)
   "
@@ -837,6 +837,8 @@
 #+END_SRC
 **** SGML [XML/HTML]
 #+BEGIN_SRC emacs-lisp
+(setq nxml-child-indent 4 nxml-attribute-indent 4)
+
 (defun reformat-xml ()
   (interactive)
   ;;todo: this only works in xml-mode, we should spit out an error if we are not
