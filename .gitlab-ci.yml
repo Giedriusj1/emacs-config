@@ -1,8 +1,10 @@
 test:
   image: ubuntu
   script:
+    - ls -alh
+    - pwd
     - apt-get -y update
     - apt-get -y install emacs
     - emacs -batch --eval="(message (number-to-string (+ 1 2)))"
-    - mkdir /root/.emacs.d/
-    - emacs -batch -l ./init.el
+    # - mkdir /root/.emacs.d/
+    # - emacs -batch -l ./init.el
