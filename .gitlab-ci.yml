@@ -1,4 +1,5 @@
 test:
   image: ubuntu
   script:
-  - echo "hello world"
+    - pat-get install emacs
+    - emacs -batch --eval="(message (number-to-string (+ 1 2)))"
