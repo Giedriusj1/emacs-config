@@ -231,116 +231,6 @@
 (use-package shell-here :defer t
   :bind* (( "C-`" . shell-here)))
 #+end_src
-** hydra
-#+BEGIN_SRC emacs-lisp
-(use-package hydra :ensure t :defer t)
-
-(defun spawn-local-mode-hydra ()
-  (interactive)
-  (cond (( string= "org-mode" major-mode)
-         (hydra-tab-org/body))
-        (( string= "c-mode" major-mode)
-         (hydra-c/body))
-        (( string= "c++-mode" major-mode)
-         (hydra-c/body))
-        (( string= "python-mode" major-mode)
-         (hydra-python/body))
-        (( string= "emacs-lisp-mode" major-mode)
-         (hydra-emacs-lisp/body))
-         (( string= "scala-mode" major-mode)
-         (hydra-scala/body))
-        (t (message "Argh...hydra for your current mode does not exist :("))))
-
-;; Needed for helm-find-files-1
-(use-package helm-files :defer t :ensure nil)
-
-(defhydra hydra-quickopen (:color blue)
-  "
-[_t_] ~/notes/temp
-[_c_] ~/.emacs.d/emacs.org
-[_;_] org rifle
-[_l_] dired ~/.emacs.d
-"
-  ("t" (lambda ()
-         (interactive)
-         (find-file "~/emacs-temp")) nil)
-  ("c" (lambda ()
-         (interactive)
-         (find-file "~/.emacs.d/emacs.org")) nil)
-  (";" helm-org-rifle-important nil)
-  ("l" (lambda ()
-         (interactive)
-         (progn
-           (zygospore-toggle-delete-other-windows)
-           (dired "~/org-notes")
-           (helm-find-files-1 default-directory))) nil))
-
-(define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
-(define-key tab-map (kbd "m") 'hydra-magit/body)
-(define-key tab-map (kbd ";") 'hydra-quickopen/body)
-
-(define-key tab-map (kbd "o") 'hydra-search-helper/body)
-(define-key tab-map (kbd "f") 'hydra-frame-helper/body)
-
-(defhydra hydra-search-helper
-  (:color blue)
-  "
-[_q_] update tags        [_o_] find gtag
-[_c_] create gtag        [_p_] hydra-lsp
- " ("q" ggtags-update-tags nil)
- ("c" ggtags-create-tags nil)
- ("o" ggtags-find-tag-dwim nil)
- ("p" hydra-lsp/body nil))
-
-(defhydra hydra-frame-helper
-  (:color blue)
-  "
-[_m_] make frame        [_o_] other frame        [_d_] delete frame
- "
-  ("m" make-frame nil)
-  ("o" other-frame nil)
-  ("d" delete-frame nil))
-#+END_SRC
-** Multiple cursors
-#+BEGIN_SRC emacs-lisp
-(use-package multiple-cursors :defer t)
-
-(defhydra hydra-multiple-cursors (:hint nil)
-  "
- Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cursor%s(if (> (mc/num-cursors) 1) \"s\" \"\")
-------------------------------------------------------------------
- [_p_]   Next     [_n_]   Next     [_l_] Edit lines  [_0_] Insert numbers
- [_P_]   Skip     [_N_]   Skip     [_a_] Mark all    [_A_] Insert letters
- [_M-p_] Unmark   [_M-n_] Unmark   [_s_] Search
- [Click] Cursor at point       [_q_] Quit"
-  ("l" mc/edit-lines :exit t)
-  ("a" mc/mark-all-like-this :exit t)
-  ("n" mc/mark-next-like-this)
-  ("N" mc/skip-to-next-like-this)
-  ("M-n" mc/unmark-next-like-this)
-  ("p" mc/mark-previous-like-this)
-  ("P" mc/skip-to-previous-like-this)
-  ("M-p" mc/unmark-previous-like-this)
-  ("s" mc/mark-all-in-region-regexp :exit t)
-  ("0" mc/insert-numbers :exit t)
-  ("A" mc/insert-letters :exit t)
-  ("<mouse-1>" mc/add-cursor-on-click)
-  ;; Help with click recognition in this hydra
-  ("<down-mouse-1>" ignore)
-  ("<drag-mouse-1>" ignore)
-  ("q" nil))
-
-(define-key tab-map (kbd "M-m") 'hydra-multiple-cursors/body)
-
-#+END_SRC
-** elfeed
-#+BEGIN_SRC emacs-lisp
-(setq elfeed-feeds
-      '("http://nullprogram.com/feed/"
-        "http://planet.emacsen.org/atom.xml"
-        "https://www.spacerogue.net/wordpress/?feed=rss2"
-        "https://mjg59.dreamwidth.org/data/rss"))
-#+END_SRC
 ** Keyboard
 *** maps
 #+BEGIN_SRC emacs-lisp
@@ -451,6 +341,116 @@
           :map control-semi-map
           ("C-1" . zygospore-toggle-delete-other-windows)))
 #+end_src
+** hydra
+#+BEGIN_SRC emacs-lisp
+(use-package hydra :ensure t :defer t)
+
+(defun spawn-local-mode-hydra ()
+  (interactive)
+  (cond (( string= "org-mode" major-mode)
+         (hydra-tab-org/body))
+        (( string= "c-mode" major-mode)
+         (hydra-c/body))
+        (( string= "c++-mode" major-mode)
+         (hydra-c/body))
+        (( string= "python-mode" major-mode)
+         (hydra-python/body))
+        (( string= "emacs-lisp-mode" major-mode)
+         (hydra-emacs-lisp/body))
+         (( string= "scala-mode" major-mode)
+         (hydra-scala/body))
+        (t (message "Argh...hydra for your current mode does not exist :("))))
+
+;; Needed for helm-find-files-1
+(use-package helm-files :defer t :ensure nil)
+
+(defhydra hydra-quickopen (:color blue)
+  "
+[_t_] ~/notes/temp
+[_c_] ~/.emacs.d/emacs.org
+[_;_] org rifle
+[_l_] dired ~/.emacs.d
+"
+  ("t" (lambda ()
+         (interactive)
+         (find-file "~/emacs-temp")) nil)
+  ("c" (lambda ()
+         (interactive)
+         (find-file "~/.emacs.d/emacs.org")) nil)
+  (";" helm-org-rifle-important nil)
+  ("l" (lambda ()
+         (interactive)
+         (progn
+           (zygospore-toggle-delete-other-windows)
+           (dired "~/org-notes")
+           (helm-find-files-1 default-directory))) nil))
+
+(define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
+(define-key tab-map (kbd "m") 'hydra-magit/body)
+(define-key tab-map (kbd ";") 'hydra-quickopen/body)
+
+(define-key tab-map (kbd "o") 'hydra-search-helper/body)
+(define-key tab-map (kbd "f") 'hydra-frame-helper/body)
+
+(defhydra hydra-search-helper
+  (:color blue)
+  "
+[_q_] update tags        [_o_] find gtag
+[_c_] create gtag        [_p_] hydra-lsp
+ " ("q" ggtags-update-tags nil)
+ ("c" ggtags-create-tags nil)
+ ("o" ggtags-find-tag-dwim nil)
+ ("p" hydra-lsp/body nil))
+
+(defhydra hydra-frame-helper
+  (:color blue)
+  "
+[_m_] make frame        [_o_] other frame        [_d_] delete frame
+ "
+  ("m" make-frame nil)
+  ("o" other-frame nil)
+  ("d" delete-frame nil))
+#+END_SRC
+** elfeed
+#+BEGIN_SRC emacs-lisp
+(setq elfeed-feeds
+      '("http://nullprogram.com/feed/"
+        "http://planet.emacsen.org/atom.xml"
+        "https://www.spacerogue.net/wordpress/?feed=rss2"
+        "https://mjg59.dreamwidth.org/data/rss"))
+#+END_SRC
+** Multiple cursors
+#+BEGIN_SRC emacs-lisp
+(use-package multiple-cursors :defer t)
+
+(defhydra hydra-multiple-cursors (:hint nil)
+  "
+ Up^^             Down^^           Miscellaneous           % 2(mc/num-cursors) cursor%s(if (> (mc/num-cursors) 1) \"s\" \"\")
+------------------------------------------------------------------
+ [_p_]   Next     [_n_]   Next     [_l_] Edit lines  [_0_] Insert numbers
+ [_P_]   Skip     [_N_]   Skip     [_a_] Mark all    [_A_] Insert letters
+ [_M-p_] Unmark   [_M-n_] Unmark   [_s_] Search
+ [Click] Cursor at point       [_q_] Quit"
+  ("l" mc/edit-lines :exit t)
+  ("a" mc/mark-all-like-this :exit t)
+  ("n" mc/mark-next-like-this)
+  ("N" mc/skip-to-next-like-this)
+  ("M-n" mc/unmark-next-like-this)
+  ("p" mc/mark-previous-like-this)
+  ("P" mc/skip-to-previous-like-this)
+  ("M-p" mc/unmark-previous-like-this)
+  ("s" mc/mark-all-in-region-regexp :exit t)
+  ("0" mc/insert-numbers :exit t)
+  ("A" mc/insert-letters :exit t)
+  ("<mouse-1>" mc/add-cursor-on-click)
+  ;; Help with click recognition in this hydra
+  ("<down-mouse-1>" ignore)
+  ("<drag-mouse-1>" ignore)
+  ("q" nil))
+
+(define-key tab-map (kbd "M-m") 'hydra-multiple-cursors/body)
+
+#+END_SRC
 
 ** projectile
 #+BEGIN_SRC emacs-lisp
