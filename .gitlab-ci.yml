@@ -1,16 +1,14 @@
 image: ubuntu
 
-Install dependencies:
-  script:
-    - apt-get -y update
-    - apt-get -y install software-properties-common
-    - add-apt-repository -y ppa:ubuntu-elisp/ppa
-    - apt-get -y update
-    - apt-get -y install emacs-snapshot
+
+before_script:
+  - apt-get -y update
+  - apt-get -y install software-properties-common
+  - add-apt-repository -y ppa:ubuntu-elisp/ppa
+  - apt-get -y update
+  - apt-get -y install emacs-snapshot
 
 emacs-snapshot on Ubuntu:
-  dependencies:
-    - Install dependencies
   script:
     - mkdir ~/.emacs.d
     - cp -r * ~/.emacs.d/
