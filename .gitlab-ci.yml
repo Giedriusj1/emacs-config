@@ -9,6 +9,8 @@ Install dependencies:
     - apt-get -y install emacs-snapshot
 
 emacs-snapshot on Ubuntu:
+  dependencies:
+    - Install dependencies
   script:
     - mkdir ~/.emacs.d
     - cp -r * ~/.emacs.d/
