@@ -3,8 +3,12 @@ test:
   script:
     - ls -alh
     - pwd
+    - mkdir ~/.emacs.d
+    - cp * ~/.emacs.d/
+    - cd  ~/.emacs.d/
+    - echo "now at"
+    - pwd
     - apt-get -y update
     - apt-get -y install emacs
     - emacs -batch --eval="(message (number-to-string (+ 1 2)))"
-    # - mkdir /root/.emacs.d/
-    # - emacs -batch -l ./init.el
+    - emacs -batch -l ./init.el
