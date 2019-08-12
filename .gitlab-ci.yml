@@ -4,7 +4,7 @@ test:
     - ls -alh
     - pwd
     - mkdir ~/.emacs.d
-    - cp * ~/.emacs.d/
+    - cp -r * ~/.emacs.d/
     - cd  ~/.emacs.d/
     - echo "now at"
     - pwd
