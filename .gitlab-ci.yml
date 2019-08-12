@@ -4,4 +4,5 @@ test:
     - apt-get -y update
     - apt-get -y install emacs
     - emacs -batch --eval="(message (number-to-string (+ 1 2)))"
+    - mkdir ./emacs.d/
     - emacs -batch -l ./init.el
