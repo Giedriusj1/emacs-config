@@ -680,9 +680,6 @@
               :map control-semi-map
               (("n" . company-complete)
                ("C-n" . dabbrev-expand)))
-
-
-
   :config
   (global-company-mode t)
   (diminish 'company-mode)
@@ -693,10 +690,6 @@
   (add-to-list 'company-backends '(company-gtags))
 
   (setq company-tooltip-limit 25))
-
-
-;; (require 'company-posframe)
-;; (company-posframe-mode 1)
 #+end_src
 *** gdb
 #+BEGIN_SRC emacs-lisp
@@ -915,7 +908,6 @@
            (alias (cdr face-map)))
       (put face 'theme-face nil)
       (put face 'face-alias alias)))
-
 
   ;; This makes ediff usable with org mode
   (with-eval-after-load 'outline
