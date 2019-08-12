@@ -8,7 +8,9 @@ test:
     - cd  ~/.emacs.d/
     - echo "now at"
     - pwd
-    - add-apt-repository ppa:ubuntu-elisp/ppa
+    - apt-get -y update
+    - apt-get -y install software-properties-common
+    - add-apt-repository -y ppa:ubuntu-elisp/ppa
     - apt-get -y update
     - apt-get -y install emacs-snapshot
     - emacs -batch --eval="(message (number-to-string (+ 1 2)))"
