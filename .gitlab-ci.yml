@@ -1,18 +1,18 @@
-test:
-  image: ubuntu
+image: ubuntu
+
+Install dependencies:
   script:
-    - ls -alh
-    - pwd
-    - mkdir ~/.emacs.d
-    - cp -r * ~/.emacs.d/
-    - cd  ~/.emacs.d/
-    - echo "now at"
-    - pwd
     - apt-get -y update
     - apt-get -y install software-properties-common
     - add-apt-repository -y ppa:ubuntu-elisp/ppa
     - apt-get -y update
     - apt-get -y install emacs-snapshot
-    - emacs -batch --eval="(message (number-to-string (+ 1 2)))"
+
+emacs-snapshot on Ubuntu:
+  script:
+    - mkdir ~/.emacs.d
+    - cp -r * ~/.emacs.d/
+    - cd  ~/.emacs.d/
+    - pwd
     - emacs -batch --eval="(message (emacs-version))"
     - emacs -batch -l ./init.el
