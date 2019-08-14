@@ -872,6 +872,11 @@
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
 #+END_SRC
+**** LDIF
+#+BEGIN_SRC emacs-lisp
+(use-package ldap-mode :ensure nil :defer t)
+#+END_SRC
+
 ** Verson Control
 *** magit
 #+BEGIN_SRC emacs-lisp
@@ -959,6 +964,7 @@
         ("\\.ref.gpg$" . org-mode)
         ("\\.xml\\'" . xml-mode)
         ("\\.pom\\'" . xml-mode)
+        ("\\.ldif\\'" . ldif-mode)
 
         ;;programming modes
         ("\\.bat\\'" . bat-mode)
