@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: g/time
+# key: g/time
+# --
+  private def time[R](block: => R): (R, Long) = {
+    val t0 = System.currentTimeMillis()
+    val result = block
+    val elapsed_time = System.currentTimeMillis() - t0
+    println("Elapsed time: " + elapsed_time.toString() + "ms")
+    (result, elapsed_time)
+  }
