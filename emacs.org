@@ -874,7 +874,7 @@
 #+END_SRC
 **** LDIF
 #+BEGIN_SRC emacs-lisp
-(use-package ldap-mode :ensure nil :defer t)
+(use-package ldap-mode :ensure nil)
 #+END_SRC
 
 ** Verson Control
