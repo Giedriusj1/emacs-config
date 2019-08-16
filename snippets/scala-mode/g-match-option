@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: g/match-option
+# key: g/match-option
+# --
+toInt("1") match {
+  case Some(i) => println(i)
+  case None => println("That didn't work.")
+}
