@@ -164,8 +164,7 @@
 
       (global-hl-line-mode t)
 
-      (use-package smart-mode-line
-        :ensure t
+      (use-package smart-mode-line :ensure t
         :config
         (sml/setup))))
 #+END_SRC
@@ -183,11 +182,7 @@
 ** Frame title
 #+BEGIN_SRC emacs-lisp
 (setq-default frame-title-format
-              '(:eval (format "%s@%s: %s %s" (or (file-remote-p default-directory 'user)
-                                                 user-real-login-name)
-                              (or (file-remote-p default-directory 'host)
-                                  system-name)
-                              (buffer-name)
+              '(:eval (format "%s %s" (buffer-name)
                               (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
                                     (dired-directory (concat "{" dired-directory "}"))
                                     (t "[no file]")))))
