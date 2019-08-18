@@ -15,4 +15,7 @@ emacs-snapshot on Ubuntu:
     - cd  ~/.emacs.d/
     - pwd
     - emacs -batch --eval="(message (emacs-version))"
+    - echo "first run:"
+    - emacs -batch -l ./init.el
+    - echo "second run:"
     - emacs -batch -l ./init.el

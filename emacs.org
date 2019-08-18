@@ -755,13 +755,12 @@
                 ( string= "c-mode" major-mode))
             (if (use-region-p)
                 (clang-format-region (region-beginning)
-                                     (region-end) )
+                                     (region-end))
               (clang-format-region (point)
                                    (point))))
            (( string= "emacs-lisp-mode" major-mode)
             (elisp-format-region))
            (t (message "Argh...don't know how to format in this mode :(")))))
-
 #+END_SRC
 *** indenting
 #+BEGIN_SRC emacs-lisp
@@ -1144,8 +1143,7 @@
 (defun emacs-init-time ()
   "Return a string giving the duration of the Emacs initialization."
   (interactive)
-  (let ((str (format "%.2f seconds"
-                     (float-time (time-subtract after-init-time before-init-time)))))
+  (let ((str (format "%.2f seconds" (float-time (time-subtract after-init-time before-init-time)))))
     (if (called-interactively-p 'interactive)
         (message "%s" str) str)))
 
@@ -1167,5 +1165,6 @@
 (defalias 'msf 'menu-set-font)
 (defalias 'obr 'org-babel-reload-emacs-org)
 
+(display-startup-echo-area-message)
 (message "emacs.org : done loading!")
 #+end_src
