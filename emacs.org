@@ -10,7 +10,7 @@
 
 (require 'package)
 (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ;; ("marmalade" . "http://marmalade-repo.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
                          ("melpa" . "http://melpa.milkbox.net/packages/")))
 
 ;; not needed since emacs 27
@@ -175,8 +175,7 @@
  #+END_SRC
 ** Buffer names
 #+BEGIN_SRC emacs-lisp
-(use-package uniquify
-  :ensure nil
+(use-package uniquify :ensure nil
   :config (setq uniquify-buffer-name-style 'forward))
 #+END_SRC
 ** Frame title
@@ -187,7 +186,6 @@
                                     (dired-directory (concat "{" dired-directory "}"))
                                     (t "[no file]")))))
 #+END_SRC
-
 * BEHAVIOUR
 #+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting behaviour stage")
@@ -444,7 +442,6 @@
   ("q" nil))
 
 (define-key tab-map (kbd "M-m") 'hydra-multiple-cursors/body)
-
 #+END_SRC
 
 ** projectile
@@ -543,37 +540,38 @@
 
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
-(defhydra hydra-tab-org (:color blue)
-  "
+(use-package org :pin org
+  :mode (("\\.org$" . org-mode))
+  :ensure org-plus-contrib
+  :config
+  (defhydra hydra-tab-org (:color blue)
+    "
  [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
  [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
  [_e_]   edit source [_s_] exit source edit buffer
  [_c_]   yas helm expand
 
   "
-  ( "o" org-metaright nil)
-  ( "u" org-metaleft nil)
-  ( "p" org-metaup nil)
-  ( "n" org-metadown nil)
+    ( "o" org-metaright nil)
+    ( "u" org-metaleft nil)
+    ( "p" org-metaup nil)
+    ( "n" org-metadown nil)
+    ( "C-o" org-shiftright nil)
+    ( "C-u" org-shiftleft nil)
+    ( "C-p" org-shiftup nil)
+    ( "C-n" org-shiftdown nil)
+    ( "e" org-edit-src-code nil)
+    ( "s" org-edit-src-exit nil)
+    ( "c" helm-yas-complete nil))
 
-  ( "C-o" org-shiftright nil)
-  ( "C-u" org-shiftleft nil)
-  ( "C-p" org-shiftup nil)
-  ( "C-n" org-shiftdown nil)
-
-  ( "e" org-edit-src-code nil)
-  ( "s" org-edit-src-exit nil)
-
-  ( "c" helm-yas-complete nil))
-
-(setq org-directory "~/org-notes")
-(setq org-src-fontify-natively t)
-(setq org-src-preserve-indentation t)
-(setq org-startup-indented t)
-(setq org-startup-truncated nil)
-(setq org-export-with-toc nil)
-(setq org-hierarchical-todo-statistics nil)
-(setq org-imenu-depth 5)
+  (setq org-directory "~/org-notes")
+  (setq org-src-fontify-natively t)
+  (setq org-src-preserve-indentation t)
+  (setq org-startup-indented t)
+  (setq org-startup-truncated nil)
+  (setq org-export-with-toc nil)
+  (setq org-hierarchical-todo-statistics nil)
+  (setq org-imenu-depth 5))
 #+END_SRC
 *** org-rifle
 #+BEGIN_SRC emacs-lisp
@@ -1008,7 +1006,7 @@
          ( "C-r" . helm-global-mark-ring)
          ( "b" . helm-resume)
          ( "C-b" . helm-resume)))
-  (:map org-mode-map (("C-j" . helm-mini)) )
+  (:map org-mode-map (("C-j" . helm-mini)))
   (:map lisp-interaction-mode-map (("C-j" . helm-mini)))
   :config
   (setq helm-candidate-number-limit 500)
