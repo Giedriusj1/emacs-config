@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g/println=====
+# key: g/println=====
+# --
+println("================")

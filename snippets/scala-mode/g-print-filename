@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g/print-filename
+# key: g/print-filename
+# --
+println("FROM:" + new Exception().getStackTrace.head.getFileName)

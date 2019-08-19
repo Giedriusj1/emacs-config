@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g/println-empty
+# key: g/println-empty
+# --
+println("$0")
