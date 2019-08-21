@@ -667,6 +667,17 @@
 (setq ring-bell-function 'ignore)
 #+end_src
 ** Programming
+*** building things
+**** Maven
+#+begin_src emacs-lisp
+(use-package mvn :defer t
+  :config
+  (defun mvn-integration-test ()
+    "docstring"
+    (interactive)
+    (mvn "integration-test"))
+  )
+#+end_src
 *** finding things
 **** ag
 #+BEGIN_SRC emacs-lisp
