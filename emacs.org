@@ -180,11 +180,12 @@
 #+END_SRC
 ** Frame title
 #+BEGIN_SRC emacs-lisp
-(setq-default frame-title-format
-              '(:eval (format "%s %s" (buffer-name)
-                              (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
-                                    (dired-directory (concat "{" dired-directory "}"))
-                                    (t "[no file]")))))
+(setq-default
+ frame-title-format
+ '(:eval (format "%s %s" (buffer-name)
+                 (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
+                       (dired-directory (concat "{" dired-directory "}"))
+                       (t "[no file]")))))
 #+END_SRC
 * BEHAVIOUR
 #+BEGIN_SRC emacs-lisp
@@ -417,7 +418,7 @@
 (define-prefix-command 'mc-map)
 (use-package multiple-cursors
   :bind
-  (:map tab-map(("l" . mc-map))) 
+  (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
 #+END_SRC
 
@@ -649,6 +650,7 @@
 #+begin_src emacs-lisp
 (use-package mvn :defer t
   :config
+  (setq compilation-scroll-output t)
   (defun mvn-integration-test ()
     "docstring"
     (interactive)
@@ -674,13 +676,13 @@
 *** code completion
 **** yas
 #+BEGIN_SRC emacs-lisp
-(use-package yasnippet-snippets :defer t)
 (use-package yasnippet
+  :ensure yasnippet-snippets
+  :ensure yasnippet-classic-snippets
+  :ensure helm-c-yasnippet
   :init
   (yas-global-mode 1)
   (diminish 'yas-minor-mode))
-
-(use-package helm-c-yasnippet :defer t)
 #+END_SRC
 
 **** company
