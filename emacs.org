@@ -192,17 +192,12 @@
 (message "emacs.org : starting behaviour stage")
 #+end_src
 ** Miscellaneous
-*** diminish
-#+BEGIN_SRC emacs-lisp
-(use-package diminish :config (diminish 'gcmh-mode))
-#+END_SRC
 *** anzu
 #+BEGIN_SRC emacs-lisp
 ;; Show number of matches in mode-line while searching
-(use-package anzu
-  :config
-  (global-anzu-mode t)
-  (diminish 'anzu-mode))
+(use-package anzu 
+  :diminish anzu-mode 
+  :config (global-anzu-mode t))
 #+END_SRC
 *** cua
 #+BEGIN_SRC emacs-lisp
@@ -427,9 +422,10 @@
 (use-package helm-projectile :defer t
   :bind (:map tab-map
               ("p" . hydra-projectile/body))
+  :diminish projectile-mode  
   :init
   (projectile-global-mode t)
-  (diminish 'projectile-mode)
+  
 
   :config
   (remove-hook 'find-file-hook #'projectile-find-file-hook-function)
@@ -676,13 +672,12 @@
 *** code completion
 **** yas
 #+BEGIN_SRC emacs-lisp
-(use-package yasnippet
-  :ensure yasnippet-snippets
-  :ensure yasnippet-classic-snippets
-  :ensure helm-c-yasnippet
-  :init
-  (yas-global-mode 1)
-  (diminish 'yas-minor-mode))
+(use-package yasnippet 
+  :ensure yasnippet-snippets 
+  :ensure yasnippet-classic-snippets 
+  :ensure helm-c-yasnippet 
+  :diminish yas-minor-mode 
+  :init (yas-global-mode 1))
 #+END_SRC
 
 **** company
@@ -695,10 +690,10 @@
               :map control-semi-map
               (("n" . company-complete)
                ("C-n" . dabbrev-expand)))
+  :diminish company-mode
   :config
   (global-company-mode t)
-  (diminish 'company-mode)
-
+  
   (push 'company-lsp company-backends)
 
   ;; (add-to-list 'company-backends '(company-clang))
