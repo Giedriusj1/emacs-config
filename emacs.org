@@ -650,8 +650,7 @@
   (defun mvn-integration-test ()
     "docstring"
     (interactive)
-    (mvn "integration-test"))
-  )
+    (mvn "integration-test")))
 #+end_src
 *** finding things
 **** ag
@@ -832,6 +831,10 @@
   ("M-r" lsp-restart-workspace)
   ("S" lsp-shutdown-workspace))
 #+END_SRC
+**** powershell
+#+BEGIN_SRC emacs-lisp
+(use-package powershell :defer t)
+#+END_SRC
 *** Structured formats
 **** YAML
 #+BEGIN_SRC emacs-lisp
@@ -944,6 +947,7 @@
         ("\\.ldif\\'" . ldif-mode)
 
         ;;programming modes
+        ("\\.ps1\\'" . powershell-mode)
         ("\\.bat\\'" . bat-mode)
         ("\\.c\\'" . c-mode)
         ("\\.cc\\'" . c-mode)
@@ -1088,18 +1092,9 @@
   (eyebrowse-mode t))
 
 (defhydra hydra-eyebrowse (:color red)
-  "
-  ^
-  %s(eyebrowse-mode-line-indicator)
-
-  _u_ left window config
-  _o_ right window config
-
-  _r_ename current window config
-  _c_reate new window config
-  _C_lose current window config
-  ^^
-  "
+"
+^%s(eyebrowse-mode-line-indicator) _u_ <- -> _o_ | _r_ename | _c_reate | _C_lose current^^
+"
   ("q" nil "quit")
   ("u" eyebrowse-prev-window-config nil)
   ("o" eyebrowse-next-window-config nil)
