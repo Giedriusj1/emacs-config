@@ -192,6 +192,10 @@
 (message "emacs.org : starting behaviour stage")
 #+end_src
 ** Miscellaneous
+*** diminish
+#+BEGIN_SRC emacs-lisp
+(use-package diminish)
+#+END_SRC
 *** anzu
 #+BEGIN_SRC emacs-lisp
 ;; Show number of matches in mode-line while searching
@@ -402,11 +406,13 @@
 #+END_SRC
 ** elfeed
 #+BEGIN_SRC emacs-lisp
-(setq elfeed-feeds
-      '("http://nullprogram.com/feed/"
-        "http://planet.emacsen.org/atom.xml"
-        "https://www.spacerogue.net/wordpress/?feed=rss2"
-        "https://mjg59.dreamwidth.org/data/rss"))
+(use-package elfeed :defer t
+  :config
+  (setq elfeed-feeds
+        '("http://nullprogram.com/feed/"
+          "http://planet.emacsen.org/atom.xml"
+          "https://www.spacerogue.net/wordpress/?feed=rss2"
+          "https://mjg59.dreamwidth.org/data/rss")))
 #+END_SRC
 ** Multiple cursors
 #+BEGIN_SRC emacs-lisp
