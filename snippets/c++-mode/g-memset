@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: memset
+# key: memset
+# --
+void * memset ( void * ptr, int value, size_t num );

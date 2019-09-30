@@ -606,8 +606,9 @@
 (setq custom-file (concat user-emacs-directory "/custom--ignored.el"))
 
 (blink-cursor-mode -1)
+
 (use-package auto-highlight-symbol
-  :config (global-auto-highlight-symbol-mode 1))
+  :init (add-hook 'prog-mode-hook 'auto-highlight-symbol-mode))
 
 (delete-selection-mode 1)
 (show-paren-mode t)
