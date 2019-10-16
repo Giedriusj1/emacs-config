@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: g/cpp11-for-range-const-ref
+# key: g/cpp11-for-range-const-ref
+# --
+
+for (elem const &  : vector) {
+
+}
