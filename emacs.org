@@ -566,6 +566,7 @@
   (helm-org-rifle-directories (list
                                "~/org-notes"
                                "~/org-notes/lang-notes"
+                               "~/org-notes/work"
                                "~/org-notes-private"
                                "~/.emacs.d")))
 #+END_SRC
