@@ -1,0 +1,13 @@
+# -*- mode: snippet -*-
+# name: g/c++-try-catch
+# key: g/c++-try-catch
+# --
+try{
+    // ...
+} catch (const std::exception& ex) {
+    // ...
+} catch (const std::string& ex) {
+    // ...
+} catch (...) {
+    // ...
+}
