@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: g/for-iterate-dictionary
+# key: g/for-iterate-dictionary
+# --
+for (key, value) in map.items():
+    print(value)
