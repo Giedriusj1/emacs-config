@@ -676,6 +676,19 @@
   ;; Projectile already displays this information.
   (setq ggtags-mode-line-project-name nil))
 #+end_src
+**** ripgrep
+#+BEGIN_SRC emacs-lisp
+(use-package projectile-ripgrep)
+
+(setq dumb-jump-selector 'helm)
+(setq dumb-jump-force-searcher 'rg)
+#+END_SRC
+
+**** dump jump
+#+BEGIN_SRC emacs-lisp
+(use-package dumb-jump)
+#+END_SRC
+
 *** code completion
 **** yas
 #+BEGIN_SRC emacs-lisp
@@ -843,6 +856,13 @@
 #+BEGIN_SRC emacs-lisp
 (use-package powershell :defer t)
 #+END_SRC
+
+**** adl
+#+BEGIN_SRC emacs-lisp
+;; (use-package g-adl-mode :defer t)
+(require 'g-adl-mode)
+#+END_SRC
+
 *** Structured formats
 **** YAML
 #+BEGIN_SRC emacs-lisp
@@ -980,7 +1000,8 @@
         ("\\.sh\\'" . sh-mode)
         ("\\.yml\\'" . yaml-mode)
         ("\\.s\\'" . asm-mode)
-        ("\\.S\\'" . asm-mode)))
+        ("\\.S\\'" . asm-mode)
+        ("\\.adl\\'" . adl-mode)))
 #+end_src
 
 ** Navigating around
