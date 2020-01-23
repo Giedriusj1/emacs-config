@@ -385,7 +385,6 @@
 (define-key tab-map (kbd ";") 'hydra-quickopen/body)
 
 (define-key tab-map (kbd "o") 'hydra-search-helper/body)
-(define-key tab-map (kbd "f") 'hydra-frame-helper/body)
 
 (defhydra hydra-search-helper
   (:color blue)
@@ -396,15 +395,6 @@
  ("c" ggtags-create-tags nil)
  ("o" ggtags-find-tag-dwim nil)
  ("p" hydra-lsp/body nil))
-
-(defhydra hydra-frame-helper
-  (:color blue)
-  "
-[_m_] make frame        [_o_] other frame        [_d_] delete frame
- "
-  ("m" make-frame nil)
-  ("o" other-frame nil)
-  ("d" delete-frame nil))
 #+END_SRC
 ** elfeed
 #+BEGIN_SRC emacs-lisp
@@ -883,7 +873,6 @@
 
 **** adl
 #+BEGIN_SRC emacs-lisp
-;; (use-package g-adl-mode :defer t)
 (require 'g-adl-mode)
 #+END_SRC
 
@@ -1001,6 +990,7 @@
         ("\\.xml\\'" . xml-mode)
         ("\\.pom\\'" . xml-mode)
         ("\\.ldif\\'" . ldif-mode)
+        ("\\.toml\\'" . toml-mode)
 
         ;;programming modes
         ("\\.ps1\\'" . powershell-mode)
@@ -1142,25 +1132,32 @@
       (global-swift-mode))))
 #+end_src
 
-*** eyebrowse
+*** eyebrowse / frame selection
 #+BEGIN_SRC emacs-lisp
 (use-package eyebrowse :ensure t
   :config
   (setq eyebrowse-mode-line-separator " " eyebrowse-new-workspace t)
   (eyebrowse-mode t))
 
-(defhydra hydra-eyebrowse (:color red)
-"
-^%s(eyebrowse-mode-line-indicator) _u_ <- -> _o_ | _r_ename | _c_reate | _C_lose current^^
-"
-  ("q" nil "quit")
-  ("u" eyebrowse-prev-window-config nil)
-  ("o" eyebrowse-next-window-config nil)
+(defhydra hydra-frame-helper
+  (:color red)
+  "
+[_m_] make frame [_o_] other frame        [_d_] delete frame
+^ _j_ <- -> _k_ | _r_ename | _c_reate | _C_lose current
+%s(eyebrowse-mode-line-indicator)^^
+[_q_] quit
+ "
+  ("m" make-frame nil)
+  ("o" other-frame nil)
+  ("d" delete-frame nil)
+  ("q" nil nil)
+  ("j" eyebrowse-prev-window-config nil)
+  ("k" eyebrowse-next-window-config nil)
   ("r" eyebrowse-rename-window-config nil)
   ("c" eyebrowse-create-window-config nil)
   ("C" eyebrowse-close-window-config nil))
 
-(define-key global-map [(f5)] 'hydra-eyebrowse/body)
+(define-key tab-map (kbd "f") 'hydra-frame-helper/body)
 #+END_SRC
 ** Utility functions
 #+BEGIN_SRC emacs-lisp
