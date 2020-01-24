@@ -1026,6 +1026,10 @@
   :bind (:map asm-mode-map
               ("C-j" . helm-mini)))
 
+(use-package view :defer t :pin manual
+  :bind (:map view-mode-map
+              ("C-j" . helm-mini)))
+
 (defun g/helm-semantic-or-imenu (arg)
   (interactive "P")
   (remove-hook 'semantic-inhibit-functions #'ds)
