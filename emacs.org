@@ -1146,22 +1146,25 @@
 (defhydra hydra-frame-helper
   (:color red)
   "
-[_m_] make frame [_o_] other frame        [_d_] delete frame
+[_m_]ake frame [_o_]ther frame [_d_]elete frame
 ^ _j_ <- -> _k_ | _r_ename | _c_reate | _C_lose current
 %s(eyebrowse-mode-line-indicator)^^
-[_q_] quit
+[_q_] [_SPC_] [_M-SPC_] quit
+
  "
   ("m" make-frame nil)
   ("o" other-frame nil)
   ("d" delete-frame nil)
   ("q" nil nil)
+  ("SPC" nil nil)
+  ("M-SPC" nil nil)
   ("j" eyebrowse-prev-window-config nil)
   ("k" eyebrowse-next-window-config nil)
   ("r" eyebrowse-rename-window-config nil)
   ("c" eyebrowse-create-window-config nil)
   ("C" eyebrowse-close-window-config nil))
 
-(define-key tab-map (kbd "f") 'hydra-frame-helper/body)
+(global-set-key (kbd "M-SPC") 'hydra-frame-helper/body)
 #+END_SRC
 ** Utility functions
 #+BEGIN_SRC emacs-lisp
