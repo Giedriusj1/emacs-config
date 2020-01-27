@@ -473,14 +473,15 @@
     "
 [_q_] invalidate cache [_p_] projects
 [_j_] helm projectile  [_d_] dired projectile root
-[_g_]rep [_m_] ag [_a_]ck
+[_g_]rep [_m_] ag [_a_]ck [_r_] projectile-ripgrep
 " ("p" helm-projectile-projects nil)
 ("q" projectile-invalidate-cache nil)
 ("j" helm-projectile nil)
 ("d" projectile-dired nil)
 ("g" helm-projectile-grep nil)
 ("a" helm-projectile-ack nil)
-("m" helm-projectile-ag nil)))
+("m" helm-projectile-ag nil)
+("r" projectile-ripgrep nil)))
 #+END_SRC
 ** dired
 #+BEGIN_SRC emacs-lisp
