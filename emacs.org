@@ -510,7 +510,12 @@
           ((string-equal system-type "gnu/linux")
            (mapc (lambda (path) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" path))) fileList)))))
 #+end_src
+** auto sudo
+#+BEGIN_SRC emacs-lisp
+(use-package auto-sudoedit)
 
+(auto-sudoedit-mode 1)
+#+end_src
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
 (use-package org :pin org
