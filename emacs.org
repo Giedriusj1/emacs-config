@@ -672,14 +672,14 @@
 **** ripgrep
 #+BEGIN_SRC emacs-lisp
 (use-package projectile-ripgrep)
-
-(setq dumb-jump-selector 'helm)
-(setq dumb-jump-force-searcher 'rg)
 #+END_SRC
 
 **** dump jump
 #+BEGIN_SRC emacs-lisp
-(use-package dumb-jump)
+(use-package dumb-jump
+  :config
+  (setq dumb-jump-selector 'helm)
+  (setq dumb-jump-force-searcher 'rg))
 #+END_SRC
 
 *** code completion
@@ -1145,7 +1145,7 @@
   (eyebrowse-mode t))
 
 (defhydra hydra-frame-helper
-  (:color red)
+  (:color blue)
   "
 [_m_]ake frame [_o_]ther frame [_d_]elete frame
 ^ _j_ <- -> _k_ | _r_ename | _c_reate | _C_lose current
