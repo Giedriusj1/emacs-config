@@ -512,9 +512,9 @@
 #+end_src
 ** auto sudo
 #+BEGIN_SRC emacs-lisp
-(use-package auto-sudoedit)
-
-(auto-sudoedit-mode 1)
+(use-package auto-sudoedit
+  :diminish auto-sudoedit-mode
+  :config (auto-sudoedit-mode 1))
 #+end_src
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
