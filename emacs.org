@@ -199,8 +199,8 @@
 *** anzu
 #+BEGIN_SRC emacs-lisp
 ;; Show number of matches in mode-line while searching
-(use-package anzu 
-  :diminish anzu-mode 
+(use-package anzu
+  :diminish anzu-mode
   :config (global-anzu-mode t))
 #+END_SRC
 *** cua
@@ -420,10 +420,10 @@
 (use-package helm-projectile :defer t
   :bind (:map tab-map
               ("p" . hydra-projectile/body))
-  :diminish projectile-mode  
+  :diminish projectile-mode
   :init
   (projectile-global-mode t)
-  
+
 
   :config
   (remove-hook 'find-file-hook #'projectile-find-file-hook-function)
@@ -691,11 +691,11 @@
 *** code completion
 **** yas
 #+BEGIN_SRC emacs-lisp
-(use-package yasnippet 
-  :ensure yasnippet-snippets 
-  :ensure yasnippet-classic-snippets 
-  :ensure helm-c-yasnippet 
-  :diminish yas-minor-mode 
+(use-package yasnippet
+  :ensure yasnippet-snippets
+  :ensure yasnippet-classic-snippets
+  :ensure helm-c-yasnippet
+  :diminish yas-minor-mode
   :init (yas-global-mode 1))
 #+END_SRC
 
@@ -712,7 +712,7 @@
   :diminish company-mode
   :config
   (global-company-mode t)
-  
+
   (push 'company-lsp company-backends)
 
   ;; (add-to-list 'company-backends '(company-clang))
@@ -1153,23 +1153,23 @@
 (defhydra hydra-frame-helper
   (:color blue)
   "
-[_m_]ake frame [_o_]ther frame [_d_]elete frame
-^ _j_ <- -> _k_ | _r_ename | _c_reate | _C_lose current
+eyebrowse               frame management
+------------------------------------------
+[_M-j_] <-              [_M-m_]ake frame
+[_M-k_] ->              [_M-o_]ther frame
+[_M-r_]ename            [_M-d_]elete frame
+[_M-c_]reate
+[_M-C_]lose current
 %s(eyebrowse-mode-line-indicator)^^
-[_q_] [_SPC_] [_M-SPC_] quit
-
- "
-  ("m" make-frame nil)
-  ("o" other-frame nil)
-  ("d" delete-frame nil)
-  ("q" nil nil)
-  ("SPC" nil nil)
-  ("M-SPC" nil nil)
-  ("j" eyebrowse-prev-window-config nil)
-  ("k" eyebrowse-next-window-config nil)
-  ("r" eyebrowse-rename-window-config nil)
-  ("c" eyebrowse-create-window-config nil)
-  ("C" eyebrowse-close-window-config nil))
+"
+  ("M-m" make-frame nil)
+  ("M-o" other-frame nil)
+  ("M-d" delete-frame nil)
+  ("M-j" eyebrowse-prev-window-config nil)
+  ("M-k" eyebrowse-next-window-config nil)
+  ("M-r" eyebrowse-rename-window-config nil)
+  ("M-c" eyebrowse-create-window-config nil)
+  ("M-C" eyebrowse-close-window-config nil))
 
 (global-set-key (kbd "M-SPC") 'hydra-frame-helper/body)
 #+END_SRC
