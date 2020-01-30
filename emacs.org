@@ -677,6 +677,7 @@
 **** ripgrep
 #+BEGIN_SRC emacs-lisp
 (use-package projectile-ripgrep)
+(use-package helm-rg)
 #+END_SRC
 
 **** dump jump
