@@ -327,7 +327,7 @@
 #+BEGIN_SRC emacs-lisp
 (setq windmove-wrap-around t)
 
-(use-package zygospore
+(use-package zygospore :ensure nil
   :bind* (("C-1" . 'window-swap-states)
           ("C-2" . 'windmove-up)
           ("C-3" . 'windmove-right)
@@ -486,6 +486,7 @@
 ** dired
 #+BEGIN_SRC emacs-lisp
 (use-package dired-extension :ensure nil)
+(use-package dired-toggle-sudo :ensure nil)
 
 (setq dired-dwim-target t)
 
@@ -880,7 +881,7 @@
 
 **** adl
 #+BEGIN_SRC emacs-lisp
-(require 'g-adl-mode)
+(use-package g-adl-mode :ensure nil)
 #+END_SRC
 
 *** Structured formats
