@@ -803,7 +803,8 @@
   ;; todo: move inside use-package rust
 (defhydra hydra-rust (:color blue)
     ( "c" helm-yas-complete "yas complete")
-    ( "r" cargo-process-run "cargo run"))
+    ( "r" cargo-process-run "cargo run")
+    ( "SPC" cargo-process-check "cargo check"))
 #+END_SRC
 **** Python
 #+BEGIN_SRC emacs-lisp
