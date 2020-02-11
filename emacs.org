@@ -911,7 +911,7 @@
 (use-package json-mode :defer t)
 #+END_SRC
 
-** Verson Control
+** Version Control
 *** magit
 #+BEGIN_SRC emacs-lisp
 (use-package magit :defer t)
