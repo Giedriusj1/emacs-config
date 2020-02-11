@@ -550,7 +550,11 @@
   (setq org-startup-truncated nil)
   (setq org-export-with-toc nil)
   (setq org-hierarchical-todo-statistics nil)
-  (setq org-imenu-depth 5))
+  (setq org-imenu-depth 5)
+  ;; Only needed prior 27 to fix a silly bug...
+  (if (< emacs-major-version 27)
+      (progn
+        (org-reload))))
 #+END_SRC
 *** org-rifle
 #+BEGIN_SRC emacs-lisp
