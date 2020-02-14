@@ -922,7 +922,25 @@
 ** Version Control
 *** magit
 #+BEGIN_SRC emacs-lisp
-(use-package magit :defer t
+(use-package magit :defer t)
+
+(defhydra hydra-magit (:color blue)
+  "magit"
+  ("m" magit-status "status")
+  ("p" magit-pull "pull")
+  ("P" magit-push "push")
+  ("c" magit-commit "commit")
+  ("l" magit-log "log")
+  ("d" magit-diff-dwim "diff-dwim")
+  ("D" magit-diff "diff")
+  ("b" magit-blame "blame"))
+
+#+end_src
+
+*** ediff
+#+BEGIN_SRC emacs-lisp
+(use-package ediff :defer t
+  :ensure magit
   :config
   (dolist (face-map '((ediff-even-diff-A           . magit-diff-context-highlight) 
                       (ediff-even-diff-Ancestor    . magit-diff-context) 
@@ -941,24 +959,8 @@
     (let* ((face (car face-map)) 
            (alias (cdr face-map))) 
       (put face 'theme-face nil) 
-      (put face 'face-alias alias))))
+      (put face 'face-alias alias)))
 
-(defhydra hydra-magit (:color blue)
-  "magit"
-  ("m" magit-status "status")
-  ("p" magit-pull "pull")
-  ("P" magit-push "push")
-  ("c" magit-commit "commit")
-  ("l" magit-log "log")
-  ("d" magit-diff-dwim "diff-dwim")
-  ("D" magit-diff "diff")
-  ("b" magit-blame "blame"))
-#+end_src
-
-*** ediff
-#+BEGIN_SRC emacs-lisp
-(use-package ediff :defer t
-  :config
   ;; Setting this to t will only show two panes.
   ;; This set to nil can be useful when dealing wih merge conflicts.
   (setq magit-ediff-dwim-show-on-hunks t)
@@ -1155,7 +1157,7 @@
 
 *** eyebrowse / frame selection
 #+BEGIN_SRC emacs-lisp
-(use-package eyebrowse :ensure t :defer t
+(use-package eyebrowse :ensure t
   :config
   (setq eyebrowse-mode-line-separator " " eyebrowse-new-workspace t)
   (eyebrowse-mode t))
