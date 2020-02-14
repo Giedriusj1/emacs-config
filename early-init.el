@@ -11,3 +11,14 @@
 (customize-set-variable 'tool-bar-mode nil)
 
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(setq frame-inhibit-implied-resize t)
+(setq initial-major-mode 'fundamental-mode)
+
+(defvar doom--file-name-handler-alist file-name-handler-alist)
+
+(setq file-name-handler-alist nil)
+
+(add-hook 'emacs-startup-hook
+  (lambda ()
+    (setq file-name-handler-alist doom--file-name-handler-alist)))
