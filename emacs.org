@@ -410,6 +410,7 @@
 #+BEGIN_SRC emacs-lisp
 (define-prefix-command 'mc-map)
 (use-package multiple-cursors
+  :defer t
   :bind
   (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
@@ -521,6 +522,7 @@
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
 (use-package org :pin org
+  :defer t
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
   :config
@@ -682,13 +684,13 @@
 #+end_src
 **** ripgrep
 #+BEGIN_SRC emacs-lisp
-(use-package projectile-ripgrep)
-(use-package helm-rg)
+(use-package projectile-ripgrep :defer t)
+(use-package helm-rg :defer t)
 #+END_SRC
 
 **** dump jump
 #+BEGIN_SRC emacs-lisp
-(use-package dumb-jump
+(use-package dumb-jump :defer t
   :config
   (setq dumb-jump-selector 'helm)
   (setq dumb-jump-force-searcher 'rg))
@@ -698,6 +700,7 @@
 **** yas
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
+  :defer t
   :ensure yasnippet-snippets
   :ensure yasnippet-classic-snippets
   :ensure helm-c-yasnippet
@@ -708,7 +711,7 @@
 **** company
 #+BEGIN_SRC emacs-lisp
 (use-package company-lsp :defer t)
-(use-package company
+(use-package company :defer t
   :bind (:map company-active-map
               (("C-n" . company-select-next)
                ("C-p" . company-select-previous))
@@ -793,16 +796,16 @@
 ;; to install rust lsp:
 ;; rustup update && rustup component add rls rust-analysis rust-src
 
-(use-package toml-mode)
+(use-package toml-mode :defer t)
 
-(use-package rust-mode
+(use-package rust-mode :defer t
   :hook (rust-mode . lsp))
 
 ;; Add keybindings for interacting with Cargo
-(use-package cargo
+(use-package cargo :defer t
   :hook (rust-mode . cargo-minor-mode))
 
-(use-package flycheck-rust
+(use-package flycheck-rust :defer t
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 
   ;; todo: move inside use-package rust
@@ -849,10 +852,10 @@
 #+END_SRC
 **** java
 #+BEGIN_SRC emacs-lisp
-(use-package lsp-java)
+(use-package lsp-java :defer t)
 
 ;; move somewhere else
-(use-package lsp-ui)
+(use-package lsp-ui :defer t)
 
 ;; (add-hook 'java-mode-hook #'lsp)
 
@@ -887,7 +890,7 @@
 
 **** adl
 #+BEGIN_SRC emacs-lisp
-(use-package g-adl-mode :ensure nil)
+(use-package g-adl-mode :ensure nil :defer t)
 #+END_SRC
 
 *** Structured formats
@@ -909,7 +912,7 @@
 #+END_SRC
 **** LDIF
 #+BEGIN_SRC emacs-lisp
-(use-package ldap-mode :ensure nil)
+(use-package ldap-mode :ensure nil :defer t)
 #+END_SRC
 **** Json mode
 #+BEGIN_SRC emacs-lisp
@@ -919,7 +922,26 @@
 ** Version Control
 *** magit
 #+BEGIN_SRC emacs-lisp
-(use-package magit :defer t)
+(use-package magit :defer t
+  :config
+  (dolist (face-map '((ediff-even-diff-A           . magit-diff-context-highlight) 
+                      (ediff-even-diff-Ancestor    . magit-diff-context) 
+                      (ediff-even-diff-B           . magit-diff-context-highlight) 
+                      (ediff-even-diff-C           . magit-diff-context-highlight) 
+                      (ediff-odd-diff-A            . magit-diff-context-highlight) 
+                      (ediff-odd-diff-Ancestor     . magit-diff-context) 
+                      (ediff-odd-diff-B            . magit-diff-context-highlight) 
+                      (ediff-odd-diff-C            . magit-diff-context-highlight) 
+                      (ediff-current-diff-A        . magit-diff-our) 
+                      (ediff-current-diff-Ancestor . magit-diff-base) 
+                      (ediff-current-diff-B        . magit-diff-their) 
+                      (ediff-fine-diff-A           . magit-diff-removed-highlight) 
+                      (ediff-fine-diff-Ancestor    . magit-diff-base-highlight) 
+                      (ediff-fine-diff-B           . magit-diff-added-highlight))) 
+    (let* ((face (car face-map)) 
+           (alias (cdr face-map))) 
+      (put face 'theme-face nil) 
+      (put face 'face-alias alias))))
 
 (defhydra hydra-magit (:color blue)
   "magit"
@@ -965,25 +987,6 @@
       (put face 'theme-face nil)
       (face-spec-set face spec)))
 
-  (use-package magit) ;; Needed for all magit-* stuff below
-  (dolist (face-map '((ediff-even-diff-A           . magit-diff-context-highlight)
-                      (ediff-even-diff-Ancestor    . magit-diff-context)
-                      (ediff-even-diff-B           . magit-diff-context-highlight)
-                      (ediff-even-diff-C           . magit-diff-context-highlight)
-                      (ediff-odd-diff-A            . magit-diff-context-highlight)
-                      (ediff-odd-diff-Ancestor     . magit-diff-context)
-                      (ediff-odd-diff-B            . magit-diff-context-highlight)
-                      (ediff-odd-diff-C            . magit-diff-context-highlight)
-                      (ediff-current-diff-A        . magit-diff-our)
-                      (ediff-current-diff-Ancestor . magit-diff-base)
-                      (ediff-current-diff-B        . magit-diff-their)
-                      (ediff-fine-diff-A           . magit-diff-removed-highlight)
-                      (ediff-fine-diff-Ancestor    . magit-diff-base-highlight)
-                      (ediff-fine-diff-B           . magit-diff-added-highlight)))
-    (let* ((face (car face-map))
-           (alias (cdr face-map)))
-      (put face 'theme-face nil)
-      (put face 'face-alias alias)))
 
   ;; This makes ediff usable with org mode
   (with-eval-after-load 'outline
@@ -1051,7 +1054,7 @@
   (helm-semantic-or-imenu arg)
   (add-hook 'semantic-inhibit-functions  #'ds))
 
-(use-package helm
+(use-package helm :defer t
   :bind
   (("C-j" . helm-mini))
   (:map control-semi-map
@@ -1068,12 +1071,12 @@
   (setq helm-buffer-max-length 60))
 
 (use-package swiper :defer t)
-(use-package swiper-helm
+(use-package swiper-helm :defer t
   :bind (:map control-semi-map (())
               ("o" . swiper-helm)
               ("C-;" . swiper-helm)))
 
-(use-package helm-swoop
+(use-package helm-swoop :defer t
   :bind (:map control-semi-map
               (("C-m" . helm-swoop)
                ("m" . helm-multi-swoop-all))))
@@ -1152,7 +1155,7 @@
 
 *** eyebrowse / frame selection
 #+BEGIN_SRC emacs-lisp
-(use-package eyebrowse :ensure t
+(use-package eyebrowse :ensure t :defer t
   :config
   (setq eyebrowse-mode-line-separator " " eyebrowse-new-workspace t)
   (eyebrowse-mode t))
