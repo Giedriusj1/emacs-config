@@ -482,7 +482,7 @@
     "
 [_q_] invalidate cache [_p_] projects
 [_j_] helm projectile  [_d_] dired projectile root
-[_g_]rep [_m_] ag [_a_]ck [_r_] projectile-ripgrep
+[_g_]rep [_m_] ag [_a_]ck [_r_] projectile-ripgrep [_R_] helm-projectile-ripgrep
 " ("p" helm-projectile-projects nil)
 ("q" projectile-invalidate-cache nil)
 ("j" helm-projectile nil)
@@ -490,7 +490,8 @@
 ("g" helm-projectile-grep nil)
 ("a" helm-projectile-ack nil)
 ("m" helm-projectile-ag nil)
-("r" projectile-ripgrep nil)))
+("r" projectile-ripgrep nil)
+("R" helm-projectile-rg nil)))
 #+END_SRC
 ** dired
 #+BEGIN_SRC emacs-lisp
@@ -1093,7 +1094,10 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   (:map lisp-interaction-mode-map (("C-j" . helm-mini)))
   :config
   (setq helm-candidate-number-limit 500)
-  (setq helm-buffer-max-length 60))
+  (setq helm-buffer-max-length 60)
+
+  (custom-set-faces '(helm-rg-file-match-face ((t (:foreground "purple" :background "black" :weight bold)))))
+)
 
 (use-package swiper :defer t)
 (use-package swiper-helm :defer t
@@ -1176,6 +1180,9 @@ _m_  many-windows     |  _k_  step       _r_  remove break
       (custom-set-faces '(cursor ((t (:background "blue")))))
       (custom-set-faces '(mode-line ((t (:background "#333377")))))
       (global-swift-mode))))
+
+
+
 #+end_src
 
 *** eyebrowse / frame selection
