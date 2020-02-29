@@ -813,7 +813,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (add-hook 'c-mode-common-hook
           (lambda() 
-            (lsp)
             ;; Use C++ style comments
             (setq comment-start "//" comment-end  "")))
 #+end_src
