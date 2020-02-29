@@ -376,7 +376,7 @@
 "
   ("t" (lambda ()
          (interactive)
-         (find-file "~/emacs-temp")) nil)
+         (find-file "~/.emacs.d/temps/emacs-temp")) nil)
   ("c" (lambda ()
          (interactive)
          (find-file "~/.emacs.d/emacs.org")) nil)
