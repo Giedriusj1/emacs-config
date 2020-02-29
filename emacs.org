@@ -825,6 +825,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   (defhydra hydra-rust (:color blue)
     ( "c" helm-yas-complete "yas complete")
     ( "r" cargo-process-run "cargo run")
+    ( "b" cargo-process-build "cargo build")
     ( "SPC" cargo-process-check "cargo check")))
 
 ;; Add keybindings for interacting with Cargo
