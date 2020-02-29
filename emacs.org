@@ -817,9 +817,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 **** Rust
 #+BEGIN_SRC emacs-lisp
-;; to install rust lsp:
-;; rustup update && rustup component add rls rust-analysis rust-src
-
 (use-package toml-mode :defer t)
 
 (use-package rust-mode :defer t
