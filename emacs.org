@@ -720,21 +720,24 @@
 **** company
 #+BEGIN_SRC emacs-lisp
 (use-package company-lsp :defer t)
-(use-package company :defer t
-  :bind (:map company-active-map
-              (("C-n" . company-select-next)
-               ("C-p" . company-select-previous))
+(use-package helm-company :defer t)
+
+(use-package company  :defer t
+  :bind ( :map company-active-map
+               (("C-n" . company-select-next)
+                ("C-p" . company-select-previous))
               :map control-semi-map
-              (("n" . company-complete)
+              (("n" . helm-company)
+             ;;(("n" . company-complete)
                ("C-n" . dabbrev-expand)))
   :diminish company-mode
   :config
+  ;;(setq company-frontends nil)          ;; We'll be using helm for this
+
   (global-company-mode t)
 
+  (push 'company-gtags company-backends)
   (push 'company-lsp company-backends)
-
-  ;; (add-to-list 'company-backends '(company-clang))
-  (add-to-list 'company-backends '(company-gtags))
 
   (setq company-tooltip-limit 25))
 #+end_src
@@ -809,10 +812,10 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ( "c" helm-yas-complete "helm yas complete"))
 
 (add-hook 'c-mode-common-hook
-          (lambda()
+          (lambda() 
+            (lsp)
             ;; Use C++ style comments
-            (setq comment-start "//"
-                  comment-end   "")))
+            (setq comment-start "//" comment-end  "")))
 #+end_src
 
 **** Rust
