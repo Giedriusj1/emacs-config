@@ -820,7 +820,12 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (use-package toml-mode :defer t)
 
 (use-package rust-mode :defer t
-  :hook (rust-mode . lsp))
+  :hook (rust-mode . lsp)
+  :config
+  (defhydra hydra-rust (:color blue)
+    ( "c" helm-yas-complete "yas complete")
+    ( "r" cargo-process-run "cargo run")
+    ( "SPC" cargo-process-check "cargo check")))
 
 ;; Add keybindings for interacting with Cargo
 (use-package cargo :defer t
@@ -828,12 +833,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (use-package flycheck-rust :defer t
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
-
-  ;; todo: move inside use-package rust
-(defhydra hydra-rust (:color blue)
-    ( "c" helm-yas-complete "yas complete")
-    ( "r" cargo-process-run "cargo run")
-    ( "SPC" cargo-process-check "cargo check"))
 #+END_SRC
 **** Python
 #+BEGIN_SRC emacs-lisp
