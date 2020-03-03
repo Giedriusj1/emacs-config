@@ -1217,6 +1217,7 @@ eyebrowse               frame management
 
 (global-set-key (kbd "<C-tab>") 'eyebrowse-next)
 (global-set-key (kbd "<C-iso-lefttab>") 'eyebrowse-prev)
+(global-set-key (kbd "<C-S-tab>") 'eyebrowse-prev)
 
 (use-package posframe :defer t)
 (defun show-eyebrowse-posframe ()
