@@ -699,7 +699,7 @@
 (use-package helm-rg :defer t)
 #+END_SRC
 
-**** dump jump
+**** dumb jump
 #+BEGIN_SRC emacs-lisp
 (use-package dumb-jump :defer t
   :config
@@ -750,7 +750,7 @@
 (defhydra hydra-gdb-helper (:color blue)
 
 "
-_h_  restore-windows  |  _j_  next       _b_  set break     _p_ print 
+_h_  restore-windows  |  _j_  next       _b_  set break     _p_ print
 _m_  many-windows     |  _k_  step       _r_  remove break
                     |  _l_  up
                     |  _c_  cont
@@ -814,7 +814,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ( "c" helm-yas-complete "helm yas complete"))
 
 (add-hook 'c-mode-common-hook
-          (lambda() 
+          (lambda()
             ;; Use C++ style comments
             (setq comment-start "//" comment-end  "")))
 #+end_src
@@ -838,6 +838,10 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (use-package flycheck-rust :defer t
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
+#+END_SRC
+**** golang
+#+BEGIN_SRC emacs-lisp
+(use-package go-mode :defer t)
 #+END_SRC
 **** Python
 #+BEGIN_SRC emacs-lisp
@@ -967,23 +971,23 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (use-package ediff :defer t
   :ensure magit
   :config
-  (dolist (face-map '((ediff-even-diff-A           . magit-diff-context-highlight) 
-                      (ediff-even-diff-Ancestor    . magit-diff-context) 
-                      (ediff-even-diff-B           . magit-diff-context-highlight) 
-                      (ediff-even-diff-C           . magit-diff-context-highlight) 
-                      (ediff-odd-diff-A            . magit-diff-context-highlight) 
-                      (ediff-odd-diff-Ancestor     . magit-diff-context) 
-                      (ediff-odd-diff-B            . magit-diff-context-highlight) 
-                      (ediff-odd-diff-C            . magit-diff-context-highlight) 
-                      (ediff-current-diff-A        . magit-diff-our) 
-                      (ediff-current-diff-Ancestor . magit-diff-base) 
-                      (ediff-current-diff-B        . magit-diff-their) 
-                      (ediff-fine-diff-A           . magit-diff-removed-highlight) 
-                      (ediff-fine-diff-Ancestor    . magit-diff-base-highlight) 
-                      (ediff-fine-diff-B           . magit-diff-added-highlight))) 
-    (let* ((face (car face-map)) 
-           (alias (cdr face-map))) 
-      (put face 'theme-face nil) 
+  (dolist (face-map '((ediff-even-diff-A           . magit-diff-context-highlight)
+                      (ediff-even-diff-Ancestor    . magit-diff-context)
+                      (ediff-even-diff-B           . magit-diff-context-highlight)
+                      (ediff-even-diff-C           . magit-diff-context-highlight)
+                      (ediff-odd-diff-A            . magit-diff-context-highlight)
+                      (ediff-odd-diff-Ancestor     . magit-diff-context)
+                      (ediff-odd-diff-B            . magit-diff-context-highlight)
+                      (ediff-odd-diff-C            . magit-diff-context-highlight)
+                      (ediff-current-diff-A        . magit-diff-our)
+                      (ediff-current-diff-Ancestor . magit-diff-base)
+                      (ediff-current-diff-B        . magit-diff-their)
+                      (ediff-fine-diff-A           . magit-diff-removed-highlight)
+                      (ediff-fine-diff-Ancestor    . magit-diff-base-highlight)
+                      (ediff-fine-diff-B           . magit-diff-added-highlight)))
+    (let* ((face (car face-map))
+           (alias (cdr face-map)))
+      (put face 'theme-face nil)
       (put face 'face-alias alias)))
 
   ;; Setting this to t will only show two panes.
@@ -1048,6 +1052,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.hh\\'" . c++-mode)
         ("\\.hpp\\'" . c++-mode)
         ("\\.rs\\'" . rust-mode)
+        ("\\.go\\'" . go-mode)
         ;; ("\\.hs$" . haskell-mode)
         ("\\.java\\'" . java-mode)
         ("\\.mc\\'" . c++-mode)
