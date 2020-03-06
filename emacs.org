@@ -574,18 +574,15 @@
 #+BEGIN_SRC emacs-lisp
 (use-package helm-org-rifle :defer t)
 
-;; Recursive search performs quite poorly on Windows systems
-(setq helm-org-rifle-directories-recursive nil)
+;; Recursive search performs quite poorly on Windows systems...
+;; but we'll use it for simplicity reasons.
+(setq helm-org-rifle-directories-recursive t)
 
 (defun helm-org-rifle-important ()
   "Rifle through Org files in the directories below"
   (interactive)
   (helm-org-rifle-directories (list
-                               "~/org-notes"
-                               "~/org-notes/lang-notes"
-                               "~/org-notes/work"
-                               "~/org-notes-private"
-                               "~/.emacs.d")))
+                               "~/org-notes")))
 #+END_SRC
 *** org-notes synching
 **** git push/pull timer
