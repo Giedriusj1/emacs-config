@@ -916,7 +916,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 **** adl
 #+BEGIN_SRC emacs-lisp
-(use-package g-adl-mode :ensure nil :defer t)
+(use-package g-adl-mode :ensure nil)
 #+END_SRC
 
 *** Structured formats
