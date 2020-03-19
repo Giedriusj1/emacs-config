@@ -1053,6 +1053,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.go\\'" . go-mode)
         ;; ("\\.hs$" . haskell-mode)
         ("\\.java\\'" . java-mode)
+        ("\\.js\\'" . javascript-mode)
         ("\\.mc\\'" . c++-mode)
         ("\\.pm\\'" . perl-mode)
         ("\\.py\\'" . python-mode)
