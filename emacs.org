@@ -226,8 +226,8 @@
 (use-package recentf
   :config
   (recentf-mode 1)
-  (setq recentf-max-menu-items 100)
-  (setq recentf-max-saved-items 100))
+  (setq recentf-max-menu-items 250)
+  (setq recentf-max-saved-items 250))
 #+end_src
 *** shell-here
 #+BEGIN_SRC emacs-lisp
