@@ -1058,6 +1058,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.scala\\'" . scala-mode)
         ("\\.scm\\'" . scheme-mode)
         ("\\.sh\\'" . sh-mode)
+        ("bashrc\\'" . sh-mode)
         ("\\.yml\\'" . yaml-mode)
         ("\\.s\\'" . asm-mode)
         ("\\.S\\'" . asm-mode)
