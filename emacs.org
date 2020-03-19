@@ -244,7 +244,6 @@
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
 #+end_src
-
 *** global map
 #+BEGIN_SRC emacs-lisp
 (global-set-key [f9] 'toggle-font-size)
@@ -288,7 +287,6 @@
 (bind-key* "C-q" 'beginning-of-line)
 (bind-key* "C-w" 'back-to-indentation)
 #+end_src
-
 *** ctl-x-map
 #+BEGIN_SRC emacs-lisp
 (define-key ctl-x-map "\C-f" 'helm-find-files)
@@ -434,7 +432,6 @@
   :diminish projectile-mode
   :init
   (projectile-global-mode t)
-
 
   :config
   (remove-hook 'find-file-hook #'projectile-find-file-hook-function)
@@ -663,7 +660,7 @@
 (setq ring-bell-function 'ignore)
 #+end_src
 ** Programming
-*** building things
+*** Building
 **** Maven
 #+begin_src emacs-lisp
 (use-package mvn :defer t
@@ -674,7 +671,7 @@
     (interactive)
     (mvn "integration-test")))
 #+end_src
-*** finding things
+*** Finding
 **** ag
 #+BEGIN_SRC emacs-lisp
 (use-package ag :defer t)
@@ -695,7 +692,6 @@
 (use-package projectile-ripgrep :defer t)
 (use-package helm-rg :defer t)
 #+END_SRC
-
 **** dumb jump
 #+BEGIN_SRC emacs-lisp
 (use-package dumb-jump :defer t
@@ -703,8 +699,35 @@
   (setq dumb-jump-selector 'helm)
   (setq dumb-jump-force-searcher 'rg))
 #+END_SRC
+*** Code completion
+**** LSP
+#+BEGIN_SRC emacs-lisp
+(use-package lsp-ui :defer t)
 
-*** code completion
+(defhydra hydra-lsp (:exit t :hint nil)
+  "
+ Buffer^^               Server^^                   Symbol
+-------------------------------------------------------------------------------------
+ [_f_] format           [_M-r_] restart            [_d_] declaration  [_i_] implementation  [_o_] documentation
+ [_m_] imenu            [_S_]   shutdown           [_D_] definition   [_t_] type            [_r_] rename
+ [_x_] execute action   [_M-s_] describe session   [_R_] references   [_s_] signature"
+  ("d" lsp-find-declaration)
+  ("D" lsp-ui-peek-find-definitions)
+  ("R" lsp-ui-peek-find-references)
+  ("i" lsp-ui-peek-find-implementation)
+  ("t" lsp-find-type-definition)
+  ("s" lsp-signature-help)
+  ("o" lsp-describe-thing-at-point)
+  ("r" lsp-rename)
+
+  ("f" lsp-format-buffer)
+  ("m" lsp-ui-imenu)
+  ("x" lsp-execute-code-action)
+
+  ("M-s" lsp-describe-session)
+  ("M-r" lsp-restart-workspace)
+  ("S" lsp-shutdown-workspace))
+#+END_SRC
 **** yas
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
@@ -715,7 +738,6 @@
   :diminish yas-minor-mode
   :init (yas-global-mode 1))
 #+END_SRC
-
 **** company
 #+BEGIN_SRC emacs-lisp
 (use-package company-lsp :defer t)
@@ -763,7 +785,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ( "p" gud-print nil))
 
 #+end_src
-*** semantic
+*** Semantic
 #+BEGIN_SRC emacs-lisp
 (semantic-mode 1) ;; global mode
 
@@ -776,7 +798,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (defun ds () t)
 (add-hook 'semantic-inhibit-functions  #'ds)
 #+END_SRC
-*** code formatting
+*** Formatting
 #+BEGIN_SRC emacs-lisp
 (use-package clang-format :defer t
   :config
@@ -799,7 +821,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
             (elisp-format-region))
            (t (message "Argh...don't know how to format in this mode :(")))))
 #+END_SRC
-*** indenting
+*** Indenting
 #+BEGIN_SRC emacs-lisp
 (setq-default c-basic-offset 3 c-default-style "linux")
 (setq-default tab-width 3 indent-tabs-mode nil)
@@ -836,7 +858,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (use-package flycheck-rust :defer t
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+END_SRC
-**** golang
+**** Golang
 #+BEGIN_SRC emacs-lisp
 (use-package go-mode :defer t)
 #+END_SRC
@@ -859,7 +881,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
          (setq indent-tabs-mode nil)))
 #+end_src
 
-**** emacs-lisp
+**** Emacs-lisp
 #+BEGIN_SRC emacs-lisp
 (defhydra hydra-emacs-lisp (:color blue)
   ( "j" eval-buffer "eval buffer")
@@ -876,45 +898,19 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 ;; (add-hook 'scala-mode-hook #'lsp)
 
 #+END_SRC
-**** java
+**** Java
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-java :defer t)
 
-;; move somewhere else
-(use-package lsp-ui :defer t)
-
 ;; (add-hook 'java-mode-hook #'lsp)
-
-(defhydra hydra-lsp (:exit t :hint nil)
-  "
- Buffer^^               Server^^                   Symbol
--------------------------------------------------------------------------------------
- [_f_] format           [_M-r_] restart            [_d_] declaration  [_i_] implementation  [_o_] documentation
- [_m_] imenu            [_S_]   shutdown           [_D_] definition   [_t_] type            [_r_] rename
- [_x_] execute action   [_M-s_] describe session   [_R_] references   [_s_] signature"
-  ("d" lsp-find-declaration)
-  ("D" lsp-ui-peek-find-definitions)
-  ("R" lsp-ui-peek-find-references)
-  ("i" lsp-ui-peek-find-implementation)
-  ("t" lsp-find-type-definition)
-  ("s" lsp-signature-help)
-  ("o" lsp-describe-thing-at-point)
-  ("r" lsp-rename)
-
-  ("f" lsp-format-buffer)
-  ("m" lsp-ui-imenu)
-  ("x" lsp-execute-code-action)
-
-  ("M-s" lsp-describe-session)
-  ("M-r" lsp-restart-workspace)
-  ("S" lsp-shutdown-workspace))
 #+END_SRC
-**** powershell
+
+**** Powershell
 #+BEGIN_SRC emacs-lisp
 (use-package powershell :defer t)
 #+END_SRC
 
-**** adl
+**** ADL
 #+BEGIN_SRC emacs-lisp
 (use-package g-adl-mode :ensure nil)
 #+END_SRC
@@ -960,7 +956,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ("d" magit-diff-dwim "diff-dwim")
   ("D" magit-diff "diff")
   ("b" magit-blame "blame"))
-
 #+end_src
 
 *** ediff
@@ -1101,8 +1096,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   (setq helm-candidate-number-limit 500)
   (setq helm-buffer-max-length 60)
 
-  (custom-set-faces '(helm-rg-file-match-face ((t (:foreground "purple" :background "black" :weight bold)))))
-)
+  (custom-set-faces '(helm-rg-file-match-face ((t (:foreground "purple" :background "black" :weight bold))))))
 
 (use-package swiper :defer t)
 (use-package swiper-helm :defer t
