@@ -371,7 +371,7 @@
   "
 [_t_] ~/notes/temp
 [_c_] ~/.emacs.d/emacs.org
-[_;_] org rifle
+[_;_] org rifle [_:_] grep notes
 [_l_] dired ~/.emacs.d
 "
   ("t" (lambda ()
@@ -381,6 +381,9 @@
          (interactive)
          (find-file "~/.emacs.d/emacs.org")) nil)
   (";" helm-org-rifle-important nil)
+  (":" (lambda ()
+         (interactive)
+         (helm-projectile-grep "~/org-notes" )) nil)
   ("l" (lambda ()
          (interactive)
          (progn
