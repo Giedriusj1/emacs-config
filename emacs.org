@@ -26,7 +26,7 @@
 
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t)
-#+end_src
+#+END_SRC
 
 * INIT BASICS
 ** Garbage collection
@@ -47,7 +47,7 @@
 * LOOKS
 #+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting looks stage")
-#+end_src
+#+END_SRC
 
 ** Font helper functions
 #+BEGIN_SRC emacs-lisp
@@ -178,9 +178,9 @@
 #+END_SRC
 
 ** Font rendering
- #+BEGIN_SRC emacs-lisp
- (setq-default bidi-display-reordering nil)
- #+END_SRC
+#+BEGIN_SRC emacs-lisp
+(setq-default bidi-display-reordering nil)
+#+END_SRC
 ** Buffer names
 #+BEGIN_SRC emacs-lisp
 (use-package uniquify :ensure nil
@@ -200,7 +200,7 @@
 * BEHAVIOUR
 #+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting behaviour stage")
-#+end_src
+#+END_SRC
 ** Miscellaneous
 *** diminish
 #+BEGIN_SRC emacs-lisp
@@ -228,12 +228,12 @@
   (recentf-mode 1)
   (setq recentf-max-menu-items 250)
   (setq recentf-max-saved-items 250))
-#+end_src
+#+END_SRC
 *** shell-here
 #+BEGIN_SRC emacs-lisp
 (use-package shell-here :defer t
   :bind* (( "C-`" . shell-here)))
-#+end_src
+#+END_SRC
 ** Keyboard
 *** maps
 #+BEGIN_SRC emacs-lisp
@@ -243,7 +243,7 @@
 (bind-key* "C-;" 'control-semi-map)
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
-#+end_src
+#+END_SRC
 *** global map
 #+BEGIN_SRC emacs-lisp
 (global-set-key [f9] 'toggle-font-size)
@@ -286,12 +286,12 @@
 
 (bind-key* "C-q" 'beginning-of-line)
 (bind-key* "C-w" 'back-to-indentation)
-#+end_src
+#+END_SRC
 *** ctl-x-map
 #+BEGIN_SRC emacs-lisp
 (define-key ctl-x-map "\C-f" 'helm-find-files)
 (define-key ctl-x-map "\C-d" 'dired-jump)
-#+end_src
+#+END_SRC
 *** control-semi-map
 #+BEGIN_SRC emacs-lisp
 (define-key control-semi-map (kbd "SPC") 'point-to-register)
@@ -324,13 +324,13 @@
 (define-key control-semi-map (kbd "C-4") 'balance-windows)
 
 (define-key control-semi-map (kbd "C-d") 'follow-mode)
-#+end_src
+#+END_SRC
 *** tab map
 #+BEGIN_SRC emacs-lisp
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "M-;") 'comment-dwim)
 (define-key tab-map (kbd "u") 'universal-argument)
-#+end_src
+#+END_SRC
 *** windmove + frame selection
 #+BEGIN_SRC emacs-lisp
 (setq windmove-wrap-around t)
@@ -341,7 +341,7 @@
           ("C-3" . 'windmove-right)
           :map control-semi-map
           ("C-1" . zygospore-toggle-delete-other-windows)))
-#+end_src
+#+END_SRC
 ** hydra
 #+BEGIN_SRC emacs-lisp
 (use-package hydra :ensure t :defer t)
@@ -520,13 +520,13 @@
            (mapc (lambda (path) (shell-command (format "open \"%s\"" path))) fileList))
           ((string-equal system-type "gnu/linux")
            (mapc (lambda (path) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" path))) fileList)))))
-#+end_src
+#+END_SRC
 ** auto sudo
 #+BEGIN_SRC emacs-lisp
 (use-package auto-sudoedit
   :diminish auto-sudoedit-mode
   :config (auto-sudoedit-mode 1))
-#+end_src
+#+END_SRC
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
 (use-package org :pin org
@@ -658,7 +658,7 @@
       ad-do-it)))
 
 (setq ring-bell-function 'ignore)
-#+end_src
+#+END_SRC
 ** Programming
 *** Building
 **** Maven
@@ -670,7 +670,7 @@
     "docstring"
     (interactive)
     (mvn "integration-test")))
-#+end_src
+#+END_SRC
 *** Finding
 **** ag
 #+BEGIN_SRC emacs-lisp
@@ -686,7 +686,7 @@
   ;; Prevent ggtags mode from displaying project name in mode line.
   ;; Projectile already displays this information.
   (setq ggtags-mode-line-project-name nil))
-#+end_src
+#+END_SRC
 **** ripgrep
 #+BEGIN_SRC emacs-lisp
 (use-package projectile-ripgrep :defer t)
@@ -761,7 +761,7 @@
   (push 'company-lsp company-backends)
 
   (setq company-tooltip-limit 25))
-#+end_src
+#+END_SRC
 *** gdb
 #+BEGIN_SRC emacs-lisp
 (define-key tab-map (kbd "k") 'hydra-gdb-helper/body)
@@ -783,8 +783,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ( "r" gud-remove nil)
   ( "c" gud-cont nil)
   ( "p" gud-print nil))
-
-#+end_src
+#+END_SRC
 *** Semantic
 #+BEGIN_SRC emacs-lisp
 (semantic-mode 1) ;; global mode
@@ -825,7 +824,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+BEGIN_SRC emacs-lisp
 (setq-default c-basic-offset 3 c-default-style "linux")
 (setq-default tab-width 3 indent-tabs-mode nil)
-#+end_src
+#+END_SRC
 *** Programming languages
 **** C/C++ common
 #+BEGIN_SRC emacs-lisp
@@ -836,7 +835,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
           (lambda()
             ;; Use C++ style comments
             (setq comment-start "//" comment-end  "")))
-#+end_src
+#+END_SRC
 
 **** Rust
 #+BEGIN_SRC emacs-lisp
@@ -872,14 +871,14 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (defhydra hydra-python (:color blue)
   ( "c" helm-yas-complete "helm yas complete"))
-#+end_src
+#+END_SRC
 
 **** Scheme
 #+BEGIN_SRC emacs-lisp
 (add-hook 'scheme-mode-hook
       (lambda()
          (setq indent-tabs-mode nil)))
-#+end_src
+#+END_SRC
 
 **** Emacs-lisp
 #+BEGIN_SRC emacs-lisp
@@ -887,7 +886,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ( "j" eval-buffer "eval buffer")
   ( "k" eval-last-sexp "eval-last-sexp")
   ( "c" helm-yas-complete "yas complete"))
-#+end_src
+#+END_SRC
 **** Scala
 #+BEGIN_SRC emacs-lisp
 (use-package scala-mode :defer t
@@ -956,7 +955,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ("d" magit-diff-dwim "diff-dwim")
   ("D" magit-diff "diff")
   ("b" magit-blame "blame"))
-#+end_src
+#+END_SRC
 
 *** ediff
 #+BEGIN_SRC emacs-lisp
@@ -1014,7 +1013,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ;; This makes ediff usable with org mode
   (with-eval-after-load 'outline
     (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)))
-#+end_src
+#+END_SRC
 ** Mode recognition
 #+BEGIN_SRC emacs-lisp
 (setq auto-mode-alist
@@ -1060,7 +1059,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.s\\'" . asm-mode)
         ("\\.S\\'" . asm-mode)
         ("\\.adl\\'" . adl-mode)))
-#+end_src
+#+END_SRC
 
 ** Navigating around
 *** Helm
@@ -1108,7 +1107,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   :bind (:map control-semi-map
               (("C-m" . helm-swoop)
                ("m" . helm-multi-swoop-all))))
-#+end_src
+#+END_SRC
 *** SWIFT
 #+BEGIN_SRC emacs-lisp
 (defun swift-up(&optional arg)
@@ -1179,7 +1178,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
       (custom-set-faces '(cursor ((t (:background "blue")))))
       (custom-set-faces '(mode-line ((t (:background "#333377")))))
       (global-swift-mode))))
-#+end_src
+#+END_SRC
 
 *** eyebrowse / frame selection
 #+BEGIN_SRC emacs-lisp
@@ -1268,7 +1267,7 @@ eyebrowse               frame management
 
 (defun display-startup-echo-area-message ()
   (message (concat "Emacs took " (emacs-init-time) " seconds to start.")))
-#+end_src
+#+END_SRC
 
 * ALIAS
 #+BEGIN_SRC emacs-lisp
@@ -1286,4 +1285,4 @@ eyebrowse               frame management
 
 (display-startup-echo-area-message)
 (message "emacs.org : done loading!")
-#+end_src
+#+END_SRC
