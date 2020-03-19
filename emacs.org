@@ -61,16 +61,16 @@
 
 (defun set-linux-font (mode)
 
-(cond
-((member "Fira Code" (font-family-list))
   (cond
-   ((string= mode "normal") (set-frame-font "Firacode-10"))
-   ((string= mode "medium") (set-frame-font "Firacode-12"))
-   ((string= mode "4k") (set-frame-font "Firacode-16"))))
-(t (cond
-    ((string= mode "normal") (set-frame-font "Monospace-10"))
-    ((string= mode "medium") (set-frame-font "Monospace-12"))
-    ((string= mode "4k") (set-frame-font "Monospace-16"))))))
+   ((member "Fira Code" (font-family-list))
+    (cond
+     ((string= mode "normal") (set-frame-font "Firacode-10"))
+     ((string= mode "medium") (set-frame-font "Firacode-12"))
+     ((string= mode "4k") (set-frame-font "Firacode-16"))))
+   (t (cond
+       ((string= mode "normal") (set-frame-font "Monospace-10"))
+       ((string= mode "medium") (set-frame-font "Monospace-12"))
+       ((string= mode "4k") (set-frame-font "Monospace-16"))))))
 
 
 (defun set-font (mode)
@@ -97,17 +97,17 @@
 ;; Default font size
 (defun set-font-normal ()
   (interactive)
-    (set-font "normal"))
+  (set-font "normal"))
 
 ;; Larger than normal, but not as big as 4k
 (defun set-font-medium ()
   (interactive)
-    (set-font "medium"))
+  (set-font "medium"))
 
 ;; Sets font size to something that's usable under 4k monitor
 (defun set-font-4k ()
   (interactive)
-    (set-font "4k"))
+  (set-font "4k"))
 
 (defun is-4k-monitor ()
   (and (<= 2840 (x-display-pixel-width)) (<= 2160 (x-display-pixel-height))))
@@ -1228,17 +1228,16 @@ eyebrowse               frame management
   (interactive)
   (progn
     (when (posframe-workable-p)
-      (posframe-show " *my-posframe-buffer*"
+      (posframe-show " *eyebrowse-posframe*"
                      :string (eyebrowse-mode-line-indicator)
-                     :position (cons -15 10)
+                     :position (cons -25 10)
                      :font "Monospace-16"
                      :timeout 3
-                     :internal-border-width 2
-                     :internal-border-color "red"))))
+                     :internal-border-width 4
+                     :internal-border-color "blue"))))
 
-
-(custom-set-faces '(internal-border ((t (:foreground "OrangeRed" :background "OrangeRed")))))
-(custom-set-faces '(eyebrowse-mode-line-active ((t (:foreground "OrangeRed" :weight bold :height 1.2)))))
+(custom-set-faces '(internal-border ((t (:foreground "LightSlateBlue" :background "LightSlateBlue")))))
+(custom-set-faces '(eyebrowse-mode-line-active ((t (:foreground "LightSlateBlue" :weight bold :height 1.2)))))
 
 
 (defun eyebrowse-next (args)
