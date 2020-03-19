@@ -1190,8 +1190,8 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   :config
   (setq eyebrowse-mode-line-separator " " eyebrowse-new-workspace t)
   (setq eyebrowse-wrap-around t)
-  (customize-set-variable 'eyebrowse-mode-line-style 'smart)
-  (eyebrowse-mode t))
+  (eyebrowse-mode t)
+  (customize-set-variable 'eyebrowse-mode-line-style 'smart))
 
 (defhydra hydra-frame-helper
   (:color blue)
@@ -1236,7 +1236,6 @@ eyebrowse               frame management
 
 (custom-set-faces '(internal-border ((t (:foreground "LightSlateBlue" :background "LightSlateBlue")))))
 (custom-set-faces '(eyebrowse-mode-line-active ((t (:foreground "LightSlateBlue" :weight bold :height 1.2)))))
-
 
 (defun eyebrowse-next (args)
   (interactive "P")
