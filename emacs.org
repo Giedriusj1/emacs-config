@@ -362,6 +362,8 @@
          (hydra-scala/body))
         (( string= "rust-mode" major-mode)
          (hydra-rust/body))
+       (( string= "rustic-mode" major-mode)
+         (hydra-rust/body))
         (t (message "Argh...hydra for your current mode does not exist :("))))
 
 ;; Needed for helm-find-files-1
@@ -541,7 +543,7 @@
     "
  [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
  [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
- [_e_]   edit source [_s_] exit source edit buffer
+ [_e_]   edit source [_s_] exit source edit buffer [_E_]   babel execute
  [_c_]   yas helm expand
 
   "
@@ -554,6 +556,7 @@
     ( "C-p" org-shiftup nil)
     ( "C-n" org-shiftdown nil)
     ( "e" org-edit-src-code nil)
+    ( "E" org-babel-execute-src-block nil)
     ( "s" org-edit-src-exit nil)
     ( "c" helm-yas-complete nil))
 
@@ -570,6 +573,12 @@
       (progn
         (org-reload))))
 #+END_SRC
+*** org-babel
+#+BEGIN_SRC emacs-lisp
+(require 'ob-shell)
+(require 'ob-python)
+#+END_SRC
+
 *** org-rifle
 #+BEGIN_SRC emacs-lisp
 (use-package helm-org-rifle :defer t)
@@ -842,10 +851,12 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 **** Rust
 #+BEGIN_SRC emacs-lisp
+(use-package ob-rust :defer t)
+
 (use-package toml-mode :defer t)
 
-(use-package rust-mode :defer t
-  :hook (rust-mode . lsp)
+(use-package rustic :defer t
+  ;; :hook (rust-mode . lsp)
   :config
   (defhydra hydra-rust (:color blue)
     ( "c" helm-yas-complete "yas complete")
@@ -1046,7 +1057,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.h\\'" . c++-mode)
         ("\\.hh\\'" . c++-mode)
         ("\\.hpp\\'" . c++-mode)
-        ("\\.rs\\'" . rust-mode)
+        ("\\.rs\\'" . rustic-mode)
         ("\\.go\\'" . go-mode)
         ;; ("\\.hs$" . haskell-mode)
         ("\\.java\\'" . java-mode)
