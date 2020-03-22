@@ -612,6 +612,12 @@
 **** git-auto-commit
 #+BEGIN_SRC emacs-lisp
 (use-package git-auto-commit-mode :defer t)
+
+(defun turn-on-auto-commit-hook ()
+  (cond ((string-match (concat "^" (expand-file-name "~/org-notes")) buffer-file-name)
+         (git-auto-commit-mode 1))))
+
+(add-hook 'find-file-hook 'turn-on-auto-commit-hook)
 #+END_SRC
 ** Misc behaviour
 #+BEGIN_SRC emacs-lisp
