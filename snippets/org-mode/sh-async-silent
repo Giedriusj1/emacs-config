@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: sh-async-silent
+# key: sh-async-silent
+# --
+#+BEGIN_SRC sh :async :results silent
+$0
+#+END_SRC

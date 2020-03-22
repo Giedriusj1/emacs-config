@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: sh-silent
+# key: sh-silent
+# --
+#+BEGIN_SRC sh :results silent
+$0
+#+END_SRC
