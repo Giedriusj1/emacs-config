@@ -417,7 +417,8 @@
         '("http://nullprogram.com/feed/"
           "http://planet.emacsen.org/atom.xml"
           "https://www.spacerogue.net/wordpress/?feed=rss2"
-          "https://mjg59.dreamwidth.org/data/rss")))
+          "https://mjg59.dreamwidth.org/data/rss"
+          "https://feeds.feedburner.com/steveklabnik/words")))
 #+END_SRC
 ** Multiple cursors
 #+BEGIN_SRC emacs-lisp
