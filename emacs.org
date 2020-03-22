@@ -1065,7 +1065,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.mc\\'" . c++-mode)
         ("\\.pm\\'" . perl-mode)
         ("\\.py\\'" . python-mode)
-        ("\\.rs\\'" . rust-mode)
         ("\\.scala\\'" . scala-mode)
         ("\\.scm\\'" . scheme-mode)
         ("\\.sh\\'" . sh-mode)
