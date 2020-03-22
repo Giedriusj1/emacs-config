@@ -136,7 +136,7 @@
      "3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))))
 
 (custom-set-faces
- '(org-level-1 ((t (:inherit outline-1 :weight demibold :foreground "orange3" :height 1.2))))
+ '(org-level-1 ((t (:inherit outline-1 :weight demibold :foreground "DarkOrange3" :height 1.2))))
  '(org-level-2 ((t (:inherit outline-2 :weight demibold :foreground "darkOliveGreen3" :height 1.2))))
  '(org-level-3 ((t (:inherit outline-3 :weight demibold :height 1.1))))
  '(org-level-4 ((t (:inherit outline-4 :weight demibold :height 1.0))))
@@ -568,6 +568,8 @@
   (setq org-export-with-toc nil)
   (setq org-hierarchical-todo-statistics nil)
   (setq org-imenu-depth 5)
+  (customize-set-variable 'helm-split-window-default-side 'right)
+
   ;; Only needed prior 27 to fix a silly bug...
   (if (< emacs-major-version 27)
       (progn
@@ -1244,14 +1246,14 @@ eyebrowse               frame management
     (when (posframe-workable-p)
       (posframe-show " *eyebrowse-posframe*"
                      :string (eyebrowse-mode-line-indicator)
-                     :position (cons -25 10)
+                     :position (cons -40 10)
                      :font "Monospace-16"
                      :timeout 3
                      :internal-border-width 4
                      :internal-border-color "blue"))))
 
-(custom-set-faces '(internal-border ((t (:foreground "LightSlateBlue" :background "LightSlateBlue")))))
-(custom-set-faces '(eyebrowse-mode-line-active ((t (:foreground "LightSlateBlue" :weight bold :height 1.2)))))
+(custom-set-faces '(internal-border ((t (:foreground "DarkMagenta" :background "DarkMagenta")))))
+(custom-set-faces '(eyebrowse-mode-line-active ((t (:foreground "DarkMagenta" :weight bold :height 1.2)))))
 
 (defun eyebrowse-next (args)
   (interactive "P")
