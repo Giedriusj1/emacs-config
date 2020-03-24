@@ -882,7 +882,8 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+END_SRC
 **** Golang
 #+BEGIN_SRC emacs-lisp
-(use-package go-mode :defer t)
+(use-package go-mode :defer t
+  :hook (go-mode . lsp-deferred))
 #+END_SRC
 **** Python
 #+BEGIN_SRC emacs-lisp
