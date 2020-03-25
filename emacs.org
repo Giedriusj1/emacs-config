@@ -362,8 +362,10 @@
          (hydra-scala/body))
         (( string= "rust-mode" major-mode)
          (hydra-rust/body))
-       (( string= "rustic-mode" major-mode)
+        (( string= "rustic-mode" major-mode)
          (hydra-rust/body))
+        (( string= "go-mode" major-mode)
+         (hydra-go/body))
         (t (message "Argh...hydra for your current mode does not exist :("))))
 
 ;; Needed for helm-find-files-1
@@ -883,7 +885,10 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 **** Golang
 #+BEGIN_SRC emacs-lisp
 (use-package go-mode :defer t
-  :hook (go-mode . lsp-deferred))
+  :hook (go-mode . lsp-deferred)
+  :config
+  (defhydra hydra-go (:color blue)
+    ( "c" helm-yas-complete "yas complete")))
 #+END_SRC
 **** Python
 #+BEGIN_SRC emacs-lisp
