@@ -1060,6 +1060,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.ldif\\'" . ldif-mode)
         ("\\.toml\\'" . toml-mode)
         ("\\.json\\'" . json-mode)
+        ("\\.sql\\'" . sql-mode)
 
         ;;programming modes
         ("\\.ps1\\'" . powershell-mode)
