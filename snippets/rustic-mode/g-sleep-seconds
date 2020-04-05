@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-sleep-seconds
+# key: g-sleep-seconds
+# --
+std::thread::sleep(std::time::Duration::from_secs(2));

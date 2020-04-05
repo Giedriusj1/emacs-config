@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-sleep-ms
+# key: g-sleep-ms
+# --
+std::thread::sleep(std::time::Duration::from_millis(2000));
