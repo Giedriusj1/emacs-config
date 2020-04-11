@@ -867,17 +867,12 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (use-package toml-mode :defer t)
 
 (use-package rustic :defer t
-  ;; :hook (rust-mode . lsp)
   :config
   (defhydra hydra-rust (:color blue)
     ( "c" helm-yas-complete "yas complete")
-    ( "r" cargo-process-run "cargo run")
-    ( "b" cargo-process-build "cargo build")
-    ( "SPC" cargo-process-check "cargo check")))
-
-;; Add keybindings for interacting with Cargo
-(use-package cargo :defer t
-  :hook (rust-mode . cargo-minor-mode))
+    ( "r" rustic-cargo-run "cargo run")
+    ( "b" rustic-cargo-build "cargo build")
+    ( "SPC" rustic-cargo-check "cargo check")))
 
 (use-package flycheck-rust :defer t
   :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
