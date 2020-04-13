@@ -766,7 +766,7 @@
 (use-package company-lsp :defer t)
 (use-package helm-company :defer t)
 
-(use-package company  :defer t
+(use-package company  :defer 5
   :bind ( :map company-active-map
                (("C-n" . company-select-next)
                 ("C-p" . company-select-previous))
