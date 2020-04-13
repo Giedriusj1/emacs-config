@@ -873,9 +873,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
     ( "r" rustic-cargo-run "cargo run")
     ( "b" rustic-cargo-build "cargo build")
     ( "SPC" rustic-cargo-check "cargo check")))
-
-(use-package flycheck-rust :defer t
-  :config (add-hook 'flycheck-mode-hook #'flycheck-rust-setup))
 #+END_SRC
 **** Golang
 #+BEGIN_SRC emacs-lisp
