@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-cout-thread-id
+# key: g-cout-thread-id
+# --
+std::cout << "thread id: "  << std::this_thread::get_id() << std::endl;
