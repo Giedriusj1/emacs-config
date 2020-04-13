@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: g-match-result
+# key: g-match-result
+# --
+match self {
+    Ok(t) => t,
+    Err(e) => unwrap_failed("called `Result::unwrap()` on an `Err` value", &e),
+}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-thread-channel
+# key: g-thread-channel
+# --
+let (tx, rx): (Sender<String>, Receiver<String>) = std::sync::mpsc::channel();
