@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-derive-debug
+# key: g-derive-debug
+# --
+#[derive(Debug)]
