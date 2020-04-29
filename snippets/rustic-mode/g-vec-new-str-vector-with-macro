@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-vec-new-str-vector-with-macro
+# key: g-vec-new-str-vector-with-macro
+# --
+let v = vec!["a", "b", "c"];
