@@ -620,7 +620,9 @@
 
 (defun turn-on-auto-commit-hook ()
   (cond ((string-match (concat "^" (expand-file-name "~/org-notes")) buffer-file-name)
-         (git-auto-commit-mode 1))))
+         (progn
+           (git-auto-commit-mode 1)
+           (setq gac-automatically-push-p t)))))
 
 (add-hook 'find-file-hook 'turn-on-auto-commit-hook)
 #+END_SRC
