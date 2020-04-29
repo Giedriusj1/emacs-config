@@ -611,8 +611,8 @@
 	(sit-for 5)
 	(start-process "proc-git-push" "notes-sync-output" "git" "push")))
 
-;; Run the above every hour (if we are idle)
-(run-with-idle-timer (* 60 60) t 'org-notes-synch-fn)
+;; Run the above every 2 mins (if we are idle)
+(run-with-idle-timer (* 60 2) t 'org-notes-synch-fn)
 #+END_SRC
 **** git-auto-commit
 #+BEGIN_SRC emacs-lisp
