@@ -919,8 +919,32 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 **** Java
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-java :defer t)
+#+END_SRC
 
-;; (add-hook 'java-mode-hook #'lsp)
+**** typescript
+#+BEGIN_SRC emacs-lisp
+;; (use-package tide :defer t)
+
+(use-package tide
+  :ensure t
+  :after (typescript-mode company flycheck)
+  :hook ((typescript-mode . tide-setup)
+         (typescript-mode . tide-hl-identifier-mode)
+         (before-save . tide-format-before-save)))
+
+;; (defun setup-tide-mode ()
+;;   (interactive)
+;;   (tide-setup)
+;;   (flycheck-mode +1)
+;;   (setq flycheck-check-syntax-automatically '(save mode-enabled))
+;;   (eldoc-mode +1)
+;;   (tide-hl-identifier-mode +1)
+;;   (lsp))
+
+;; ;; aligns annotation to the right hand side
+;; (setq company-tooltip-align-annotations t)
+
+;; (add-hook 'typescript-mode-hook #'setup-tide-mode)
 #+END_SRC
 
 **** Powershell
@@ -1065,6 +1089,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.hpp\\'" . c++-mode)
         ("\\.rs\\'" . rustic-mode)
         ("\\.go\\'" . go-mode)
+        ("\\.ts\\'" . typescript-mode)
         ;; ("\\.hs$" . haskell-mode)
         ("\\.java\\'" . java-mode)
         ("\\.js\\'" . javascript-mode)
