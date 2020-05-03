@@ -142,14 +142,13 @@
  '(org-level-4 ((t (:inherit outline-4 :weight demibold :height 1.0))))
  '(org-level-5 ((t (:inherit outline-5 :weight demibold :height 1.0)))))
 
+(custom-set-variables
+       '(custom-enabled-themes (quote (wombat))))
 
 ;; Terminal displays are often not happy about certain colours, so we only set them if we are running
 ;; within a graphic display environment
 (if (display-graphic-p)
     (progn
-      (custom-set-variables
-       '(custom-enabled-themes (quote (wombat))))
-
       (custom-set-faces
        '(default ((t (:background "#101515"))))
        '(cursor ((t (:background "OrangeRed"))))
