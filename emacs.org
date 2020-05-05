@@ -386,12 +386,12 @@
   (";" helm-org-rifle-important nil)
   (":" (lambda ()
          (interactive)
-         (helm-projectile-grep "~/org-notes" )) nil)
+         (helm-projectile-grep "~/private-sync" )) nil)
   ("l" (lambda ()
          (interactive)
          (progn
            (zygospore-toggle-delete-other-windows)
-           (dired "~/org-notes")
+           (dired "~/private-sync")
            (helm-find-files-1 default-directory))) nil))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
@@ -562,7 +562,7 @@
     ( "s" org-edit-src-exit nil)
     ( "c" helm-yas-complete nil))
 
-  (setq org-directory "~/org-notes")
+  (setq org-directory "~/private-sync/notes")
   (setq org-src-fontify-natively t)
   (setq org-src-preserve-indentation t)
   (setq org-startup-indented t)
@@ -595,26 +595,26 @@
   "Rifle through Org files in the directories below"
   (interactive)
   (helm-org-rifle-directories (list
-                               "~/org-notes")))
+                               "~/private-sync/notes")))
 #+END_SRC
-*** org-notes synching
+*** private sync
 **** git push/pull timer
 #+BEGIN_SRC emacs-lisp
-(defun org-notes-synch-fn ()
+(defun private-synch-fn ()
 (interactive)
-  (let* ((default-directory "~/org-notes"))
-	(message "pulling org-notes repo")
+  (let* ((default-directory "~/private-sync"))
+	(message "pulling private-sync repo")
 	(start-process "proc-git-pull" "notes-sync-output" "git" "pull")))
 
 ;; Run the above every 2 mins (if we are idle)
-(run-with-idle-timer (* 60 2) t 'org-notes-synch-fn)
+(run-with-idle-timer (* 60 2) t 'private-synch-fn)
 #+END_SRC
 **** git-auto-commit
 #+BEGIN_SRC emacs-lisp
 (use-package git-auto-commit-mode :defer t)
 
 (defun turn-on-auto-commit-hook ()
-  (cond ((string-match (concat "^" (expand-file-name "~/org-notes")) buffer-file-name)
+  (cond ((string-match (concat "^" (expand-file-name "~/private-sync")) buffer-file-name)
          (progn
            (git-auto-commit-mode 1)
            (setq gac-automatically-push-p t)))))
