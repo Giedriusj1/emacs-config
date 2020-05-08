@@ -842,19 +842,17 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+END_SRC
 *** Indenting
 #+BEGIN_SRC emacs-lisp
-;; 
 (defun set-sane-identation ()
-  (cond ((string-match (concat "^" (expand-file-name "~/prog/test-ident")) buffer-file-name)
+  (cond ((string-match (concat "^" (expand-file-name "c:/workspace/src")) buffer-file-name)
          (progn
-           (setq c-basic-offset 8 c-default-style "linux")
-           (setq tab-width 8 indent-tabs-mode nil)
+           (setq c-basic-offset 3 c-default-style "linux")
+           (setq tab-width 3 indent-tabs-mode nil)
            ))
         (t (progn
              (setq c-basic-offset 4 c-default-style "linux")
              (setq tab-width 4 indent-tabs-mode nil)))))
 
 (add-hook 'find-file-hook 'set-sane-identation)
-
 #+END_SRC
 *** Programming languages
 **** C/C++ common
