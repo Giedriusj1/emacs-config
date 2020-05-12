@@ -846,8 +846,11 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   (cond ((string-match (concat "^" (expand-file-name "c:/workspace/src")) buffer-file-name)
          (progn
            (setq c-basic-offset 3 c-default-style "linux")
-           (setq tab-width 3 indent-tabs-mode nil)
-           ))
+           (setq tab-width 3 indent-tabs-mode nil)))
+        ((string-match (concat "^" (expand-file-name "c:/workspace/resilient/smartblock-parent")) buffer-file-name)
+         (progn
+           (setq c-basic-offset 2 c-default-style "linux")
+           (setq tab-width 2 indent-tabs-mode nil)))
         (t (progn
              (setq c-basic-offset 4 c-default-style "linux")
              (setq tab-width 4 indent-tabs-mode nil)))))
