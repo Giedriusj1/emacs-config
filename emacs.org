@@ -875,6 +875,12 @@ _m_  many-windows     |  _k_  step       _r_  remove break
             ;; Use C++ style comments
             (setq comment-start "//" comment-end  "")))
 #+END_SRC
+
+**** zig
+#+BEGIN_SRC emacs-lisp
+(use-package zig-mode :defer t)
+#+END_SRC
+
 **** Rust
 #+BEGIN_SRC emacs-lisp
 (use-package ob-rust :defer t)
@@ -1107,6 +1113,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.rs\\'" . rustic-mode)
         ("\\.go\\'" . go-mode)
         ("\\.ts\\'" . typescript-mode)
+        ("\\.zig\\'" . zig-mode)
         ;; ("\\.hs$" . haskell-mode)
         ("\\.java\\'" . java-mode)
         ("\\.js\\'" . javascript-mode)
