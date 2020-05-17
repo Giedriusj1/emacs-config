@@ -856,13 +856,13 @@ _m_  many-windows     |  _k_  step       _r_  remove break
    ;; Everything else gets a sane default of 4
    (t 4)))
 
-(defun set-sane-identation ()
+(defun set-sane-indentation ()
   (let ((identation-size (get-prefered-indentation-size)))
     (progn
       (setq c-basic-offset identation-size c-default-style "linux")
       (setq tab-width identation-size indent-tabs-mode nil))))
 
-(add-hook 'find-file-hook 'set-sane-identation)
+(add-hook 'find-file-hook 'set-sane-indentation)
 #+END_SRC
 *** Programming languages
 **** C/C++ common
