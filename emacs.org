@@ -850,9 +850,9 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (defun get-prefered-indentation-size ()
   (cond
    ;; EAS expects 3
-   ((string-match (concat "^" "c:/workspace/src") buffer-file-name) '3)
+   ((string-match  "^c:/workspace/src" buffer-file-name) 3)
    ;; smartblock-paren uses 2
-   ((string-match (concat "^" "c:/workspace/resilient/smartblock-parent") buffer-file-name) 2)
+   ((string-match "^c:/workspace/resilient/smartblock-parent" buffer-file-name) 2)
    ;; Everything else gets a sane default of 4
    (t 4)))
 
