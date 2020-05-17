@@ -59,45 +59,39 @@
 (setq current-font "normal")
 
 (defun set-windows-font (mode)
-  (cond
-   ((string= mode "normal") (set-frame-font "Consolas-10"))
-   ((string= mode "medium") (set-frame-font "Consolas-11"))
-   ((string= mode "4k") (set-frame-font "Consolas-12"))))
+  (cond ((string= mode "normal") (set-frame-font "Consolas-10"))
+	((string= mode "medium") (set-frame-font "Consolas-11"))
+	((string= mode "4k") (set-frame-font "Consolas-12"))))
 
 (defun set-linux-font (mode)
-
-  (cond
-   ((member "Fira Code" (font-family-list))
-    (cond
-     ((string= mode "normal") (set-frame-font "Firacode-10"))
-     ((string= mode "medium") (set-frame-font "Firacode-12"))
-     ((string= mode "4k") (set-frame-font "Firacode-16"))))
-   (t (cond
-       ((string= mode "normal") (set-frame-font "Monospace-10"))
-       ((string= mode "medium") (set-frame-font "Monospace-12"))
-       ((string= mode "4k") (set-frame-font "Monospace-16"))))))
-
+  (cond ((member "Fira Code" (font-family-list))
+	 (cond
+	  ((string= mode "normal") (set-frame-font "Firacode-10"))
+	  ((string= mode "medium") (set-frame-font "Firacode-12"))
+	  ((string= mode "4k") (set-frame-font "Firacode-16"))))
+	(t (cond
+	    ((string= mode "normal") (set-frame-font "Monospace-10"))
+	    ((string= mode "medium") (set-frame-font "Monospace-12"))
+	    ((string= mode "4k") (set-frame-font "Monospace-16"))))))
 
 (defun set-font (mode)
   (progn
     (setq current-font mode)
-    (cond
-     ((string-equal system-type "windows-nt")
-      ;; We are dealing with Windows sytem
-      (set-windows-font mode))
-     ((string-equal system-type "gnu/linux")
-      ;; We are dealing with linux system:
-      (set-linux-font mode)))))
+    (cond ((string-equal system-type "windows-nt")
+	   ;; We are dealing with Windows sytem
+	   (set-windows-font mode))
+	  ((string-equal system-type "gnu/linux")
+	   ;; We are dealing with linux system:
+	   (set-linux-font mode)))))
 
 (defun toggle-font-size()
   (interactive)
-  (cond
-   ((string= current-font "normal")
-    (set-font "medium"))
-   ((string= current-font "medium")
-    (set-font "4k"))
-   ((string= current-font "4k")
-    (set-font "normal"))))
+  (cond ((string= current-font "normal")
+	 (set-font "medium"))
+	((string= current-font "medium")
+	 (set-font "4k"))
+	((string= current-font "4k")
+	 (set-font "normal"))))
 
 ;; Default font size
 (defun set-font-normal ()
@@ -117,11 +111,10 @@
 (defun is-4k-monitor ()
   (and (<= 2840 (x-display-pixel-width)) (<= 2160 (x-display-pixel-height))))
 
-(defun set-font-for-current-resolution ()
-  (interactive)
-  (cond
-   ((is-4k-monitor) (set-font-4k))
-   (t (set-font-normal))))
+(defun set-font-for-current-resolution () 
+  (interactive) 
+  (cond ((is-4k-monitor) (set-font-4k)) 
+	(t (set-font-normal))))
 #+END_SRC
 
 ** Themes and colours
@@ -599,8 +592,7 @@
 (defun helm-org-rifle-important ()
   "Rifle through Org files in the directories below"
   (interactive)
-  (helm-org-rifle-directories (list
-                               "~/private-sync/notes")))
+  (helm-org-rifle-directories (list "~/private-sync/notes")))
 #+END_SRC
 *** private sync
 **** git push/pull timer
@@ -692,7 +684,6 @@
   :config
   (setq compilation-scroll-output t)
   (defun mvn-integration-test ()
-    "docstring"
     (interactive)
     (mvn "integration-test")))
 #+END_SRC
@@ -778,8 +769,6 @@
                ("C-n" . dabbrev-expand)))
   :diminish company-mode
   :config
-  ;;(setq company-frontends nil)          ;; We'll be using helm for this
-
   (global-company-mode t)
 
   (push 'company-gtags company-backends)
