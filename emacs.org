@@ -847,18 +847,20 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+END_SRC
 *** Indenting
 #+BEGIN_SRC emacs-lisp
+(defun get-prefered-indentation-size ()
+  (cond
+   ;; EAS expects 3
+   ((string-match (concat "^" "c:/workspace/src") buffer-file-name) '3)
+   ;; smartblock-paren uses 2
+   ((string-match (concat "^" "c:/workspace/resilient/smartblock-parent") buffer-file-name) 2)
+   ;; Everything else gets a sane default of 4
+   (t 4)))
+
 (defun set-sane-identation ()
-  (cond ((string-match (concat "^" (expand-file-name "c:/workspace/src")) buffer-file-name)
-         (progn
-           (setq c-basic-offset 3 c-default-style "linux")
-           (setq tab-width 3 indent-tabs-mode nil)))
-        ((string-match (concat "^" (expand-file-name "c:/workspace/resilient/smartblock-parent")) buffer-file-name)
-         (progn
-           (setq c-basic-offset 2 c-default-style "linux")
-           (setq tab-width 2 indent-tabs-mode nil)))
-        (t (progn
-             (setq c-basic-offset 4 c-default-style "linux")
-             (setq tab-width 4 indent-tabs-mode nil)))))
+  (let ((identation-size (get-prefered-indentation-size)))
+    (progn
+      (setq c-basic-offset identation-size c-default-style "linux")
+      (setq tab-width identation-size indent-tabs-mode nil))))
 
 (add-hook 'find-file-hook 'set-sane-identation)
 #+END_SRC
@@ -873,7 +875,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
             ;; Use C++ style comments
             (setq comment-start "//" comment-end  "")))
 #+END_SRC
-
 **** Rust
 #+BEGIN_SRC emacs-lisp
 (use-package ob-rust :defer t)
