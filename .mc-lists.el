@@ -3,17 +3,20 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-        backward-sexp
-        comment-region
-        cua--prefix-override-handler
-        cua-paste
-        forward-sexp
-        org-delete-char
-        org-end-of-line
-        org-self-insert-command
-        ))
+	backward-sexp
+	c-electric-pound
+	comment-region
+	cua--prefix-override-handler
+	cua-paste
+	forward-sexp
+	org-delete-char
+	org-end-of-line
+	org-self-insert-command
+	transpose-words
+	))
 
 (setq mc/cmds-to-run-once
       '(
-        helm-mini
-        ))
+	helm-mini
+	yaml-electric-backspace
+	))
