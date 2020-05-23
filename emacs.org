@@ -482,7 +482,7 @@
   :config
   (remove-hook 'find-file-hook #'projectile-find-file-hook-function)
 
-  ;; Make projectiel use external tools for file indexing.
+  ;; Make projectile use external tools for file indexing.
   ;; If this breaks revert to 'native for more reliability.
   (setq projectile-indexing-method 'alien)
 
