@@ -148,8 +148,7 @@
 (if (display-graphic-p)
     (progn
       (custom-set-faces
-       ;; Uncomment if you want the dark one back
-       ;; '(default ((t (:background "#101515"))))
+       '(default ((t (:background "#131818"))))
        '(cursor ((t (:background "OrangeRed"))))
        '(mode-line-inactive ((t (:background "#101010"))))
        '(mode-line ((t (:background "#404040"))))
