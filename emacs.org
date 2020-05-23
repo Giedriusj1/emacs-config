@@ -368,6 +368,8 @@
 ;; Needed for helm-find-files-1
 (use-package helm-files :defer t :ensure nil)
 
+;; we have another use-package for helm-projectile down the line...
+;; TODO: clean this up somehow
 (use-package helm-projectile)
 
 (defun g/helm-projectile-grep-notes (dir)
