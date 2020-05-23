@@ -368,6 +368,8 @@
 ;; Needed for helm-find-files-1
 (use-package helm-files :defer t :ensure nil)
 
+(use-package helm-projectile)
+
 (defun g/helm-projectile-grep-notes (dir)
   (let* ((default-directory dir)
          (helm-ff-default-directory default-directory)
