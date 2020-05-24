@@ -1139,6 +1139,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.cmd\\'" . bat-mode)
         ("\\.cpp\\'" . c++-mode)
         ("\\.el\\'" . emacs-lisp-mode)
+        ("\\.el.gz\\'" . emacs-lisp-mode)
         ("\\.h\\'" . c++-mode)
         ("\\.hh\\'" . c++-mode)
         ("\\.hpp\\'" . c++-mode)
