@@ -612,9 +612,7 @@
   (customize-set-variable 'helm-split-window-default-side 'right)
 
   ;; Only needed prior 27 to fix a silly bug...
-  (if (< emacs-major-version 27)
-      (progn
-        (org-reload))))
+  (if (< emacs-major-version 27) (org-reload)))
 #+END_SRC
 *** org-babel
 #+BEGIN_SRC emacs-lisp
