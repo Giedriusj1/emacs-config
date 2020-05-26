@@ -23,7 +23,7 @@
 
 ;; Make sure we have use-package installed.
 ;; All other packages will be installed by it.
-(if (not (package-installed-p 'use-package))
+(unless (package-installed-p 'use-package)
     (progn (package-refresh-contents)
            (package-install 'use-package)))
 
@@ -211,6 +211,9 @@
 *** cua
 #+BEGIN_SRC emacs-lisp
 (cua-mode 1)
+
+(setq cua-prefix-override-inhibit-delay 0.01)
+
 (bind-key "C-f" 'cua-exchange-point-and-mark)
 
 ;; (bind-key* "C-c" 'kill-ring-save)
@@ -234,7 +237,9 @@
 #+BEGIN_SRC emacs-lisp
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
+(define-prefix-command 'control-d-map)
 
+(bind-key* "C-d" 'control-d-map)
 (bind-key* "C-;" 'control-semi-map)
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
@@ -276,16 +281,16 @@
 (bind-key* "C-M-u" 'backward-sexp)
 (bind-key* "C-M-o" 'forward-sexp)
 
-(bind-key* "C-d" 'Control-X-prefix)
 (bind-key* "C-a" 'Control-X-prefix)
 
 (bind-key* "C-q" 'beginning-of-line)
 (bind-key* "C-w" 'back-to-indentation)
 #+END_SRC
-*** ctl-x-map
+*** control-d-map
 #+BEGIN_SRC emacs-lisp
-(define-key ctl-x-map "\C-f" 'helm-find-files)
-(define-key ctl-x-map "\C-d" 'dired-jump)
+
+(define-key control-d-map "\C-f" 'helm-find-files)
+(define-key control-d-map "\C-d" 'dired-jump)
 #+END_SRC
 *** control-semi-map
 #+BEGIN_SRC emacs-lisp
@@ -463,8 +468,7 @@
 ** Multiple cursors
 #+BEGIN_SRC emacs-lisp
 (define-prefix-command 'mc-map)
-(use-package multiple-cursors
-  :defer t
+(use-package multiple-cursors :defer t
   :bind
   (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
@@ -575,11 +579,13 @@
 #+END_SRC
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
-(use-package org :pin org
-  :defer t
+(use-package org :pin org :defer t
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
   :config
+  (require 'ob-shell)
+  (require 'ob-python)
+
   (defhydra hydra-tab-org (:color blue)
     "
  [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
@@ -613,11 +619,6 @@
 
   ;; Only needed prior 27 to fix a silly bug...
   (if (< emacs-major-version 27) (org-reload)))
-#+END_SRC
-*** org-babel
-#+BEGIN_SRC emacs-lisp
-(require 'ob-shell)
-(require 'ob-python)
 #+END_SRC
 
 *** org-rifle
