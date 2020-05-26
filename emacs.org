@@ -196,6 +196,13 @@
 #+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting behaviour stage")
 #+END_SRC
+
+** Native emacs comp
+#+BEGIN_SRC emacs-lisp
+;; THIS IS THE FUTURE RIGHT THERE!
+(setq comp-deferred-compilation t)
+#+END_SRC
+
 ** Miscellaneous
 *** diminish
 #+BEGIN_SRC emacs-lisp
