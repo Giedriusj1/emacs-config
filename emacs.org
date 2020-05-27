@@ -989,7 +989,8 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+END_SRC
 **** Java
 #+BEGIN_SRC emacs-lisp
-(use-package lsp-java :defer t)
+;; lsp-java pulls the whole treemacs for itself...
+;; (use-package lsp-java :defer t)
 #+END_SRC
 
 **** typescript
