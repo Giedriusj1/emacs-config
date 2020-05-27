@@ -202,7 +202,7 @@
 ;; THIS IS THE FUTURE RIGHT THERE!
 ;; (setq comp-deferred-compilation t)
 
-(setq comp-speed 3
+(setq comp-speed 2
       comp-deferred-compilation nil)
 
 (defun compile-elpa-and-custom-to-native ()
