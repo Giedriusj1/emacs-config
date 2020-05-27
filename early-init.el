@@ -10,6 +10,10 @@
 (customize-set-variable 'menu-bar-mode nil)
 (customize-set-variable 'tool-bar-mode nil)
 
+(modify-all-frames-parameters '((vertical-scroll-bars . nil)))
+
+(advice-add 'x-apply-session-resources :override 'ignore)
+
 (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
 (setq frame-inhibit-implied-resize t)

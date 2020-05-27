@@ -200,7 +200,10 @@
 ** Native emacs comp
 #+BEGIN_SRC emacs-lisp
 ;; THIS IS THE FUTURE RIGHT THERE!
-(setq comp-deferred-compilation t)
+;; (setq comp-deferred-compilation t)
+
+(setq comp-speed 3
+      comp-deferred-compilation nil)
 
 (defun compile-elpa-and-custom-to-native ()
   (interactive)
@@ -251,9 +254,8 @@
 #+BEGIN_SRC emacs-lisp
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
-(define-prefix-command 'control-d-map)
 
-(bind-key* "C-d" 'control-d-map)
+(bind-key* "C-d" 'tab-map)
 (bind-key* "C-;" 'control-semi-map)
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
@@ -300,12 +302,7 @@
 (bind-key* "C-q" 'beginning-of-line)
 (bind-key* "C-w" 'back-to-indentation)
 #+END_SRC
-*** control-d-map
-#+BEGIN_SRC emacs-lisp
 
-(define-key control-d-map "\C-f" 'helm-find-files)
-(define-key control-d-map "\C-d" 'dired-jump)
-#+END_SRC
 *** control-semi-map
 #+BEGIN_SRC emacs-lisp
 (define-key control-semi-map (kbd "SPC") 'point-to-register)
@@ -343,7 +340,15 @@
 #+BEGIN_SRC emacs-lisp
 (define-key tab-map (kbd "TAB") 'comment-dwim)
 (define-key tab-map (kbd "M-;") 'comment-dwim)
+
+(define-key tab-map (kbd "C-d") 'comment-dwim)
+(define-key tab-map (kbd "M-;") 'comment-dwim)
+
+
 (define-key tab-map (kbd "u") 'universal-argument)
+(define-key tab-map "\C-f" 'helm-find-files)
+(define-key tab-map "\C-d" 'dired-jump)
+
 #+END_SRC
 *** windmove + frame selection
 #+BEGIN_SRC emacs-lisp
