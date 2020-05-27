@@ -257,8 +257,8 @@
 
 (bind-key* "C-d" 'tab-map)
 (bind-key* "C-;" 'control-semi-map)
-;; (bind-key* "<tab>" 'tab-map)
-;; (bind-key* "M-;" 'tab-map)
+(bind-key* "<tab>" 'tab-map)
+(bind-key* "M-;" 'tab-map)
 #+END_SRC
 *** global map
 #+BEGIN_SRC emacs-lisp
