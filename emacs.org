@@ -201,6 +201,13 @@
 #+BEGIN_SRC emacs-lisp
 ;; THIS IS THE FUTURE RIGHT THERE!
 (setq comp-deferred-compilation t)
+
+(defun compile-elpa-and-custom-to-native ()
+  (interactive)
+  (progn
+    (recompile-custom-packages)
+    (native-compile-async "~/.emacs.d/custom-packages" t t)
+    (native-compile-async "~/.emacs.d/elpa" t t)))
 #+END_SRC
 
 ** Miscellaneous
