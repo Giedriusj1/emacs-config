@@ -1,3 +1,4 @@
+;;; -*- lexical-binding: t -*-
 (setq adl-highlights '(
                        ("SUB .*(" . font-lock-function-name-face)
                        ;; ("//.*\\\\|/\\*\\\\|/*\\/" . font-lock-comment-face)
