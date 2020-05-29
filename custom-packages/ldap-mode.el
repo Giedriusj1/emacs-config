@@ -1,4 +1,4 @@
-;;; ldap-mode.el --- major modes for editing LDAP schema and LDIF files  -*-coding: iso-8859-1;-*-
+;;; ldap-mode.el --- major modes for editing LDAP schema and LDIF files  -*-coding: iso-8859-1;-*- -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2004  Free Software Foundation, Inc.
 

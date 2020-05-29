@@ -1,4 +1,4 @@
-;;; zygospore.el --- reversible C-x 1 (delete-other-windows)
+;;; zygospore.el --- reversible C-x 1 (delete-other-windows) -*- lexical-binding: t -*-
 
 ;; Copyright (C) 2014 by Louis Kottmann
 
