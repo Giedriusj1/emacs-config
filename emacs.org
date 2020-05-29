@@ -815,13 +815,17 @@
 #+END_SRC
 **** company
 #+BEGIN_SRC emacs-lisp
-(use-package company-box :defer t
-  :hook (company-mode . company-box-mode)
+(use-package  company-box :defer t 
+  :hook (company-mode . company-box-mode) 
   :config
   (setq company-box-backends-colors
-	'((company-lsp . 
-		       ( :selected (:background "orange" 
-						:foreground "black"))))))
+        '((company-lsp .
+                       ( :selected
+                         (:background "orange" 
+                          :foreground "black")))
+          (company-elisp . ( :selected
+                             (:background "orange" 
+                              :foreground "black"))))))
 
 (use-package company-lsp :defer t)
 
@@ -835,7 +839,7 @@
   :diminish company-mode
   :config
   (require 'color)
-  
+
   (let ((bg (face-attribute 'default :background)))
     (custom-set-faces
      `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
