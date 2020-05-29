@@ -815,23 +815,36 @@
 #+END_SRC
 **** company
 #+BEGIN_SRC emacs-lisp
-(use-package company-lsp :defer t)
-(use-package helm-company :defer t)
+(use-package company-box :defer t
+  :hook (company-mode . company-box-mode)
+  :config
+  (setq company-box-backends-colors
+	'((company-lsp . 
+		       ( :selected (:background "orange" 
+						:foreground "black"))))))
 
-(use-package company  :defer 5
+(use-package company-lsp :defer t)
+
+(use-package company :defer t
   :bind ( :map company-active-map
                (("C-n" . company-select-next)
                 ("C-p" . company-select-previous))
               :map control-semi-map
-              (("n" . helm-company)
-             ;;(("n" . company-complete)
+              (("n" . company-complete)
                ("C-n" . dabbrev-expand)))
   :diminish company-mode
   :config
-  (global-company-mode t)
+  (require 'color)
+  
+  (let ((bg (face-attribute 'default :background)))
+    (custom-set-faces
+     `(company-tooltip ((t (:inherit default :background ,(color-lighten-name bg 2)))))
+     `(company-scrollbar-bg ((t (:background ,(color-lighten-name bg 10)))))
+     `(company-scrollbar-fg ((t (:background ,(color-lighten-name bg 5)))))
+     `(company-tooltip-selection ((t (:inherit font-lock-function-name-face))))
+     `(company-tooltip-common ((t (:inherit font-lock-constant-face))))))
 
-  (push 'company-gtags company-backends)
-  (push 'company-lsp company-backends)
+  (global-company-mode t)
 
   (setq company-tooltip-limit 25))
 #+END_SRC
@@ -997,12 +1010,12 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+BEGIN_SRC emacs-lisp
 ;; (use-package tide :defer t)
 
-(use-package tide
-  :ensure t
-  :after (typescript-mode company flycheck)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
+;; (use-package tide
+;;   :ensure t
+;;   :after (typescript-mode company flycheck)
+;;   :hook ((typescript-mode . tide-setup)
+;;          (typescript-mode . tide-hl-identifier-mode)
+;;          (before-save . tide-format-before-save)))
 
 ;; (defun setup-tide-mode ()
 ;;   (interactive)
@@ -1350,7 +1363,6 @@ eyebrowse               frame management
                      :internal-border-width 4
                      :internal-border-color "blue"))))
 
-(custom-set-faces '(internal-border ((t (:foreground "DarkMagenta" :background "DarkMagenta")))))
 (custom-set-faces '(eyebrowse-mode-line-active ((t (:foreground "DarkMagenta" :weight bold :height 1.2)))))
 
 (defun eyebrowse-next (args)
