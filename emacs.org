@@ -823,7 +823,7 @@
                        ( :selected
                          (:background "orange" 
                           :foreground "black")))
-          (company-elisp . ( :selected
+          (company-capf . ( :selected
                              (:background "orange" 
                               :foreground "black"))))))
 
