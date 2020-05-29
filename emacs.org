@@ -820,12 +820,9 @@
   :config
   (setq company-box-backends-colors
         '((company-lsp .
-                       ( :selected
-                         (:background "orange" 
-                          :foreground "black")))
-          (company-capf . ( :selected
-                             (:background "orange" 
-                              :foreground "black"))))))
+                       ( :selected (:background "orange"  :foreground "black")))
+          (company-capf .
+			( :selected (:background "orange" :foreground "black"))))))
 
 (use-package company-lsp :defer t)
 
