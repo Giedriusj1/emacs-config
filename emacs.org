@@ -1362,7 +1362,7 @@ eyebrowse               frame management
                      :font "Monospace-16"
                      :timeout 3
                      :internal-border-width 4
-                     :internal-border-color "blue"))))
+                     :internal-border-color "orange"))))
 
 (custom-set-faces '(eyebrowse-mode-line-active ((t (:foreground "DarkMagenta" :weight bold :height 1.2)))))
 
