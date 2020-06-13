@@ -963,7 +963,9 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   :hook (go-mode . lsp-deferred)
   :config
   (defhydra hydra-go (:color blue)
-    ( "c" helm-yas-complete "yas complete")))
+    ( "c" helm-yas-complete "yas complete"))
+    (setq lsp-gopls-codelens nil))
+
 #+END_SRC
 **** Python
 #+BEGIN_SRC emacs-lisp
