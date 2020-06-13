@@ -1044,6 +1044,11 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+END_SRC
 
 *** Structured formats
+**** graphql
+#+begin_src emacs-lisp
+(use-package graphql-mode :defer t)
+#+end_src
+
 **** YAML
 #+BEGIN_SRC emacs-lisp
 (use-package yaml-mode :defer t)
@@ -1192,6 +1197,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.sh\\'" . sh-mode)
         ("bashrc\\'" . sh-mode)
         ("\\.yml\\'" . yaml-mode)
+        ("\\.graphql\\'" . graphql-mode)
         ("\\.s\\'" . asm-mode)
         ("\\.S\\'" . asm-mode)
         ("\\.adl\\'" . adl-mode)))
