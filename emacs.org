@@ -1095,7 +1095,8 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ("l" magit-log "log")
   ("d" magit-diff-dwim "diff-dwim")
   ("D" magit-diff "diff")
-  ("b" magit-blame "blame"))
+  ("b" magit-blame "blame")
+  ("r" magit-show-refs "show-refs"))
 #+END_SRC
 
 *** ediff
