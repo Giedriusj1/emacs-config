@@ -560,6 +560,10 @@
 ("m" helm-projectile-ag nil)
 ("r" projectile-ripgrep nil)
 ("R" helm-projectile-rg nil)))
+
+(use-package projectile-git-autofetch :defer t
+  :config
+  (projectile-git-autofetch-mode))
 #+END_SRC
 ** dired
 #+BEGIN_SRC emacs-lisp
