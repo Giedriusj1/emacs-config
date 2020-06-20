@@ -905,6 +905,8 @@ _m_  many-windows     |  _k_  step       _r_  remove break
                                    (point))))
            (( string= "emacs-lisp-mode" major-mode)
             (elisp-format-region))
+           (( string= "rustic-mode" major-mode)
+            (rustic-format-buffer))
            (t (message "Argh...don't know how to format in this mode :(")))))
 #+END_SRC
 *** Indenting
