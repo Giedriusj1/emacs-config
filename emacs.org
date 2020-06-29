@@ -567,15 +567,13 @@
 #+END_SRC
 ** dired
 #+BEGIN_SRC emacs-lisp
-(use-package treemacs :defer t)
-
-(use-package treemacs-icons-dired
-  :after dired
-  :ensure t
-  :config (treemacs-icons-dired-mode))
+(use-package dired-subtree :defer t)
+(use-package treemacs-icons-dired :defer t)
 
 (add-hook 'dired-mode-hook (lambda ()
-			     (dired-hide-details-mode 1)))
+			     (treemacs-icons-dired-mode)
+			     (dired-hide-details-mode 1)
+			     (dired-omit-mode)))
 
 (use-package dired-extension :ensure nil)
 
@@ -585,6 +583,7 @@
 
 (define-key dired-mode-map (kbd "l") 'dired-up-directory)
 (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
+(define-key dired-mode-map (kbd "C-i") 'dired-subtree-cycle)
 
 (setq dired-listing-switches "-alFh")
 
