@@ -567,6 +567,16 @@
 #+END_SRC
 ** dired
 #+BEGIN_SRC emacs-lisp
+(use-package treemacs :defer t)
+
+(use-package treemacs-icons-dired
+  :after dired
+  :ensure t
+  :config (treemacs-icons-dired-mode))
+
+(add-hook 'dired-mode-hook (lambda ()
+			     (dired-hide-details-mode 1)))
+
 (use-package dired-extension :ensure nil)
 
 (use-package dired-toggle-sudo :ensure nil)
