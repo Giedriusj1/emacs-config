@@ -853,7 +853,8 @@
 
   (setq company-tooltip-limit 25))
 #+END_SRC
-*** gdb
+*** Debugging
+**** gdb
 #+BEGIN_SRC emacs-lisp
 (define-key tab-map (kbd "k") 'hydra-gdb-helper/body)
 
@@ -874,6 +875,10 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ( "r" gud-remove nil)
   ( "c" gud-cont nil)
   ( "p" gud-print nil))
+#+END_SRC
+**** dap-mode
+#+BEGIN_SRC emacs-lisp
+(use-package dap-mode :defer t)
 #+END_SRC
 *** Semantic
 #+BEGIN_SRC emacs-lisp
