@@ -1105,6 +1105,8 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 ** Version Control
 *** magit
 #+BEGIN_SRC emacs-lisp
+(use-package gitignore-mode :defer t)
+
 (use-package magit :defer t)
 
 (defhydra hydra-magit (:color blue)
@@ -1196,6 +1198,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.json\\'" . json-mode)
         ("\\.sql\\'" . sql-mode)
 
+        ("\\.gitignore\\'" . gitignore-mode)
         ;;programming modes
         ("\\.ps1\\'" . powershell-mode)
         ("\\.bat\\'" . bat-mode)
