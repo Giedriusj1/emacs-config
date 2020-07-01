@@ -570,10 +570,11 @@
 (use-package dired-subtree :defer t)
 (use-package treemacs-icons-dired :defer t)
 
-(add-hook 'dired-mode-hook (lambda ()
-			     (treemacs-icons-dired-mode)
-			     (dired-hide-details-mode 1)
-			     (dired-omit-mode)))
+(add-hook 'dired-mode-hook
+	  (lambda ()
+	    (dired-omit-mode)
+	    (dired-hide-details-mode 1)
+	    (treemacs-icons-dired-mode)))
 
 (use-package dired-extension :ensure nil)
 
