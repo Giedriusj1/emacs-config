@@ -567,9 +567,13 @@
 #+END_SRC
 ** dired
 #+BEGIN_SRC emacs-lisp
-(require 'dired-x)
+(use-package dired-x :ensure nil)
 (use-package dired-subtree :defer t)
 (use-package treemacs-icons-dired :defer t)
+(use-package dired-extension :ensure nil)
+(use-package dired-toggle-sudo :ensure nil)
+
+(setq dired-dwim-target t)
 
 (add-hook 'dired-mode-hook
 	  (lambda ()
@@ -577,15 +581,12 @@
 	    (treemacs-icons-dired-mode)
         (dired-omit-mode)))
 
-(use-package dired-extension :ensure nil)
-
-(use-package dired-toggle-sudo :ensure nil)
-
-(setq dired-dwim-target t)
-
 (define-key dired-mode-map (kbd "l") 'dired-up-directory)
 (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
-(define-key dired-mode-map (kbd "C-i") 'dired-subtree-cycle)
+(define-key dired-mode-map (kbd "C-i") '(lambda ()
+                                          (interactive)
+                                          (dired-subtree-cycle)
+                                          (dired-omit-mode)))
 
 (setq dired-listing-switches "-alFh")
 
@@ -793,6 +794,7 @@
 **** LSP
 #+BEGIN_SRC emacs-lisp
 (use-package lsp-ui :defer t)
+(use-package helm-lsp :defer t)
 
 (defhydra hydra-lsp (:exit t :hint nil)
   "
@@ -812,7 +814,7 @@
 
   ("f" lsp-format-buffer)
   ("m" lsp-ui-imenu)
-  ("x" lsp-execute-code-action)
+  ("x" helm-lsp-code-actions)
 
   ("M-s" lsp-describe-session)
   ("M-r" lsp-restart-workspace)
