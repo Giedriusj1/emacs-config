@@ -814,7 +814,7 @@
 
   ("f" lsp-format-buffer)
   ("m" lsp-ui-imenu)
-  ("x" helm-lsp-code-actions)
+  ("u" helm-lsp-code-actions)
 
   ("M-s" lsp-describe-session)
   ("M-r" lsp-restart-workspace)
@@ -929,6 +929,8 @@ _m_  many-windows     |  _k_  step       _r_  remove break
             (elisp-format-region))
            (( string= "rustic-mode" major-mode)
             (rustic-format-buffer))
+            (( string= "json-mode" major-mode)
+            (json-reformat-region))
            (t (message "Argh...don't know how to format in this mode :(")))))
 #+END_SRC
 *** Indenting
