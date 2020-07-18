@@ -618,8 +618,9 @@
   :mode (("\\.org$" . org-mode))
   :ensure org-plus-contrib
   :config
-  (require 'ob-shell)
-  (require 'ob-python)
+  ;; (require 'ob-shell)
+  ;; (require 'ob-python)
+  (eldoc-mode -1)
 
   (defhydra hydra-tab-org (:color blue)
     "
@@ -695,6 +696,11 @@
 #+END_SRC
 ** Misc behaviour
 #+BEGIN_SRC emacs-lisp
+
+;; todo (Sat Jul 18 16:34:44 2020) eldoc was throwing non stop errors in org-mode. 
+;; Maybe we want to enable it back at some point *shrug*
+(global-eldoc-mode -1)
+
 ;; set to t to investigate crashes
 (setq debug-on-error nil)
 (setq inhibit-splash-screen t)
@@ -1054,7 +1060,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   (tide-setup)
   (flycheck-mode +1)
   (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  (eldoc-mode +1)
+  ;; (eldoc-mode +1)
   (tide-hl-identifier-mode +1)
   (lsp))
 
