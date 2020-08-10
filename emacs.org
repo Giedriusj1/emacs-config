@@ -18,9 +18,8 @@
 
 ;; On Windows system we'll just ignore signatures altogether...
 ;; too much hassle.
-;;(cond ((string-equal system-type "windows-nt")
-       (setq package-check-signature nil)
-;;))
+(cond ((string-equal system-type "windows-nt")
+       (setq package-check-signature nil)))
 
 ;; Make sure we have use-package installed.
 ;; All other packages will be installed by it.
