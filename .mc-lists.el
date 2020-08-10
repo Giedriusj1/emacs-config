@@ -19,5 +19,6 @@
 (setq mc/cmds-to-run-once
       '(
 	helm-mini
+	toggle-swift-mode
 	yaml-electric-backspace
 	))
