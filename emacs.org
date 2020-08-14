@@ -363,29 +363,29 @@
 #+END_SRC
 ** hydra
 #+BEGIN_SRC emacs-lisp
-(use-package hydra :ensure t :defer t)
+(use-package hydra  :ensure t :defer t)
 
 (defun spawn-local-mode-hydra ()
   (interactive)
   (cond (( string= "org-mode" major-mode)
-         (hydra-tab-org/body))
-        (( string= "c-mode" major-mode)
-         (hydra-c/body))
-        (( string= "c++-mode" major-mode)
-         (hydra-c/body))
-        (( string= "python-mode" major-mode)
-         (hydra-python/body))
-        (( string= "emacs-lisp-mode" major-mode)
-         (hydra-emacs-lisp/body))
-        (( string= "scala-mode" major-mode)
-         (hydra-scala/body))
-        (( string= "rust-mode" major-mode)
-         (hydra-rust/body))
-        (( string= "rustic-mode" major-mode)
-         (hydra-rust/body))
-        (( string= "go-mode" major-mode)
-         (hydra-go/body))
-        (t (message "Argh...hydra for your current mode does not exist :("))))
+	 (hydra-tab-org/body))
+	(( string= "c-mode" major-mode)
+	 (hydra-c/body))
+	(( string= "c++-mode" major-mode)
+	 (hydra-c/body))
+	(( string= "python-mode" major-mode)
+	 (hydra-python/body))
+	(( string= "emacs-lisp-mode" major-mode)
+	 (hydra-emacs-lisp/body))
+	(( string= "scala-mode" major-mode)
+	 (hydra-scala/body))
+	(( string= "rust-mode" major-mode)
+	 (hydra-rust/body))
+	(( string= "rustic-mode" major-mode)
+	 (hydra-rust/body))
+	(( string= "go-mode" major-mode)
+	 (hydra-go/body))
+	(t (message "Argh...hydra for your current mode does not exist :("))))
 
 ;; Needed for helm-find-files-1
 (use-package helm-files :defer t :ensure nil)
@@ -396,38 +396,38 @@
 
 (defun g/helm-projectile-grep-notes (dir)
   (let* ((default-directory dir)
-         (helm-ff-default-directory default-directory)
-         (helm-grep-in-recurse t)
-         (helm-grep-ignored-files (cl-union (cl-union (projectile-ignored-files-rel)  grep-find-ignored-files) '("*.doc" "*.ovpn")))
-         (helm-grep-ignored-directories
-          (cl-union (mapcar 'directory-file-name (projectile-ignored-directories-rel))
-                    grep-find-ignored-directories))
-         (helm-grep-default-command "grep -a -r %e -n%cH -e %p %f .")
-         (helm-grep-default-recurse-command helm-grep-default-command))
+	 (helm-ff-default-directory default-directory)
+	 (helm-grep-in-recurse t)
+	 (helm-grep-ignored-files (cl-union (cl-union (projectile-ignored-files-rel)  grep-find-ignored-files) '("*.doc" "*.ovpn")))
+	 (helm-grep-ignored-directories
+	  (cl-union (mapcar 'directory-file-name (projectile-ignored-directories-rel))
+		    grep-find-ignored-directories))
+	 (helm-grep-default-command "grep -a -r %e -n%cH -e %p %f .")
+	 (helm-grep-default-recurse-command helm-grep-default-command))
     (setq helm-source-grep
-          (helm-build-async-source
-              (capitalize (helm-grep-command t))
-            :header-name  (lambda (_name) "grep" )
-            :candidates-process 'helm-grep-collect-candidates
-            :filter-one-by-one 'helm-grep-filter-one-by-one
-            :candidate-number-limit 9999
-            :nohighlight t
-            ;; We need to specify keymap here and as :keymap arg [1]
-            ;; to make it available in further resuming.
-            :keymap helm-grep-map
-            :history 'helm-grep-history
-            :action (apply #'helm-make-actions helm-projectile-grep-or-ack-actions)
-            :persistent-action 'helm-grep-persistent-action
-            :persistent-help "Jump to line (`C-u' Record in mark ring)"
-            :requires-pattern 2))
+	  (helm-build-async-source
+	      (capitalize (helm-grep-command t))
+	    :header-name  (lambda (_name) "grep" )
+	    :candidates-process 'helm-grep-collect-candidates
+	    :filter-one-by-one 'helm-grep-filter-one-by-one
+	    :candidate-number-limit 9999
+	    :nohighlight t
+	    ;; We need to specify keymap here and as :keymap arg [1]
+	    ;; to make it available in further resuming.
+	    :keymap helm-grep-map
+	    :history 'helm-grep-history
+	    :action (apply #'helm-make-actions helm-projectile-grep-or-ack-actions)
+	    :persistent-action 'helm-grep-persistent-action
+	    :persistent-help "Jump to line (`C-u' Record in mark ring)"
+	    :requires-pattern 2))
     (helm
      :sources '(helm-source-grep
-                helm-source-projectile-buffers-list
-                helm-source-projectile-files-list)
+		helm-source-projectile-buffers-list
+		helm-source-projectile-files-list)
      :input (when helm-projectile-set-input-automatically
-              (if (region-active-p)
-                  (buffer-substring-no-properties (region-beginning) (region-end))
-                (thing-at-point 'symbol)))
+	      (if (region-active-p)
+		  (buffer-substring-no-properties (region-beginning) (region-end))
+		(thing-at-point 'symbol)))
      :default-directory default-directory
      :keymap helm-grep-map
      :history 'helm-grep-history
@@ -435,27 +435,27 @@
 
 (defhydra hydra-quickopen (:color blue)
   "
-[_t_] ~/notes/temp
-[_c_] ~/.emacs.d/emacs.org
-[_l_] dired ~/private-sync/
-[_:_] org rifle [_;_] grep notes
-"
+  [_t_] ~/notes/temp
+  [_c_] ~/.emacs.d/emacs.org
+  [_l_] dired ~/private-sync/
+  [_:_] org rifle [_;_] grep notes
+  "
   ("t" (lambda ()
-         (interactive)
-         (find-file "~/.emacs.d/temps/emacs-temp")) nil)
+	 (interactive)
+	 (find-file "~/.emacs.d/temps/emacs-temp")) nil)
   ("c" (lambda ()
-         (interactive)
-         (find-file "~/.emacs.d/emacs.org")) nil)
+	 (interactive)
+	 (find-file "~/.emacs.d/emacs.org")) nil)
   (":" helm-org-rifle-important nil)
   (";" (lambda ()
-         (interactive)
-         (g/helm-projectile-grep-notes "~/private-sync")) nil)
+	 (interactive)
+	 (g/helm-projectile-grep-notes "~/private-sync")) nil)
   ("l" (lambda ()
-         (interactive)
-         (progn
-           (zygospore-toggle-delete-other-windows)
-           (dired "~/private-sync")
-           (helm-find-files-1 default-directory))) nil))
+	 (interactive)
+	 (progn
+	   (zygospore-toggle-delete-other-windows)
+	   (dired "~/private-sync")
+	   (helm-find-files-1 default-directory))) nil))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
 (define-key tab-map (kbd "m") 'hydra-magit/body)
@@ -466,12 +466,12 @@
 (defhydra hydra-search-helper
   (:color blue)
   "
-[_q_] update tags        [_o_] find gtag
-[_c_] create gtag        [_p_] hydra-lsp
- " ("q" ggtags-update-tags nil)
- ("c" ggtags-create-tags nil)
- ("o" ggtags-find-tag-dwim nil)
- ("p" hydra-lsp/body nil))
+  [_q_] update tags        [_o_] find gtag
+  [_c_] create gtag        [_p_] hydra-lsp
+   " ("q" ggtags-update-tags nil)
+  ("c" ggtags-create-tags nil)
+  ("o" ggtags-find-tag-dwim nil)
+  ("p" hydra-lsp/body nil))
 #+END_SRC
 ** elfeed
 #+BEGIN_SRC emacs-lisp
@@ -569,7 +569,8 @@
 #+BEGIN_SRC emacs-lisp
 (use-package dired-x :ensure nil)
 (use-package dired-subtree :defer t)
-(use-package treemacs-icons-dired :defer t)
+(use-package treemacs-icons-dired ;; :defer t
+  )
 (use-package dired-extension :ensure nil)
 (use-package dired-toggle-sudo :ensure nil)
 
@@ -828,13 +829,15 @@
 #+END_SRC
 **** yas
 #+BEGIN_SRC emacs-lisp
+
 (use-package yasnippet
-  :defer t
+  ;; :defer t
   :ensure yasnippet-snippets
   :ensure yasnippet-classic-snippets
   :ensure helm-c-yasnippet
   :diminish yas-minor-mode
   :init (yas-global-mode 1))
+(require 'yasnippet)
 #+END_SRC
 **** company
 #+BEGIN_SRC emacs-lisp
@@ -1118,7 +1121,9 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+BEGIN_SRC emacs-lisp
 (use-package gitignore-mode :defer t)
 
-(use-package magit :defer t)
+(use-package magit ;; :defer t
+  )
+(require 'magit)
 
 (defhydra hydra-magit (:color blue)
   "magit"
