@@ -465,10 +465,10 @@
 
 (defhydra hydra-search-helper
   (:color blue)
-  "
-  [_q_] update tags        [_o_] find gtag
-  [_c_] create gtag        [_p_] hydra-lsp
-   " ("q" ggtags-update-tags nil)
+"
+[_q_] update tags        [_o_] find gtag
+[_c_] create gtag        [_p_] hydra-lsp
+" ("q" ggtags-update-tags nil)
   ("c" ggtags-create-tags nil)
   ("o" ggtags-find-tag-dwim nil)
   ("p" hydra-lsp/body nil))
