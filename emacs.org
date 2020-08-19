@@ -434,28 +434,26 @@
      :truncate-lines helm-grep-truncate-lines)))
 
 (defhydra hydra-quickopen (:color blue)
-  "
- [_t_] ~/notes/temp
- [_c_] ~/.emacs.d/emacs.org
- [_l_] dired ~/private-sync/
- [_:_] org rifle [_;_] grep notes
- "
-  ("t" (lambda ()
+"
+[_t_] ~/notes/temp
+[_c_] ~/.emacs.d/emacs.org
+[_l_] dired ~/private-sync/
+[_:_] org rifle [_;_] grep notes" 
+("t" (lambda ()
 	 (interactive)
 	 (find-file "~/.emacs.d/temps/emacs-temp")) nil)
-  ("c" (lambda ()
-	 (interactive)
-	 (find-file "~/.emacs.d/emacs.org")) nil)
-  (":" helm-org-rifle-important nil)
-  (";" (lambda ()
-	 (interactive)
-	 (g/helm-projectile-grep-notes "~/private-sync")) nil)
-  ("l" (lambda ()
-	 (interactive)
-	 (progn
-	   (zygospore-toggle-delete-other-windows)
-	   (dired "~/private-sync")
-	   (helm-find-files-1 default-directory))) nil))
+("c" (lambda ()
+       (interactive)
+       (find-file "~/.emacs.d/emacs.org")) nil)
+(":" helm-org-rifle-important nil)
+(";" (lambda ()
+       (interactive)
+       (g/helm-projectile-grep-notes "~/private-sync")) nil)
+("l" (lambda ()
+       (interactive)
+       (progn (zygospore-toggle-delete-other-windows)
+	      (dired "~/private-sync")
+	      (helm-find-files-1 default-directory))) nil))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
 (define-key tab-map (kbd "m") 'hydra-magit/body)
