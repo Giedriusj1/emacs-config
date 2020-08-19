@@ -435,11 +435,11 @@
 
 (defhydra hydra-quickopen (:color blue)
   "
-  [_t_] ~/notes/temp
-  [_c_] ~/.emacs.d/emacs.org
-  [_l_] dired ~/private-sync/
-  [_:_] org rifle [_;_] grep notes
-  "
+ [_t_] ~/notes/temp
+ [_c_] ~/.emacs.d/emacs.org
+ [_l_] dired ~/private-sync/
+ [_:_] org rifle [_;_] grep notes
+ "
   ("t" (lambda ()
 	 (interactive)
 	 (find-file "~/.emacs.d/temps/emacs-temp")) nil)
@@ -468,10 +468,11 @@
 "
 [_q_] update tags        [_o_] find gtag
 [_c_] create gtag        [_p_] hydra-lsp
-" ("q" ggtags-update-tags nil)
-  ("c" ggtags-create-tags nil)
-  ("o" ggtags-find-tag-dwim nil)
-  ("p" hydra-lsp/body nil))
+"
+("q" ggtags-update-tags nil)
+("c" ggtags-create-tags nil)
+("o" ggtags-find-tag-dwim nil)
+("p" hydra-lsp/body nil))
 #+END_SRC
 ** elfeed
 #+BEGIN_SRC emacs-lisp
@@ -623,13 +624,12 @@
   ;; (require 'ob-python)
   (eldoc-mode -1)
 
-  (defhydra hydra-tab-org (:color blue)
-    "
- [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
- [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
- [_e_]   edit source [_s_] exit source edit buffer [_E_]   babel execute
- [_c_]   yas helm expand
-
+(defhydra hydra-tab-org (:color blue)
+"
+[_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
+[_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
+[_e_]   edit source [_s_] exit source edit buffer [_E_]   babel execute
+[_c_]   yas helm expand
   "
     ( "o" org-metaright nil)
     ( "u" org-metaleft nil)
@@ -804,28 +804,26 @@
 (use-package helm-lsp :defer t)
 
 (defhydra hydra-lsp (:exit t :hint nil)
-  "
- Buffer^^               Server^^                   Symbol
--------------------------------------------------------------------------------------
- [_f_] format           [_M-r_] restart            [_d_] declaration  [_i_] implementation  [_o_] documentation
- [_m_] imenu            [_S_]   shutdown           [_D_] definition   [_t_] type            [_r_] rename
- [_u_] execute action   [_M-s_] describe session   [_R_] references   [_s_] signature"
-  ("d" lsp-find-declaration)
-  ("D" lsp-ui-peek-find-definitions)
-  ("R" lsp-ui-peek-find-references)
-  ("i" lsp-ui-peek-find-implementation)
-  ("t" lsp-find-type-definition)
-  ("s" lsp-signature-help)
-  ("o" lsp-describe-thing-at-point)
-  ("r" lsp-rename)
-
-  ("f" lsp-format-buffer)
-  ("m" lsp-ui-imenu)
-  ("u" helm-lsp-code-actions)
-
-  ("M-s" lsp-describe-session)
-  ("M-r" lsp-restart-workspace)
-  ("S" lsp-shutdown-workspace))
+ "
+Buffer^^               Server^^                   Symbol
+------------------------------------------------------------------------------------
+[_f_] format           [_M-r_] restart            [_d_] declaration  [_i_] implementation  [_o_] documentation
+[_m_] imenu            [_S_]   shutdown           [_D_] definition   [_t_] type            [_r_] rename
+[_u_] execute action   [_M-s_] describe session   [_R_] references   [_s_] signature"
+ ("d" lsp-find-declaration)
+ ("D" lsp-ui-peek-find-definitions)
+ ("R" lsp-ui-peek-find-references)
+ ("i" lsp-ui-peek-find-implementation)
+ ("t" lsp-find-type-definition)
+ ("s" lsp-signature-help)
+ ("o" lsp-describe-thing-at-point)
+ ("r" lsp-rename)
+ ("f" lsp-format-buffer)
+ ("m" lsp-ui-imenu)
+ ("u" helm-lsp-code-actions)
+ ("M-s" lsp-describe-session)
+ ("M-r" lsp-restart-workspace)
+ ("S" lsp-shutdown-workspace))
 #+END_SRC
 **** yas
 #+BEGIN_SRC emacs-lisp
@@ -888,15 +886,15 @@ _m_  many-windows     |  _k_  step       _r_  remove break
                     |  _l_  up
                     |  _c_  cont
 "
-  ( "h" gdb-restore-windows nil)
-  ( "m" gdb-many-windows nil)
-  ( "j" gud-next nil)
-  ( "k" gud-step nil)
-  ( "l" gud-up nil)
-  ( "b" gud-break nil)
-  ( "r" gud-remove nil)
-  ( "c" gud-cont nil)
-  ( "p" gud-print nil))
+( "h" gdb-restore-windows nil)
+( "m" gdb-many-windows nil)
+( "j" gud-next nil)
+( "k" gud-step nil)
+( "l" gud-up nil)
+( "b" gud-break nil)
+( "r" gud-remove nil)
+( "c" gud-cont nil)
+( "p" gud-print nil))
 #+END_SRC
 **** dap-mode
 #+BEGIN_SRC emacs-lisp
