@@ -117,13 +117,6 @@
 
 ** Themes and colours
 #+BEGIN_SRC emacs-lisp
-;; On emacs 27 this will be done from early-init.el
-(if (< emacs-major-version 27)
-    (progn
-      (customize-set-variable 'scroll-bar-mode nil)
-      (customize-set-variable 'horizontal-scroll-bar-mode nil)
-      (customize-set-variable 'menu-bar-mode nil)
-      (customize-set-variable 'tool-bar-mode nil)))
 
 (custom-set-variables
  '(custom-safe-themes
@@ -651,9 +644,6 @@
   (setq org-hierarchical-todo-statistics nil)
   (setq org-imenu-depth 5)
   (customize-set-variable 'helm-split-window-default-side 'right)
-
-  ;; Only needed prior 27 to fix a silly bug...
-  (if (< emacs-major-version 27) (org-reload)))
 #+END_SRC
 
 *** org-rifle
