@@ -117,7 +117,6 @@
 
 ** Themes and colours
 #+BEGIN_SRC emacs-lisp
-
 (custom-set-variables
  '(custom-safe-themes
    (quote
@@ -132,7 +131,7 @@
  '(org-level-5 ((t (:inherit outline-5 :weight demibold :height 1.0)))))
 
 (custom-set-variables
-       '(custom-enabled-themes (quote (wombat))))
+ '(custom-enabled-themes (quote (wombat))))
 
 ;; Terminal displays are often not happy about certain colours, so we only set them if we are running
 ;; within a graphic display environment
@@ -160,9 +159,7 @@
 
       (global-hl-line-mode t)
 
-      (use-package smart-mode-line :ensure t
-        :config
-        (sml/setup))))
+      (use-package smart-mode-line :ensure t :config (sml/setup))))
 #+END_SRC
 
 ** Font rendering
@@ -615,13 +612,13 @@
   ;; (require 'ob-python)
   (eldoc-mode -1)
 
-(defhydra hydra-tab-org (:color blue)
-"
-[_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
-[_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
-[_e_]   edit source [_s_] exit source edit buffer [_E_]   babel execute
-[_c_]   yas helm expand
-  "
+  (defhydra hydra-tab-org (:color blue)
+    "
+  [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
+  [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
+  [_e_]   edit source [_s_] exit source edit buffer [_E_]   babel execute
+  [_c_]   yas helm expand
+    "
     ( "o" org-metaright nil)
     ( "u" org-metaleft nil)
     ( "p" org-metaup nil)
@@ -643,7 +640,7 @@
   (setq org-export-with-toc nil)
   (setq org-hierarchical-todo-statistics nil)
   (setq org-imenu-depth 5)
-  (customize-set-variable 'helm-split-window-default-side 'right)
+  (customize-set-variable 'helm-split-window-default-side 'right))
 #+END_SRC
 
 *** org-rifle
