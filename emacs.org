@@ -548,8 +548,7 @@
 #+BEGIN_SRC emacs-lisp
 (use-package dired-x :ensure nil)
 (use-package dired-subtree :defer t)
-(use-package treemacs-icons-dired ;; :defer t
-  )
+(use-package treemacs-icons-dired :defer t)
 (use-package dired-extension :ensure nil)
 (use-package dired-toggle-sudo :ensure nil)
 
