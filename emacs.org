@@ -419,7 +419,7 @@
 [_t_] ~/notes/temp
 [_c_] ~/.emacs.d/emacs.org
 [_l_] dired ~/private-sync/
-[_:_] org rifle [_;_] grep notes" 
+[_;_] grep notes" 
 ("t" (lambda ()
 	 (interactive)
 	 (find-file "~/.emacs.d/temps/emacs-temp")) nil)
