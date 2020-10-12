@@ -789,7 +789,7 @@ Buffer^^               Server^^                   Symbol
 #+BEGIN_SRC emacs-lisp
 
 (use-package yasnippet
-  ;; :defer t
+  :defer t
   :ensure yasnippet-snippets
   :ensure yasnippet-classic-snippets
   :ensure helm-c-yasnippet
@@ -1078,10 +1078,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 *** magit
 #+BEGIN_SRC emacs-lisp
 (use-package gitignore-mode :defer t)
-
-(use-package magit ;; :defer t
-  )
-(require 'magit)
+(use-package magit :defer t)
 
 (defhydra hydra-magit (:color blue)
   "magit"
