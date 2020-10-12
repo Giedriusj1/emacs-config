@@ -368,14 +368,12 @@
 	 (hydra-go/body))
 	(t (message "Argh...hydra for your current mode does not exist :("))))
 
-;; Needed for helm-find-files-1
-(use-package helm-files :defer t :ensure nil)
 
-;; we have another use-package for helm-projectile down the line...
-;; TODO: clean this up somehow
-(use-package helm-projectile)
 
 (defun g/helm-projectile-grep-notes (dir)
+  ;; In case we use this function before helm-projectile was loaded:
+  (use-package helm-projectile)
+  
   (let* ((default-directory dir)
 	 (helm-ff-default-directory default-directory)
 	 (helm-grep-in-recurse t)
@@ -709,7 +707,7 @@
 
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
-(use-package google-this)
+(use-package google-this :defer t)
 
 (defadvice text-scale-increase (around all-buffers (arg) activate)
   (dolist (buffer (buffer-list))
@@ -1065,9 +1063,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+END_SRC
 **** LDIF
 #+BEGIN_SRC emacs-lisp
-;; (use-package ldap-mode :ensure nil :defer t)
-;;  todo: lazy load would be nice
-(require 'ldap-mode)
+(use-package ldap-mode :ensure nil :defer t)
 #+END_SRC
 **** Json mode
 #+BEGIN_SRC emacs-lisp
