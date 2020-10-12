@@ -426,7 +426,6 @@
 ("c" (lambda ()
        (interactive)
        (find-file "~/.emacs.d/emacs.org")) nil)
-(":" helm-org-rifle-important nil)
 (";" (lambda ()
        (interactive)
        (g/helm-projectile-grep-notes "~/private-sync")) nil)
