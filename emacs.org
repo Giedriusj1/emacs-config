@@ -634,19 +634,6 @@
   (customize-set-variable 'helm-split-window-default-side 'right))
 #+END_SRC
 
-*** org-rifle
-#+BEGIN_SRC emacs-lisp
-(use-package helm-org-rifle :defer t)
-
-;; Recursive search performs quite poorly on Windows systems...
-;; but we'll use it for simplicity reasons.
-(setq helm-org-rifle-directories-recursive t)
-
-(defun helm-org-rifle-important ()
-  "Rifle through Org files in the directories below"
-  (interactive)
-  (helm-org-rifle-directories (list "~/private-sync/notes")))
-#+END_SRC
 *** private sync
 **** git push/pull timer
 #+BEGIN_SRC emacs-lisp
