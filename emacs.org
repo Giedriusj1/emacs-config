@@ -13,9 +13,6 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("melpa" . "https://melpa.org/packages/")))
 
-;; not needed since emacs 27
-(when (not package--initialized) (package-initialize))
-
 ;; On Windows system we'll just ignore signatures altogether...
 ;; too much hassle.
 (cond ((string-equal system-type "windows-nt")
