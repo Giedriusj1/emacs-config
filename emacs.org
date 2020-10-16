@@ -1402,7 +1402,7 @@ eyebrowse               frame management
 
 (defun display-startup-echo-area-message ()
   (message (concat "Emacs took " (emacs-init-time) " seconds to start."
-		   (if (boundp' native-compile-async) " With native compiler!"))))
+		   (if (fboundp 'native-compile-async) " With native compiler!"))))
 #+END_SRC
 
 * ALIAS
