@@ -216,7 +216,7 @@
 #+END_SRC
 *** recentf
 #+BEGIN_SRC emacs-lisp
-(use-package recentf
+(use-package recentf :ensure nil
   :config
   (recentf-mode 1)
   (setq recentf-max-menu-items 250)
