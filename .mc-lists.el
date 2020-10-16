@@ -9,6 +9,7 @@
 	cua--prefix-override-handler
 	cua-paste
 	forward-sexp
+	indent-for-tab-command
 	org-ctrl-c-ctrl-c
 	org-delete-char
 	org-end-of-line
