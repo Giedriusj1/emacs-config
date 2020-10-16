@@ -1331,25 +1331,29 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   "
 eyebrowse               frame management
 ------------------------------------------
-[_M-j_] <-              [_M-m_]ake frame
-[_M-k_] ->              [_M-o_]ther frame
-[_M-r_]ename            [_M-SPC_]other frame
-[_M-c_]reate            [_M-d_]elete frame
-[_M-C_]lose current
+[_M-r_]ename              [_M-m_]ake frame
+[_M-c_]reate              [_M-o_]ther frame
+[_M-k_]lose current       [_M-SPC_]other frame
+                          [_M-d_]elete frame
 %s(eyebrowse-mode-line-indicator)^^
 "
   ("M-m" make-frame nil)
   ("M-o" other-frame nil)
   ("M-SPC" other-frame nil)
   ("M-d" delete-frame nil)
-  ("M-j" eyebrowse-prev nil)
-  ("M-k" eyebrowse-next nil)
   ("M-r" eyebrowse-rename-window-config nil)
-  ("M-c" eyebrowse-create-window-config nil)
-  ("M-C" eyebrowse-close-window-config nil))
+  ("M-c"  (lambda ()
+	    (interactive)
+	    (progn
+	      (eyebrowse-create-window-config)
+	      (show-eyebrowse-posframe)) nil))
+  ("M-k" (lambda ()
+	    (interactive)
+	    (progn
+	      (eyebrowse-close-window-config)
+	      (show-eyebrowse-posframe)) nil)))
 
 (global-set-key (kbd "M-SPC") 'hydra-frame-helper/body)
-
 (global-set-key (kbd "<C-tab>") 'eyebrowse-next)
 (global-set-key (kbd "<C-iso-lefttab>") 'eyebrowse-prev)
 (global-set-key (kbd "<C-S-tab>") 'eyebrowse-prev)
