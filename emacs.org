@@ -927,11 +927,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
             (setq comment-start "//" comment-end  "")))
 #+END_SRC
 
-**** zig
-#+BEGIN_SRC emacs-lisp
-(use-package zig-mode :defer t)
-#+END_SRC
-
 **** Rust
 #+BEGIN_SRC emacs-lisp
 (use-package ob-rust :defer t)
