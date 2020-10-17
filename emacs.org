@@ -106,9 +106,9 @@
 (defun is-4k-monitor ()
   (and (<= 2840 (x-display-pixel-width)) (<= 2160 (x-display-pixel-height))))
 
-(defun set-font-for-current-resolution () 
-  (interactive) 
-  (cond ((is-4k-monitor) (set-font-4k)) 
+(defun set-font-for-current-resolution ()
+  (interactive)
+  (cond ((is-4k-monitor) (set-font-4k))
 	(t (set-font-normal))))
 #+END_SRC
 
@@ -370,7 +370,7 @@
 (defun g/helm-projectile-grep-notes (dir)
   ;; In case we use this function before helm-projectile was loaded:
   (use-package helm-projectile)
-  
+
   (let* ((default-directory dir)
 	 (helm-ff-default-directory default-directory)
 	 (helm-grep-in-recurse t)
@@ -414,7 +414,7 @@
 [_t_] ~/notes/temp
 [_c_] ~/.emacs.d/emacs.org
 [_l_] dired ~/private-sync/
-[_;_] grep notes" 
+[_;_] grep notes"
 ("t" (lambda ()
 	 (interactive)
 	 (find-file "~/.emacs.d/temps/emacs-temp")) nil)
@@ -653,7 +653,7 @@
 ** Misc behaviour
 #+BEGIN_SRC emacs-lisp
 
-;; todo (Sat Jul 18 16:34:44 2020) eldoc was throwing non stop errors in org-mode. 
+;; todo (Sat Jul 18 16:34:44 2020) eldoc was throwing non stop errors in org-mode.
 ;; Maybe we want to enable it back at some point *shrug*
 (global-eldoc-mode -1)
 
@@ -794,8 +794,8 @@ Buffer^^               Server^^                   Symbol
 #+END_SRC
 **** company
 #+BEGIN_SRC emacs-lisp
-(use-package  company-box :defer t 
-  :hook (company-mode . company-box-mode) 
+(use-package  company-box :defer t
+  :hook (company-mode . company-box-mode)
   :config
   (setq company-box-backends-colors
         '((company-lsp .
@@ -922,8 +922,8 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (add-hook 'c-mode-common-hook
           (lambda()
+            (lsp)
             ;; Use C++ style comments
-	        (lsp)
             (setq comment-start "//" comment-end  "")))
 #+END_SRC
 
@@ -1003,28 +1003,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 **** typescript
 #+BEGIN_SRC emacs-lisp
-(use-package tide :defer t)
-
-(use-package tide
-  :ensure t
-  :after (typescript-mode company flycheck)
-  :hook ((typescript-mode . tide-setup)
-         (typescript-mode . tide-hl-identifier-mode)
-         (before-save . tide-format-before-save)))
-
-(defun setup-tide-mode ()
-  (interactive)
-  (tide-setup)
-  (flycheck-mode +1)
-  (setq flycheck-check-syntax-automatically '(save mode-enabled))
-  ;; (eldoc-mode +1)
-  (tide-hl-identifier-mode +1)
-  (lsp))
-
-;; aligns annotation to the right hand side
-(setq company-tooltip-align-annotations t)
-
-(add-hook 'typescript-mode-hook #'setup-tide-mode)
+(use-package typescript-mode :defer t)
 #+END_SRC
 
 **** Powershell
