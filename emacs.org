@@ -63,11 +63,11 @@
 	 (cond
 	  ((string= mode "normal") (set-frame-font "Firacode-10"))
 	  ((string= mode "medium") (set-frame-font "Firacode-12"))
-	  ((string= mode "4k") (set-frame-font "Firacode-16"))))
+	  ((string= mode "4k") (set-frame-font "Firacode-14"))))
 	(t (cond
 	    ((string= mode "normal") (set-frame-font "Monospace-10"))
 	    ((string= mode "medium") (set-frame-font "Monospace-12"))
-	    ((string= mode "4k") (set-frame-font "Monospace-16"))))))
+	    ((string= mode "4k") (set-frame-font "Monospace-14"))))))
 
 (defun set-font (mode)
   (progn
