@@ -1308,7 +1308,7 @@ eyebrowse               frame management
 [_M-r_]ename              [_M-m_]ake frame
 [_M-c_]reate              [_M-o_]ther frame
 [_M-k_]lose current       [_M-SPC_]other frame
-                          [_M-d_]elete frame
+                        [_M-d_]elete frame
 %s(eyebrowse-mode-line-indicator)^^
 "
   ("M-m" make-frame nil)
