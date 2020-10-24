@@ -31,4 +31,6 @@ transient/history.el
 .lsp-session*
 *.elc
 package-quickstart.el
-custom-packages/eln-*
+.dap-breakpoints
+eln-cache/
+projects
