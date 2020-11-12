@@ -187,8 +187,7 @@
   (interactive)
   (progn
     (recompile-custom-packages)
-    (native-compile-async "~/.emacs.d/custom-packages" t t)
-    (native-compile-async "~/.emacs.d/elpa" t t)))
+    (native-compile-async '("~/.emacs.d/custom-packages" "~/.emacs.d/elpa") t t)))
 #+END_SRC
 
 ** Miscellaneous
@@ -936,10 +935,11 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (use-package rustic :defer t
   :config
   (defhydra hydra-rust (:color blue)
-    ( "c" helm-yas-complete "yas complete")
-    ( "r" rustic-cargo-run "cargo run")
-    ( "b" rustic-cargo-build "cargo build")
-    ( "SPC" rustic-cargo-check "cargo check")))
+    ("c" helm-yas-complete "yas complete")
+    ("C" rustic-cargo-clean "cargo clean")
+    ("r" rustic-cargo-run "cargo run")
+    ("b" rustic-cargo-build "cargo build")
+    ("SPC" rustic-cargo-check "cargo check")))
 #+END_SRC
 **** Golang
 #+BEGIN_SRC emacs-lisp
@@ -1361,7 +1361,7 @@ eyebrowse               frame management
 #+BEGIN_SRC emacs-lisp
 (defun recompile-custom-packages ()
   (interactive)
-  (byte-recompile-directory (expand-file-name "~/.emacs.d/custom-packages") 0))
+  (byte-recompile-directory "~/.emacs.d/custom-packages" 0))
 
 (defun reload-emacs-config ()
   (interactive)
@@ -1383,6 +1383,21 @@ eyebrowse               frame management
 		   (if (fboundp 'native-compile-async) " With native compiler!"))))
 #+END_SRC
 
+
+* PUBLISHING
+#+BEGIN_SRC emacs-lisp
+(require 'ox-publish)
+
+(setq org-publish-project-alist
+      '(("org-blog"
+	 :base-directory "~/private-sync/blog/"
+	 :base-extension "org"
+	 :publishing-directory "~/public_html/"
+	 :recursive t
+	 :publishing-function org-html-publish-to-html
+	 :headline-levels 4             ; Just the default for this project.
+	 :auto-preamble t )))
+#+END_SRC
 * ALIAS
 #+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting alias stage")
