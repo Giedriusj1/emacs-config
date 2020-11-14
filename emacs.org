@@ -108,7 +108,7 @@
 
 (defun set-font-for-current-resolution ()
   (interactive)
-  (cond ((is-4k-monitor) (set-font-4k))
+  (cond ((is-4k-monitor) (set-font-normal))
 	(t (set-font-normal))))
 #+END_SRC
 
