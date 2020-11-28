@@ -1383,7 +1383,6 @@ eyebrowse               frame management
 		   (if (fboundp 'native-compile-async) " With native compiler!"))))
 #+END_SRC
 
-
 * PUBLISHING
 #+BEGIN_SRC emacs-lisp
 (require 'ox-publish)
@@ -1398,6 +1397,7 @@ eyebrowse               frame management
 	 :headline-levels 4             ; Just the default for this project.
 	 :auto-preamble t )))
 #+END_SRC
+
 * ALIAS
 #+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting alias stage")
