@@ -1391,7 +1391,7 @@ eyebrowse               frame management
 #+BEGIN_SRC emacs-lisp
 (require 'ox-publish)
 
-(use-package htmlize)
+(use-package htmlize :defer t)
 ;; default one would pick source colours from my current theme...
 (setq org-html-htmlize-output-type 'css)
 
