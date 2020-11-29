@@ -1041,7 +1041,10 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+BEGIN_SRC emacs-lisp
 (use-package json-mode :defer t)
 #+END_SRC
-
+**** dockerfile
+#+BEGIN_SRC emacs-lisp
+(use-package dockerfile-mode :defer t)
+#+END_SRC
 ** Version Control
 *** magit
 #+BEGIN_SRC emacs-lisp
@@ -1136,8 +1139,9 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.toml\\'" . toml-mode)
         ("\\.json\\'" . json-mode)
         ("\\.sql\\'" . sql-mode)
-
+        ("[Dd]ockerfile\\'" . dockerfile-mode)
         ("\\.gitignore\\'" . gitignore-mode)
+	
         ;;programming modes
         ("\\.ps1\\'" . powershell-mode)
         ("\\.bat\\'" . bat-mode)
@@ -1382,7 +1386,6 @@ eyebrowse               frame management
   (message (concat "Emacs took " (emacs-init-time) " seconds to start."
 		   (if (fboundp 'native-compile-async) " With native compiler!"))))
 #+END_SRC
-
 
 * PUBLISHING
 #+BEGIN_SRC emacs-lisp
