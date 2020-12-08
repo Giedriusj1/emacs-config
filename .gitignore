@@ -1,13 +1,10 @@
 .cache/
-auto-save-list/
 elpa/
 temps/
 url/
 emacs.el
 emacs_backtrace.txt
-eshell/
 custom--ignored.el
-custom--ignored.elc
 ido.last
 network-security.data
 projectile-bookmarks.eld
@@ -16,22 +13,12 @@ recentf
 semanticdb/
 server/
 tramp
-TAGS
 var/
 
-recentf
-recentf~
-session.*
-GPATH
-GTAGS
-GRTAGS
 emacs.tex
-ac-comphist.dat
 custom.el
 transient/history.el
 .lsp-session*
 *.elc
 package-quickstart.el
-.dap-breakpoints
 eln-cache/
-projects
