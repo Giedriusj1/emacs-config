@@ -621,6 +621,7 @@
     ( "c" helm-yas-complete nil))
 
   (setq org-directory "~/private-sync/notes")
+  (setq org-default-notes-file "~/private-sync/notes/notes.org")
   (setq org-src-preserve-indentation t)
   (setq org-startup-indented t)
   (setq org-startup-truncated nil)
