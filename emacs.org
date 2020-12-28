@@ -26,11 +26,6 @@
 
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t)
-
-;; Make sure the packages we use litter the root of .emacs.d as little as
-;; possible.
-;; This will make them put their configs under ./var and ./etc
-(use-package no-littering)
 #+END_SRC
 
 * INIT BASICS
@@ -671,6 +666,10 @@
 (setq select-enable-clipboard t) ;; Merge OS and Emacs' clipboards
 
 (setq auto-window-vscroll nil)   ;; Gives us better line scrolling performance
+
+;; We'll ask emacs to put all customizations made via it's customize package in a
+;; separate file... so we can ignore it later :)
+(setq custom-file (concat user-emacs-directory "/custom--ignored.el"))
 
 (blink-cursor-mode -1)
 
