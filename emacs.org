@@ -147,7 +147,15 @@
 
 (global-hl-line-mode t)
 
-(use-package smart-mode-line :ensure t :config (sml/setup))
+;; Native compiles has some issues with powerline atm ;(
+(setq comp-deferred-compilation-deny-list '("powerline"))
+
+(use-package powerline :ensure t :config
+  (powerline-default-theme)
+  (set-face-attribute 'mode-line nil
+                      :foreground "Black"
+                      :background "DarkOrange3"
+                      :box nil))
 #+END_SRC
 
 ** Font rendering
@@ -680,10 +688,7 @@
 (show-paren-mode t)
 
 ;; Make the interface a bit more snappy
-(setq idle-update-delay 0.1)
-
-(which-function-mode 1)
-(custom-set-faces '(which-func ((t (:foreground "LightSlateBlue")))))
+(setq idle-update-delay 0.05)
 
 (customize-set-variable 'electric-pair-mode t)
 (customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
@@ -1287,7 +1292,10 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   (if (eq global-swift-mode t)
       (progn ;; turning mode off
         (custom-set-faces '(cursor ((t (:background "OrangeRed")))))
-        (custom-set-faces '(mode-line ((t (:background "#404040")))))
+	(set-face-attribute 'mode-line nil
+                      :foreground "Black"
+                      :background "DarkOrange3"
+                      :box nil)
         (global-swift-mode -1))
 
     (progn ;; turning mode off
