@@ -32,6 +32,7 @@
 ** Garbage collection
 #+BEGIN_SRC emacs-lisp
 (use-package gcmh
+  :diminish gcmh-mode
   :config
   (gcmh-mode 1)
 
@@ -218,7 +219,6 @@
 
 (bind-key "C-f" 'cua-exchange-point-and-mark)
 
-;; (bind-key* "C-c" 'kill-ring-save)
 (bind-key* "C-v" 'yank)
 #+END_SRC
 *** recentf
@@ -1432,8 +1432,6 @@ eyebrowse               frame management
 
 (defalias 'rel 'reload-emacs-config)
 (defalias 'lp 'list-packages)
-(defalias 'hlp 'helm-list-elisp-packages-no-fetch)
-(defalias 'igf 'igrep-find)
 (defalias 'msf 'menu-set-font)
 (defalias 'obr 'org-babel-reload-emacs-org)
 
