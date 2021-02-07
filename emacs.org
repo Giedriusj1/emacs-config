@@ -349,6 +349,12 @@
 ** hydra
 #+BEGIN_SRC emacs-lisp
 (use-package hydra  :ensure t :defer t)
+(use-package pretty-hydra :ensure t :defer t)
+
+(require 'hydra-posframe)
+
+(customize-set-variable 'hydra-posframe-border-width 4)
+(hydra-posframe-mode)
 
 (defun spawn-local-mode-hydra ()
   (interactive)
@@ -371,8 +377,6 @@
 	(( string= "go-mode" major-mode)
 	 (hydra-go/body))
 	(t (message "Argh...hydra for your current mode does not exist :("))))
-
-
 
 (defun g/helm-projectile-grep-notes (dir)
   ;; In case we use this function before helm-projectile was loaded:
@@ -442,6 +446,9 @@
 (define-key tab-map (kbd ";") 'hydra-quickopen/body)
 
 (define-key tab-map (kbd "o") 'hydra-search-helper/body)
+
+
+
 
 (defhydra hydra-search-helper
   (:color blue)
@@ -531,14 +538,13 @@
     "
 [_q_] invalidate cache [_p_] projects
 [_j_] helm projectile  [_d_] dired projectile root
-[_g_]rep [_m_] ag [_a_]ck [_r_] projectile-ripgrep [_R_] helm-projectile-ripgrep
+[_g_]rep [_a_]ck [_r_] projectile-ripgrep [_R_] helm-projectile-ripgrep
 " ("p" helm-projectile-projects nil)
 ("q" projectile-invalidate-cache nil)
 ("j" helm-projectile nil)
 ("d" projectile-dired nil)
 ("g" helm-projectile-grep nil)
 ("a" helm-projectile-ack nil)
-("m" helm-projectile-ag nil)
 ("r" projectile-ripgrep nil)
 ("R" helm-projectile-rg nil)))
 
@@ -730,10 +736,6 @@
     (mvn "integration-test")))
 #+END_SRC
 *** Finding
-**** ag
-#+BEGIN_SRC emacs-lisp
-(use-package ag :defer t)
-#+END_SRC
 **** tags
 #+BEGIN_SRC emacs-lisp
 (use-package ggtags :defer t
@@ -763,31 +765,29 @@
 (use-package lsp-ui :defer t)
 (use-package helm-lsp :defer t)
 
-(defhydra hydra-lsp (:exit t :hint nil)
- "
-Buffer^^               Server^^                   Symbol
-------------------------------------------------------------------------------------
-[_f_] format           [_M-r_] restart            [_d_] declaration  [_i_] implementation  [_o_] documentation
-[_m_] imenu            [_S_]   shutdown           [_D_] definition   [_t_] type            [_r_] rename
-[_u_] execute action   [_M-s_] describe session   [_R_] references   [_s_] signature"
- ("d" lsp-find-declaration)
- ("D" lsp-ui-peek-find-definitions)
- ("R" lsp-ui-peek-find-references)
- ("i" lsp-ui-peek-find-implementation)
- ("t" lsp-find-type-definition)
- ("s" lsp-signature-help)
- ("o" lsp-describe-thing-at-point)
- ("r" lsp-rename)
- ("f" lsp-format-buffer)
- ("m" lsp-ui-imenu)
- ("u" helm-lsp-code-actions)
- ("M-s" lsp-describe-session)
- ("M-r" lsp-restart-workspace)
- ("S" lsp-shutdown-workspace))
+(pretty-hydra-define hydra-lsp (:foreign-keys warn :title "LSP" :quit-key "q" :color blue)
+  ("Buffer"
+   (("f" lsp-format-buffer "format")
+    ("menu" lsp-ui-imenu "imenu")
+    ("c" ace-delete-other-windows "maximize")
+    ("u" helm-lsp-code-actions "execute action"))
+   "Server"
+   (("M-r" move-border-left "restart")
+     ("S" lsp-shutdown-workspace "restart")
+     ("M-s" lsp-describe-session "shutdown"))
+   "Symbol"
+   (("d" lsp-find-declaration "declaration")
+    ("D" lsp-ui-peek-find-definitions "definition")
+    ("R" lsp-ui-peek-find-references "references")
+    ("i" lsp-ui-peek-find-implementation "implementation")
+    ("o" lsp-describe-thing-at-point "documentation")
+    ("t" lsp-find-type-definition "type")
+    ("r" lsp-rename "rename")
+    ("s" lsp-signature-help "signature"))))
 #+END_SRC
+
 **** yas
 #+BEGIN_SRC emacs-lisp
-
 (use-package yasnippet
   :defer t
   :ensure yasnippet-snippets
