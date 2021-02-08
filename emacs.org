@@ -359,7 +359,7 @@
 (defun spawn-local-mode-hydra ()
   (interactive)
   (cond (( string= "org-mode" major-mode)
-	 (hydra-tab-org/body))
+	 (hydra-org/body))
 	(( string= "c-mode" major-mode)
 	 (hydra-c/body))
 	(( string= "c++-mode" major-mode)
@@ -609,7 +609,8 @@
   ;; (require 'ob-python)
   (eldoc-mode -1)
 
-  (defhydra hydra-tab-org (:color blue)
+
+  (defhydra hydra-org (:color blue)
     "
   [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
   [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
