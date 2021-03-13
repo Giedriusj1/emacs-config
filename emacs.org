@@ -715,10 +715,10 @@
 
 (use-package google-this :defer t)
 
-(defadvice text-scale-increase (around all-buffers (arg) activate)
-  (dolist (buffer (buffer-list))
-    (with-current-buffer buffer
-      ad-do-it)))
+;; (defadvice text-scale-increase (around all-buffers (arg) activate)
+;;   (dolist (buffer (buffer-list))
+;;     (with-current-buffer buffer
+;;       ad-do-it)))
 
 (setq ring-bell-function 'ignore)
 #+END_SRC
