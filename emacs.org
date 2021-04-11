@@ -366,8 +366,8 @@
 	 (hydra-python/body))
 	(( string= "emacs-lisp-mode" major-mode)
 	 (hydra-emacs-lisp/body))
-	(( string= "scala-mode" major-mode)
-	 (hydra-scala/body))
+	;; (( string= "scala-mode" major-mode)
+	;;  (hydra-scala/body))
 	(( string= "rust-mode" major-mode)
 	 (hydra-rust/body))
 	(( string= "rustic-mode" major-mode)
@@ -987,10 +987,10 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+END_SRC
 **** Scala
 #+BEGIN_SRC emacs-lisp
-(use-package scala-mode :defer t
-  :config
-  (defhydra hydra-scala (:color blue)
-    ( "c" helm-yas-complete "yas complete")))
+;; (use-package scala-mode :defer t
+;;   :config
+;;   (defhydra hydra-scala (:color blue)
+;;     ( "c" helm-yas-complete "yas complete")))
 
 ;; (add-hook 'scala-mode-hook #'lsp)
 
@@ -1170,7 +1170,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.mc\\'" . c++-mode)
         ("\\.pm\\'" . perl-mode)
         ("\\.py\\'" . python-mode)
-        ("\\.scala\\'" . scala-mode)
+        ;; ("\\.scala\\'" . scala-mode)
         ("\\.scm\\'" . scheme-mode)
         ("\\.sh\\'" . sh-mode)
         ("bashrc\\'" . sh-mode)
