@@ -330,7 +330,6 @@
 (define-key tab-map (kbd "u") 'universal-argument)
 (define-key tab-map "\C-f" 'helm-find-files)
 (define-key tab-map "\C-d" 'dired-jump)
-
 #+END_SRC
 *** windmove + frame selection
 #+BEGIN_SRC emacs-lisp
@@ -445,9 +444,6 @@
 
 (define-key tab-map (kbd "o") 'hydra-search-helper/body)
 
-
-
-
 (defhydra hydra-search-helper
   (:color blue)
 "
@@ -552,9 +548,8 @@
 #+END_SRC
 ** dired
 #+BEGIN_SRC emacs-lisp
-(use-package dired-x :ensure nil)
+(use-package dired-x :ensure nil :defer t)
 (use-package dired-subtree :defer t)
-;; (use-package treemacs-icons-dired :defer t)
 (use-package dired-extension :ensure nil)
 (use-package dired-toggle-sudo :ensure nil)
 
@@ -563,7 +558,6 @@
 (add-hook 'dired-mode-hook
 	  (lambda ()
 	    (dired-hide-details-mode 1)
-	    ;; (treemacs-icons-dired-mode)
         (dired-omit-mode)))
 
 (define-key dired-mode-map (kbd "l") 'dired-up-directory)
@@ -794,7 +788,6 @@
   :ensure helm-c-yasnippet
   :diminish yas-minor-mode
   :init (yas-global-mode 1))
-(require 'yasnippet)
 #+END_SRC
 **** company
 #+BEGIN_SRC emacs-lisp
@@ -1397,12 +1390,9 @@ eyebrowse               frame management
 
 * PUBLISHING
 #+BEGIN_SRC emacs-lisp
-(require 'ox-publish)
-
 (use-package htmlize :defer t)
 ;; default one would pick source colours from my current theme...
 (setq org-html-htmlize-output-type 'css)
-
 
 (setq org-publish-project-alist
       '(("org-blog"
@@ -1418,8 +1408,7 @@ eyebrowse               frame management
 	 :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
 	 :publishing-directory "~/public_html/"
 	 :recursive t
-	 :publishing-function org-publish-attachment
-	 )))
+	 :publishing-function org-publish-attachment)))
 #+END_SRC
 
 * ALIAS
@@ -1432,7 +1421,6 @@ eyebrowse               frame management
 (defalias 'rel 'reload-emacs-config)
 (defalias 'lp 'list-packages)
 (defalias 'msf 'menu-set-font)
-(defalias 'obr 'org-babel-reload-emacs-org)
 
 (display-startup-echo-area-message)
 (message "emacs.org : done loading!")
