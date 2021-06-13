@@ -921,7 +921,9 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (add-hook 'c-mode-common-hook
           (lambda()
-            (lsp)
+	    ;; Only use lsp on non Win machines, since thing can be quite slow there...
+	    (cond ((not (string-equal system-type "windows-nt"))
+		   (lsp)))
             ;; Use C++ style comments
             (setq comment-start "//" comment-end  "")))
 #+END_SRC
