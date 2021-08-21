@@ -165,11 +165,13 @@
 #+BEGIN_SRC emacs-lisp
 (setq-default bidi-display-reordering nil)
 #+END_SRC
+
 ** Buffer names
 #+BEGIN_SRC emacs-lisp
 (use-package uniquify :ensure nil
   :config (setq uniquify-buffer-name-style 'forward))
 #+END_SRC
+
 ** Frame title
 #+BEGIN_SRC emacs-lisp
 (defun generate-frame-title ()
@@ -181,6 +183,7 @@
 (setq-default frame-title-format
               '(:eval (generate-frame-title)))
 #+END_SRC
+
 * BEHAVIOUR
 #+BEGIN_SRC emacs-lisp
 (message "emacs.org : starting behaviour stage")
@@ -203,6 +206,7 @@
 #+BEGIN_SRC emacs-lisp
 (use-package diminish)
 #+END_SRC
+
 *** anzu
 #+BEGIN_SRC emacs-lisp
 ;; Show number of matches in mode-line while searching
@@ -210,6 +214,7 @@
   :diminish anzu-mode
   :config (global-anzu-mode t))
 #+END_SRC
+
 *** cua
 #+BEGIN_SRC emacs-lisp
 (cua-mode 1)
@@ -220,6 +225,7 @@
 
 (bind-key* "C-v" 'yank)
 #+END_SRC
+
 *** recentf
 #+BEGIN_SRC emacs-lisp
 (use-package recentf :ensure nil
@@ -228,11 +234,13 @@
   (setq recentf-max-menu-items 250)
   (setq recentf-max-saved-items 250))
 #+END_SRC
+
 *** shell-here
 #+BEGIN_SRC emacs-lisp
 (use-package shell-here :defer t
   :bind* (( "C-`" . shell-here)))
 #+END_SRC
+
 ** Keyboard
 *** maps
 #+BEGIN_SRC emacs-lisp
@@ -244,6 +252,7 @@
 (bind-key* "<tab>" 'tab-map)
 (bind-key* "M-;" 'tab-map)
 #+END_SRC
+
 *** global map
 #+BEGIN_SRC emacs-lisp
 (global-set-key [f9] 'toggle-font-size)
@@ -292,7 +301,8 @@
 (define-key control-semi-map (kbd "SPC") 'point-to-register)
 (define-key control-semi-map (kbd "C-SPC") 'point-to-register)
 (define-key control-semi-map (kbd "j") 'jump-to-register)
-(define-key control-semi-map (kbd "h") 'highlight-phrase)
+(define-key control-semi-map (kbd "h") 'unhighlight-regexp)
+(define-key control-semi-map (kbd "C-h") 'highlight-symbol-at-point)
 (define-key control-semi-map (kbd "q") 'goto-line)
 
 (define-key control-semi-map (kbd "C-j") 'jump-to-register)
@@ -320,6 +330,7 @@
 
 (define-key control-semi-map (kbd "C-d") 'follow-mode)
 #+END_SRC
+
 *** tab map
 #+BEGIN_SRC emacs-lisp
 (define-key tab-map (kbd "TAB") 'comment-dwim)
@@ -333,6 +344,7 @@
 (define-key tab-map "\C-f" 'helm-find-files)
 (define-key tab-map "\C-d" 'dired-jump)
 #+END_SRC
+
 *** windmove + frame selection
 #+BEGIN_SRC emacs-lisp
 (setq windmove-wrap-around t)
@@ -344,6 +356,7 @@
           :map control-semi-map
           ("C-1" . zygospore-toggle-delete-other-windows)))
 #+END_SRC
+
 ** hydra
 #+BEGIN_SRC emacs-lisp
 (use-package hydra  :ensure t :defer t)
@@ -457,6 +470,7 @@
 ("o" ggtags-find-tag-dwim nil)
 ("p" hydra-lsp/body nil))
 #+END_SRC
+
 ** elfeed
 #+BEGIN_SRC emacs-lisp
 (use-package elfeed :defer t
@@ -468,6 +482,7 @@
           "https://mjg59.dreamwidth.org/data/rss"
           "https://feeds.feedburner.com/steveklabnik/words")))
 #+END_SRC
+
 ** Multiple cursors
 #+BEGIN_SRC emacs-lisp
 (define-prefix-command 'mc-map)
@@ -548,6 +563,7 @@
   :config
   (projectile-git-autofetch-mode))
 #+END_SRC
+
 ** dired
 #+BEGIN_SRC emacs-lisp
 (use-package dired-x :ensure nil :defer t)
@@ -587,12 +603,14 @@
           ((string-equal system-type "gnu/linux")
            (mapc (lambda (path) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" path))) fileList)))))
 #+END_SRC
+
 ** auto sudo
 #+BEGIN_SRC emacs-lisp
 (use-package auto-sudoedit
   :diminish auto-sudoedit-mode
   :config (auto-sudoedit-mode 1))
 #+END_SRC
+
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
 (use-package org :pin org :defer t
@@ -647,6 +665,7 @@
 ;; Run the above every 2 mins (if we are idle)
 (run-with-idle-timer (* 60 2) t 'private-synch-fn)
 #+END_SRC
+
 **** git-auto-commit
 #+BEGIN_SRC emacs-lisp
 (use-package git-auto-commit-mode :defer t)
@@ -659,6 +678,7 @@
 
 (add-hook 'find-file-hook 'turn-on-auto-commit-hook)
 #+END_SRC
+
 ** Misc behaviour
 #+BEGIN_SRC emacs-lisp
 
@@ -719,6 +739,7 @@
 
 (setq ring-bell-function 'ignore)
 #+END_SRC
+
 ** Programming
 *** Building
 **** Maven
@@ -730,6 +751,7 @@
     (interactive)
     (mvn "integration-test")))
 #+END_SRC
+
 *** Finding
 **** tags
 #+BEGIN_SRC emacs-lisp
@@ -742,11 +764,13 @@
   ;; Projectile already displays this information.
   (setq ggtags-mode-line-project-name nil))
 #+END_SRC
+
 **** ripgrep
 #+BEGIN_SRC emacs-lisp
 (use-package projectile-ripgrep :defer t)
 (use-package helm-rg :defer t)
 #+END_SRC
+
 **** dumb jump
 #+BEGIN_SRC emacs-lisp
 (use-package dumb-jump :defer t
@@ -754,6 +778,7 @@
   (setq dumb-jump-selector 'helm)
   (setq dumb-jump-force-searcher 'rg))
 #+END_SRC
+
 *** Code completion
 **** LSP
 #+BEGIN_SRC emacs-lisp
@@ -791,6 +816,7 @@
   :diminish yas-minor-mode
   :init (yas-global-mode 1))
 #+END_SRC
+
 **** company
 #+BEGIN_SRC emacs-lisp
 (use-package  company-box :defer t
@@ -827,6 +853,7 @@
 
   (setq company-tooltip-limit 25))
 #+END_SRC
+
 *** Debugging
 **** gdb
 #+BEGIN_SRC emacs-lisp
@@ -850,10 +877,12 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 ( "c" gud-cont nil)
 ( "p" gud-print nil))
 #+END_SRC
+
 **** dap-mode
 #+BEGIN_SRC emacs-lisp
 (use-package dap-mode :defer t)
 #+END_SRC
+
 *** Semantic
 #+BEGIN_SRC emacs-lisp
 (semantic-mode 1) ;; global mode
@@ -867,6 +896,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (defun ds () t)
 (add-hook 'semantic-inhibit-functions  #'ds)
 #+END_SRC
+
 *** Formatting
 #+BEGIN_SRC emacs-lisp
 (use-package clang-format :defer t
@@ -894,6 +924,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
             (json-reformat-region))
            (t (message "Argh...don't know how to format in this mode :(")))))
 #+END_SRC
+
 *** Indenting
 #+BEGIN_SRC emacs-lisp
 (defun get-prefered-indentation-size ()
@@ -913,6 +944,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (add-hook 'find-file-hook 'set-sane-indentation)
 #+END_SRC
+
 *** Programming languages
 **** C/C++ common
 #+BEGIN_SRC emacs-lisp
@@ -943,6 +975,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
     ("b" rustic-cargo-build "cargo build")
     ("SPC" rustic-cargo-check "cargo check")))
 #+END_SRC
+
 **** Golang
 #+BEGIN_SRC emacs-lisp
 (use-package go-mode :defer t
@@ -956,6 +989,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
   (add-hook 'go-mode-hook 'my-go-mode-hook))
 #+END_SRC
+
 **** Python
 #+BEGIN_SRC emacs-lisp
 (add-hook 'python-mode-hook
@@ -982,6 +1016,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ( "k" eval-last-sexp "eval-last-sexp")
   ( "c" helm-yas-complete "yas complete"))
 #+END_SRC
+
 **** Scala
 #+BEGIN_SRC emacs-lisp
 ;; (use-package scala-mode :defer t
@@ -992,6 +1027,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 ;; (add-hook 'scala-mode-hook #'lsp)
 
 #+END_SRC
+
 **** Java
 #+BEGIN_SRC emacs-lisp
 ;; lsp-java pulls the whole treemacs for itself...
@@ -1023,6 +1059,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 #+BEGIN_SRC emacs-lisp
 (use-package yaml-mode :defer t)
 #+END_SRC
+
 **** SGML [XML/HTML]
 #+BEGIN_SRC emacs-lisp
 (setq nxml-child-indent 4 nxml-attribute-indent 4)
@@ -1035,18 +1072,22 @@ _m_  many-windows     |  _k_  step       _r_  remove break
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
 #+END_SRC
+
 **** LDIF
 #+BEGIN_SRC emacs-lisp
 (use-package ldap-mode :ensure nil :defer t)
 #+END_SRC
+
 **** Json mode
 #+BEGIN_SRC emacs-lisp
 (use-package json-mode :defer t)
 #+END_SRC
+
 **** dockerfile
 #+BEGIN_SRC emacs-lisp
 (use-package dockerfile-mode :defer t)
 #+END_SRC
+
 ** Version Control
 *** magit
 #+BEGIN_SRC emacs-lisp
@@ -1123,6 +1164,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   (with-eval-after-load 'outline
     (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)))
 #+END_SRC
+
 ** Mode recognition
 #+BEGIN_SRC emacs-lisp
 (setq auto-mode-alist
@@ -1143,7 +1185,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.sql\\'" . sql-mode)
         ("[Dd]ockerfile\\'" . dockerfile-mode)
         ("\\.gitignore\\'" . gitignore-mode)
-	
+
         ;;programming modes
         ("\\.ps1\\'" . powershell-mode)
         ("\\.bat\\'" . bat-mode)
@@ -1225,6 +1267,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
               (("C-m" . helm-swoop)
                ("m" . helm-multi-swoop-all))))
 #+END_SRC
+
 *** SWIFT
 #+BEGIN_SRC emacs-lisp
 (defun swift-up(&optional arg)
@@ -1366,6 +1409,7 @@ eyebrowse               frame management
   (progn (eyebrowse-prev-window-config args)
          (show-eyebrowse-posframe)))
 #+END_SRC
+
 ** Utility functions
 #+BEGIN_SRC emacs-lisp
 (defun recompile-custom-packages ()
