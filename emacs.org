@@ -998,10 +998,15 @@ _m_  many-windows     |  _k_  step       _r_  remove break
          (setq python-indent 4)
          (setq tab-width 4)))
 
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
+
 (defhydra hydra-python (:color blue)
   ( "c" helm-yas-complete "helm yas complete"))
 #+END_SRC
-
 **** Scheme
 #+BEGIN_SRC emacs-lisp
 (add-hook 'scheme-mode-hook
