@@ -55,20 +55,20 @@
 (setq current-font "normal")
 
 (defun set-windows-font (mode)
-  (cond ((string= mode "normal") (set-frame-font "Consolas-10"))
-	((string= mode "medium") (set-frame-font "Consolas-11"))
-	((string= mode "4k") (set-frame-font "Consolas-12"))))
+  (cond ((string= mode "normal") (set-face-attribute 'default nil :font "Consolas" :height 100))
+	((string= mode "medium") (set-face-attribute 'default nil :font "Consolas" :height 110))
+	((string= mode "4k") (set-face-attribute 'default nil :font "Consolas" :height 120))))
 
 (defun set-linux-font (mode)
   (cond ((member "Fira Code" (font-family-list))
 	 (cond
-	  ((string= mode "normal") (set-frame-font "Firacode-10"))
-	  ((string= mode "medium") (set-frame-font "Firacode-12"))
-	  ((string= mode "4k") (set-frame-font "Firacode-14"))))
+	  ((string= mode "normal") (set-face-attribute 'default nil :font "Firacode" :height 100))
+	  ((string= mode "medium") (set-face-attribute 'default nil :font "Firacode" :height 120))
+	  ((string= mode "4k") (set-face-attribute 'default nil :font "Firacode" :height 140))))
 	(t (cond
-	    ((string= mode "normal") (set-frame-font "Monospace-10"))
-	    ((string= mode "medium") (set-frame-font "Monospace-12"))
-	    ((string= mode "4k") (set-frame-font "Monospace-14"))))))
+	  ((string= mode "normal") (set-face-attribute 'default nil :font "Monospace" :height 100))
+	  ((string= mode "medium") (set-face-attribute 'default nil :font "Monospace" :height 120))
+	  ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))))
 
 (defun set-font (mode)
   (progn
