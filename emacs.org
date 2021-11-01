@@ -1417,6 +1417,8 @@ eyebrowse               frame management
 
 ** Utility functions
 #+BEGIN_SRC emacs-lisp
+(use-package password-generator :defer t)
+
 (defun recompile-custom-packages ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))
