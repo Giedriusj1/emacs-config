@@ -310,21 +310,21 @@
 (define-key control-semi-map (kbd "C-l") 'execute-extended-command)
 (define-key control-semi-map (kbd "C-2") 'split-window-below)
 
-(define-key control-semi-map (kbd "C-2") '(lambda ()
-                                            (interactive)
-                                            (split-window-below)
-                                            (balance-windows)))
+(define-key control-semi-map (kbd "C-2") (lambda ()
+                                           (interactive)
+                                           (split-window-below)
+                                           (balance-windows)))
 
-(define-key control-semi-map (kbd "C-3") '(lambda ()
-                                            (interactive)
-                                            (split-window-right)
-                                            (balance-windows)))
+(define-key control-semi-map (kbd "C-3") (lambda ()
+                                           (interactive)
+                                           (split-window-right)
+                                           (balance-windows)))
 
 
-(define-key control-semi-map (kbd "C-0") '(lambda ()
-                                            (interactive)
-                                            (delete-window)
-                                            (balance-windows)))
+(define-key control-semi-map (kbd "C-0") (lambda ()
+                                           (interactive)
+                                           (delete-window)
+                                           (balance-windows)))
 
 (define-key control-semi-map (kbd "C-4") 'balance-windows)
 
@@ -580,10 +580,10 @@
 
 (define-key dired-mode-map (kbd "l") 'dired-up-directory)
 (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
-(define-key dired-mode-map (kbd "C-i") '(lambda ()
-                                          (interactive)
-                                          (dired-subtree-cycle)
-                                          (dired-omit-mode)))
+(define-key dired-mode-map (kbd "C-i") (lambda ()
+                                         (interactive)
+                                         (dired-subtree-cycle)
+                                         (dired-omit-mode)))
 
 (setq dired-listing-switches "-alFh")
 
@@ -907,22 +907,22 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (use-package elisp-format :defer t)
 
 (define-key tab-map (kbd "i")
-  '(lambda ()
-     (interactive)
-     (cond ((or ( string= "c++-mode" major-mode)
-                ( string= "c-mode" major-mode))
-            (if (use-region-p)
-                (clang-format-region (region-beginning)
-                                     (region-end))
-              (clang-format-region (point)
-                                   (point))))
-           (( string= "emacs-lisp-mode" major-mode)
-            (elisp-format-region))
-           (( string= "rustic-mode" major-mode)
-            (rustic-format-buffer))
-            (( string= "json-mode" major-mode)
-            (json-reformat-region))
-           (t (message "Argh...don't know how to format in this mode :(")))))
+	    (lambda ()
+	      (interactive)
+	      (cond ((or ( string= "c++-mode" major-mode)
+			 ( string= "c-mode" major-mode))
+		     (if (use-region-p)
+			 (clang-format-region (region-beginning)
+					      (region-end))
+		       (clang-format-region (point)
+					    (point))))
+		    (( string= "emacs-lisp-mode" major-mode)
+		     (elisp-format-region))
+		    (( string= "rustic-mode" major-mode)
+		     (rustic-format-buffer))
+		    (( string= "json-mode" major-mode)
+		     (json-reformat-region))
+		    (t (message "Argh...don't know how to format in this mode :(")))))
 #+END_SRC
 
 *** Indenting
@@ -1294,13 +1294,13 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (defvar swift-command-map
   (let ((map (make-sparse-keymap)))
     ;; movement
-    (define-key map (kbd "i") '(lambda ()
-                                 (interactive)
-                                 (swift-up 2)))
+    (define-key map (kbd "i") (lambda ()
+                                (interactive)
+                                (swift-up 2)))
 
-    (define-key map (kbd "k") '(lambda ()
-                                 (interactive)
-                                 (swift-down 2)))
+    (define-key map (kbd "k") (lambda ()
+                                (interactive)
+                                (swift-down 2)))
 
     (define-key map (kbd "o") 'swift-up)
     (define-key map (kbd "l") 'swift-down)
