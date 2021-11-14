@@ -26,6 +26,8 @@
 
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t)
+
+(setq warning-suppress-types '(((package reinitialization)) (comp)))
 #+END_SRC
 
 * INIT BASICS
@@ -1096,7 +1098,8 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 ** Version Control
 *** magit
 #+BEGIN_SRC emacs-lisp
-(use-package gitignore-mode :defer t)
+;; Can no longer be found ;(
+;; (use-package gitignore-mode :defer t) 
 (use-package magit :defer t)
 
 (defhydra hydra-magit (:color blue)
