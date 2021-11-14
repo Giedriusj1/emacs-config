@@ -62,15 +62,10 @@
 	((string= mode "4k") (set-face-attribute 'default nil :font "Consolas" :height 120))))
 
 (defun set-linux-font (mode)
-  (cond ((member "Fira Code" (font-family-list))
-	 (cond
-	  ((string= mode "normal") (set-face-attribute 'default nil :font "Firacode" :height 100))
-	  ((string= mode "medium") (set-face-attribute 'default nil :font "Firacode" :height 120))
-	  ((string= mode "4k") (set-face-attribute 'default nil :font "Firacode" :height 140))))
-	(t (cond
+  (cond
 	  ((string= mode "normal") (set-face-attribute 'default nil :font "Monospace" :height 100))
 	  ((string= mode "medium") (set-face-attribute 'default nil :font "Monospace" :height 120))
-	  ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))))
+	  ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))
 
 (defun set-font (mode)
   (progn
