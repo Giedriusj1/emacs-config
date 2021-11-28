@@ -10,7 +10,6 @@
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("org" . "https://orgmode.org/elpa/")
                          ("melpa" . "https://melpa.org/packages/")))
 
 ;; On Windows system we'll just ignore signatures altogether...
@@ -471,18 +470,6 @@
 ("p" hydra-lsp/body nil))
 #+END_SRC
 
-** elfeed
-#+BEGIN_SRC emacs-lisp
-(use-package elfeed :defer t
-  :config
-  (setq elfeed-feeds
-        '("http://nullprogram.com/feed/"
-          "http://planet.emacsen.org/atom.xml"
-          "https://www.spacerogue.net/wordpress/?feed=rss2"
-          "https://mjg59.dreamwidth.org/data/rss"
-          "https://feeds.feedburner.com/steveklabnik/words")))
-#+END_SRC
-
 ** Multiple cursors
 #+BEGIN_SRC emacs-lisp
 (define-prefix-command 'mc-map)
@@ -613,44 +600,41 @@
 
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
-(use-package org :pin org :defer t
-  :mode (("\\.org$" . org-mode))
-  :ensure org-plus-contrib
-  :config
-  ;; (require 'ob-shell)
-  ;; (require 'ob-python)
-  (eldoc-mode -1)
+  (use-package org
+    :defer t
+    :mode (("\\.org$" . org-mode))
+    :config
+    (eldoc-mode -1)
 
+    (defhydra hydra-org (:color blue)
+      "
+    [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
+    [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
+    [_e_]   edit source [_s_] exit source edit buffer [_E_]   babel execute
+    [_c_]   yas helm expand
+      "
+      ( "o" org-metaright nil)
+      ( "u" org-metaleft nil)
+      ( "p" org-metaup nil)
+      ( "n" org-metadown nil)
+      ( "C-o" org-shiftright nil)
+      ( "C-u" org-shiftleft nil)
+      ( "C-p" org-shiftup nil)
+      ( "C-n" org-shiftdown nil)
+      ( "e" org-edit-src-code nil)
+      ( "E" org-babel-execute-src-block nil)
+      ( "s" org-edit-src-exit nil)
+      ( "c" helm-yas-complete nil))
 
-  (defhydra hydra-org (:color blue)
-    "
-  [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
-  [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
-  [_e_]   edit source [_s_] exit source edit buffer [_E_]   babel execute
-  [_c_]   yas helm expand
-    "
-    ( "o" org-metaright nil)
-    ( "u" org-metaleft nil)
-    ( "p" org-metaup nil)
-    ( "n" org-metadown nil)
-    ( "C-o" org-shiftright nil)
-    ( "C-u" org-shiftleft nil)
-    ( "C-p" org-shiftup nil)
-    ( "C-n" org-shiftdown nil)
-    ( "e" org-edit-src-code nil)
-    ( "E" org-babel-execute-src-block nil)
-    ( "s" org-edit-src-exit nil)
-    ( "c" helm-yas-complete nil))
-
-  (setq org-directory "~/private-sync/notes")
-  (setq org-default-notes-file "~/private-sync/notes/notes.org")
-  (setq org-src-preserve-indentation t)
-  (setq org-startup-indented t)
-  (setq org-startup-truncated nil)
-  (setq org-export-with-toc nil)
-  (setq org-hierarchical-todo-statistics nil)
-  (setq org-imenu-depth 5)
-  (customize-set-variable 'helm-split-window-default-side 'right))
+    (setq org-directory "~/private-sync/notes")
+    (setq org-default-notes-file "~/private-sync/notes/notes.org")
+    (setq org-src-preserve-indentation t)
+    (setq org-startup-indented t)
+    (setq org-startup-truncated nil)
+    (setq org-export-with-toc nil)
+    (setq org-hierarchical-todo-statistics nil)
+    (setq org-imenu-depth 5)
+    (customize-set-variable 'helm-split-window-default-side 'right))
 #+END_SRC
 
 *** private sync
@@ -687,7 +671,7 @@
 (global-eldoc-mode -1)
 
 ;; set to t to investigate crashes
-(setq debug-on-error nil)
+(setq debug-on-error t)
 (setq inhibit-splash-screen t)
 (setq initial-scratch-message "")
 (setq column-number-mode t)
@@ -731,11 +715,6 @@
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
 (use-package google-this :defer t)
-
-;; (defadvice text-scale-increase (around all-buffers (arg) activate)
-;;   (dolist (buffer (buffer-list))
-;;     (with-current-buffer buffer
-;;       ad-do-it)))
 
 (setq ring-bell-function 'ignore)
 #+END_SRC
@@ -809,7 +788,7 @@
 **** yas
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
-  :defer t
+  ;; :defer t
   :ensure yasnippet-snippets
   :ensure yasnippet-classic-snippets
   :ensure helm-c-yasnippet
@@ -827,8 +806,6 @@
                        ( :selected (:background "orange"  :foreground "black")))
           (company-capf .
 			( :selected (:background "orange" :foreground "black"))))))
-
-;; (use-package company-lsp :defer t)
 
 (use-package company :defer t
   :bind ( :map company-active-map
@@ -1091,7 +1068,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 ** Version Control
 *** magit
 #+BEGIN_SRC emacs-lisp
-(use-package gitignore-mode :defer t)
+;; (use-package gitignore-mode :defer t)
 (use-package magit :defer t)
 
 (defhydra hydra-magit (:color blue)
@@ -1184,7 +1161,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.json\\'" . json-mode)
         ("\\.sql\\'" . sql-mode)
         ("[Dd]ockerfile\\'" . dockerfile-mode)
-        ("\\.gitignore\\'" . gitignore-mode)
+        ;; ("\\.gitignore\\'" . gitignore-mode)
 
         ;;programming modes
         ("\\.ps1\\'" . powershell-mode)
@@ -1223,7 +1200,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 ** Navigating around
 *** Helm
 #+BEGIN_SRC emacs-lisp
-(use-package asm-mode :defer t
+(use-package asm-mode :defer t :ensure nil
   :bind (:map asm-mode-map
               ("C-j" . helm-mini)))
 
