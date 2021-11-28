@@ -845,13 +845,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   ( "k" eval-last-sexp "eval-last-sexp")
   ( "c" helm-yas-complete "yas complete"))
 
-;; (use-package scala-mode :defer t
-;;   :config
-;;   (defhydra hydra-scala (:color blue)
-;;     ( "c" helm-yas-complete "yas complete")))
-
-;; (add-hook 'scala-mode-hook #'lsp)
-
 ;; lsp-java pulls the whole treemacs for itself...
 ;; (use-package lsp-java :defer t)
 
@@ -880,9 +873,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (use-package json-mode :defer t)
 
 (use-package dockerfile-mode :defer t)
-
-;; Can no longer be found ;(
-;; (use-package gitignore-mode :defer t) 
 
 (use-package magit :defer t)
 
@@ -970,7 +960,6 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.json\\'" . json-mode)
         ("\\.sql\\'" . sql-mode)
         ("[Dd]ockerfile\\'" . dockerfile-mode)
-        ;; ("\\.gitignore\\'" . gitignore-mode)
 
         ;;programming modes
         ("\\.ps1\\'" . powershell-mode)
@@ -989,13 +978,11 @@ _m_  many-windows     |  _k_  step       _r_  remove break
         ("\\.go\\'" . go-mode)
         ("\\.ts\\'" . typescript-mode)
         ("\\.zig\\'" . zig-mode)
-        ;; ("\\.hs$" . haskell-mode)
         ("\\.java\\'" . java-mode)
         ("\\.js\\'" . javascript-mode)
         ("\\.mc\\'" . c++-mode)
         ("\\.pm\\'" . perl-mode)
         ("\\.py\\'" . python-mode)
-        ;; ("\\.scala\\'" . scala-mode)
         ("\\.scm\\'" . scheme-mode)
         ("\\.sh\\'" . sh-mode)
         ("bashrc\\'" . sh-mode)
