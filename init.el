@@ -516,10 +516,11 @@
   :diminish auto-sudoedit-mode
   :config (auto-sudoedit-mode 1))
 
-(use-package org
-  ;; :pin org
+(use-package org :pin gnu
   :defer t
   :mode (("\\.org$" . org-mode))
+  :bind
+  (:map org-mode-map (("C-j" . helm-mini) ("<C-tab>" . eyebrowse-next) ))
   :config
   (eldoc-mode -1)
 
@@ -1017,7 +1018,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
          ( "C-r" . helm-global-mark-ring)
          ( "b" . helm-resume)
          ( "C-b" . helm-resume)))
-  (:map org-mode-map (("C-j" . helm-mini) ("<C-tab>" . eyebrowse-next) ))
+
   (:map lisp-interaction-mode-map (("C-j" . helm-mini)))
   :config
   (setq helm-candidate-number-limit 500)
