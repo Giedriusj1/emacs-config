@@ -25,6 +25,8 @@
 
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t)
+
+(setq warning-suppress-types '(((package reinitialization)) (comp)))
 #+END_SRC
 
 * INIT BASICS
@@ -54,20 +56,15 @@
 (setq current-font "normal")
 
 (defun set-windows-font (mode)
-  (cond ((string= mode "normal") (set-frame-font "Consolas-10"))
-	((string= mode "medium") (set-frame-font "Consolas-11"))
-	((string= mode "4k") (set-frame-font "Consolas-12"))))
+  (cond ((string= mode "normal") (set-face-attribute 'default nil :font "Consolas" :height 100))
+	((string= mode "medium") (set-face-attribute 'default nil :font "Consolas" :height 110))
+	((string= mode "4k") (set-face-attribute 'default nil :font "Consolas" :height 120))))
 
 (defun set-linux-font (mode)
-  (cond ((member "Fira Code" (font-family-list))
-	 (cond
-	  ((string= mode "normal") (set-frame-font "Firacode-10"))
-	  ((string= mode "medium") (set-frame-font "Firacode-12"))
-	  ((string= mode "4k") (set-frame-font "Firacode-14"))))
-	(t (cond
-	    ((string= mode "normal") (set-frame-font "Monospace-10"))
-	    ((string= mode "medium") (set-frame-font "Monospace-12"))
-	    ((string= mode "4k") (set-frame-font "Monospace-14"))))))
+  (cond
+	  ((string= mode "normal") (set-face-attribute 'default nil :font "Monospace" :height 100))
+	  ((string= mode "medium") (set-face-attribute 'default nil :font "Monospace" :height 120))
+	  ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))
 
 (defun set-font (mode)
   (progn
@@ -309,21 +306,21 @@
 (define-key control-semi-map (kbd "C-l") 'execute-extended-command)
 (define-key control-semi-map (kbd "C-2") 'split-window-below)
 
-(define-key control-semi-map (kbd "C-2") '(lambda ()
-                                            (interactive)
-                                            (split-window-below)
-                                            (balance-windows)))
+(define-key control-semi-map (kbd "C-2") (lambda ()
+                                           (interactive)
+                                           (split-window-below)
+                                           (balance-windows)))
 
-(define-key control-semi-map (kbd "C-3") '(lambda ()
-                                            (interactive)
-                                            (split-window-right)
-                                            (balance-windows)))
+(define-key control-semi-map (kbd "C-3") (lambda ()
+                                           (interactive)
+                                           (split-window-right)
+                                           (balance-windows)))
 
 
-(define-key control-semi-map (kbd "C-0") '(lambda ()
-                                            (interactive)
-                                            (delete-window)
-                                            (balance-windows)))
+(define-key control-semi-map (kbd "C-0") (lambda ()
+                                           (interactive)
+                                           (delete-window)
+                                           (balance-windows)))
 
 (define-key control-semi-map (kbd "C-4") 'balance-windows)
 
@@ -567,10 +564,10 @@
 
 (define-key dired-mode-map (kbd "l") 'dired-up-directory)
 (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
-(define-key dired-mode-map (kbd "C-i") '(lambda ()
-                                          (interactive)
-                                          (dired-subtree-cycle)
-                                          (dired-omit-mode)))
+(define-key dired-mode-map (kbd "C-i") (lambda ()
+                                         (interactive)
+                                         (dired-subtree-cycle)
+                                         (dired-omit-mode)))
 
 (setq dired-listing-switches "-alFh")
 
@@ -884,22 +881,22 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (use-package elisp-format :defer t)
 
 (define-key tab-map (kbd "i")
-  '(lambda ()
-     (interactive)
-     (cond ((or ( string= "c++-mode" major-mode)
-                ( string= "c-mode" major-mode))
-            (if (use-region-p)
-                (clang-format-region (region-beginning)
-                                     (region-end))
-              (clang-format-region (point)
-                                   (point))))
-           (( string= "emacs-lisp-mode" major-mode)
-            (elisp-format-region))
-           (( string= "rustic-mode" major-mode)
-            (rustic-format-buffer))
-            (( string= "json-mode" major-mode)
-            (json-reformat-region))
-           (t (message "Argh...don't know how to format in this mode :(")))))
+	    (lambda ()
+	      (interactive)
+	      (cond ((or ( string= "c++-mode" major-mode)
+			 ( string= "c-mode" major-mode))
+		     (if (use-region-p)
+			 (clang-format-region (region-beginning)
+					      (region-end))
+		       (clang-format-region (point)
+					    (point))))
+		    (( string= "emacs-lisp-mode" major-mode)
+		     (elisp-format-region))
+		    (( string= "rustic-mode" major-mode)
+		     (rustic-format-buffer))
+		    (( string= "json-mode" major-mode)
+		     (json-reformat-region))
+		    (t (message "Argh...don't know how to format in this mode :(")))))
 #+END_SRC
 
 *** Indenting
@@ -975,10 +972,15 @@ _m_  many-windows     |  _k_  step       _r_  remove break
          (setq python-indent 4)
          (setq tab-width 4)))
 
+(use-package lsp-pyright
+  :ensure t
+  :hook (python-mode . (lambda ()
+                          (require 'lsp-pyright)
+                          (lsp))))  ; or lsp-deferred
+
 (defhydra hydra-python (:color blue)
   ( "c" helm-yas-complete "helm yas complete"))
 #+END_SRC
-
 **** Scheme
 #+BEGIN_SRC emacs-lisp
 (add-hook 'scheme-mode-hook
@@ -1068,7 +1070,9 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 ** Version Control
 *** magit
 #+BEGIN_SRC emacs-lisp
-;; (use-package gitignore-mode :defer t)
+;; Can no longer be found ;(
+;; (use-package gitignore-mode :defer t) 
+
 (use-package magit :defer t)
 
 (defhydra hydra-magit (:color blue)
@@ -1266,13 +1270,13 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (defvar swift-command-map
   (let ((map (make-sparse-keymap)))
     ;; movement
-    (define-key map (kbd "i") '(lambda ()
-                                 (interactive)
-                                 (swift-up 2)))
+    (define-key map (kbd "i") (lambda ()
+                                (interactive)
+                                (swift-up 2)))
 
-    (define-key map (kbd "k") '(lambda ()
-                                 (interactive)
-                                 (swift-down 2)))
+    (define-key map (kbd "k") (lambda ()
+                                (interactive)
+                                (swift-down 2)))
 
     (define-key map (kbd "o") 'swift-up)
     (define-key map (kbd "l") 'swift-down)
@@ -1389,6 +1393,8 @@ eyebrowse               frame management
 
 ** Utility functions
 #+BEGIN_SRC emacs-lisp
+(use-package password-generator :defer t)
+
 (defun recompile-custom-packages ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))

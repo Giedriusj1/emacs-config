@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-pretty-print
+# key: g-pretty-print
+# --
+println!("$1 {:#?}", $1);
