@@ -10,6 +10,7 @@
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+			               ("org" . "https://orgmode.org/elpa/")
                          ("melpa" . "https://melpa.org/packages/")))
 
 ;; On Windows system we'll just ignore signatures altogether...
@@ -598,6 +599,7 @@
 ** ORG mode
 #+BEGIN_SRC emacs-lisp
   (use-package org
+    :pin org
     :defer t
     :mode (("\\.org$" . org-mode))
     :config
