@@ -3,7 +3,6 @@ auto-save-list/
 elpa/
 temps/
 url/
-emacs.el
 emacs_backtrace.txt
 eshell/
 custom--ignored.el
