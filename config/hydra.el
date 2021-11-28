@@ -26,3 +26,16 @@
 	    (t (message "Argh...hydra for your current mode does not exist :("))))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
+
+(defhydra hydra-search-helper
+  (:color blue)
+  "
+[_q_] update tags        [_o_] find gtag
+[_c_] create gtag        [_p_] hydra-lsp
+"
+  ("q" ggtags-update-tags nil)
+  ("c" ggtags-create-tags nil)
+  ("o" ggtags-find-tag-dwim nil)
+  ("p" hydra-lsp/body nil))
+
+(define-key tab-map (kbd "o") 'hydra-search-helper/body)

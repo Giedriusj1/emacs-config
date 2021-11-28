@@ -114,3 +114,5 @@
 
 (setq-default frame-title-format
               '(:eval (generate-frame-title)))
+
+(blink-cursor-mode -1)
