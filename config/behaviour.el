@@ -33,8 +33,6 @@
 
 (use-package posframe)
 
-
-
 (define-key tab-map (kbd "o") 'hydra-search-helper/body)
 
 (defhydra hydra-search-helper
@@ -620,77 +618,7 @@ _m_  many-windows     |  _k_  step       _r_  remove break
               (("C-m" . helm-swoop)
                ("m" . helm-multi-swoop-all))))
 
-(defun swift-up(&optional arg)
-  (interactive)
-  (or arg (setq arg 1))
-  (dotimes (bind arg)
-    (scroll-down-line)
-    (previous-line)))
 
-(defun swift-down(&optional arg)
-  (interactive)
-  (or arg (setq arg 1))
-  (dotimes (bind arg)
-    (scroll-up-line)
-    (next-line)))
-
-(define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
-
-(defvar swift-command-map
-  (let ((map (make-sparse-keymap)))
-    ;; movement
-    (define-key map (kbd "i") (lambda ()
-                                (interactive)
-                                (swift-up 2)))
-
-    (define-key map (kbd "k") (lambda ()
-                                (interactive)
-                                (swift-down 2)))
-
-    (define-key map (kbd "o") 'swift-up)
-    (define-key map (kbd "l") 'swift-down)
-
-    (define-key map (kbd "p") 'beginning-of-defun)
-    (define-key map (kbd "n") 'end-of-defun)
-
-    (define-key map (kbd "u") 'cua-scroll-down)
-    (define-key map (kbd "j") 'cua-scroll-up)
-
-    ;; cua mode
-    (define-key map (kbd "C-z") 'toggle-swift-mode)
-    (define-key map (kbd "C-x") 'kill-region)
-    (define-key map (kbd "C-c") 'kill-ring-save)
-    (define-key map (kbd "C-v") 'yank)
-    map))
-
-(define-minor-mode swift-mode
-  "Toggle SWIFT buffer mode."
-  ;; The initial value.
-  :init-value nil
-  ;; The indicator for the mode line.
-  :lighter " SWIFT"
-  ;; The minor mode bindings.
-  :keymap swift-command-map)
-
-(define-globalized-minor-mode global-swift-mode swift-mode
-  swift-mode
-  :init-value nil)
-
-(defun toggle-swift-mode()
-  (interactive)
-  (if (eq global-swift-mode t)
-      (progn ;; turning mode off
-        (custom-set-faces '(cursor ((t (:background "OrangeRed")))))
-	    (set-face-attribute 'mode-line nil
-                            :foreground "Black"
-                            :background "DarkOrange3"
-                            :box nil)
-        (global-swift-mode -1))
-
-    (progn ;; turning mode off
-      (custom-set-faces '(cursor ((t (:background "blue")))))
-      (custom-set-faces '(mode-line ((t (:background "#333377")))))
-      (global-swift-mode))))
 
 (use-package eyebrowse :ensure t
   :config
@@ -776,26 +704,3 @@ eyebrowse               frame management
   (let ((str (format "%.2f seconds" (float-time (time-subtract after-init-time before-init-time)))))
     (if (called-interactively-p 'interactive)
         (message "%s" str) str)))
-
-
-
-(use-package htmlize :defer t)
-;; default one would pick source colours from my current theme...
-(setq org-html-htmlize-output-type 'css)
-
-(setq org-publish-project-alist
-      '(("org-blog"
-	     :base-directory "~/private-sync/blog/"
-	     :base-extension "org"
-	     :publishing-directory "~/public_html/"
-	     :recursive t
-	     :publishing-function org-html-publish-to-html
-	     :headline-levels 4             ; Just the default for this project.
-	     :auto-preamble t )
-	    ("org-static"
-	     :base-directory "~/private-sync/blog/"
-	     :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-	     :publishing-directory "~/public_html/"
-	     :recursive t
-	     :publishing-function org-publish-attachment)))
-
