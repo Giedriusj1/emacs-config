@@ -31,101 +31,9 @@
           :map control-semi-map
           ("C-1" . zygospore-toggle-delete-other-windows)))
 
-(use-package hydra  :ensure t :defer t)
-(use-package pretty-hydra :ensure t :defer t)
-
 (use-package posframe)
-(require 'hydra-posframe)
 
-(customize-set-variable 'hydra-posframe-border-width 4)
-(hydra-posframe-mode)
 
-(defun spawn-local-mode-hydra ()
-  (interactive)
-  (cond (( string= "org-mode" major-mode)
-	     (hydra-org/body))
-	    (( string= "c-mode" major-mode)
-	     (hydra-c/body))
-	    (( string= "c++-mode" major-mode)
-	     (hydra-c/body))
-	    (( string= "python-mode" major-mode)
-	     (hydra-python/body))
-	    (( string= "emacs-lisp-mode" major-mode)
-	     (hydra-emacs-lisp/body))
-	    (( string= "rust-mode" major-mode)
-	     (hydra-rust/body))
-	    (( string= "rustic-mode" major-mode)
-	     (hydra-rust/body))
-	    (( string= "go-mode" major-mode)
-	     (hydra-go/body))
-	    (t (message "Argh...hydra for your current mode does not exist :("))))
-
-(defun g/helm-projectile-grep-notes (dir)
-  ;; In case we use this function before helm-projectile was loaded:
-  (use-package helm-projectile)
-
-  (let* ((default-directory dir)
-	     (helm-ff-default-directory default-directory)
-	     (helm-grep-in-recurse t)
-	     (helm-grep-ignored-files (cl-union (cl-union (projectile-ignored-files-rel)  grep-find-ignored-files) '("*.doc" "*.ovpn")))
-	     (helm-grep-ignored-directories
-	      (cl-union (mapcar 'directory-file-name (projectile-ignored-directories-rel))
-		            grep-find-ignored-directories))
-	     (helm-grep-default-command "grep -a -r %e -n%cH -e %p %f .")
-	     (helm-grep-default-recurse-command helm-grep-default-command))
-    (setq helm-source-grep
-	      (helm-build-async-source
-	          (capitalize (helm-grep-command t))
-	        :header-name  (lambda (_name) "grep" )
-	        :candidates-process 'helm-grep-collect-candidates
-	        :filter-one-by-one 'helm-grep-filter-one-by-one
-	        :candidate-number-limit 9999
-	        :nohighlight t
-	        ;; We need to specify keymap here and as :keymap arg [1]
-	        ;; to make it available in further resuming.
-	        :keymap helm-grep-map
-	        :history 'helm-grep-history
-	        :action (apply #'helm-make-actions helm-projectile-grep-or-ack-actions)
-	        :persistent-action 'helm-grep-persistent-action
-	        :persistent-help "Jump to line (`C-u' Record in mark ring)"
-	        :requires-pattern 2))
-    (helm
-     :sources '(helm-source-grep
-		        helm-source-projectile-buffers-list
-		        helm-source-projectile-files-list)
-     :input (when helm-projectile-set-input-automatically
-	          (if (region-active-p)
-		          (buffer-substring-no-properties (region-beginning) (region-end))
-		        (thing-at-point 'symbol)))
-     :default-directory default-directory
-     :keymap helm-grep-map
-     :history 'helm-grep-history
-     :truncate-lines helm-grep-truncate-lines)))
-
-(defhydra hydra-quickopen (:color blue)
-  "
-[_t_] ~/notes/temp
-[_c_] ~/.emacs.d/init.el
-[_l_] dired ~/private-sync/
-[_;_] grep notes"
-  ("t" (lambda ()
-	     (interactive)
-	     (find-file "~/.emacs.d/temps/emacs-temp")) nil)
-  ("c" (lambda ()
-         (interactive)
-         (find-file "~/.emacs.d/init.el")) nil)
-  (";" (lambda ()
-         (interactive)
-         (g/helm-projectile-grep-notes "~/private-sync")) nil)
-  ("l" (lambda ()
-         (interactive)
-         (progn (zygospore-toggle-delete-other-windows)
-	            (dired "~/private-sync")
-	            (helm-find-files-1 default-directory))) nil))
-
-(define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
-(define-key tab-map (kbd "m") 'hydra-magit/body)
-(define-key tab-map (kbd ";") 'hydra-quickopen/body)
 
 (define-key tab-map (kbd "o") 'hydra-search-helper/body)
 
@@ -615,74 +523,9 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (use-package dockerfile-mode :defer t)
 
-(use-package magit :defer t)
-
-(defhydra hydra-magit (:color blue)
-  "magit"
-  ("m" magit-status "status")
-  ("p" magit-pull "pull")
-  ("P" magit-push "push")
-  ("c" magit-commit "commit")
-  ("l" magit-log "log")
-  ("d" magit-diff-dwim "diff-dwim")
-  ("D" magit-diff "diff")
-  ("b" magit-blame "blame")
-  ("r" magit-show-refs "show-refs"))
-
-(use-package ediff :defer t
-  :ensure magit
-  :config
-  (dolist (face-map '((ediff-even-diff-A           . magit-diff-context-highlight)
-                      (ediff-even-diff-Ancestor    . magit-diff-context)
-                      (ediff-even-diff-B           . magit-diff-context-highlight)
-                      (ediff-even-diff-C           . magit-diff-context-highlight)
-                      (ediff-odd-diff-A            . magit-diff-context-highlight)
-                      (ediff-odd-diff-Ancestor     . magit-diff-context)
-                      (ediff-odd-diff-B            . magit-diff-context-highlight)
-                      (ediff-odd-diff-C            . magit-diff-context-highlight)
-                      (ediff-current-diff-A        . magit-diff-our)
-                      (ediff-current-diff-Ancestor . magit-diff-base)
-                      (ediff-current-diff-B        . magit-diff-their)
-                      (ediff-fine-diff-A           . magit-diff-removed-highlight)
-                      (ediff-fine-diff-Ancestor    . magit-diff-base-highlight)
-                      (ediff-fine-diff-B           . magit-diff-added-highlight)))
-    (let* ((face (car face-map))
-           (alias (cdr face-map)))
-      (put face 'theme-face nil)
-      (put face 'face-alias alias)))
-
-  ;; Setting this to t will only show two panes.
-  ;; This set to nil can be useful when dealing wih merge conflicts.
-  (setq magit-ediff-dwim-show-on-hunks t)
-
-  ;; turn off whitespace checking:
-  (setq ediff-diff-options "-w")
-
-  ;; Don't spawn new window for ediff
-  (setq ediff-window-setup-function 'ediff-setup-windows-plain)
-
-  ;; split window horizontally
-  (setq ediff-split-window-function 'split-window-horizontally)
-
-  ;; Since edif colours really don't play nicely with dark themes, we'll just overload them
-  ;; with magit colours. (This hack is taken from https://github.com/bbatsov/solarized-emacs/issues/194)
-  (dolist (entry '((ediff-current-diff-C . ((((class color) (background light))
-                                             (:background "#DDEEFF" :foreground "#005588"))
-                                            (((class color) (background dark))
-                                             (:background "#005588" :foreground "#DDEEFF"))))
-                   (ediff-fine-diff-C . ((((class color) (background light))
-                                          (:background "#EEFFFF" :foreground "#006699"))
-                                         (((class color) (background dark))
-                                          (:background "#006699" :foreground "#EEFFFF"))))))
-    (let ((face (car entry))
-          (spec (cdr entry)))
-      (put face 'theme-face nil)
-      (face-spec-set face spec)))
 
 
-  ;; This makes ediff usable with org mode
-  (with-eval-after-load 'outline
-    (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)))
+
 
 (setq auto-mode-alist
       '(("[Mm]ake[Ff]ile\\'" . makefile-mode)
