@@ -1,12 +1,12 @@
 ;;; -*- lexical-binding: t -*-
-(message "emacs.org : starting init stage")
+(message "init.el : starting init stage")
 
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-			               ("org" . "https://orgmode.org/elpa/")
+			             ;; ("org" . "https://orgmode.org/elpa/")
                          ("melpa" . "https://melpa.org/packages/")))
 
 ;; On Windows system we'll just ignore signatures altogether...
@@ -17,8 +17,8 @@
 ;; Make sure we have use-package installed.
 ;; All other packages will be installed by it.
 (unless (package-installed-p 'use-package)
-    (progn (package-refresh-contents)
-           (package-install 'use-package)))
+  (progn (package-refresh-contents)
+         (package-install 'use-package)))
 
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t)
@@ -38,39 +38,39 @@
   ;;  and saving files.
   (add-hook 'after-save-hook #'garbage-collect))
 
-(message "emacs.org : starting looks stage")
+(message "init.el : starting looks stage")
 
 (setq current-font "normal")
 
 (defun set-windows-font (mode)
   (cond ((string= mode "normal") (set-face-attribute 'default nil :font "Consolas" :height 100))
-	((string= mode "medium") (set-face-attribute 'default nil :font "Consolas" :height 110))
-	((string= mode "4k") (set-face-attribute 'default nil :font "Consolas" :height 120))))
+	    ((string= mode "medium") (set-face-attribute 'default nil :font "Consolas" :height 110))
+	    ((string= mode "4k") (set-face-attribute 'default nil :font "Consolas" :height 120))))
 
 (defun set-linux-font (mode)
   (cond
-	  ((string= mode "normal") (set-face-attribute 'default nil :font "Monospace" :height 100))
-	  ((string= mode "medium") (set-face-attribute 'default nil :font "Monospace" :height 120))
-	  ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))
+   ((string= mode "normal") (set-face-attribute 'default nil :font "Monospace" :height 100))
+   ((string= mode "medium") (set-face-attribute 'default nil :font "Monospace" :height 120))
+   ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))
 
 (defun set-font (mode)
   (progn
     (setq current-font mode)
     (cond ((string-equal system-type "windows-nt")
-	   ;; We are dealing with Windows sytem
-	   (set-windows-font mode))
-	  ((string-equal system-type "gnu/linux")
-	   ;; We are dealing with linux system:
-	   (set-linux-font mode)))))
+	       ;; We are dealing with Windows sytem
+	       (set-windows-font mode))
+	      ((string-equal system-type "gnu/linux")
+	       ;; We are dealing with linux system:
+	       (set-linux-font mode)))))
 
 (defun toggle-font-size()
   (interactive)
   (cond ((string= current-font "normal")
-	 (set-font "medium"))
-	((string= current-font "medium")
-	 (set-font "4k"))
-	((string= current-font "4k")
-	 (set-font "normal"))))
+	     (set-font "medium"))
+	    ((string= current-font "medium")
+	     (set-font "4k"))
+	    ((string= current-font "4k")
+	     (set-font "normal"))))
 
 ;; Default font size
 (defun set-font-normal ()
@@ -93,7 +93,7 @@
 (defun set-font-for-current-resolution ()
   (interactive)
   (cond ((is-4k-monitor) (set-font-normal))
-	(t (set-font-normal))))
+	    (t (set-font-normal))))
 
 (when (display-graphic-p)
 
@@ -136,9 +136,9 @@
   (use-package powerline :ensure t :config
     (powerline-default-theme)
     (set-face-attribute 'mode-line nil
-			:foreground "Black"
-			:background "DarkOrange3"
-			:box nil)))
+			            :foreground "Black"
+			            :background "DarkOrange3"
+			            :box nil)))
 
 (setq-default bidi-display-reordering nil)
 
@@ -154,7 +154,7 @@
 (setq-default frame-title-format
               '(:eval (generate-frame-title)))
 
-(message "emacs.org : starting behaviour stage")
+(message "init.el : starting behaviour stage")
 
 (setq comp-deferred-compilation nil
       package-native-compile t)
@@ -301,87 +301,87 @@
 (defun spawn-local-mode-hydra ()
   (interactive)
   (cond (( string= "org-mode" major-mode)
-	 (hydra-org/body))
-	(( string= "c-mode" major-mode)
-	 (hydra-c/body))
-	(( string= "c++-mode" major-mode)
-	 (hydra-c/body))
-	(( string= "python-mode" major-mode)
-	 (hydra-python/body))
-	(( string= "emacs-lisp-mode" major-mode)
-	 (hydra-emacs-lisp/body))
-	;; (( string= "scala-mode" major-mode)
-	;;  (hydra-scala/body))
-	(( string= "rust-mode" major-mode)
-	 (hydra-rust/body))
-	(( string= "rustic-mode" major-mode)
-	 (hydra-rust/body))
-	(( string= "go-mode" major-mode)
-	 (hydra-go/body))
-	(t (message "Argh...hydra for your current mode does not exist :("))))
+	     (hydra-org/body))
+	    (( string= "c-mode" major-mode)
+	     (hydra-c/body))
+	    (( string= "c++-mode" major-mode)
+	     (hydra-c/body))
+	    (( string= "python-mode" major-mode)
+	     (hydra-python/body))
+	    (( string= "emacs-lisp-mode" major-mode)
+	     (hydra-emacs-lisp/body))
+	    ;; (( string= "scala-mode" major-mode)
+	    ;;  (hydra-scala/body))
+	    (( string= "rust-mode" major-mode)
+	     (hydra-rust/body))
+	    (( string= "rustic-mode" major-mode)
+	     (hydra-rust/body))
+	    (( string= "go-mode" major-mode)
+	     (hydra-go/body))
+	    (t (message "Argh...hydra for your current mode does not exist :("))))
 
 (defun g/helm-projectile-grep-notes (dir)
   ;; In case we use this function before helm-projectile was loaded:
   (use-package helm-projectile)
 
   (let* ((default-directory dir)
-	 (helm-ff-default-directory default-directory)
-	 (helm-grep-in-recurse t)
-	 (helm-grep-ignored-files (cl-union (cl-union (projectile-ignored-files-rel)  grep-find-ignored-files) '("*.doc" "*.ovpn")))
-	 (helm-grep-ignored-directories
-	  (cl-union (mapcar 'directory-file-name (projectile-ignored-directories-rel))
-		    grep-find-ignored-directories))
-	 (helm-grep-default-command "grep -a -r %e -n%cH -e %p %f .")
-	 (helm-grep-default-recurse-command helm-grep-default-command))
+	     (helm-ff-default-directory default-directory)
+	     (helm-grep-in-recurse t)
+	     (helm-grep-ignored-files (cl-union (cl-union (projectile-ignored-files-rel)  grep-find-ignored-files) '("*.doc" "*.ovpn")))
+	     (helm-grep-ignored-directories
+	      (cl-union (mapcar 'directory-file-name (projectile-ignored-directories-rel))
+		            grep-find-ignored-directories))
+	     (helm-grep-default-command "grep -a -r %e -n%cH -e %p %f .")
+	     (helm-grep-default-recurse-command helm-grep-default-command))
     (setq helm-source-grep
-	  (helm-build-async-source
-	      (capitalize (helm-grep-command t))
-	    :header-name  (lambda (_name) "grep" )
-	    :candidates-process 'helm-grep-collect-candidates
-	    :filter-one-by-one 'helm-grep-filter-one-by-one
-	    :candidate-number-limit 9999
-	    :nohighlight t
-	    ;; We need to specify keymap here and as :keymap arg [1]
-	    ;; to make it available in further resuming.
-	    :keymap helm-grep-map
-	    :history 'helm-grep-history
-	    :action (apply #'helm-make-actions helm-projectile-grep-or-ack-actions)
-	    :persistent-action 'helm-grep-persistent-action
-	    :persistent-help "Jump to line (`C-u' Record in mark ring)"
-	    :requires-pattern 2))
+	      (helm-build-async-source
+	          (capitalize (helm-grep-command t))
+	        :header-name  (lambda (_name) "grep" )
+	        :candidates-process 'helm-grep-collect-candidates
+	        :filter-one-by-one 'helm-grep-filter-one-by-one
+	        :candidate-number-limit 9999
+	        :nohighlight t
+	        ;; We need to specify keymap here and as :keymap arg [1]
+	        ;; to make it available in further resuming.
+	        :keymap helm-grep-map
+	        :history 'helm-grep-history
+	        :action (apply #'helm-make-actions helm-projectile-grep-or-ack-actions)
+	        :persistent-action 'helm-grep-persistent-action
+	        :persistent-help "Jump to line (`C-u' Record in mark ring)"
+	        :requires-pattern 2))
     (helm
      :sources '(helm-source-grep
-		helm-source-projectile-buffers-list
-		helm-source-projectile-files-list)
+		        helm-source-projectile-buffers-list
+		        helm-source-projectile-files-list)
      :input (when helm-projectile-set-input-automatically
-	      (if (region-active-p)
-		  (buffer-substring-no-properties (region-beginning) (region-end))
-		(thing-at-point 'symbol)))
+	          (if (region-active-p)
+		          (buffer-substring-no-properties (region-beginning) (region-end))
+		        (thing-at-point 'symbol)))
      :default-directory default-directory
      :keymap helm-grep-map
      :history 'helm-grep-history
      :truncate-lines helm-grep-truncate-lines)))
 
 (defhydra hydra-quickopen (:color blue)
-"
+  "
 [_t_] ~/notes/temp
-[_c_] ~/.emacs.d/emacs.org
+[_c_] ~/.emacs.d/init.el
 [_l_] dired ~/private-sync/
 [_;_] grep notes"
-("t" (lambda ()
-	 (interactive)
-	 (find-file "~/.emacs.d/temps/emacs-temp")) nil)
-("c" (lambda ()
-       (interactive)
-       (find-file "~/.emacs.d/emacs.org")) nil)
-(";" (lambda ()
-       (interactive)
-       (g/helm-projectile-grep-notes "~/private-sync")) nil)
-("l" (lambda ()
-       (interactive)
-       (progn (zygospore-toggle-delete-other-windows)
-	      (dired "~/private-sync")
-	      (helm-find-files-1 default-directory))) nil))
+  ("t" (lambda ()
+	     (interactive)
+	     (find-file "~/.emacs.d/temps/emacs-temp")) nil)
+  ("c" (lambda ()
+         (interactive)
+         (find-file "~/.emacs.d/init.el")) nil)
+  (";" (lambda ()
+         (interactive)
+         (g/helm-projectile-grep-notes "~/private-sync")) nil)
+  ("l" (lambda ()
+         (interactive)
+         (progn (zygospore-toggle-delete-other-windows)
+	            (dired "~/private-sync")
+	            (helm-find-files-1 default-directory))) nil))
 
 (define-key tab-map (kbd "j") 'spawn-local-mode-hydra)
 (define-key tab-map (kbd "m") 'hydra-magit/body)
@@ -391,14 +391,14 @@
 
 (defhydra hydra-search-helper
   (:color blue)
-"
+  "
 [_q_] update tags        [_o_] find gtag
 [_c_] create gtag        [_p_] hydra-lsp
 "
-("q" ggtags-update-tags nil)
-("c" ggtags-create-tags nil)
-("o" ggtags-find-tag-dwim nil)
-("p" hydra-lsp/body nil))
+  ("q" ggtags-update-tags nil)
+  ("c" ggtags-create-tags nil)
+  ("o" ggtags-find-tag-dwim nil)
+  ("p" hydra-lsp/body nil))
 
 (define-prefix-command 'mc-map)
 (use-package multiple-cursors :defer t
@@ -463,13 +463,13 @@
 [_j_] helm projectile  [_d_] dired projectile root
 [_g_]rep [_a_]ck [_r_] projectile-ripgrep [_R_] helm-projectile-ripgrep
 " ("p" helm-projectile-projects nil)
-("q" projectile-invalidate-cache nil)
-("j" helm-projectile nil)
-("d" projectile-dired nil)
-("g" helm-projectile-grep nil)
-("a" helm-projectile-ack nil)
-("r" projectile-ripgrep nil)
-("R" helm-projectile-rg nil)))
+    ("q" projectile-invalidate-cache nil)
+    ("j" helm-projectile nil)
+    ("d" projectile-dired nil)
+    ("g" helm-projectile-grep nil)
+    ("a" helm-projectile-ack nil)
+    ("r" projectile-ripgrep nil)
+    ("R" helm-projectile-rg nil)))
 
 (use-package projectile-git-autofetch :defer t
   :config
@@ -483,9 +483,9 @@
 (setq dired-dwim-target t)
 
 (add-hook 'dired-mode-hook
-	  (lambda ()
-	    (dired-hide-details-mode 1)
-        (dired-omit-mode)))
+	      (lambda ()
+	        (dired-hide-details-mode 1)
+            (dired-omit-mode)))
 
 (define-key dired-mode-map (kbd "l") 'dired-up-directory)
 (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
@@ -503,8 +503,8 @@
 (defun open-in-external-app ()
   (interactive)
   (let ((fileList (cond ((string-equal major-mode "dired-mode")
-                           (dired-get-marked-files))
-                          (t (list (buffer-file-name))))))
+                         (dired-get-marked-files))
+                        (t (list (buffer-file-name))))))
     (cond ((string-equal system-type "windows-nt")
            (mapc (lambda (path) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" path t t))) fileList))
           ((string-equal system-type "darwin")
@@ -516,45 +516,45 @@
   :diminish auto-sudoedit-mode
   :config (auto-sudoedit-mode 1))
 
-  (use-package org
-    :pin org
-    :defer t
-    :mode (("\\.org$" . org-mode))
-    :config
-    (eldoc-mode -1)
+(use-package org
+  ;; :pin org
+  :defer t
+  :mode (("\\.org$" . org-mode))
+  :config
+  (eldoc-mode -1)
 
-    (defhydra hydra-org (:color blue)
-      "
+  (defhydra hydra-org (:color blue)
+    "
     [_o_]   metaright   [_u_]   metaleft  [_n_]   metaup  [_p_]   metadown
     [_C-o_] shiftright  [_C-u_] shiftleft [_C-n_] shiftup [_C-p_] shiftdown
     [_e_]   edit source [_s_] exit source edit buffer [_E_]   babel execute
     [_c_]   yas helm expand
       "
-      ( "o" org-metaright nil)
-      ( "u" org-metaleft nil)
-      ( "p" org-metaup nil)
-      ( "n" org-metadown nil)
-      ( "C-o" org-shiftright nil)
-      ( "C-u" org-shiftleft nil)
-      ( "C-p" org-shiftup nil)
-      ( "C-n" org-shiftdown nil)
-      ( "e" org-edit-src-code nil)
-      ( "E" org-babel-execute-src-block nil)
-      ( "s" org-edit-src-exit nil)
-      ( "c" helm-yas-complete nil))
+    ( "o" org-metaright nil)
+    ( "u" org-metaleft nil)
+    ( "p" org-metaup nil)
+    ( "n" org-metadown nil)
+    ( "C-o" org-shiftright nil)
+    ( "C-u" org-shiftleft nil)
+    ( "C-p" org-shiftup nil)
+    ( "C-n" org-shiftdown nil)
+    ( "e" org-edit-src-code nil)
+    ( "E" org-babel-execute-src-block nil)
+    ( "s" org-edit-src-exit nil)
+    ( "c" helm-yas-complete nil))
 
-    (setq org-directory "~/private-sync/notes")
-    (setq org-default-notes-file "~/private-sync/notes/notes.org")
-    (setq org-src-preserve-indentation t)
-    (setq org-startup-indented t)
-    (setq org-startup-truncated nil)
-    (setq org-export-with-toc nil)
-    (setq org-hierarchical-todo-statistics nil)
-    (setq org-imenu-depth 5)
-    (customize-set-variable 'helm-split-window-default-side 'right))
+  (setq org-directory "~/private-sync/notes")
+  (setq org-default-notes-file "~/private-sync/notes/notes.org")
+  (setq org-src-preserve-indentation t)
+  (setq org-startup-indented t)
+  (setq org-startup-truncated nil)
+  (setq org-export-with-toc nil)
+  (setq org-hierarchical-todo-statistics nil)
+  (setq org-imenu-depth 5)
+  (customize-set-variable 'helm-split-window-default-side 'right))
 
 (defun private-synch-fn ()
-(interactive)
+  (interactive)
   (let* ((default-directory "~/private-sync"))
 	(message "pulling private-sync repo")
 	(start-process "proc-git-pull" "notes-sync-output" "git" "pull")))
@@ -659,8 +659,8 @@
     ("u" helm-lsp-code-actions "execute action"))
    "Server"
    (("M-r" move-border-left "restart")
-     ("S" lsp-shutdown-workspace "restart")
-     ("M-s" lsp-describe-session "shutdown"))
+    ("S" lsp-shutdown-workspace "restart")
+    ("M-s" lsp-describe-session "shutdown"))
    "Symbol"
    (("d" lsp-find-declaration "declaration")
     ("D" lsp-ui-peek-find-definitions "definition")
@@ -686,15 +686,15 @@
         '((company-lsp .
                        ( :selected (:background "orange"  :foreground "black")))
           (company-capf .
-			( :selected (:background "orange" :foreground "black"))))))
+			            ( :selected (:background "orange" :foreground "black"))))))
 
 (use-package company :defer t
   :bind ( :map company-active-map
-               (("C-n" . company-select-next)
-                ("C-p" . company-select-previous))
-              :map control-semi-map
-              (("n" . company-complete)
-               ("C-n" . dabbrev-expand)))
+          (("C-n" . company-select-next)
+           ("C-p" . company-select-previous))
+          :map control-semi-map
+          (("n" . company-complete)
+           ("C-n" . dabbrev-expand)))
   :diminish company-mode
   :config
   (require 'color)
@@ -715,21 +715,21 @@
 
 (defhydra hydra-gdb-helper (:color blue)
 
-"
+  "
 _h_  restore-windows  |  _j_  next       _b_  set break     _p_ print
 _m_  many-windows     |  _k_  step       _r_  remove break
                     |  _l_  up
                     |  _c_  cont
 "
-( "h" gdb-restore-windows nil)
-( "m" gdb-many-windows nil)
-( "j" gud-next nil)
-( "k" gud-step nil)
-( "l" gud-up nil)
-( "b" gud-break nil)
-( "r" gud-remove nil)
-( "c" gud-cont nil)
-( "p" gud-print nil))
+  ( "h" gdb-restore-windows nil)
+  ( "m" gdb-many-windows nil)
+  ( "j" gud-next nil)
+  ( "k" gud-step nil)
+  ( "l" gud-up nil)
+  ( "b" gud-break nil)
+  ( "r" gud-remove nil)
+  ( "c" gud-cont nil)
+  ( "p" gud-print nil))
 
 (use-package dap-mode :defer t)
 
@@ -752,22 +752,22 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 (use-package elisp-format :defer t)
 
 (define-key tab-map (kbd "i")
-	    (lambda ()
-	      (interactive)
-	      (cond ((or ( string= "c++-mode" major-mode)
-			 ( string= "c-mode" major-mode))
-		     (if (use-region-p)
-			 (clang-format-region (region-beginning)
-					      (region-end))
-		       (clang-format-region (point)
-					    (point))))
-		    (( string= "emacs-lisp-mode" major-mode)
-		     (elisp-format-region))
-		    (( string= "rustic-mode" major-mode)
-		     (rustic-format-buffer))
-		    (( string= "json-mode" major-mode)
-		     (json-reformat-region))
-		    (t (message "Argh...don't know how to format in this mode :(")))))
+	        (lambda ()
+	          (interactive)
+	          (cond ((or ( string= "c++-mode" major-mode)
+			             ( string= "c-mode" major-mode))
+		             (if (use-region-p)
+			             (clang-format-region (region-beginning)
+					                          (region-end))
+		               (clang-format-region (point)
+					                        (point))))
+		            (( string= "emacs-lisp-mode" major-mode)
+		             (elisp-format-region))
+		            (( string= "rustic-mode" major-mode)
+		             (rustic-format-buffer))
+		            (( string= "json-mode" major-mode)
+		             (json-reformat-region))
+		            (t (message "Argh...don't know how to format in this mode :(")))))
 
 (defun get-prefered-indentation-size ()
   (cond
@@ -791,9 +791,9 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (add-hook 'c-mode-common-hook
           (lambda()
-	    ;; Only use lsp on non Win machines, since thing can be quite slow there...
-	    (cond ((not (string-equal system-type "windows-nt"))
-		   (lsp)))
+	        ;; Only use lsp on non Win machines, since thing can be quite slow there...
+	        (cond ((not (string-equal system-type "windows-nt"))
+		           (lsp)))
             ;; Use C++ style comments
             (setq comment-start "//" comment-end  "")))
 
@@ -822,23 +822,23 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   (add-hook 'go-mode-hook 'my-go-mode-hook))
 
 (add-hook 'python-mode-hook
-      (lambda()
-         (setq indent-tabs-mode nil)
-         (setq python-indent 4)
-         (setq tab-width 4)))
+          (lambda()
+            (setq indent-tabs-mode nil)
+            (setq python-indent 4)
+            (setq tab-width 4)))
 
 (use-package lsp-pyright
   :ensure t
   :hook (python-mode . (lambda ()
-                          (require 'lsp-pyright)
-                          (lsp))))  ; or lsp-deferred
+                         (require 'lsp-pyright)
+                         (lsp))))  ; or lsp-deferred
 
 (defhydra hydra-python (:color blue)
   ( "c" helm-yas-complete "helm yas complete"))
 
 (add-hook 'scheme-mode-hook
-      (lambda()
-         (setq indent-tabs-mode nil)))
+          (lambda()
+            (setq indent-tabs-mode nil)))
 
 (defhydra hydra-emacs-lisp (:color blue)
   ( "j" eval-buffer "eval buffer")
@@ -1110,10 +1110,10 @@ _m_  many-windows     |  _k_  step       _r_  remove break
   (if (eq global-swift-mode t)
       (progn ;; turning mode off
         (custom-set-faces '(cursor ((t (:background "OrangeRed")))))
-	(set-face-attribute 'mode-line nil
-                      :foreground "Black"
-                      :background "DarkOrange3"
-                      :box nil)
+	    (set-face-attribute 'mode-line nil
+                            :foreground "Black"
+                            :background "DarkOrange3"
+                            :box nil)
         (global-swift-mode -1))
 
     (progn ;; turning mode off
@@ -1145,15 +1145,15 @@ eyebrowse               frame management
   ("M-d" delete-frame nil)
   ("M-r" eyebrowse-rename-window-config nil)
   ("M-c"  (lambda ()
-	    (interactive)
-	    (progn
-	      (eyebrowse-create-window-config)
-	      (show-eyebrowse-posframe)) nil))
+	        (interactive)
+	        (progn
+	          (eyebrowse-create-window-config)
+	          (show-eyebrowse-posframe)) nil))
   ("M-k" (lambda ()
-	    (interactive)
-	    (progn
-	      (eyebrowse-close-window-config)
-	      (show-eyebrowse-posframe)) nil)))
+	       (interactive)
+	       (progn
+	         (eyebrowse-close-window-config)
+	         (show-eyebrowse-posframe)) nil)))
 
 (global-set-key (kbd "M-SPC") 'hydra-frame-helper/body)
 (global-set-key (kbd "<C-tab>") 'eyebrowse-next)
@@ -1197,7 +1197,7 @@ eyebrowse               frame management
 
 (defun org-babel-reload-emacs-org()
   (interactive)
-  (org-babel-load-file "~/.emacs.d/emacs.org"))
+  (org-babel-load-file "~/.emacs.d/init.el"))
 
 (defun emacs-init-time ()
   "Return a string giving the duration of the Emacs initialization."
@@ -1208,7 +1208,7 @@ eyebrowse               frame management
 
 (defun display-startup-echo-area-message ()
   (message (concat "Emacs took " (emacs-init-time) " seconds to start."
-		   (if (fboundp 'native-compile-async) " With native compiler!"))))
+		           (if (fboundp 'native-compile-async) " With native compiler!"))))
 
 (use-package htmlize :defer t)
 ;; default one would pick source colours from my current theme...
@@ -1216,21 +1216,21 @@ eyebrowse               frame management
 
 (setq org-publish-project-alist
       '(("org-blog"
-	 :base-directory "~/private-sync/blog/"
-	 :base-extension "org"
-	 :publishing-directory "~/public_html/"
-	 :recursive t
-	 :publishing-function org-html-publish-to-html
-	 :headline-levels 4             ; Just the default for this project.
-	 :auto-preamble t )
-	("org-static"
-	 :base-directory "~/private-sync/blog/"
-	 :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-	 :publishing-directory "~/public_html/"
-	 :recursive t
-	 :publishing-function org-publish-attachment)))
+	     :base-directory "~/private-sync/blog/"
+	     :base-extension "org"
+	     :publishing-directory "~/public_html/"
+	     :recursive t
+	     :publishing-function org-html-publish-to-html
+	     :headline-levels 4             ; Just the default for this project.
+	     :auto-preamble t )
+	    ("org-static"
+	     :base-directory "~/private-sync/blog/"
+	     :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+	     :publishing-directory "~/public_html/"
+	     :recursive t
+	     :publishing-function org-publish-attachment)))
 
-(message "emacs.org : starting alias stage")
+(message "init.el : starting alias stage")
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'describe-bindings 'helm-descbinds)
@@ -1240,4 +1240,4 @@ eyebrowse               frame management
 (defalias 'msf 'menu-set-font)
 
 (display-startup-echo-area-message)
-(message "emacs.org : done loading!")
+(message "init.el : done loading!")
