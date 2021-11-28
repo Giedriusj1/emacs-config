@@ -1,17 +1,21 @@
+(use-package dired-x :ensure nil :defer t)
+
+(use-package dired-subtree :defer t)
+
+(use-package dired-extension :ensure nil)
+
+(use-package dired-toggle-sudo :ensure nil)
+
 (use-package diminish)
+
+(use-package google-this :defer t)
+
+(use-package posframe :defer t)
 
 ;; Show number of matches in mode-line while searching
 (use-package anzu
   :diminish anzu-mode
   :config (global-anzu-mode t))
-
-(cua-mode 1)
-
-(setq cua-prefix-override-inhibit-delay 0.01)
-
-(bind-key "C-f" 'cua-exchange-point-and-mark)
-
-(bind-key* "C-v" 'yank)
 
 (use-package recentf :ensure nil
   :config
@@ -21,8 +25,6 @@
 
 (use-package shell-here :defer t
   :bind* (( "C-`" . shell-here)))
-
-(setq windmove-wrap-around t)
 
 (use-package zygospore :ensure nil
   :bind* (("C-1" . 'window-swap-states)
@@ -37,10 +39,19 @@
   (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
 
-(use-package dired-x :ensure nil :defer t)
-(use-package dired-subtree :defer t)
-(use-package dired-extension :ensure nil)
-(use-package dired-toggle-sudo :ensure nil)
+(use-package auto-sudoedit
+  :diminish auto-sudoedit-mode
+  :config (auto-sudoedit-mode 1))
+
+(cua-mode 1)
+
+(setq cua-prefix-override-inhibit-delay 0.01)
+
+(bind-key "C-f" 'cua-exchange-point-and-mark)
+
+(bind-key* "C-v" 'yank)
+
+(setq windmove-wrap-around t)
 
 (setq dired-dwim-target t)
 
@@ -61,10 +72,6 @@
 (when (memq system-type '(gnu gnu/linux))
   (setq dired-listing-switches
         (concat dired-listing-switches " --group-directories-first -v")))
-
-(use-package auto-sudoedit
-  :diminish auto-sudoedit-mode
-  :config (auto-sudoedit-mode 1))
 
 ;; todo (Sat Jul 18 16:34:44 2020) eldoc was throwing non stop errors in org-mode.
 ;; Maybe we want to enable it back at some point *shrug*
@@ -111,8 +118,6 @@
       (make-directory parent-directory t))))
 
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
-
-(use-package google-this :defer t)
 
 (setq ring-bell-function 'ignore)
 
@@ -164,5 +169,3 @@
         ("\\.s\\'" . asm-mode)
         ("\\.S\\'" . asm-mode)
         ("\\.adl\\'" . adl-mode)))
-
-(use-package posframe :defer t)
