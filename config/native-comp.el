@@ -5,4 +5,7 @@
   (interactive)
   (progn
     (recompile-custom-packages)
-    (native-compile-async '("~/.emacs.d/custom-packages" "~/.emacs.d/elpa") 'recursively)))
+    (native-compile-async '("~/.emacs.d/custom-packages"
+                            "~/.emacs.d/elpa"
+                            "~/.emacs.d/config"
+                            ) 'recursively)))
