@@ -1,4 +1,4 @@
-(use-package helm :defer t
+(use-package helm
   :bind
   (("C-j" . helm-mini))
   (:map control-semi-map
