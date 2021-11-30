@@ -1,5 +1,4 @@
-(use-package org :pin gnu
-  :defer t
+(use-package org :defer t :pin gnu
   :mode (("\\.org$" . org-mode))
   :bind
   (:map org-mode-map (("C-j" . helm-mini) ("<C-tab>" . eyebrowse-next) ))
