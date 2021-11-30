@@ -20,8 +20,7 @@
   (setq dumb-jump-force-searcher 'rg))
 
 
-(use-package yasnippet
-  ;; :defer t
+(use-package yasnippet :defer t
   :ensure yasnippet-snippets
   :ensure yasnippet-classic-snippets
   :ensure helm-c-yasnippet
@@ -99,9 +98,10 @@
           (lambda()
             (setq indent-tabs-mode nil)
             (setq python-indent 4)
-            (setq tab-width 4)))
+            (setq tab-width 4)
+            (tree-sitter-hl-mode)))
 
-(use-package lsp-pyright
+(use-package lsp-pyright :defer t
   :ensure t
   :hook (python-mode . (lambda ()
                          (require 'lsp-pyright)
