@@ -1,6 +1,5 @@
 (message "looks.el : starting looks stage")
 
-
 (setq current-font "normal")
 
 (defun set-windows-font (mode)
@@ -56,8 +55,7 @@
   (cond ((is-4k-monitor) (set-font-normal))
 	    (t (set-font-normal))))
 
-(when (display-graphic-p)
-
+(defun load-graphic-settings (&optional _a)
   (customize-set-variable 'custom-enabled-themes '(wombat))
 
   (customize-set-variable
@@ -100,6 +98,11 @@
 			            :foreground "Black"
 			            :background "DarkOrange3"
 			            :box nil)))
+
+(add-hook 'after-make-frame-functions 'load-graphic-settings)
+
+(when (display-graphic-p)
+  (load-graphic-settings))
 
 (setq-default bidi-display-reordering nil)
 
