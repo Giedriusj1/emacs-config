@@ -36,3 +36,15 @@
   (save-excursion
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
+
+
+(defmacro measure-time (&rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "%.06f" (float-time (time-since time)))))
+
+;; (measure-time (subr-native-comp-unit (symbol-function 'org-mode)) )
+
+;; to check if the function is natively compiled
+;; (subr-native-comp-unit (symbol-function 'org-mode))
