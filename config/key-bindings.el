@@ -1,5 +1,8 @@
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
+(define-prefix-command 'lisp-playground-map)
+
+(define-key tab-map (kbd "SPC") 'lisp-playground-map)
 
 (bind-key* "C-d" 'tab-map)
 (bind-key* "C-;" 'control-semi-map)
