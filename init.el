@@ -37,6 +37,12 @@
   ;;  and saving files.
   (add-hook 'after-save-hook #'garbage-collect))
 
+(defmacro measure-time (&rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "took %.06f seconds" (float-time (time-since time)))))
+
 ;; This defines in which order we want to load our config.
 (setq basic-load-sequence '("looks.el"        ; We want looks ASAP, to reduce any flickering
                             "key-bindings.el" ; Key bindings are also needed early, for prefixes
@@ -44,14 +50,15 @@
 
 ;; Let's load the files specified in the basic load sequence:
 (dolist (element basic-load-sequence)
-  (load (concat "~/.emacs.d/config/" element)))
+  (measure-time (load (concat "~/.emacs.d/config/" element))))
 
 ;; Now let's load the remaining stuff:
 (dolist (element (seq-filter (lambda (item)
                                (and (string-match-p ".el$" item)
                                     (not (member item basic-load-sequence))))
                              (directory-files "~/.emacs.d/config")))
-  (load (concat "~/.emacs.d/config/" element)))
+  (measure-time
+   (load (concat "~/.emacs.d/config/" element))))
 
 (fset 'display-startup-echo-area-message 'ignore)
 (message (concat "Emacs took " (emacs-init-time) " seconds to start."
