@@ -14,10 +14,10 @@
 ;;   ;; Projectile already displays this information.
 ;;   (setq ggtags-mode-line-project-name nil))
 
-(use-package dumb-jump :defer t
-  :config
-  (setq dumb-jump-selector 'helm)
-  (setq dumb-jump-force-searcher 'rg))
+;; (use-package dumb-jump :defer t
+;;   :config
+;;   (setq dumb-jump-selector 'helm)
+;;   (setq dumb-jump-force-searcher 'rg))
 
 
 (use-package yasnippet :defer t
@@ -70,7 +70,7 @@
             ;; Use C++ style comments
             (setq comment-start "//" comment-end  "")))
 
-(use-package ob-rust :defer t)
+;; (use-package ob-rust :defer t)
 
 (use-package toml-mode :defer t)
 
@@ -126,7 +126,7 @@
 
 (use-package powershell :defer t)
 
-(use-package g-adl-mode :ensure nil)
+(use-package g-adl-mode :ensure nil)    ; We can't defer this one for some reason
 
 (use-package graphql-mode :defer t)
 
