@@ -1,11 +1,3 @@
-(use-package dired-x :ensure nil :defer t)
-
-(use-package dired-subtree :defer t)
-
-(use-package dired-extension :ensure nil)
-
-(use-package dired-toggle-sudo :ensure nil)
-
 (use-package diminish)
 
 (use-package google-this :defer t)
@@ -39,35 +31,17 @@
   (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
 
-(use-package auto-sudoedit
-  :diminish auto-sudoedit-mode
-  :config (auto-sudoedit-mode 1))
+
+(cond ((string-equal system-type "gnu/linux")
+       (use-package auto-sudoedit
+         :diminish auto-sudoedit-mode
+         :config (auto-sudoedit-mode 1))))
 
 (cua-mode 1)
 
 (setq cua-prefix-override-inhibit-delay 0.01)
 
 (setq windmove-wrap-around t)
-
-(setq dired-dwim-target t)
-
-(add-hook 'dired-mode-hook
-	      (lambda ()
-	        (dired-hide-details-mode 1)
-            (dired-omit-mode)))
-
-(define-key dired-mode-map (kbd "l") 'dired-up-directory)
-(define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
-(define-key dired-mode-map (kbd "C-i") (lambda ()
-                                         (interactive)
-                                         (dired-subtree-cycle)
-                                         (dired-omit-mode)))
-
-(setq dired-listing-switches "-alFh")
-
-(when (memq system-type '(gnu gnu/linux))
-  (setq dired-listing-switches
-        (concat dired-listing-switches " --group-directories-first -v")))
 
 ;; todo (Sat Jul 18 16:34:44 2020) eldoc was throwing non stop errors in org-mode.
 ;; Maybe we want to enable it back at some point *shrug*
