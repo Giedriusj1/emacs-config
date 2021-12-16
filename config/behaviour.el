@@ -43,10 +43,6 @@
 
 (setq windmove-wrap-around t)
 
-;; todo (Sat Jul 18 16:34:44 2020) eldoc was throwing non stop errors in org-mode.
-;; Maybe we want to enable it back at some point *shrug*
-(global-eldoc-mode -1)
-
 ;; set to t to investigate crashes
 (setq debug-on-error nil)
 (setq inhibit-splash-screen t)

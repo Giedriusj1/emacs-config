@@ -3,7 +3,6 @@
   :bind
   (:map org-mode-map (("C-j" . helm-mini) ("<C-tab>" . eyebrowse-next) ))
   :config
-  (eldoc-mode -1)
 
   (defhydra hydra-org (:color blue)
     "
