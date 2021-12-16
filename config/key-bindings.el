@@ -49,6 +49,10 @@
 (bind-key* "C-q" 'beginning-of-line)
 (bind-key* "C-w" 'back-to-indentation)
 
+(bind-key "C-f" 'cua-exchange-point-and-mark)
+
+(bind-key* "C-v" 'yank)
+
 (define-key control-semi-map (kbd "SPC") 'point-to-register)
 (define-key control-semi-map (kbd "C-SPC") 'point-to-register)
 (define-key control-semi-map (kbd "j") 'jump-to-register)

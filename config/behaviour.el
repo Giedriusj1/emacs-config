@@ -47,10 +47,6 @@
 
 (setq cua-prefix-override-inhibit-delay 0.01)
 
-(bind-key "C-f" 'cua-exchange-point-and-mark)
-
-(bind-key* "C-v" 'yank)
-
 (setq windmove-wrap-around t)
 
 (setq dired-dwim-target t)
