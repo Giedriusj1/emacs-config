@@ -1,4 +1,4 @@
-(use-package helm
+(use-package helm :defer 1
   :bind
   (("C-j" . helm-mini))
   (:map control-semi-map
@@ -11,26 +11,26 @@
 
   (:map lisp-interaction-mode-map (("C-j" . helm-mini)))
   :config
+  (semantic-mode 1) ;; global mode
   (setq helm-candidate-number-limit 500)
   (setq helm-buffer-max-length 60)
 
   (custom-set-faces '(helm-rg-file-match-face ((t (:foreground "purple" :background "black" :weight bold))))))
 
-(use-package helm-swoop :defer t
+(use-package helm-swoop :defer 2
   :bind (:map control-semi-map
               (("C-m" . helm-swoop)
                ("m" . helm-multi-swoop-all))))
 
-(use-package swiper :defer t)
-(use-package swiper-helm :defer t
+
+(use-package swiper-helm :defer 2
   :bind (:map control-semi-map (())
               ("o" . swiper-helm)
-              ("C-;" . swiper-helm)))
+              ("C-;" . swiper-helm))
+  :config
+  (require 'swiper))
 
-
-(use-package helm-rg :defer t)
-
-(semantic-mode 1) ;; global mode
+(use-package helm-rg :defer 10)
 
 ;; This effectively disables idle reparsing for all files
 (setq semantic-idle-scheduler-max-buffer-size 1)
