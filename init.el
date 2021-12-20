@@ -8,6 +8,18 @@
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 
+(setq use-emergency-package-mirror nil)
+
+;; Set to t if gnu.org or melpa.org are down
+(when nil
+  (message "Using emergency package mirrors")
+  (setq package-archives
+        '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+          ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+
+  (setq package-check-signature nil))
+
+
 ;; On Windows system we'll just ignore signatures altogether...
 ;; too much hassle.
 (cond ((string-equal system-type "windows-nt")
