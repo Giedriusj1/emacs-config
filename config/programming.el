@@ -76,6 +76,7 @@
 
 (use-package rustic :defer t
   :config
+  (add-hook 'rust-mode-hook #'tree-sitter-hl-mode)
   (defhydra hydra-rust (:color blue)
     ("c" helm-yas-complete "yas complete")
     ("C" rustic-cargo-clean "cargo clean")
