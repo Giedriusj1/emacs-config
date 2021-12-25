@@ -87,6 +87,16 @@
 
 (setq ring-bell-function 'ignore)
 
+(defadvice message (after message-tail activate)
+  "goto point max after a message"
+  (with-current-buffer "*Messages*"
+    (goto-char (point-max))
+    (walk-windows (lambda (window)
+                    (if (string-equal (buffer-name (window-buffer window)) "*Messages*")
+                        (set-window-point window (point-max))))
+                  nil
+                  t)))
+
 (setq auto-mode-alist
       '(("[Mm]ake[Ff]ile\\'" . makefile-mode)
         ("\\.mak\\'" . makefile-mode)
