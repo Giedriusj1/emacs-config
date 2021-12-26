@@ -103,12 +103,12 @@
 			            :background "DarkOrange3"
 			            :box nil)))
 
+
 (add-hook 'after-make-frame-functions 'load-graphic-settings)
 
 (when (display-graphic-p)
   (load-graphic-settings))
 
-(setq-default bidi-display-reordering nil)
 
 (use-package uniquify :ensure nil
   :config (setq uniquify-buffer-name-style 'forward))
