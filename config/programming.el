@@ -102,11 +102,7 @@
             (setq tab-width 4)
             (tree-sitter-hl-mode)))
 
-(use-package lsp-pyright :defer t
-  :ensure t
-  :hook (python-mode . (lambda ()
-                         (require 'lsp-pyright)
-                         (lsp))))  ; or lsp-deferred
+(use-package lsp-pyright :defer t :ensure t)
 
 (defhydra hydra-python (:color blue)
   ( "c" helm-yas-complete "helm yas complete"))
