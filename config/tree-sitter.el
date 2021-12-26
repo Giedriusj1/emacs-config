@@ -8,11 +8,9 @@
 
 (global-tree-sitter-mode)
 
-
-
 (define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
 (define-key lisp-playground-map (kbd "g") 'g-tree)
-(define-key lisp-playground-map (kbd "s") 'helm-tree-sitter)
+(define-key lisp-playground-map (kbd "s") 'helm-tree-sitter-or-imenu)
 
 ;TODO: We want to use-package with sensible autoloads, etc...
 ;; (require 'helm-tree-sitter)

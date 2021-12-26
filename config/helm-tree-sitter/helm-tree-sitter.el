@@ -42,44 +42,74 @@
         (rust-mode . hts/rust-candidate-producer)
         (rustic-mode . hts/rust-candidate-producer)))
 
-;; Out main entry funtion
+;; If tree-sitter-tree is available and we know how to deal with major-mode,
+;; we'll use helm-tree-sitter. Otherwise we'll default to helm-imenu
+;;;###autoload
+(defun helm-tree-sitter-or-imenu ()
+  (interactive)
+
+  (if (and tree-sitter-tree
+           (symbol-value (assoc-default major-mode hts-producer-mode-maps)))
+      (helm-tree-sitter)
+    (helm-imenu)))
+
+
 ;;;###autoload
 (defun helm-tree-sitter ()
   (interactive)
-  (helm :sources `(((name . "Tree-sitter")
-                    (candidates . ,(hts/elements-to-helm-candidates (hts/build-node-list (tsc-root-node tree-sitter-tree) 0)))
-                    (action . (("goto" .
-                                (lambda (x)
-                                  (goto-char (hts/elem-start-pos x))))
-                               ("show node text" .
-                                (lambda (x)
-                                  (message "%s" (format "%s"(tsc-node-text x )) x)))))))))
+
+  ;; We'll be copying fontified text from the buffer, so we want to
+  ;; make sure that it's been properly fontifier before we do anything.
+  (if (fboundp 'font-lock-ensure)
+      (font-lock-ensure)
+    (with-no-warnings
+      (font-lock-fontify-buffer)))
+
+  (helm :sources
+        `((name . "Tree-sitter")
+          (candidates . ,(hts/elements-to-helm-candidates (hts/build-node-list (tsc-root-node tree-sitter-tree) 0)))
+          (action . (("goto" .
+                      (lambda (x)
+                        (goto-char (hts/elem-start-pos x))))
+                     ("show node text" .
+                      (lambda (x)
+                        (message "%s" (tsc-node-text x ))))
+                     )))
+
+        :candidate-number-limit 9999
+        :buffer "*helm tree-sitter*"))
 
 (defun hts/get-candidate-producer-for-current-mode ()
   (let* ((our-producer (symbol-value (assoc-default major-mode hts-producer-mode-maps)) ))
     (if our-producer
         our-producer
+
+      ;; else
+      ;TODO: signal that mode is not supported
       (progn
-        ;TODO: signal that mode is not supported
         nil
-        )
-      
-      
-      )))
+        ))))
 
 (defun hts/elements-to-helm-candidates (elements)
   (remq nil
         (mapcar
-         (lambda (arg)
+         (lambda (node)
            (let* ((my-fn (assoc-default
-                          (format "%s" (hts/elem-node-type arg))
+                          (format "%s" (hts/elem-node-type node))
                           (hts/get-candidate-producer-for-current-mode))))
              (when my-fn
-               ;; Each candidate will consist of a list containing (text-string . tree)
-               (cons
-                (funcall my-fn arg) ; Let's get the actual text
-                arg                 ; Store the tree too, so additional actions can be performed
-                ))))
+               ;; Great, we have a handler for the element node type
+
+               (let ((fun-ret (funcall my-fn node))) ; Let's get the actual text
+                 (if fun-ret
+                     ;; Each candidate will consist of a list containing (text-string . tree)
+                     (cons
+                      fun-ret
+                      node ; Store the tree too, so additional actions can be performed later
+                      )
+
+                   ;; Our handler function can return nil to indicate that the particular case was not worthy of showing.
+                   nil )))))
          elements )))
 
 ;; Inspect the tree-sitter-tree and build a flat list with all the nodes.

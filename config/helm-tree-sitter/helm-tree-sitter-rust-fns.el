@@ -8,57 +8,57 @@
   (unless (hts/elem-p x)
     (signal 'wrong-type-argument (list 'hts/elem-p x)))
 
-    (concat
-     (propertize "Use / "
-                 'face 'italic)
-     (tsc-node-text (hts/elem-node x))))
+  (concat
+   (propertize "Use / "
+               'face 'italic)
+
+   (hts/get-node-text (hts/elem-node x ))))
 
 (defun hts/rust-function-definition-fn (x)
   (unless (hts/elem-p x)
     (signal 'wrong-type-argument (list 'hts/elem-p x)))
 
   (let* ((children-alist (hts/node-children-to-alist (hts/elem-node x)))
-         (visibility-modifier-node (alist-get 'visibility_modifier children-alist))
-         (identifier-node (alist-get 'identifier children-alist))
-         (parameters-node (alist-get 'parameters children-alist)))
+         (visibility-modifier (hts/get-node-text (alist-get 'visibility_modifier children-alist)))
+         (identifier (hts/get-node-text (alist-get 'identifier children-alist)))
+         (type-identifier (hts/get-node-text (alist-get 'type_identifier children-alist)))
+         (parameters (hts/get-node-text (alist-get 'parameters children-alist))))
 
     (concat
-     (propertize "Function rust / "
+     (propertize "Fn / "
                  'face 'italic)
 
      (concat
-      (if (tsc-node-p visibility-modifier-node)
-          (format "%s " (tsc-node-text visibility-modifier-node )) "" )
+      (hts/append-space-if-not-empty visibility-modifier)
+      (hts/append-space-if-not-empty type-identifier)
+      identifier
+      parameters
 
-      "fn "
-      
-      (if (tsc-node-p identifier-node)
-          (format "%s" (tsc-node-text identifier-node )) "" )
-      (if (tsc-node-p parameters-node)
-          (format "%s" (tsc-node-text parameters-node)) "" )))))
+      (hts/prepend-if-not-empty type-identifier " -> ")))))
 
 (defun hts/rust-struct-item-fn (x)
   (unless (hts/elem-p x)
     (signal 'wrong-type-argument (list 'hts/elem-p x)))
 
   (let* ((children-alist (hts/node-children-to-alist (hts/elem-node x)))
-         (identifier-node (alist-get 'type_identifier children-alist)))
+         (identifier (hts/get-node-text (alist-get 'type_identifier children-alist))))
 
     (concat
      (propertize "Struct / "
                  'face 'italic)
-     (tsc-node-text identifier-node))))
+
+     identifier)))
 
 (defun hts/rust-impl-item-fn (x)
   (unless (hts/elem-p x)
     (signal 'wrong-type-argument (list 'hts/elem-p x)))
 
   (let* ((children-alist (hts/node-children-to-alist (hts/elem-node x)))
-         (identifier-node (alist-get 'type_identifier children-alist)))
+         (identifier (hts/get-node-text (alist-get 'type_identifier children-alist))))
 
     (concat
      (propertize "Impl / "
                  'face 'italic)
-     (tsc-node-text identifier-node))))
+     identifier)))
 
 (provide 'helm-tree-sitter-rust-fns)
