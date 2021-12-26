@@ -2,7 +2,7 @@
   :bind
   (("C-j" . helm-mini))
   (:map control-semi-map
-        (( "C-s" . g/helm-semantic-or-imenu)
+        (( "C-s" . helm-tree-sitter-or-imenu)
          ( "l" . helm-M-x)
          ( "r" . helm-mark-ring)
          ( "C-r" . helm-global-mark-ring)
@@ -11,7 +11,6 @@
 
   (:map lisp-interaction-mode-map (("C-j" . helm-mini)))
   :config
-  (semantic-mode 1) ;; global mode
   (setq helm-candidate-number-limit 500)
   (setq helm-buffer-max-length 60)
 
