@@ -1,4 +1,4 @@
-(use-package helm :defer 1
+(use-package helm :defer 10
   :bind
   (("C-j" . helm-mini))
   (:map control-semi-map
@@ -17,20 +17,20 @@
 
   (custom-set-faces '(helm-rg-file-match-face ((t (:foreground "purple" :background "black" :weight bold))))))
 
-(use-package helm-swoop :defer 2
+(use-package helm-swoop :defer 20
   :bind (:map control-semi-map
               (("C-m" . helm-swoop)
                ("m" . helm-multi-swoop-all))))
 
 
-(use-package swiper-helm :defer 2
+(use-package swiper-helm :defer 20
   :bind (:map control-semi-map (())
               ("o" . swiper-helm)
               ("C-;" . swiper-helm))
   :config
   (require 'swiper))
 
-(use-package helm-rg :defer 10)
+(use-package helm-rg :defer t)
 
 ;; This effectively disables idle reparsing for all files
 (setq semantic-idle-scheduler-max-buffer-size 1)
