@@ -56,6 +56,10 @@
 	    (t (set-font-normal))))
 
 (defun load-graphic-settings (&optional _a)
+
+  (setq bidi-inhibit-bpa t)
+  (setq-default bidi-paragraph-direction 'left-to-right)
+  
   (customize-set-variable 'custom-enabled-themes '(wombat))
 
   (customize-set-variable
