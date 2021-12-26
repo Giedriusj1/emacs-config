@@ -2,10 +2,9 @@
 
 (use-package tree-sitter :defer t)
 
-(use-package tree-sitter-langs :defer t
-  :config
-  (require 'helm-tree-sitter))
+(use-package tree-sitter-langs :defer t)
 
+(require 'helm-tree-sitter)
 (global-tree-sitter-mode)
 
 (define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
