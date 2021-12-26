@@ -26,7 +26,7 @@
 
 (require 'helm-tree-sitter-utilities)
 
-(provide 'helm-tree-sitter-c-fns)
+(require 'helm-tree-sitter-c-fns)
 (require 'helm-tree-sitter-cpp-fns)
 (require 'helm-tree-sitter-python-fns)
 (require 'helm-tree-sitter-rust-fns)

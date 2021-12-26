@@ -29,7 +29,9 @@
     (signal 'wrong-type-argument (list 'hts/elem-p x)))
 
   (let* ((children-alist (hts/node-children-to-alist (hts/elem-node x)))
-         (identifier (hts/get-node-text (alist-get 'identifier children-alist)))
+         (primitive-type (hts/get-node-text (alist-get 'primitive_type children-alist)))
+         (type-identifier (hts/get-node-text (alist-get 'type_identifier children-alist)))
+
          (parameters (hts/get-node-text (alist-get 'parameters children-alist)))
          (function-declarator (hts/get-node-text (alist-get 'function_declarator children-alist)))
          (function-pointer-declarator (hts/get-node-text (alist-get 'pointer_declarator children-alist))))
@@ -38,7 +40,9 @@
      (propertize "Function / "
                  'face 'italic)
      (concat
-      identifier
+      primitive-type
+      type-identifier
+      " "
       (hts/strip-newlines function-declarator)
       (hts/strip-newlines function-pointer-declarator)))))
 
