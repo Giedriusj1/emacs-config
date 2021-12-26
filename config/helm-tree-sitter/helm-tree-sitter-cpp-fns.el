@@ -17,16 +17,17 @@
          ;; Only one kind will be present.
 
          ;; Something like boost::shared_ptr<type> fn()
-         (template-type (hts/get-node-text (alist-get 'template_type children-alist)))
+         (template-type (hts/get-node-text-or-nil (alist-get 'template_type children-alist)))
          
          ;; We would have this with namespace::type fn()
-         (scoped-type (hts/get-node-text (alist-get 'scoped_type_identifier children-alist)))
+         (scoped-type (hts/get-node-text-or-nil (alist-get 'scoped_type_identifier children-alist)))
          
          ;; We would have this with type fn()
-         (type-identifier (hts/get-node-text (alist-get 'type_identifier children-alist)))
+         (type-identifier (hts/get-node-text-or-nil (alist-get 'type_identifier children-alist)))
          
          ;; We would have this with int fn()
-         (primitive-type (hts/get-node-text (alist-get 'primitive_type children-alist)))
+         (primitive-type (hts/get-node-text-or-nil (alist-get 'primitive_type children-alist)))
+
          (function-declarator (hts/get-node-text (alist-get 'function_declarator children-alist)))
          (function-reference-declarator (hts/get-node-text (alist-get 'reference_declarator children-alist)))
          (function-pointer-declarator (hts/get-node-text (alist-get 'pointer_declarator children-alist))))
@@ -36,12 +37,12 @@
                  'face 'italic)
 
      (concat
-
-      template-type
-      scoped-type
-      type-identifier
-      primitive-type
-      " "
+      (let* ((type (or template-type
+                       scoped-type
+                       type-identifier
+                       primitive-type)))
+        (if type
+            (concat type " ")))
 
       function-pointer-declarator
       function-reference-declarator
