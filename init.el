@@ -77,3 +77,10 @@
 (fset 'display-startup-echo-area-message 'ignore)
 (message (concat "Emacs took " (emacs-init-time) " seconds to start."
 		         (if (fboundp 'native-compile-async) " With native compiler!")))
+
+
+(add-hook 'server-after-make-frame-hook
+          (lambda ()
+            (setq inhibit-message t)
+            (run-with-idle-timer 0 nil (lambda () (setq inhibit-message nil)
+                                         (message (concat "emacs uptime: " (emacs-uptime)))))))
