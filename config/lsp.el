@@ -1,7 +1,18 @@
 (use-package lsp-ui :defer t)
 (use-package helm-lsp :defer t)
 
-(pretty-hydra-define hydra-lsp (:foreign-keys warn :title "LSP" :quit-key "q" :color blue)
+(pretty-hydra-define hydra-lsp (:pre
+                                (if (and
+                                     ;; If lsp-mode is not enabled...
+                                     (not (bound-and-true-p lsp-mode))
+                                     ;; and we are not on Windows
+                                     (not (string-equal system-type "windows-nt")))
+
+                                    ;; Enable lsp
+                                    (progn (message "enabling lsp mode...")
+                                           (lsp)))
+
+                                :foreign-keys warn :title "LSP" :quit-key "q" :color blue)
   ("Buffer"
    (("f" lsp-format-buffer "format")
     ("menu" lsp-ui-imenu "imenu")

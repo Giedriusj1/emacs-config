@@ -64,10 +64,6 @@
 
 (add-hook 'c-mode-common-hook
           (lambda()
-	        ;; Only use lsp on non Win machines, since thing can be quite slow there...
-	        (cond ((not (string-equal system-type "windows-nt"))
-		           (lsp)))
-            ;; Use C++ style comments
             (setq comment-start "//" comment-end  "")))
 
 ;; (use-package ob-rust :defer t)
