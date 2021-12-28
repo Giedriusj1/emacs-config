@@ -1,3 +1,10 @@
+;; TODO: handle enums and unions
+;; TODO: also handle static fns, make sure we use the static specifier:
+
+;; static bool
+;; backtrace_thread_p (struct thread_state *tstate, union specbinding *pdl)
+;; { return pdl >= tstate->m_specpdl; }
+
 (setq hts/c-candidate-producer
       '(("function_definition" . hts/c-function-definition-fn)
         ("preproc_include" . hts/c-preproc-include-fn)

@@ -1,12 +1,12 @@
-(defun hts/strip-newlines-and-whitespaces (string)
-  (unless (stringp string)
-    (signal 'wrong-type-argument (list 'stringp string)))
+(defun hts/strip-newlines-and-whitespaces (str)
+  (unless (stringp str)
+    (signal 'wrong-type-argument (list 'stringp str)))
 
   (replace-regexp-in-string
    "\s" ""
    (replace-regexp-in-string
     "\n" ""
-    string)))
+    str)))
 
 ;; Copy text from buffer between node-start-byte and node-end-byte.
 ;; We use this instead of (tsc-node-text node), because this way
@@ -28,12 +28,16 @@
        (tsc-node-end-position node) )
     nil))
 
+(defun hts/append-space-if-not-empty(str)
+  (if (not (hts/empty-string str))
+      (concat str " ") str))
+
 (defun hts/prepend-if-not-empty (str prepend)
   (if (not (= (length str) 0))
       (concat prepend str)))
 
-(defun hts/strip-newlines (string)
-  (replace-regexp-in-string "\n" "" string))
+(defun hts/strip-newlines (str)
+  (replace-regexp-in-string "\n" "" str))
 
 (defun hts/empty-string (str)
   (if (stringp str)
