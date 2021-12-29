@@ -53,6 +53,9 @@
 
 (setq auto-window-vscroll nil)   ;; Gives us better line scrolling performance
 
+(require 'pixel-scroll)
+(pixel-scroll-precision-mode)
+
 ;; We'll ask emacs to put all customizations made via it's customize package in a
 ;; separate file... so we can ignore it later :)
 (setq custom-file (concat user-emacs-directory "/custom--ignored.el"))
