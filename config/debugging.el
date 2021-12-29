@@ -18,4 +18,4 @@ _m_  many-windows     |  _k_  step       _r_  remove break
 
 (define-key tab-map (kbd "k") 'hydra-gdb-helper/body)
 
-(use-package dap-mode :defer t)
+;; (use-package dap-mode :defer t)
