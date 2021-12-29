@@ -2,16 +2,22 @@
 
 (use-package dired :ensure nil :defer 5
   :config
-  ;; (require 'dired-x)
+  (require 'dired-x)
   (cond ((string-equal system-type "gnu/linux")
          (use-package dired-toggle-sudo :ensure nil)))
 
   (define-key dired-mode-map (kbd "l") 'dired-up-directory)
   (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
+  (define-key dired-mode-map (kbd "SPC") (lambda ()
+                                           (interactive)
+                                           (if dired-omit-mode
+                                               (dired-omit-mode -1)
+                                             (dired-omit-mode))))
+  
   (define-key dired-mode-map (kbd "C-i") (lambda ()
                                            (interactive)
                                            (dired-subtree-cycle)
-                                           ;; (dired-omit-mode)
+                                           (dired-omit-mode)
                                            ))
 
   (setq dired-listing-switches "-alFh")
@@ -25,7 +31,7 @@
   (add-hook 'dired-mode-hook
 	        (lambda ()
 	          (dired-hide-details-mode 1)
-              ;; (dired-omit-mode)
+              (dired-omit-mode)
               ))
 
   (set-face-foreground 'dired-directory "LightSlateBlue" )
