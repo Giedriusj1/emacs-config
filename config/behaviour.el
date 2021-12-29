@@ -90,15 +90,16 @@
 
 (setq ring-bell-function 'ignore)
 
-(defadvice message (after message-tail activate)
-  "goto point max after a message"
-  (with-current-buffer "*Messages*"
-    (goto-char (point-max))
-    (walk-windows (lambda (window)
-                    (if (string-equal (buffer-name (window-buffer window)) "*Messages*")
-                        (set-window-point window (point-max))))
-                  nil
-                  t)))
+(defun tail-f-msgs ()
+  "Go to the end of Messages buffer."
+  (let ((msg-window (get-buffer-window "*Messages*")))
+    (if msg-window
+        (with-current-buffer (window-buffer msg-window)
+          (set-window-point msg-window (point-max))))))
+
+;; Make the Messages buffer stick to the end.
+(add-hook 'post-command-hook 'tail-f-msgs)
+
 
 (setq auto-mode-alist
       '(("[Mm]ake[Ff]ile\\'" . makefile-mode)
