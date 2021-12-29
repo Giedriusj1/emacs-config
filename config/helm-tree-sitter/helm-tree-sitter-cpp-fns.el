@@ -1,8 +1,15 @@
 (setq hts/cpp-candidate-producer
-      '(("function_definition" . hts/cpp-function-definition-fn)
-        ("preproc_include"     . hts/cpp-preproc-include-fn)
+      '(
+        ;; We'll borrow some function from C
+        ("preproc_include"     . hts/c-preproc-include-fn)
+        ("enum_specifier" . hts/c-enum-specifier-fn)
+        ("union_specifier" . hts/c-union-specifier-fn)
+
+        ;; Stuff that is unique for C++
+        ("function_definition" . hts/cpp-function-definition-fn)
         ("class_specifier"     . hts/cpp-class-specifier-fn)
         
+
         ;; We get very spammy output if we try to show every declaration,
         ;; so we'll just ignore them for now.
         ;; ("declaration" . hts/cpp-declaration-fn)
@@ -48,22 +55,7 @@
       function-reference-declarator
       function-declarator))))
 
-(defun hts/cpp-preproc-include-fn (x)
-  (unless (hts/elem-p x)
-    (signal 'wrong-type-argument (list 'hts/elem-p x)))
 
-  (let* ((children-alist (hts/node-children-to-alist (hts/elem-node x)))
-         (system-lib (hts/get-node-text (alist-get 'system_lib_string children-alist)))
-
-         (string-literal (hts/get-node-text (alist-get 'string_literal children-alist))))
-
-    (concat
-     (propertize "Include / "
-                 'face 'italic)
-
-     (concat
-      system-lib
-      (replace-regexp-in-string "\"" "" string-literal)))))
 
 (defun hts/cpp-class-specifier-fn (x)
   (unless (hts/elem-p x)
