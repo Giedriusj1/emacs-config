@@ -90,15 +90,15 @@
 
 (setq ring-bell-function 'ignore)
 
-(defun tail-f-msgs ()
-  "Go to the end of Messages buffer."
-  (let ((msg-window (get-buffer-window "*Messages*")))
-    (if msg-window
-        (with-current-buffer (window-buffer msg-window)
-          (set-window-point msg-window (point-max))))))
+;; (defun tail-f-msgs ()
+;;   "Go to the end of Messages buffer."
+;;   (let ((msg-window (get-buffer-window "*Messages*")))
+;;     (if msg-window
+;;         (with-current-buffer (window-buffer msg-window)
+;;           (set-window-point msg-window (point-max))))))
 
 ;; Make the Messages buffer stick to the end.
-(add-hook 'post-command-hook 'tail-f-msgs)
+;; (add-hook 'post-command-hook 'tail-f-msgs)
 
 
 (setq auto-mode-alist

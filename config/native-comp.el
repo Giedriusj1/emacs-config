@@ -5,6 +5,7 @@
   (interactive)
   (progn
     (recompile-custom-packages)
+    (recompile-config)
     (native-compile-async '("~/.emacs.d/custom-packages"
                             "~/.emacs.d/elpa"
                             "~/.emacs.d/config"

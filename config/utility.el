@@ -4,6 +4,12 @@
   (interactive)
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))
 
+(defun recompile-config ()
+  (interactive)
+  (byte-recompile-directory "~/.emacs.d/config" 0))
+
+
+
 (defun reload-emacs-config ()
   (interactive)
   (load-file "~/.emacs.d/init.el"))
