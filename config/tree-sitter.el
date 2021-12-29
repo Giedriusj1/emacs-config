@@ -1,10 +1,14 @@
-(add-to-list 'load-path "~/.emacs.d/config/helm-tree-sitter")
-
+(add-to-list 'load-path "~/.emacs.d/config/helm-tree-sitter"
+)
 (use-package tree-sitter :defer t)
 
 (use-package tree-sitter-langs :defer t)
 
-(require 'helm-tree-sitter)
+(use-package helm-tree-sitter :defer t
+
+  )
+
+;; (require 'helm-tree-sitter)
 (global-tree-sitter-mode)
 
 (define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
