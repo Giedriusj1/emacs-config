@@ -17,8 +17,7 @@
   (define-key dired-mode-map (kbd "C-i") (lambda ()
                                            (interactive)
                                            (dired-subtree-cycle)
-                                           (dired-omit-mode)
-                                           ))
+                                           (dired-omit-mode)))
 
   (setq dired-listing-switches "-alFh")
 
@@ -31,8 +30,7 @@
   (add-hook 'dired-mode-hook
 	        (lambda ()
 	          (dired-hide-details-mode 1)
-              (dired-omit-mode)
-              ))
+              (dired-omit-mode)))
 
   (set-face-foreground 'dired-directory "LightSlateBlue" )
 
