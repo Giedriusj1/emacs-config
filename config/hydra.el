@@ -1,5 +1,8 @@
 (use-package hydra  :ensure t :defer t)
 (use-package pretty-hydra :ensure t :defer t)
+
+(use-package posframe :defer t)
+
 (require 'hydra-posframe)
 
 (customize-set-variable 'hydra-posframe-border-width 4)
