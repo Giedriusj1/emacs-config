@@ -1,16 +1,15 @@
 (use-package password-generator :defer t)
 
-(defun recompile-custom-packages ()
+(defun g/recompile-custom-packages ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))
 
-(defun recompile-config ()
+(defun g/recompile-config ()
   (interactive)
   (byte-recompile-directory "~/.emacs.d/config" 0))
 
 
-
-(defun reload-emacs-config ()
+(defun g/reload-emacs-config ()
   (interactive)
   (load-file "~/.emacs.d/init.el"))
 
@@ -21,7 +20,7 @@
     (if (called-interactively-p 'interactive)
         (message "%s" str) str)))
 
-(defun open-in-external-app ()
+(defun g/open-in-external-app ()
   (interactive)
   (let ((fileList (cond ((string-equal major-mode "dired-mode")
                          (dired-get-marked-files))

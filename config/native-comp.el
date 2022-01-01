@@ -4,8 +4,8 @@
 (defun compile-elpa-and-custom-to-native ()
   (interactive)
   (progn
-    (recompile-custom-packages)
-    (recompile-config)
+    (g/recompile-custom-packages)
+    (g/recompile-config)
     (native-compile-async '("~/.emacs.d/custom-packages"
                             "~/.emacs.d/elpa"
                             "~/.emacs.d/config"
