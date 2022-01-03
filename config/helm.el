@@ -3,6 +3,7 @@
   (("C-j" . helm-mini))
   (:map control-semi-map
         (( "C-s" . helm-tree-sitter-or-imenu)
+         ( "s" . helm-tree-sitter-debug)
          ( "l" . helm-M-x)
          ( "r" . helm-mark-ring)
          ( "C-r" . helm-global-mark-ring)

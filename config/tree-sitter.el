@@ -4,6 +4,8 @@
 (use-package tree-sitter-langs :defer t)
 
 (require 'helm-tree-sitter)
+(require 'helm-tree-sitter-debug)
+
 (global-tree-sitter-mode)
 
 (define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
