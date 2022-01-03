@@ -93,16 +93,13 @@
 
   (global-hl-line-mode t)
 
-  ;; Native compiles has some issues with powerline atm ;(
-  (setq comp-deferred-compilation-deny-list '("powerline"))
-
-  (use-package powerline :ensure t :config
+  (use-package powerline :ensure t
+    :config
     (powerline-default-theme)
     (set-face-attribute 'mode-line nil
-			            :foreground "Black"
-			            :background "DarkOrange3"
-			            :box nil)))
-
+    		            :foreground "Black"
+    		            :background "DarkOrange3"
+    		            :box nil)))
 
 (add-hook 'after-make-frame-functions 'load-graphic-settings)
 
