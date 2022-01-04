@@ -54,7 +54,10 @@
 (setq auto-window-vscroll nil)   ;; Gives us better line scrolling performance
 
 (require 'pixel-scroll)
-(pixel-scroll-precision-mode)
+
+(if (bound-and-true-p pixel-scroll-precision-mode)
+    (pixel-scroll-precision-mode)
+  (pixel-scroll-mode))
 
 ;; We'll ask emacs to put all customizations made via it's customize package in a
 ;; separate file... so we can ignore it later :)
