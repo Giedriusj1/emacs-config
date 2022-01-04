@@ -19,13 +19,12 @@
 ;;   (setq dumb-jump-selector 'helm)
 ;;   (setq dumb-jump-force-searcher 'rg))
 
-
 (use-package yasnippet :defer t
   :ensure yasnippet-snippets
   :ensure yasnippet-classic-snippets
   :ensure helm-c-yasnippet
   :diminish yas-minor-mode
-  :init (yas-global-mode 1))
+  :hook (prog-mode . yas-minor-mode))
 
 (use-package  company-box :defer t
   :hook (company-mode . company-box-mode)
