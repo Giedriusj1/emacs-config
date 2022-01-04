@@ -32,4 +32,7 @@
   (setq org-export-with-toc nil)
   (setq org-hierarchical-todo-statistics nil)
   (setq org-imenu-depth 5)
-  (customize-set-variable 'helm-split-window-default-side 'right))
+  (customize-set-variable 'helm-split-window-default-side 'right)
+
+  (add-hook 'org-mode-hook (lambda ()
+                           (org-indent-initialize-agent))))
