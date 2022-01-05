@@ -1,6 +1,7 @@
 (defun g/helm-projectile-grep-notes (dir)
   ;; In case we use this function before helm-projectile was loaded:
-  (use-package helm-projectile)
+  (require 'helm-projectile)
+  (require 'helm-mode)
 
   (let* ((default-directory dir)
 	     (helm-ff-default-directory default-directory)

@@ -1,11 +1,13 @@
 (defhydra hydra-projectile (:pre
-                            (projectile-global-mode t)
+                            (progn
+                              (require 'helm-projectile)
+                              (projectile-global-mode t))
                             :color blue)
   "
 [_q_] invalidate cache [_p_] projects
 [_j_] helm projectile  [_d_] dired projectile root
 [_g_]rep [_a_]ck [_r_] projectile-ripgrep [_R_] helm-projectile-ripgrep
-" ("p" helm-projectile-projects nil)
+" ("p" g/helm-projectile-projects nil)
   ("q" projectile-invalidate-cache nil)
   ("j" helm-projectile nil)
   ("d" projectile-dired nil)
@@ -54,7 +56,7 @@
       :action 'g/helm-source-projectile-projects-actions)
     "Helm source for known projectile projects.")
 
-  (defun helm-projectile-projects ()
+  (defun g/helm-projectile-projects ()
     (interactive)
     (let ((helm-ff-transformer-show-only-basename nil))
       (helm :sources '(g/helm-source-projectile-projects)
