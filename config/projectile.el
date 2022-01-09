@@ -1,7 +1,8 @@
 (defhydra hydra-projectile (:pre
                             (progn
                               (require 'helm-projectile)
-                              (projectile-global-mode t))
+                              (projectile-global-mode t)
+                              (helm-mode t))
                             :color blue)
   "
 [_q_] invalidate cache [_p_] projects
