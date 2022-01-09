@@ -2,7 +2,8 @@
 
 (use-package google-this :defer t)
 
-(use-package posframe :defer t)
+(when (display-graphic-p)
+  (use-package posframe :defer t))
 
 ;; Show number of matches in mode-line while searching
 (use-package anzu
