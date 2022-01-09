@@ -51,10 +51,6 @@ eyebrowse               frame management
 
 (custom-set-faces '(eyebrowse-mode-line-active ((t (:foreground "DarkMagenta" :weight bold :height 1.2)))))
 
-
-
-
-
 (defun eyebrowse-next (args)
   (interactive "P")
   (progn (eyebrowse-next-window-config args)
@@ -64,4 +60,3 @@ eyebrowse               frame management
   (interactive "P")
   (progn (eyebrowse-prev-window-config args)
          (show-eyebrowse-posframe)))
-
