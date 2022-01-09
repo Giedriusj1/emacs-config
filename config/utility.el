@@ -8,6 +8,10 @@
   (interactive)
   (byte-recompile-directory "~/.emacs.d/config" 0))
 
+(defun g/recompile-helm-tree-sitter ()
+  (interactive)
+  (byte-force-recompile "~/.emacs.d/config/helm-tree-sitter"))
+
 
 (defun g/reload-emacs-config ()
   (interactive)
