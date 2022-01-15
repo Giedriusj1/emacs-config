@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: defmacro when
+# key: defmacro-when
+# --
+(defmacro when (condition action) 
+`(if ,condition ,action nil)) 
