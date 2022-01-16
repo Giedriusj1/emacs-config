@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (use-package password-generator :defer t)
 
 (defun g/recompile-custom-packages ()

@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (defun swift-up(&optional arg)
   (interactive)
   (or arg (setq arg 1))

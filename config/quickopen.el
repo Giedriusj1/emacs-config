@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (defun g/helm-projectile-grep-notes (dir)
   ;; In case we use this function before helm-projectile was loaded:
   (require 'helm-projectile)

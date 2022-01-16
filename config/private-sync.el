@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (defun private-synch-fn ()
   (interactive)
   (let* ((default-directory "~/private-sync"))

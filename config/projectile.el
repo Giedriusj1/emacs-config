@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (defhydra hydra-projectile (:pre
                             (progn
                               (require 'helm-projectile)

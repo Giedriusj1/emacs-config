@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (use-package eyebrowse :ensure t
   :config
   (setq eyebrowse-mode-line-separator " " eyebrowse-new-workspace t)

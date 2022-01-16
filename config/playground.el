@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
 
 (defun load-listp-playground (args)

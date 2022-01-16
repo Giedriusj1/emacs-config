@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (use-package diminish)
 
 (use-package google-this :defer t)

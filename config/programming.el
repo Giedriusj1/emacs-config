@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (use-package mvn :defer t
   :config
   (setq compilation-scroll-output t)

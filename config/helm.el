@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (use-package helm :defer 10
   :bind
   (("C-j" . helm-mini))
