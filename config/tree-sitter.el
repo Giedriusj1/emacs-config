@@ -2,3 +2,6 @@
 (use-package tree-sitter :defer t)
 
 (use-package tree-sitter-langs :defer t)
+
+(global-tree-sitter-mode)
+(add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
