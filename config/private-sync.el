@@ -1,13 +1,13 @@
 ;;; -*- lexical-binding: t -*-
 
-(defun private-synch-fn ()
+(defun private-sync-fn ()
   (interactive)
   (let* ((default-directory "~/private-sync"))
 	(g/message "pulling private-sync repo")
 	(start-process "proc-git-pull" "notes-sync-output" "git" "pull")))
 
 ;; Run the above every 2 mins (if we are idle)
-(run-with-idle-timer (* 60 2) t 'private-synch-fn)
+(run-with-idle-timer (* 60 2) t 'private-sync-fn)
 
 (use-package git-auto-commit-mode :defer t)
 
