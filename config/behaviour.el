@@ -143,6 +143,7 @@
         ("\\.ts\\'" . typescript-mode)
         ("\\.zig\\'" . zig-mode)
         ("\\.java\\'" . java-mode)
+        ("\\.hs\\'" . haskell-mode)
         ("\\.js\\'" . javascript-mode)
         ("\\.mc\\'" . c++-mode)
         ("\\.pm\\'" . perl-mode)
