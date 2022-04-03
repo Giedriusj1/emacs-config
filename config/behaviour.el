@@ -152,6 +152,7 @@
         ("\\.sh\\'" . sh-mode)
         ("bashrc\\'" . sh-mode)
         ("\\.yml\\'" . yaml-mode)
+        ("\\.yaml\\'" . yaml-mode)
         ("\\.graphql\\'" . graphql-mode)
         ("\\.s\\'" . asm-mode)
         ("\\.S\\'" . asm-mode)
