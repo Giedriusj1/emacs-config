@@ -156,4 +156,5 @@
         ("\\.graphql\\'" . graphql-mode)
         ("\\.s\\'" . asm-mode)
         ("\\.S\\'" . asm-mode)
-        ("\\.adl\\'" . adl-mode)))
+        ("\\.adl\\'" . adl-mode)
+        ("\\opensips.*.cfg\\'" . opensips-cfg-mode)))
