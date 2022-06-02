@@ -37,7 +37,8 @@
           '((company-lsp .
                          ( :selected (:background "orange"  :foreground "black")))
             (company-capf .
-			              ( :selected (:background "orange" :foreground "black")))))))
+			              ( :selected (:background "orange" :foreground "black")))))
+    (setq company-box-doc-delay 1)))
 
 (use-package company :defer t
   :bind ( :map company-active-map
