@@ -109,6 +109,7 @@
 
 (setq auto-mode-alist
       '(("[Mm]ake[Ff]ile\\'" . makefile-mode)
+        ("\\Makefile.conf\\'" . makefile-mode)
         ("\\.mak\\'" . makefile-mode)
         ("\\.md\\'" . markdown-mode)
         ("\\.notes$" . org-mode)
