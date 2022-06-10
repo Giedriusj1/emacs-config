@@ -1,7 +1,7 @@
 (use-package org :defer t :pin gnu
   :mode (("\\.org$" . org-mode))
   :bind
-  (:map org-mode-map (("C-j" . helm-mini) ("<C-tab>" . eyebrowse-next) ))
+  (:map org-mode-map (("C-j" . helm-mini) ("<C-tab>" . tab-bar-switch-to-next-tab) ))
   :config
 
   (defhydra hydra-org (:color blue)
