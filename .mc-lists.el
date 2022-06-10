@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+	c-electric-pound
 	cua-paste
 	forward-sexp
 	indent-for-tab-command
