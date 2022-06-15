@@ -111,6 +111,7 @@
       '(("[Mm]ake[Ff]ile\\'" . makefile-mode)
         ("\\Makefile.conf\\'" . makefile-mode)
         ("\\.mak\\'" . makefile-mode)
+        ("\\CMakeLists.txt$" . cmake-mode)
         ("\\.md\\'" . markdown-mode)
         ("\\.notes$" . org-mode)
         ("\\.org$" . org-mode)
