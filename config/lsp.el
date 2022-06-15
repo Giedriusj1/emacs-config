@@ -1,6 +1,7 @@
 (use-package lsp-ui :defer t)
 (use-package helm-lsp :defer t)
 
+(use-package pretty-hydra :ensure t :defer t)
 (pretty-hydra-define hydra-lsp (:pre
                                 (if (and
                                      ;; If lsp-mode is not enabled...

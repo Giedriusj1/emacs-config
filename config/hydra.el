@@ -1,12 +1,9 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package hydra  :ensure t :defer t)
-(use-package pretty-hydra :ensure t :defer t)
 
 (when (display-graphic-p)
-  (use-package posframe :defer t)
   (require 'hydra-posframe)
-  ;; (customize-set-variable 'hydra-posframe-border-width 4)
   (hydra-posframe-mode))
 
 (defun spawn-local-mode-hydra ()
