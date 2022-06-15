@@ -31,12 +31,10 @@
   (let ((fileList (cond ((string-equal major-mode "dired-mode")
                          (dired-get-marked-files))
                         (t (list (buffer-file-name))))))
-    (cond ((string-equal system-type "windows-nt")
-           (mapc (lambda (path) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" path t t))) fileList))
-          ((string-equal system-type "darwin")
-           (mapc (lambda (path) (shell-command (format "open \"%s\"" path))) fileList))
-          ((string-equal system-type "gnu/linux")
-           (mapc (lambda (path) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" path))) fileList)))))
+    (cond-linux-win-mac
+     (mapc (lambda (path) (let ((process-connection-type nil)) (start-process "" nil "xdg-open" path))) fileList)
+     (mapc (lambda (path) (w32-shell-execute "open" (replace-regexp-in-string "/" "\\" path t t))) fileList)
+     (mapc (lambda (path) (shell-command (format "open \"%s\"" path))) fileList))))
 
 
 (setq nxml-child-indent 4 nxml-attribute-indent 4)

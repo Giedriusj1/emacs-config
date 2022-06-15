@@ -120,9 +120,9 @@
 ;; lsp-java pulls the whole treemacs for itself...
 ;; (use-package lsp-java :defer t)
 
-(cond ((string-equal system-type "gnu/linux")
-       (use-package haskell-mode :defer t)
-       (use-package lsp-haskell :defer t)))
+(on-linux
+ (use-package haskell-mode :defer t)
+ (use-package lsp-haskell :defer t))
 
 (use-package typescript-mode :defer t)
 

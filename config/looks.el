@@ -16,12 +16,10 @@
 (defun set-font (mode)
   (progn
     (setq current-font mode)
-    (cond ((string-equal system-type "windows-nt")
-	       ;; We are dealing with Windows sytem
-	       (set-windows-font mode))
-	      ((string-equal system-type "gnu/linux")
-	       ;; We are dealing with linux system:
-	       (set-linux-font mode)))))
+    (cond-linux-win-mac
+     (set-linux-font mode)
+     (set-windows-font mode)
+     (message "noo wayy"))))
 
 (defun toggle-font-size()
   (interactive)

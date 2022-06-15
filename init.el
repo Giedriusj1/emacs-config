@@ -55,6 +55,20 @@
      ,@body
      (message "took %.06f seconds" (float-time (time-since time)))))
 
+(defmacro on-linux (&rest body)
+  `(when (memq system-type '(gnu gnu/linux)) ,@body))
+
+(defmacro on-windows (&rest body)
+  `(when (memq system-type '(windows-nt ms-dos)) ,@body))
+
+(defmacro cond-linux-win-mac (linux windows darwin)
+  `(cond ((memq system-type '(windows-nt ms-dos))
+          ,windows)
+         ((memq system-type '(gnu gnu/linux))
+          ,linux)
+         ((memq system-type '(darwin))
+          ,darwin)))
+
 ;; This defines in which order we want to load our config.
 (setq basic-load-sequence '("looks.el"        ; We want looks ASAP, to reduce any flickering
                             "key-bindings.el" ; Key bindings are also needed early, for prefixes

@@ -34,11 +34,10 @@
   (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
 
-
-(cond ((string-equal system-type "gnu/linux")
-       (use-package auto-sudoedit
-         :diminish auto-sudoedit-mode
-         :config (auto-sudoedit-mode 1))))
+(on-linux
+ (use-package auto-sudoedit
+   :diminish auto-sudoedit-mode
+   :config (auto-sudoedit-mode 1)))
 
 (cua-mode 1)
 

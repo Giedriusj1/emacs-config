@@ -3,8 +3,7 @@
 (use-package dired :ensure nil :defer 5
   :config
   (require 'dired-x)
-  (cond ((string-equal system-type "gnu/linux")
-         (use-package dired-toggle-sudo :ensure nil)))
+  (on-linux (use-package dired-toggle-sudo :ensure nil))
 
   (define-key dired-mode-map (kbd "l") 'dired-up-directory)
   (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
@@ -21,9 +20,9 @@
 
   (setq dired-listing-switches "-alFh")
 
-  (when (memq system-type '(gnu gnu/linux))
-    (setq dired-listing-switches
-          (concat dired-listing-switches " --group-directories-first -v")))
+  (on-linux
+   (setq dired-listing-switches
+         (concat dired-listing-switches " --group-directories-first -v")))
 
   (setq dired-dwim-target t)
 
