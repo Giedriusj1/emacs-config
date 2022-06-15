@@ -55,11 +55,11 @@
      ,@body
      (message "took %.06f seconds" (float-time (time-since time)))))
 
-(defmacro on-linux (&rest body)
-  `(when (memq system-type '(gnu gnu/linux)) ,@body))
+(defun is-linux() (memq system-type '(gnu gnu/linux)))
+(defmacro on-linux (&rest body) `(when (is-linux) ,@body))
 
-(defmacro on-windows (&rest body)
-  `(when (memq system-type '(windows-nt ms-dos)) ,@body))
+(defun is-windows() (memq system-type '(windows-nt ms-dos)))
+(defmacro on-windows (&rest body) `(when (is-windows) ,@body))
 
 (defmacro cond-linux-win-mac (linux windows darwin)
   `(cond ((memq system-type '(windows-nt ms-dos))
