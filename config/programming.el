@@ -151,7 +151,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package clang-format :defer t
   :config
-  ;; The following somewhat resembles Resilient's coding style
+  ;; The following somewhat resemble Resilient's coding style
   (setq clang-format-style "{BasedOnStyle: google, ColumnLimit: 100, IndentWidth: 3, BreakBeforeBraces: Stroustrup}"))
 
 (use-package elisp-format :defer t)
