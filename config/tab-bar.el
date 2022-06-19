@@ -1,5 +1,5 @@
 ;;; -*- lexical-binding: t -*-
-(setq tab-bar-show 1)
+(setq tab-bar-show -1)
 (tab-bar-mode)
 
 (global-set-key (kbd "<C-tab>") 'tab-bar-switch-to-next-tab)

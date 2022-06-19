@@ -104,17 +104,25 @@
 (when (display-graphic-p)
   (load-graphic-settings))
 
-
 (use-package uniquify :ensure nil
   :config (setq uniquify-buffer-name-style 'forward))
 
 (defun generate-frame-title ()
-  (format "%s %s" (buffer-name)
-          (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
-                (dired-directory (concat "{" dired-directory "}"))
-                (t "[no file]"))))
+  (if (>= 1 (length (tab-bar-tabs)))
 
-(setq-default frame-title-format
-              '(:eval (generate-frame-title)))
+      (format "%s %s" (buffer-name)
+              (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
+                    (dired-directory (concat "{" dired-directory "}"))
+                    (t "[no file]")))
+
+    (mapcar (lambda (tab)
+              (interactive)
+              (let ((tab-name (alist-get 'name tab)))
+                (if (eq (car tab) 'current-tab)
+                    (format " [ %s ] " tab-name)
+                  (format  " %s "tab-name ))  ))
+            (tab-bar-tabs))))
+
+(setq-default frame-title-format '(:eval (generate-frame-title)))
 
 (blink-cursor-mode -1)
