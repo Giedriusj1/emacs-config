@@ -17,4 +17,11 @@
 	      :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
 	      :publishing-directory "~/public_html/"
 	      :recursive t
-	      :publishing-function org-publish-attachment))))
+	      :publishing-function org-publish-attachment)
+         ))
+
+ (defun g/org-publish-all-force ()
+     (interactive)
+     (org-publish-all t)))
+
+
