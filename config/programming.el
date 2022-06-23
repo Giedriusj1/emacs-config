@@ -1,5 +1,13 @@
 ;;; -*- lexical-binding: t -*-
 
+(on-linux
+ (use-package haskell-mode :defer t)
+ (use-package lsp-haskell :defer t)
+ (use-package lsp-pyright :defer t :ensure t))
+
+(on-windows
+ (use-package powershell :defer t))
+
 (use-package mvn :defer t
   :config
   (setq compilation-scroll-output t)
@@ -44,8 +52,6 @@
             (setq tab-width 4)
             (tree-sitter-hl-mode)))
 
-(use-package lsp-pyright :defer t :ensure t)
-
 (defhydra hydra-python (:color blue)
   ( "c" helm-yas-complete "helm yas complete"))
 
@@ -61,14 +67,7 @@
 ;; lsp-java pulls the whole treemacs for itself...
 ;; (use-package lsp-java :defer t)
 
-(on-linux
- (use-package haskell-mode :defer t)
- (use-package lsp-haskell :defer t))
-
 (use-package typescript-mode :defer t)
-
-(on-windows
- (use-package powershell :defer t))
 
 (use-package g-adl-mode :ensure nil)    ; We can't defer this one for some reason
 

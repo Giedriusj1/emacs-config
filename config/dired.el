@@ -3,7 +3,6 @@
 (use-package dired :ensure nil :defer 5
   :config
   (require 'dired-x)
-  (on-linux (use-package dired-toggle-sudo :ensure nil))
 
   (define-key dired-mode-map (kbd "l") 'dired-up-directory)
   (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
@@ -21,6 +20,7 @@
   (setq dired-listing-switches "-alFh")
 
   (on-linux
+   (use-package dired-toggle-sudo :ensure nil)
    (setq dired-listing-switches
          (concat dired-listing-switches " --group-directories-first -v")))
 
@@ -32,7 +32,6 @@
               (dired-omit-mode)))
 
   (set-face-foreground 'dired-directory "LightSlateBlue" )
-
   
   ;; Most of the above were taken from Thierry Volpiato's dired-extension.el
   (setq dired-font-lock-keywords

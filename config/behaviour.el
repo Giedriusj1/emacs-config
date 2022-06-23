@@ -1,5 +1,13 @@
 ;;; -*- lexical-binding: t -*-
 
+(on-linux
+ (use-package shell-here :defer t
+  :bind* (( "C-`" . shell-here)))
+ 
+ (use-package auto-sudoedit
+   :diminish auto-sudoedit-mode
+   :config (auto-sudoedit-mode 1)))
+
 (use-package diminish)
 
 (use-package google-this :defer t)
@@ -15,9 +23,6 @@
   (setq recentf-max-menu-items 250)
   (setq recentf-max-saved-items 250))
 
-(use-package shell-here :defer t
-  :bind* (( "C-`" . shell-here)))
-
 (use-package zygospore :ensure nil
   :bind* (("C-1" . 'window-swap-states)
           ("C-2" . 'windmove-up)
@@ -30,11 +35,6 @@
   :bind
   (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
-
-(on-linux
- (use-package auto-sudoedit
-   :diminish auto-sudoedit-mode
-   :config (auto-sudoedit-mode 1)))
 
 (cua-mode 1)
 

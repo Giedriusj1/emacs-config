@@ -23,5 +23,3 @@
  (defun g/org-publish-all-force ()
      (interactive)
      (org-publish-all t)))
-
-
