@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package hydra  :ensure t :defer t)
+(use-package hydra :ensure t :defer t)
 
 (when (display-graphic-p)
   (require 'hydra-posframe)
