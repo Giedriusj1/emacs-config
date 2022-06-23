@@ -2,10 +2,6 @@
 
 (use-package hydra :ensure t :defer t)
 
-(when (display-graphic-p)
-  (require 'hydra-posframe)
-  (hydra-posframe-mode))
-
 (defun spawn-local-mode-hydra ()
   (interactive)
   (cond (( string= "org-mode" major-mode)
