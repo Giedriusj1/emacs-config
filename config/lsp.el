@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (use-package lsp-ui :defer t)
 (use-package helm-lsp :defer t)
 
