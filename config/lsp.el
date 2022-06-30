@@ -7,11 +7,19 @@
  (use-package pretty-hydra :ensure t :defer t)
  (pretty-hydra-define hydra-lsp
    (:pre
-    (if (and
-         ;; If lsp-mode is not enabled... and we are not on Windows
-         (not (bound-and-true-p lsp-mode)) (not (is-windows)))
+    (if
+        ;; If major mode is understood by LSP
+        (and (->> lsp-language-id-configuration
+                  (-first (-lambda ((mode-or-pattern . language))
+                            (eq mode-or-pattern major-mode)))
+                  cl-rest)
+        (and
+         ;; and lsp-mode is not enabled
+         (not (bound-and-true-p lsp-mode))
+         ;; and we are not on Windows
+         (not (is-windows))))
 
-        ;; Enable lsp
+        ;; Enable LSP
         (progn (message "enabling lsp mode...") (lsp)))
 
     :foreign-keys warn :title "LSP" :quit-key "q" :color blue)
