@@ -32,6 +32,9 @@
           :map control-semi-map
           ("C-1" . zygospore-toggle-delete-other-windows)))
 
+(use-package auto-highlight-symbol
+  :init (add-hook 'prog-mode-hook 'auto-highlight-symbol-mode))
+
 (define-prefix-command 'mc-map)
 (use-package multiple-cursors :defer t
   :bind
@@ -39,50 +42,41 @@
   (:map mc-map (("l" . mc/edit-lines))))
 
 (cua-mode 1)
+(delete-selection-mode 1)
+(show-paren-mode t)
+(electric-pair-mode t)
 
-(setq cua-prefix-override-inhibit-delay 0.01)
+(setq windmove-wrap-around t
+      debug-on-error nil
+      cua-prefix-override-inhibit-delay 0.01
+      inhibit-splash-screen t
+      initial-scratch-message ""
+      column-number-mode t
+      history-length 25
+      select-enable-clipboard t ;; Merge OS and Emacs' clipboards
+      auto-window-vscroll nil   ;; Gives us better line scrolling performance
 
-(setq windmove-wrap-around t)
+      ;; We'll ask emacs to put all customizations made via it's customize package in a
+      ;; separate file... so we can ignore it later :)
+      custom-file (concat user-emacs-directory "/custom--ignored.el")
 
-;; set to t to investigate crashes
-(setq debug-on-error nil)
-(setq inhibit-splash-screen t)
-(setq initial-scratch-message "")
-(setq column-number-mode t)
-(setq history-length 25)
-(setq select-enable-clipboard t) ;; Merge OS and Emacs' clipboards
-
-(setq auto-window-vscroll nil)   ;; Gives us better line scrolling performance
+      ;; Make the interface a bit more snappy
+      idle-update-delay 0.05
+      bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks"
+      ring-bell-function 'ignore
+      backup-by-copying t      ; don't clobber symlinks
+      backup-directory-alist '(("." . "~/.saves"))    ; don't litter my fs tree
+      delete-old-versions t
+      kept-new-versions 6
+      kept-old-versions 2
+      version-control t ; use versioned backups
+      )
 
 (require 'pixel-scroll)
 
 (if (bound-and-true-p pixel-scroll-precision-mode)
     (pixel-scroll-precision-mode)
   (pixel-scroll-mode))
-
-;; We'll ask emacs to put all customizations made via it's customize package in a
-;; separate file... so we can ignore it later :)
-(setq custom-file (concat user-emacs-directory "/custom--ignored.el"))
-
-(use-package auto-highlight-symbol
-  :init (add-hook 'prog-mode-hook 'auto-highlight-symbol-mode))
-
-(delete-selection-mode 1)
-(show-paren-mode t)
-
-;; Make the interface a bit more snappy
-(setq idle-update-delay 0.05)
-
-(customize-set-variable 'electric-pair-mode t)
-(customize-set-variable 'bmkp-last-as-first-bookmark-file "~/.emacs.d/bookmarks" )
-
-(setq backup-by-copying t      ; don't clobber symlinks
-      backup-directory-alist
-      '(("." . "~/.saves"))    ; don't litter my fs tree
-      delete-old-versions t
-      kept-new-versions 6
-      kept-old-versions 2
-      version-control t)       ; use versioned backups
 
 (defun my-create-non-existent-directory ()
   (let ((parent-directory (file-name-directory buffer-file-name)))
@@ -91,8 +85,6 @@
       (make-directory parent-directory t))))
 
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
-
-(setq ring-bell-function 'ignore)
 
 (define-key tab-map (kbd "j")
             (lambda ()
