@@ -35,7 +35,6 @@
     ("SPC" rustic-cargo-check "cargo check")))
 
 (use-package go-mode :defer t
-  :hook (go-mode . lsp-deferred)
   :config
   (defhydra hydra-go (:color blue)
     ( "c" helm-yas-complete "yas complete"))
