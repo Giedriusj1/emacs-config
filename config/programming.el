@@ -63,9 +63,6 @@
   ( "k" eval-last-sexp "eval-last-sexp")
   ( "c" helm-yas-complete "yas complete"))
 
-;; lsp-java pulls the whole treemacs for itself...
-;; (use-package lsp-java :defer t)
-
 (use-package typescript-mode :defer t)
 
 (use-package g-adl-mode :ensure nil)    ; We can't defer this one for some reason

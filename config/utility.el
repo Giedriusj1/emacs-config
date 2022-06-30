@@ -14,7 +14,6 @@
   (interactive)
   (byte-force-recompile "~/.emacs.d/config/helm-tree-sitter"))
 
-
 (defun g/reload-emacs-config ()
   (interactive)
   (load-file "~/.emacs.d/init.el"))
