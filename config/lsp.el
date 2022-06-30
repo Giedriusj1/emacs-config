@@ -1,6 +1,8 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
+ (define-key tab-map (kbd "o") 'hydra-lsp/body)
+
  (use-package helm-lsp :defer t)
 
  (use-package pretty-hydra :ensure t :defer t)
