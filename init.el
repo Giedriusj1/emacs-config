@@ -72,7 +72,8 @@
 (setq basic-load-sequence '("looks.el"        ; We want looks ASAP, to reduce any flickering
                             "key-bindings.el" ; Key bindings are also needed early, for prefixes
                             "hydra.el"        ; We need defhydra macro
-                            "behaviour.el"))
+                            "behaviour.el"
+                            "helm.el"))
 
 ;; Let's load the files specified in the basic load sequence:
 (dolist (element basic-load-sequence)
