@@ -22,6 +22,6 @@
   (global-company-mode t)
   (company-quickhelp-mode)
 
-  (setq pos-tip-background-color "#121717")
+  (setq pos-tip-background-color "#202221")
 
   (setq company-tooltip-limit 25))
