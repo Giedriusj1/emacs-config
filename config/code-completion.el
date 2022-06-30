@@ -1,19 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-;; (use-package ggtags :defer t
-;;   :config
-;;   ;; This should prevent Emacs from asking "Keep current list of tags tables also?"
-;;   (setq tags-add-tables nil)
-
-;;   ;; Prevent ggtags mode from displaying project name in mode line.
-;;   ;; Projectile already displays this information.
-;;   (setq ggtags-mode-line-project-name nil))
-
-;; (use-package dumb-jump :defer t
-;;   :config
-;;   (setq dumb-jump-selector 'helm)
-;;   (setq dumb-jump-force-searcher 'rg))
-
 (use-package yasnippet :defer t
   :ensure yasnippet-snippets
   :ensure yasnippet-classic-snippets
