@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (on-linux
  (defhydra hydra-gdb-helper (:color blue)
 

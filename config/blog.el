@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (on-linux
  (use-package htmlize :defer t)
  ;; default one would pick source colours from my current theme...

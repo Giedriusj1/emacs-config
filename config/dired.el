@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (use-package dired-subtree :defer t)
 
 (use-package dired :ensure nil :defer 5

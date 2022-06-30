@@ -1,4 +1,5 @@
 ;;; -*- lexical-binding: t -*-
+
 (setq tab-bar-show -1)
 (tab-bar-mode)
 
