@@ -19,7 +19,6 @@
 
   (setq package-check-signature nil))
 
-
 ;; On Windows system we'll just ignore signatures altogether...
 ;; too much hassle.
 (cond ((string-equal system-type "windows-nt")
@@ -34,7 +33,7 @@
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t)
 
-(setq warning-suppress-types '(((package reinitialization)) (comp)))
+(setq warning-suppress-types '(((package reinitialization)) (comp) (lsp-mode) ))
 
 (use-package gcmh
   :diminish gcmh-mode
