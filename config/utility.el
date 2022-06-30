@@ -45,6 +45,3 @@
   (save-excursion
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
-
-;; to check if the function is natively compiled
-;; (subr-native-comp-unit (symbol-function 'org-mode))
