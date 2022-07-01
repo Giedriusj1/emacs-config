@@ -39,10 +39,10 @@
   (defhydra hydra-go (:color blue)
     ( "c" helm-yas-complete "yas complete"))
   (setq lsp-gopls-codelens nil)
-  (defun my-go-mode-hook ()
-    (add-hook 'before-save-hook 'gofmt-before-save))
 
-  (add-hook 'go-mode-hook 'my-go-mode-hook))
+  (add-hook 'go-mode-hook
+            (lambda ()
+              (add-hook 'before-save-hook 'gofmt-before-save))))
 
 (add-hook 'python-mode-hook
           (lambda()
