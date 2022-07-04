@@ -19,8 +19,8 @@
 
 ;; On Windows system we'll just ignore signatures altogether...
 ;; too much hassle.
-(cond ((string-equal system-type "windows-nt")
-       (setq package-check-signature nil)))
+(on-windows
+ (setq package-check-signature nil))
 
 ;; Make sure we have use-package installed.
 ;; All other packages will be installed by it.
@@ -45,26 +45,6 @@
   (add-hook 'focus-out-hook #'garbage-collect)
   ;;  and saving files.
   (add-hook 'after-save-hook #'garbage-collect))
-
-(defmacro measure-time (&rest body)
-  "Measure the time it takes to evaluate BODY."
-  `(let ((time (current-time)))
-     ,@body
-     (message "took %.06f seconds" (float-time (time-since time)))))
-
-(defun is-linux() (memq system-type '(gnu gnu/linux)))
-(defmacro on-linux (&rest body) `(when (is-linux) ,@body))
-
-(defun is-windows() (memq system-type '(windows-nt ms-dos)))
-(defmacro on-windows (&rest body) `(when (is-windows) ,@body))
-
-(defmacro cond-linux-win-mac (linux windows darwin)
-  `(cond ((memq system-type '(windows-nt ms-dos))
-          ,windows)
-         ((memq system-type '(gnu gnu/linux))
-          ,linux)
-         ((memq system-type '(darwin))
-          ,darwin)))
 
 ;; This defines in which order we want to load our config.
 (setq basic-load-sequence '("looks.el"        ; We want looks ASAP, to reduce any flickering

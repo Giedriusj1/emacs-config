@@ -38,3 +38,24 @@
 (add-hook 'emacs-startup-hook
   (lambda ()
     (setq file-name-handler-alist doom--file-name-handler-alist)))
+
+;; Some basic macros that will be used throughout the config
+(defmacro measure-time (&rest body)
+  "Measure the time it takes to evaluate BODY."
+  `(let ((time (current-time)))
+     ,@body
+     (message "took %.06f seconds" (float-time (time-since time)))))
+
+(defun is-linux() (memq system-type '(gnu gnu/linux)))
+(defmacro on-linux (&rest body) `(when (is-linux) ,@body))
+
+(defun is-windows() (memq system-type '(windows-nt ms-dos)))
+(defmacro on-windows (&rest body) `(when (is-windows) ,@body))
+
+(defmacro cond-linux-win-mac (linux windows darwin)
+  `(cond ((memq system-type '(windows-nt ms-dos))
+          ,windows)
+         ((memq system-type '(gnu gnu/linux))
+          ,linux)
+         ((memq system-type '(darwin))
+          ,darwin)))
