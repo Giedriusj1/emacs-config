@@ -8,8 +8,6 @@
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                          ("melpa" . "https://melpa.org/packages/")))
 
-(setq use-emergency-package-mirror nil)
-
 ;; Set to t if gnu.org or melpa.org are down
 (when nil
   (message "Using emergency package mirrors")
