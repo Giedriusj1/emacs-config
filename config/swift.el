@@ -19,13 +19,9 @@
 (defvar swift-command-map
   (let ((map (make-sparse-keymap)))
     ;; movement
-    (define-key map (kbd "i") (lambda ()
-                                (interactive)
-                                (swift-up 2)))
+    (define-key map (kbd "i") (i-lambda () (swift-up 2)))
 
-    (define-key map (kbd "k") (lambda ()
-                                (interactive)
-                                (swift-down 2)))
+    (define-key map (kbd "k") (i-lambda () (swift-down 2)))
 
     (define-key map (kbd "o") 'swift-up)
     (define-key map (kbd "l") 'swift-down)

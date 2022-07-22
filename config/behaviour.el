@@ -90,8 +90,7 @@
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
 (define-key tab-map (kbd "j")
-            (lambda ()
-              (interactive)
+            (i-lambda ()
               (cond (( string= "org-mode" major-mode)
 	                 (hydra-org/body))
 	                (( string= "emacs-lisp-mode" major-mode)

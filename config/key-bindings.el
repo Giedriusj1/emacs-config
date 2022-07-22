@@ -65,19 +65,16 @@
 (define-key control-semi-map (kbd "C-l") 'execute-extended-command)
 (define-key control-semi-map (kbd "C-2") 'split-window-below)
 
-(define-key control-semi-map (kbd "C-2") (lambda ()
-                                           (interactive)
+(define-key control-semi-map (kbd "C-2") (i-lambda ()
                                            (split-window-below)
                                            (balance-windows)))
 
-(define-key control-semi-map (kbd "C-3") (lambda ()
-                                           (interactive)
+(define-key control-semi-map (kbd "C-3") (i-lambda ()
                                            (split-window-right)
                                            (balance-windows)))
 
 
-(define-key control-semi-map (kbd "C-0") (lambda ()
-                                           (interactive)
+(define-key control-semi-map (kbd "C-0") (i-lambda ()
                                            (delete-window)
                                            (balance-windows)))
 

@@ -52,6 +52,16 @@
 (defun is-windows() (memq system-type '(windows-nt ms-dos)))
 (defmacro on-windows (&rest body) `(when (is-windows) ,@body))
 
+
+(defmacro i-defun (name arglist &rest body) `(defun ,name ,arglist
+                                               (interactive)
+                                               ,@body))
+
+(defmacro i-lambda (arglist &rest body) `(lambda ,arglist
+                                           (interactive)
+                                           ,@body))
+
+
 (defmacro cond-linux-win-mac (linux windows darwin)
   `(cond ((memq system-type '(windows-nt ms-dos))
           ,windows)

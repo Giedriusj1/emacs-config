@@ -126,8 +126,7 @@
                     (dired-directory (concat "{" dired-directory "}"))
                     (t "[no file]")))
 
-    (mapcar (lambda (tab)
-              (interactive)
+    (mapcar (i-lambda (tab)
               (let ((tab-name (alist-get 'name tab)))
                 (if (eq (car tab) 'current-tab)
                     (format " [ %s ] " tab-name)

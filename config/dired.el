@@ -8,26 +8,22 @@
   :config
   (require 'dired-x)
 
-  (define-key dired-mode-map (kbd "(") (lambda ()
-                                         (interactive)
+  (define-key dired-mode-map (kbd "(") (i-lambda ()
                                          (if dired-hide-details-mode
                                              (dired-hide-details-mode -1)
                                            (dired-hide-details-mode ))
-
                                          (if dired-omit-mode
                                                (dired-omit-mode -1)
                                              (dired-omit-mode))))
 
   (define-key dired-mode-map (kbd "l") 'dired-up-directory)
   (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
-  (define-key dired-mode-map (kbd "SPC") (lambda ()
-                                           (interactive)
+  (define-key dired-mode-map (kbd "SPC") (i-lambda ()
                                            (if dired-omit-mode
                                                (dired-omit-mode -1)
                                              (dired-omit-mode))))
 
-  (define-key dired-mode-map (kbd "C-i") (lambda ()
-                                           (interactive)
+  (define-key dired-mode-map (kbd "C-i") (i-lambda ()
                                            (dired-subtree-cycle)
                                            (dired-omit-mode)))
 

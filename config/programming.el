@@ -89,8 +89,7 @@
 (use-package elisp-format :defer t)
 
 (define-key tab-map (kbd "i")
-	        (lambda ()
-	          (interactive)
+	        (i-lambda ()
 	          (cond ((or ( string= "c++-mode" major-mode)
 			             ( string= "c-mode" major-mode))
 		             (if (use-region-p)
