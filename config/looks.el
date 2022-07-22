@@ -13,6 +13,17 @@
    ((string= mode "medium") (set-face-attribute 'default nil :font "Monospace" :height 120))
    ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))
 
+(use-package dashboard
+  :ensure t
+  :config
+  (dashboard-setup-startup-hook)
+  (setq dashboard-center-content t)
+  (setq dashboard-startup-banner 'logo)
+
+  (setq dashboard-items '((recents  . 5)
+                          (bookmarks . 5)
+                          (projects . 5))))
+
 (defun set-font (mode)
   (progn
     (setq current-font mode)
