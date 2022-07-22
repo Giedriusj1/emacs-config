@@ -2,9 +2,21 @@
 
 (use-package dired-subtree :defer t)
 
+(diminish 'dired-omit-mode)
+
 (use-package dired :ensure nil :defer 5
   :config
   (require 'dired-x)
+
+  (define-key dired-mode-map (kbd "(") (lambda ()
+                                         (interactive)
+                                         (if dired-hide-details-mode
+                                             (dired-hide-details-mode -1)
+                                           (dired-hide-details-mode ))
+
+                                         (if dired-omit-mode
+                                               (dired-omit-mode -1)
+                                             (dired-omit-mode))))
 
   (define-key dired-mode-map (kbd "l") 'dired-up-directory)
   (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
