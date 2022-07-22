@@ -25,7 +25,7 @@
                                            (if dired-omit-mode
                                                (dired-omit-mode -1)
                                              (dired-omit-mode))))
-  
+
   (define-key dired-mode-map (kbd "C-i") (lambda ()
                                            (interactive)
                                            (dired-subtree-cycle)
@@ -46,7 +46,7 @@
               (dired-omit-mode)))
 
   (set-face-foreground 'dired-directory "LightSlateBlue" )
-  
+
   ;; Most of the above were taken from Thierry Volpiato's dired-extension.el
   (setq dired-font-lock-keywords
         (list
@@ -66,13 +66,13 @@
 
          ;; Flagged files or not yet saved (.# or #.#)
          (list "\\(^..*-\\).*\\( [0-9:]* \\)\\(\.?#.*#?\\)$" '(3 dired-symlink-face))
-         
+
          ;; Directory headers.
          (list dired-subdir-regexp '(1 dired-header-face))
-         
+
          ;; Dired marks. (C,D, etc... at beginning of line)
          (list dired-re-mark '(0 dired-mark-face))
-         
+
 
          ;; Subdirectories.
          (list dired-re-dir
@@ -98,22 +98,22 @@
 		                       (unless (get-text-property (1- (point)) 'mouse-face)
 		                         (dired-move-to-filename)))
 	                    nil (0 dired-ignored-face))))
-         
+
          ;; Regular file names.
          (list "\\(^..*-\\).*\\( [0-9:]* \\)\\(.*\\)$"
                '(".+" (dired-move-to-filename) nil (0 '((:foreground "yellow")))))
          ;; '(".+" (dired-move-to-filename) nil (0 '((:foreground "Dodgerblue3")))))
-         
+
          ;; Filenames extensions.
          (list "[^ .]\\.\\([a-zA-Z]*\\)$" '(1 '((:foreground "green2")) t))
 
          ;; Executable flags (Use C-u s)
          (list "[^ .]\\([*]?$\\)" '(1 '((:foreground "red")) t))
-         
+
          ;; Compressed filenames extensions.
          (list "[^ .]\\.\\([tz7]?[bgi]?[pzZ]2?\\)[*]?$" '(1 '((:foreground "yellow")) t))
-         
-         
+
+
          ;; Files that are group or world writable.
          (list (concat dired-re-maybe-mark dired-re-inode-size
         	           "\\([-d]\\(....w....\\|.......w.\\)\\)")

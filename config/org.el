@@ -1,5 +1,6 @@
 (use-package org :defer t :pin gnu
   :mode (("\\.org$" . org-mode))
+  :diminish org-indent-mode
   :bind
   (:map org-mode-map (("C-j" . helm-mini) ("<C-tab>" . tab-bar-switch-to-next-tab) ))
   :config

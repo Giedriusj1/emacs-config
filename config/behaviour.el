@@ -12,6 +12,8 @@
 
 (use-package diminish)
 
+(diminish 'eldoc-mode)
+
 (use-package google-this :defer t)
 
 ;; Show number of matches in mode-line while searching
@@ -33,6 +35,7 @@
           ("C-1" . zygospore-toggle-delete-other-windows)))
 
 (use-package auto-highlight-symbol
+  :diminish auto-highlight-symbol-mode
   :init (add-hook 'prog-mode-hook 'auto-highlight-symbol-mode))
 
 (define-prefix-command 'mc-map)
