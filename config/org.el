@@ -35,4 +35,4 @@
   (customize-set-variable 'helm-split-window-default-side 'right)
 
   (add-hook 'org-mode-hook (lambda ()
-                           (org-indent-initialize-agent))))
+                             (org-indent-initialize-agent))))
