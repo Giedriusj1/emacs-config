@@ -15,9 +15,6 @@
     (interactive)
     (mvn "integration-test")))
 
-(defhydra hydra-c (:color blue)
-  ("c" helm-yas-complete "helm yas complete"))
-
 (add-hook 'c-mode-common-hook
           (lambda()
             (setq comment-start "//" comment-end  "")))
@@ -34,10 +31,11 @@
     ("b" rustic-cargo-build "cargo build")
     ("SPC" rustic-cargo-check "cargo check")))
 
+(defhydra hydra-default (:color blue)
+    ("c" helm-yas-complete "yas complete"))
+
 (use-package go-mode :defer t
   :config
-  (defhydra hydra-go (:color blue)
-    ( "c" helm-yas-complete "yas complete"))
   (setq lsp-gopls-codelens nil)
 
   (add-hook 'go-mode-hook
@@ -50,9 +48,6 @@
             (setq python-indent 4)
             (setq tab-width 4)
             (tree-sitter-hl-mode)))
-
-(defhydra hydra-python (:color blue)
-  ( "c" helm-yas-complete "helm yas complete"))
 
 (add-hook 'scheme-mode-hook
           (lambda()
@@ -84,7 +79,7 @@
               ("C-j" . helm-mini)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Formatting stuff 
+;; Formatting stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package clang-format :defer t
   :config
