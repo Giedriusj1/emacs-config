@@ -44,3 +44,21 @@
   (save-excursion
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
+
+(defun g/set-github-key-personal()
+  (interactive)
+  (f-write-text "# personal key
+Host github.com
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_rsa_github_personal" 'utf-8 "~/.ssh/config"))
+
+
+(defun g/set-github-key-normal()
+  (interactive)
+  (f-write-text "# default (work) key
+Host github.com
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_rsa" 'utf-8 "~/.ssh/config"))
+
