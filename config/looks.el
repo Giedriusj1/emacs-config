@@ -12,27 +12,25 @@
                            (bookmarks . 5)
                            (projects . 5)))))
 
+;TODO: does not have to be a string
 (setq current-font "normal")
 
-(defun set-windows-font (mode)
-  (cond ((string= mode "normal") (set-face-attribute 'default nil :font "Consolas" :height 100))
-	    ((string= mode "medium") (set-face-attribute 'default nil :font "Consolas" :height 110))
-	    ((string= mode "4k") (set-face-attribute 'default nil :font "Consolas" :height 120))))
+(on-windows
+ (defun set-font (mode)
+   (progn
+     (setq current-font mode)
+     (cond ((string= mode "normal") (set-face-attribute 'default nil :font "Consolas" :height 100))
+	       ((string= mode "medium") (set-face-attribute 'default nil :font "Consolas" :height 110))
+	       ((string= mode "4k") (set-face-attribute 'default nil :font "Consolas" :height 120))))))
 
-(defun set-linux-font (mode)
-  (cond
-   ((string= mode "normal") (set-face-attribute 'default nil :font "Monospace" :height 100))
-   ((string= mode "medium") (set-face-attribute 'default nil :font "Monospace" :height 120))
-   ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))
-
-
-(defun set-font (mode)
-  (progn
-    (setq current-font mode)
-    (cond-linux-win-mac
-     (set-linux-font mode)
-     (set-windows-font mode)
-     (message "noo wayy"))))
+(on-linux
+ (defun set-font (mode)
+   (progn
+     (setq current-font mode)
+     (cond
+      ((string= mode "normal") (set-face-attribute 'default nil :font "Monospace" :height 100))
+      ((string= mode "medium") (set-face-attribute 'default nil :font "Monospace" :height 120))
+      ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))))
 
 (defun toggle-font-size()
   (interactive)
