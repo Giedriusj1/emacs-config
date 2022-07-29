@@ -17,6 +17,10 @@
   (:map lisp-interaction-mode-map (("C-j" . helm-mini)))
   :config
 
+  (add-hook 'helm-mode-hook
+            (lambda ()
+              (diminish 'helm-mode)))
+
   (defun g/control-semi-map-helm-tree-sitter-debug ()
     (interactive)
     (require 'helm-tree-sitter-debug)
