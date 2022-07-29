@@ -2,11 +2,13 @@
 
 (use-package dired-subtree :defer t)
 
-(diminish 'dired-omit-mode)
-
 (use-package dired :ensure nil :defer 5
   :config
   (require 'dired-x)
+
+  (add-hook 'dired-omit-mode-hook
+            (lambda ()
+              (diminish 'dired-omit-mode)))
 
   (define-key dired-mode-map (kbd "(") (i-lambda ()
                                          (if dired-hide-details-mode
