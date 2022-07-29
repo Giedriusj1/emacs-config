@@ -1,17 +1,5 @@
 (message "looks.el : starting looks stage")
 
-(on-linux
- (use-package dashboard
-   :ensure t
-   :config
-   (dashboard-setup-startup-hook)
-   (setq dashboard-center-content t)
-   (setq dashboard-startup-banner 'logo)
-
-   (setq dashboard-items '((recents  . 5)
-                           (bookmarks . 5)
-                           (projects . 5)))))
-
 ;TODO: does not have to be a string
 (setq current-font "normal")
 
