@@ -6,7 +6,10 @@
 
  (use-package auto-sudoedit
    :diminish auto-sudoedit-mode
-   :config (auto-sudoedit-mode 1)))
+   :config (auto-sudoedit-mode 1))
+
+ (use-package paradox
+   :config (paradox-enable)))
 
 (use-package hydra :ensure t :defer t)
 
