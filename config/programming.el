@@ -58,7 +58,9 @@
   ( "k" eval-last-sexp "eval-last-sexp")
   ( "c" helm-yas-complete "yas complete"))
 
-(use-package typescript-mode :defer t)
+(use-package typescript-mode :defer t
+  :config
+  (setq-default typescript-indent-level 2))
 
 (use-package g-adl-mode :ensure nil)    ; We can't defer this one for some reason
 
