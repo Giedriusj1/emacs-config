@@ -1,4 +1,5 @@
 ;;; -*- lexical-binding: t -*-
+
 (setq opensips-cfg-highlights
       '(("#.*" . font-lock-comment-face)        
         ;; ("\ .*(" . font-lock-function-name-face)
