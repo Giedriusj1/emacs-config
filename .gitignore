@@ -35,3 +35,5 @@ package-quickstart.el
 .dap-breakpoints
 eln-cache/
 projects
+bookmarks
+async-bytecomp.log
