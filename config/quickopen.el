@@ -52,7 +52,7 @@
 [_;_] grep notes"
   ("t" (lambda ()
 	     (interactive)
-	     (find-file "~/.emacs.d/temps/emacs-temp")) nil)
+	     (find-file "~/private-sync/temp.org")) nil)
   ("c" (lambda ()
          (interactive)
          (find-file "~/.emacs.d/init.el")) nil)
