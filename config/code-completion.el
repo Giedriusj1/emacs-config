@@ -8,7 +8,8 @@
   :hook ((prog-mode . yas-minor-mode)
          (org-mode . yas-minor-mode)))
 
-(use-package company-quickhelp :defer t)
+(on-linux
+ (use-package company-quickhelp :defer t))
 
 (use-package company :defer t
   :bind ( :map company-active-map
