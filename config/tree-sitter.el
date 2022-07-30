@@ -1,5 +1,7 @@
 (add-to-list 'load-path "~/.emacs.d/config/helm-tree-sitter")
-(use-package tree-sitter :defer t)
+(use-package tree-sitter :defer t
+  :diminish tree-sitter-mode
+  :diminish tree-sitter-debug-mode)
 
 (use-package tree-sitter-langs :defer t)
 
