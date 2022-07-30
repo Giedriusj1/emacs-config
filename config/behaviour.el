@@ -4,11 +4,11 @@
  (use-package shell-here :defer t
   :bind* (( "C-`" . shell-here)))
 
- (use-package auto-sudoedit
+ (use-package auto-sudoedit :defer t
    :diminish auto-sudoedit-mode
    :config (auto-sudoedit-mode 1))
 
- (use-package paradox
+ (use-package paradox :defer t
    :config (paradox-enable)))
 
 (use-package hydra :ensure t :defer t)
@@ -24,7 +24,7 @@
   :diminish anzu-mode
   :config (global-anzu-mode t))
 
-(use-package recentf :ensure nil
+(use-package recentf :ensure nil :defer t
   :config
   (recentf-mode 1)
   (setq recentf-max-menu-items 250)
