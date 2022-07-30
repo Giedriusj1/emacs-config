@@ -1,7 +1,6 @@
 (message "looks.el : starting looks stage")
 
-;TODO: does not have to be a string
-(setq current-font "normal")
+(setq current-font 'normal)
 
 (on-windows
  (defun set-font (mode)
@@ -16,33 +15,34 @@
    (progn
      (setq current-font mode)
      (cond
-      ((string= mode "normal") (set-face-attribute 'default nil :font "Monospace" :height 100))
-      ((string= mode "medium") (set-face-attribute 'default nil :font "Monospace" :height 120))
-      ((string= mode "4k") (set-face-attribute 'default nil :font "Monospace" :height 140))))))
+      ((eq mode 'normal) (set-face-attribute 'default nil :font "Monospace" :height 100))
+      ((eq mode 'medium) (set-face-attribute 'default nil :font "Monospace" :height 120))
+      ((eq mode '4k) (set-face-attribute 'default nil :font "Monospace" :height 140))))))
+
 
 (defun toggle-font-size()
   (interactive)
-  (cond ((string= current-font "normal")
-	     (set-font "medium"))
-	    ((string= current-font "medium")
-	     (set-font "4k"))
-	    ((string= current-font "4k")
-	     (set-font "normal"))))
+  (cond ((eq current-font 'normal)
+	     (set-font 'medium))
+	    ((eq current-font 'medium)
+	     (set-font '4k))
+	    ((eq current-font '4k)
+	     (set-font 'normal))))
 
 ;; Default font size
 (defun set-font-normal ()
   (interactive)
-  (set-font "normal"))
+  (set-font 'normal))
 
 ;; Larger than normal, but not as big as 4k
 (defun set-font-medium ()
   (interactive)
-  (set-font "medium"))
+  (set-font 'medium))
 
 ;; Sets font size to something that's usable under 4k monitor
 (defun set-font-4k ()
   (interactive)
-  (set-font "4k"))
+  (set-font '4k))
 
 (defun is-4k-monitor ()
   (and (<= 2840 (x-display-pixel-width)) (<= 2160 (x-display-pixel-height))))
@@ -63,11 +63,12 @@
    'custom-safe-themes '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
 
   (custom-set-faces
-   '(org-level-1 ((t (:inherit outline-1 :weight demibold :foreground "DarkOrange3" :height 1.2))))
-   '(org-level-2 ((t (:inherit outline-2 :weight demibold :foreground "darkOliveGreen3" :height 1.2))))
-   '(org-level-3 ((t (:inherit outline-3 :weight demibold :height 1.1))))
-   '(org-level-4 ((t (:inherit outline-4 :weight demibold :height 1.0))))
-   '(org-level-5 ((t (:inherit outline-5 :weight demibold :height 1.0))))
+   '(org-level-1 ((t (:inherit outline-1 :weight demibold :height 1.2))))
+   ;; '(org-level-1 ((t (:inherit outline-1 :weight demibold :foreground "DarkOrange3" :height 1.2))))
+   ;; '(org-level-2 ((t (:inherit outline-2 :weight demibold :foreground "darkOliveGreen3" :height 1.2))))
+   ;; '(org-level-3 ((t (:inherit outline-3 :weight demibold :height 1.1))))
+   ;; '(org-level-4 ((t (:inherit outline-4 :weight demibold :height 1.0))))
+   ;; '(org-level-5 ((t (:inherit outline-5 :weight demibold :height 1.0))))
 
    '(default ((t (:background "#131818"))))
    '(cursor ((t (:background "OrangeRed"))))

@@ -63,7 +63,7 @@
                             :box nil)
         (global-swift-mode -1))
 
-    (progn ;; turning mode off
+    (progn ;; turning mode on
       (custom-set-faces '(cursor ((t (:background "blue")))))
       (custom-set-faces '(mode-line ((t (:background "#333377")))))
       (global-swift-mode))))
