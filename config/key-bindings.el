@@ -2,68 +2,53 @@
 (define-prefix-command 'tab-map)
 (define-prefix-command 'lisp-playground-map)
 
-(define-key tab-map (kbd "SPC") 'lisp-playground-map)
+(bind-keys ("M-h" . open-line)
+           ("M-," . backward-kill-word)
+           ("M-." . kill-word)
+           ("C-," . delete-backward-char)
+           ("C-." . delete-char)
+           ("C-d" . tab-map)
+           ("C-;" . control-semi-map)
+           ("<tab>" . tab-map)
+           ("M-;" . tab-map)
+           ("C-u" . backward-char)
+           ("C-o" . forward-char)
+           ("M-u" . backward-word)
+           ("M-o" . forward-word)
+           ("C-M-u" . backward-sexp)
+           ("C-M-o" . forward-sexp)
+           ("C-a" . Control-X-prefix)
+           ("C-q" . beginning-of-line)
+           ("C-w" . back-to-indentation)
+           ("C-f" . cua-exchange-point-and-mark)
+           ("C-v" . yank)
+           
+           ("<f9>" . toggle-font-size)
+           ("<f10>" . toggle-truncate-lines)
+           ("<f11>" . toggle-frame-fullscreen)
+           ("<f12>" . whitespace-mode)
 
-(bind-key* "C-d" 'tab-map)
-(bind-key* "C-;" 'control-semi-map)
-(bind-key* "<tab>" 'tab-map)
-(bind-key* "M-;" 'tab-map)
+           ( "<Scroll_Lock>" . scroll-lock-mode)
+           ( "<up>" . scroll-down-line)
+           ( "<down>" . scroll-up-line)
+           ( "M-p" . backward-paragraph)
+           ( "M-n" . forward-paragraph)
+           ( "M-," . backward-kill-word)
+           ( "<down>" . scroll-up-line)
+           ( "C-M-SPC" . rectangle-mark-mode))
 
-(global-set-key [f9] 'toggle-font-size)
-(global-set-key [f10] 'toggle-truncate-lines)
-(global-set-key [f11] 'toggle-frame-fullscreen)
-(global-set-key [f12] 'whitespace-mode)
+(bind-keys :map control-semi-map
+           ("SPC" . point-to-register)
+           ("C-SPC" . point-to-register)
+           ("j" . jump-to-register)
+           ("h" . unhighlight-regexp)
+           ("C-h" . highlight-symbol-at-point)
+           ("q" . goto-line)
 
-(global-set-key (kbd "<Scroll_Lock>") 'scroll-lock-mode)
-(global-set-key (kbd "<up>") 'scroll-down-line)
-(global-set-key (kbd "<down>") 'scroll-up-line)
-
-(global-set-key (kbd "M-p") 'backward-paragraph)
-(global-set-key (kbd "M-n") 'forward-paragraph)
-
-(bind-key* "M-," 'backward-kill-word)
-(bind-key* "M-." 'kill-word)
-
-(global-set-key (kbd "M-,") 'backward-kill-word)
-(global-set-key (kbd "<down>") 'scroll-up-line)
-
-(global-set-key (kbd "C-d") 'global-superword-mode)
-(global-set-key (kbd "C-M-SPC") 'rectangle-mark-mode)
-
-(bind-key* "C-," 'delete-backward-char)
-(bind-key* "C-." 'delete-char)
-
-(bind-key* "M-h" 'open-line)
-
-(bind-key* "C-u" 'backward-char)
-(bind-key* "C-o" 'forward-char)
-
-(bind-key* "M-u" 'backward-word)
-(bind-key* "M-o" 'forward-word)
-
-(bind-key* "C-M-u" 'backward-sexp)
-(bind-key* "C-M-o" 'forward-sexp)
-
-(bind-key* "C-a" 'Control-X-prefix)
-
-(bind-key* "C-q" 'beginning-of-line)
-(bind-key* "C-w" 'back-to-indentation)
-
-(bind-key "C-f" 'cua-exchange-point-and-mark)
-
-(bind-key* "C-v" 'yank)
-
-(define-key control-semi-map (kbd "SPC") 'point-to-register)
-(define-key control-semi-map (kbd "C-SPC") 'point-to-register)
-(define-key control-semi-map (kbd "j") 'jump-to-register)
-(define-key control-semi-map (kbd "h") 'unhighlight-regexp)
-(define-key control-semi-map (kbd "C-h") 'highlight-symbol-at-point)
-(define-key control-semi-map (kbd "q") 'goto-line)
-
-(define-key control-semi-map (kbd "C-j") 'jump-to-register)
-(define-key control-semi-map (kbd "C-q") 'goto-line)
-(define-key control-semi-map (kbd "C-l") 'execute-extended-command)
-(define-key control-semi-map (kbd "C-2") 'split-window-below)
+           ("C-j" . jump-to-register)
+           ("C-q" . goto-line)
+           ("C-l" . execute-extended-command)
+           ("C-2" . split-window-below))
 
 (define-key control-semi-map (kbd "C-2") (i-lambda ()
                                            (split-window-below)
@@ -79,15 +64,16 @@
                                            (balance-windows)))
 
 (define-key control-semi-map (kbd "C-4") 'balance-windows)
-
 (define-key control-semi-map (kbd "C-d") 'follow-mode)
 
-(define-key tab-map (kbd "TAB") 'comment-dwim)
-(define-key tab-map (kbd "M-;") 'comment-dwim)
 
-(define-key tab-map (kbd "C-d") 'comment-dwim)
-(define-key tab-map (kbd "M-;") 'comment-dwim)
+(bind-keys :map tab-map
+           ("SPC" . lisp-playground-map)
+           ("TAB" . comment-dwim)
+           ("M- ." 'comment-dwim)
+           ("C- ." 'comment-dwim)
+           ("M- ." 'comment-dwim)
+           ("u" . universal-argument)
+           ("C-f" . helm-find-files)
+           ("C-d" . dired-jump))
 
-(define-key tab-map (kbd "u") 'universal-argument)
-(define-key tab-map "\C-f" 'helm-find-files)
-(define-key tab-map "\C-d" 'dired-jump)
