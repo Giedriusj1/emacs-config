@@ -1,4 +1,4 @@
-(use-package org :defer t :pin gnu
+(use-package org :defer 5 :pin gnu
   :mode (("\\.org$" . org-mode))
   :diminish org-indent-mode
   :bind
