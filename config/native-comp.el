@@ -1,8 +1,7 @@
 (setq comp-deferred-compilation nil
       package-native-compile t)
 
-(defun g/compile-elpa-and-custom-to-native ()
-  (interactive)
+(i-defun g/compile-elpa-and-custom-to-native ()
   (progn
     (g/recompile-custom-packages)
     (g/recompile-config)

@@ -2,31 +2,25 @@
 
 (use-package password-generator :defer t)
 
-(defun g/recompile-custom-packages ()
-  (interactive)
+(i-defun g/recompile-custom-packages ()
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))
 
-(defun g/recompile-config ()
-  (interactive)
+(i-defun g/recompile-config ()
   (byte-recompile-directory "~/.emacs.d/config" 0))
 
-(defun g/recompile-helm-tree-sitter ()
-  (interactive)
+(i-defun g/recompile-helm-tree-sitter ()
   (byte-force-recompile "~/.emacs.d/config/helm-tree-sitter"))
 
-(defun g/reload-emacs-config ()
-  (interactive)
+(i-defun g/reload-emacs-config ()
   (load-file "~/.emacs.d/init.el"))
 
-(defun emacs-init-time ()
+(i-defun emacs-init-time ()
   "Return a string giving the duration of the Emacs initialization."
-  (interactive)
   (let ((str (format "%.2f seconds" (float-time (time-subtract after-init-time before-init-time)))))
     (if (called-interactively-p 'interactive)
         (message "%s" str) str)))
 
-(defun g/open-in-external-app ()
-  (interactive)
+(i-defun g/open-in-external-app ()
   (let ((fileList (cond ((string-equal major-mode "dired-mode")
                          (dired-get-marked-files))
                         (t (list (buffer-file-name))))))
@@ -37,16 +31,12 @@
 
 
 (setq nxml-child-indent 4 nxml-attribute-indent 4)
-(defun reformat-xml ()
-  (interactive)
-  ;;todo: this only works in xml-mode, we should spit out an error if we are not
-
+(i-defun reformat-xml ()
   (save-excursion
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
 
-(defun g/set-github-key-personal()
-  (interactive)
+(i-defun g/set-github-key-personal()
   (f-write-text "# personal key
 Host github.com
 	HostName github.com
@@ -54,8 +44,7 @@ Host github.com
 	IdentityFile ~/.ssh/id_rsa_github_personal" 'utf-8 "~/.ssh/config"))
 
 
-(defun g/set-github-key-normal()
-  (interactive)
+(i-defun g/set-github-key-normal()
   (f-write-text "# default (work) key
 Host github.com
 	HostName github.com

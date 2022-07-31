@@ -8,14 +8,13 @@
  (use-package pretty-hydra :ensure t :defer t)
 
 
- (defun describe-foo-at-point ()
+ (i-defun describe-foo-at-point ()
    "Show the documentation of the Elisp function and variable near point.
 	This checks in turn:
 	-- for a function name where point is
 	-- for a variable name where point is
 	-- for a surrounding function call
 	"
-   (interactive)
    (let (sym)
 	 ;; sigh, function-at-point is too clever.  we want only the first half.
 	 (cond ((setq sym (ignore-errors
@@ -35,9 +34,7 @@
            ((setq sym (function-at-point)) (describe-function sym)))))
 
 
- (defun g-lsp/invoke ()
-   (interactive)
-
+ (i-defun g-lsp/invoke ()
    (require 'lsp-mode)
 
    (if ;; major mode is understood by LSP

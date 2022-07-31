@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(defun private-sync-fn ()
-  (interactive)
+(i-defun private-sync-fn ()
   (let* ((default-directory "~/private-sync"))
 	(g/message "pulling private-sync repo")
 	(start-process "proc-git-pull" "notes-sync-output" "git" "pull")))

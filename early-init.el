@@ -39,12 +39,13 @@
   (lambda ()
     (setq file-name-handler-alist doom--file-name-handler-alist)))
 
+
 ;; Some basic macros that will be used throughout the config
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
   `(let ((time (current-time)))
      ,@body
-     (message "took %.06f seconds" (float-time (time-since time)))))
+     (message "took %.06f seconds" (float-time (time-since time)))))  
 
 (defun is-linux() (memq system-type '(gnu gnu/linux)))
 (defmacro on-linux (&rest body) `(when (is-linux) ,@body))
@@ -52,15 +53,17 @@
 (defun is-windows() (memq system-type '(windows-nt ms-dos)))
 (defmacro on-windows (&rest body) `(when (is-windows) ,@body))
 
+(defmacro i-defun (name arglist &rest body)
+  (declare (indent defun))
+  `(defun ,name ,arglist
+     (interactive)
+     ,@body))
 
-(defmacro i-defun (name arglist &rest body) `(defun ,name ,arglist
-                                               (interactive)
-                                               ,@body))
-
-(defmacro i-lambda (arglist &rest body) `(lambda ,arglist
-                                           (interactive)
-                                           ,@body))
-
+(defmacro i-lambda (arglist &rest body)
+  (declare (indent lambda))
+  `(lambda ,arglist
+     (interactive)
+     ,@body))
 
 (defmacro cond-linux-win-mac (linux windows darwin)
   `(cond ((memq system-type '(windows-nt ms-dos))
@@ -69,3 +72,8 @@
           ,linux)
          ((memq system-type '(darwin))
           ,darwin)))
+
+
+
+
+

@@ -21,14 +21,12 @@
             (lambda ()
               (diminish 'helm-mode)))
 
-  (defun g/control-semi-map-helm-tree-sitter-debug ()
-    (interactive)
+  (i-defun g/control-semi-map-helm-tree-sitter-debug ()
     (require 'helm-tree-sitter-debug)
     (tree-sitter-mode)
     (helm-tree-sitter-debug))
 
-  (defun g/control-semi-map-helm-tree-sitter-or-imenu ()
-    (interactive)
+  (i-defun g/control-semi-map-helm-tree-sitter-or-imenu ()
     (require 'helm-tree-sitter)
     (tree-sitter-mode)
     (helm-tree-sitter-or-imenu))

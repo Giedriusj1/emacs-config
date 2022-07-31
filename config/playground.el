@@ -2,9 +2,7 @@
 
 (define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
 
-(defun load-listp-playground (args)
-  "docstring"
-  (interactive "P")
+(i-defun load-listp-playground (args)
   ;; Load playground
   (dolist (element (seq-filter (lambda (item)
                                  (and (string-match-p ".el$" item)

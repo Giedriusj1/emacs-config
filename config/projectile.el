@@ -59,8 +59,7 @@
       :action 'g/helm-source-projectile-projects-actions)
     "Helm source for known projectile projects.")
 
-  (defun g/helm-projectile-projects ()
-    (interactive)
+  (i-defun g/helm-projectile-projects ()
     (let ((helm-ff-transformer-show-only-basename nil))
       (helm :sources '(g/helm-source-projectile-projects)
             :buffer "*helm projectile projects*"

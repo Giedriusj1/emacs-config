@@ -22,6 +22,5 @@
 	      :publishing-function org-publish-attachment)
          ))
 
- (defun g/org-publish-all-force ()
-     (interactive)
+ (i-defun g/org-publish-all-force ()
      (org-publish-all t)))

@@ -10,8 +10,7 @@
 (use-package mvn :defer t
   :config
   (setq compilation-scroll-output t)
-  (defun mvn-integration-test ()
-    (interactive)
+  (i-defun mvn-integration-test ()
     (mvn "integration-test")))
 
 (add-hook 'c-mode-common-hook

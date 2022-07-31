@@ -8,7 +8,7 @@
    :diminish auto-sudoedit-mode
    :config (auto-sudoedit-mode 1))
 
- (use-package paradox :defer t
+(use-package paradox :defer t
    :config (paradox-enable)))
 
 (use-package hydra :ensure t :defer t)

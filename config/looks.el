@@ -20,8 +20,7 @@
       ((eq mode '4k) (set-face-attribute 'default nil :font "Monospace" :height 140))))))
 
 
-(defun toggle-font-size()
-  (interactive)
+(i-defun toggle-font-size()
   (cond ((eq current-font 'normal)
 	     (set-font 'medium))
 	    ((eq current-font 'medium)
@@ -31,24 +30,20 @@
 
 ;; Default font size
 (defun set-font-normal ()
-  (interactive)
   (set-font 'normal))
 
 ;; Larger than normal, but not as big as 4k
 (defun set-font-medium ()
-  (interactive)
   (set-font 'medium))
 
 ;; Sets font size to something that's usable under 4k monitor
 (defun set-font-4k ()
-  (interactive)
   (set-font '4k))
 
 (defun is-4k-monitor ()
   (and (<= 2840 (x-display-pixel-width)) (<= 2160 (x-display-pixel-height))))
 
-(defun set-font-for-current-resolution ()
-  (interactive)
+(i-defun set-font-for-current-resolution ()
   (cond ((is-4k-monitor) (set-font-normal))
 	    (t (set-font-normal))))
 

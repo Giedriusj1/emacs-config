@@ -1,14 +1,12 @@
 ;;; -*- lexical-binding: t -*-
 
-(defun swift-up(&optional arg)
-  (interactive)
+(i-defun swift-up(&optional arg)
   (or arg (setq arg 1))
   (dotimes (bind arg)
     (scroll-down-line)
     (previous-line)))
 
-(defun swift-down(&optional arg)
-  (interactive)
+(i-defun swift-down(&optional arg)
   (or arg (setq arg 1))
   (dotimes (bind arg)
     (scroll-up-line)
@@ -52,8 +50,7 @@
   swift-mode
   :init-value nil)
 
-(defun toggle-swift-mode()
-  (interactive)
+(i-defun toggle-swift-mode()
   (if (eq global-swift-mode t)
       (progn ;; turning mode off
         (custom-set-faces '(cursor ((t (:background "OrangeRed")))))
