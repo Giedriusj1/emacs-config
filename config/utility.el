@@ -37,6 +37,7 @@
     (indent-region (point-min) (point-max))))
 
 (i-defun g/set-github-key-personal()
+  (require 'f)
   (f-write-text "# personal key
 Host github.com
 	HostName github.com
@@ -45,6 +46,7 @@ Host github.com
 
 
 (i-defun g/set-github-key-normal()
+  (require 'f)
   (f-write-text "# default (work) key
 Host github.com
 	HostName github.com
