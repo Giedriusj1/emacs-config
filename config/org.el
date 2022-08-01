@@ -1,8 +1,6 @@
 (use-package org :defer 5 :pin gnu
   :mode (("\\.org$" . org-mode))
   :diminish org-indent-mode
-  :bind
-  (:map org-mode-map (("C-j" . helm-mini) ("<C-tab>" . tab-bar-switch-to-next-tab) ))
   :config
 
   (defhydra hydra-org (:color blue)

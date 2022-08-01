@@ -4,7 +4,6 @@
   :diminish helm-minor-mode
   :diminish helm-mode
   :bind
-  (("C-j" . helm-mini))
   (:map control-semi-map
         (( "C-s" . g/control-semi-map-helm-tree-sitter-or-imenu)
          ( "s" .   g/control-semi-map-helm-tree-sitter-debug)
@@ -14,9 +13,7 @@
          ( "b" . helm-resume)
          ( "C-b" . helm-resume)))
 
-  (:map lisp-interaction-mode-map (("C-j" . helm-mini)))
   :config
-
   (add-hook 'helm-mode-hook
             (lambda ()
               (diminish 'helm-mode)))
@@ -49,7 +46,3 @@
   (require 'swiper))
 
 (use-package helm-rg :defer 3)
-
-(use-package view :defer t :pin manual
-  :bind (:map view-mode-map
-              ("C-j" . helm-mini)))

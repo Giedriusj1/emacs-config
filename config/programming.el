@@ -72,10 +72,6 @@
 
 (use-package cmake-mode :defer t)
 
-(use-package asm-mode :defer t :ensure nil
-  :bind (:map asm-mode-map
-              ("C-j" . helm-mini)))
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Formatting stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;
