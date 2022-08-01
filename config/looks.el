@@ -8,7 +8,7 @@
      (setq current-font mode)
      (cond ((eq mode 'normal) (set-face-attribute 'default nil :font "Consolas" :height 100))
 	       ((eq mode 'medium) (set-face-attribute 'default nil :font "Consolas" :height 110))
-	       (((eq mode '4k) (set-face-attribute 'default nil :font "Consolas" :height 120))))))
+	       (((eq mode '4k) (set-face-attribute 'default nil :font "Consolas" :height 120)))))))
 
 (on-linux
  (defun set-font (mode)
