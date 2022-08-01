@@ -21,7 +21,6 @@
 
 (use-package rustic :defer t
   :config
-  (add-hook 'rust-mode-hook #'tree-sitter-hl-mode)
   (defhydra hydra-rust (:color blue)
     ("c" helm-yas-complete "yas complete")
     ("C" rustic-cargo-clean "cargo clean")
@@ -44,8 +43,7 @@
           (lambda()
             (setq indent-tabs-mode nil)
             (setq python-indent 4)
-            (setq tab-width 4)
-            (tree-sitter-hl-mode)))
+            (setq tab-width 4)))
 
 (add-hook 'scheme-mode-hook
           (lambda()
