@@ -5,6 +5,7 @@
 (use-package dired :ensure nil :defer 5
   :config
   (require 'dired-x)
+  (dired-async-mode 1)
 
   (add-hook 'dired-omit-mode-hook
             (lambda ()
