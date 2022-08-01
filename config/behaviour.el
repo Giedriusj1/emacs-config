@@ -95,13 +95,13 @@
 (add-to-list 'find-file-not-found-functions #'my-create-non-existent-directory)
 
 (define-key tab-map (kbd "j")
-            (i-lambda () (cond (( string= "org-mode" major-mode)
+            (i-lambda () (cond ((eq 'org-mode major-mode)
 	                            (hydra-org/body))
-	                           (( string= "emacs-lisp-mode" major-mode)
+	                           ((eq 'emacs-lisp-mode major-mode)
 	                            (hydra-emacs-lisp/body))
-	                           (( string= "rust-mode" major-mode)
+	                           ((eq 'rust-mode major-mode)
 	                            (hydra-rust/body))
-	                           (( string= "rustic-mode" major-mode)
+	                           ((eq 'rustic-mode major-mode)
 	                            (hydra-rust/body))
 	                           (t (hydra-default/body)))))
 
