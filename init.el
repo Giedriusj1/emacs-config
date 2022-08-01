@@ -1,6 +1,4 @@
 ;;; -*- lexical-binding: t -*-
-(message "init.el : starting init stage")
-
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 

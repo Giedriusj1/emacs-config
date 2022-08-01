@@ -1,5 +1,3 @@
-(message "looks.el : starting looks stage")
-
 (setq current-font 'normal)
 
 (on-windows
@@ -98,9 +96,6 @@
 
 (when (display-graphic-p)
   (load-graphic-settings))
-
-(use-package uniquify :ensure nil
-  :config (setq uniquify-buffer-name-style 'forward))
 
 (defun generate-frame-title ()
   (if (>= 1 (length (tab-bar-tabs)))
