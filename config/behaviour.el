@@ -52,6 +52,7 @@
 (show-paren-mode t)
 (electric-pair-mode t)
 (tooltip-mode -1)
+(blink-cursor-mode -1)
 
 (setq windmove-wrap-around t
       debug-on-error nil
@@ -79,7 +80,6 @@
       version-control t ; use versioned backups
 
       uniquify-buffer-name-style 'forward)
-
 
 (require 'pixel-scroll)
 

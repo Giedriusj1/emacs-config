@@ -97,21 +97,17 @@
 (when (display-graphic-p)
   (load-graphic-settings))
 
-(defun generate-frame-title ()
-  (if (>= 1 (length (tab-bar-tabs)))
+(setq-default frame-title-format
+              '(:eval
+                (if (>= 1 (length (tab-bar-tabs)))
+                    (format "%s %s" (buffer-name)
+                            (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
+                                  (dired-directory (concat "{" dired-directory "}"))
+                                  (t "[no file]")))
 
-      (format "%s %s" (buffer-name)
-              (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
-                    (dired-directory (concat "{" dired-directory "}"))
-                    (t "[no file]")))
-
-    (mapcar (i-lambda (tab)
+                  (mapcar (i-lambda (tab)
               (let ((tab-name (alist-get 'name tab)))
                 (if (eq (car tab) 'current-tab)
                     (format " [ %s ] " tab-name)
                   (format  " %s "tab-name ))  ))
-            (tab-bar-tabs))))
-
-(setq-default frame-title-format '(:eval (generate-frame-title)))
-
-(blink-cursor-mode -1)
+            (tab-bar-tabs)))))
