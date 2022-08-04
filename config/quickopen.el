@@ -8,7 +8,7 @@
   (let* ((default-directory dir)
 	     (helm-ff-default-directory default-directory)
 	     (helm-grep-in-recurse t)
-	     (helm-grep-ignored-files (cl-union (cl-union (projectile-ignored-files-rel)  grep-find-ignored-files) '("*.doc" "*.ovpn")))
+	     (helm-grep-ignored-files (cl-union (cl-union (projectile-ignored-files-rel)  grep-find-ignored-files) '("*.doc" "*.ovpn" "*.pcap" "*.pcapng" )))
 	     (helm-grep-ignored-directories
 	      (cl-union (mapcar 'directory-file-name (projectile-ignored-directories-rel))
 		            grep-find-ignored-directories))
@@ -43,6 +43,7 @@
      :history 'helm-grep-history
      :truncate-lines helm-grep-truncate-lines)))
 
+(setq helm-projectile-fuzzy-match nil)
 
 (defhydra hydra-quickopen (:color blue)
   "
