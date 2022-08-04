@@ -62,7 +62,7 @@
          ;; lsp-mode is not enabled
          (not (bound-and-true-p lsp-mode))
          ;; and we are not on Windows
-         (not (is-windows)))
+         (not (on-windows t)))
 
         ;; Enable LSP
         (progn (message "enabling lsp mode...") (lsp)))
