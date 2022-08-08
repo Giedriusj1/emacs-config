@@ -35,11 +35,13 @@
  ( "<Scroll_Lock>" . scroll-lock-mode)
  ( "<up>" . scroll-down-line)
  ( "<down>" . scroll-up-line)
- ( "M-p" . backward-paragraph)
  ( "M-n" . forward-paragraph)
  ( "M-," . backward-kill-word)
  ( "<down>" . scroll-up-line)
  ( "C-M-SPC" . rectangle-mark-mode))
+
+(bind-keys
+ ( "M-p" . backward-paragraph))
 
 (bind-keys* :map control-semi-map
             ("SPC" . point-to-register)
