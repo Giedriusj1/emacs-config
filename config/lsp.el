@@ -52,8 +52,10 @@
    (:foreign-keys warn  :quit-key "q" :color blue)
    ("Symbol"
     (("d" describe-foo-at-point "declaration")
-     ("D" find-function-at-point "find function")
-     )))
+     ("D" find-function-at-point "find function"))
+    "Eval"
+    (("b" eval-buffer "buffer")
+    ("e" eval-last-sexp "last sexp"))))
 
 
  (pretty-hydra-define hydra-lsp
