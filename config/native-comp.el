@@ -1,5 +1,6 @@
-(setq comp-deferred-compilation nil
-      package-native-compile t)
+(setq native-comp-speed 3
+      package-native-compile t
+      native-comp-compiler-options "-march=native -mtune=native")
 
 (i-defun g/compile-elpa-and-custom-to-native ()
   (progn
