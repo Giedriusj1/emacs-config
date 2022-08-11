@@ -33,7 +33,7 @@
   (setq dired-listing-switches "-alFh")
 
   (on-linux
-   (use-package dired-toggle-sudo :ensure nil)
+   (use-package dired-toggle-sudo :defer t)
    (setq dired-listing-switches
          (concat dired-listing-switches " --group-directories-first -v")))
 
