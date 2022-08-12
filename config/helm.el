@@ -3,6 +3,11 @@
 (use-package helm :defer 2
   :diminish helm-minor-mode
   :diminish helm-mode
+  :init
+  (add-hook 'helm-mode-hook
+            (lambda ()
+              (diminish 'helm-mode)))
+
   :bind
   (:map control-semi-map
         (( "C-s" . g/control-semi-map-helm-tree-sitter-or-imenu)
@@ -14,10 +19,6 @@
          ( "C-b" . helm-resume)))
 
   :config
-  (add-hook 'helm-mode-hook
-            (lambda ()
-              (diminish 'helm-mode)))
-
   (i-defun g/control-semi-map-helm-tree-sitter-debug ()
     (require 'helm-tree-sitter-debug)
     (tree-sitter-mode)
