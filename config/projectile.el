@@ -19,7 +19,7 @@
   ("r" projectile-ripgrep nil)
   ("R" helm-projectile-rg nil))
 
-(use-package helm-projectile :defer 5
+(use-package helm-projectile :defer 2
   :bind (:map tab-map
               ("p" . hydra-projectile/body))
   :diminish projectile-mode
