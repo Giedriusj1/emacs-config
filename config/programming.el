@@ -73,22 +73,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Formatting stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;
-(use-package clang-format :defer t
-  :config
-  (on-windows
-   ;; The following somewhat resemble Resilient's coding style
-   (setq clang-format-style "{BasedOnStyle: google, ColumnLimit: 100, IndentWidth: 3, BreakBeforeBraces: Stroustrup}")))
-
 (define-key tab-map (kbd "i")
 	    (i-lambda ()
-	          (cond ((or (eq 'c++-mode major-mode)
-			     (eq 'c-mode major-mode))
-		         (if (use-region-p)
-			     (clang-format-region (region-beginning)
-					          (region-end))
-		           (clang-format-region (point)
-					        (point))))
-		        ((eq 'rustic-mode major-mode)
+	          (cond ((eq 'rustic-mode major-mode)
 		         (rustic-format-buffer))
 		        ((eq 'json-mode major-mode)
 		         (json-reformat-region))
