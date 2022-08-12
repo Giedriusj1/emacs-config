@@ -79,24 +79,20 @@
    ;; The following somewhat resemble Resilient's coding style
    (setq clang-format-style "{BasedOnStyle: google, ColumnLimit: 100, IndentWidth: 3, BreakBeforeBraces: Stroustrup}")))
 
-(use-package elisp-format :defer t)
-
 (define-key tab-map (kbd "i")
-	        (i-lambda ()
+	    (i-lambda ()
 	          (cond ((or (eq 'c++-mode major-mode)
-			             (eq 'c-mode major-mode))
-		             (if (use-region-p)
-			             (clang-format-region (region-beginning)
-					                          (region-end))
-		               (clang-format-region (point)
-					                        (point))))
-		            ((eq 'emacs-lisp-mode major-mode)
-		             (elisp-format-region))
-		            ((eq 'rustic-mode major-mode)
-		             (rustic-format-buffer))
-		            ((eq 'json-mode major-mode)
-		             (json-reformat-region))
-		            (t (message "Argh...don't know how to format in this mode :(")))))
+			     (eq 'c-mode major-mode))
+		         (if (use-region-p)
+			     (clang-format-region (region-beginning)
+					          (region-end))
+		           (clang-format-region (point)
+					        (point))))
+		        ((eq 'rustic-mode major-mode)
+		         (rustic-format-buffer))
+		        ((eq 'json-mode major-mode)
+		         (json-reformat-region))
+		        (t (message "Argh...don't know how to format in this mode :(")))))
 
 
 (on-windows
