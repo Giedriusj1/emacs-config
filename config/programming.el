@@ -7,12 +7,6 @@
 (on-windows
  (use-package powershell :defer t))
 
-(use-package mvn :defer t
-  :config
-  (setq compilation-scroll-output t)
-  (i-defun mvn-integration-test ()
-    (mvn "integration-test")))
-
 (add-hook 'c-mode-common-hook
           (lambda()
             (setq comment-start "//" comment-end  "")))
