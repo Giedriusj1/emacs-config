@@ -2,14 +2,20 @@
 
 (on-linux
  (use-package shell-here :defer t
-  :bind* (( "C-`" . shell-here)))
+   :bind* (( "C-`" . shell-here)))
 
  (use-package auto-sudoedit :defer t
    :diminish auto-sudoedit-mode
-   :config (auto-sudoedit-mode 1))
+   :config (auto-sudoedit-mode 1)))
 
-(use-package paradox :defer t
-   :config (paradox-enable)))
+(cond-linux-win
+ (use-package paradox :defer t
+   :init
+   (i-defun lp ()
+     (paradox-enable)
+     (list-packages)))
+
+ (defalias 'lp 'list-packages))
 
 (use-package hydra :ensure t :defer t)
 

@@ -75,8 +75,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 (use-package clang-format :defer t
   :config
-  ;; The following somewhat resemble Resilient's coding style
-  (setq clang-format-style "{BasedOnStyle: google, ColumnLimit: 100, IndentWidth: 3, BreakBeforeBraces: Stroustrup}"))
+  (on-windows
+   ;; The following somewhat resemble Resilient's coding style
+   (setq clang-format-style "{BasedOnStyle: google, ColumnLimit: 100, IndentWidth: 3, BreakBeforeBraces: Stroustrup}")))
 
 (use-package elisp-format :defer t)
 
@@ -98,17 +99,18 @@
 		            (t (message "Argh...don't know how to format in this mode :(")))))
 
 
-;; Try to set an appropriate identation size
-(add-hook 'find-file-hook
-          (lambda ()
-            (let ((identation-size
-                   (cond
-                    ;; EAS expects 3
-                    ((string-match  "^c:/workspace/src" buffer-file-name) 3)
-                    ;; smartblock-paren uses 2
-                    ((string-match "^c:/workspace/resilient/smartblock-parent" buffer-file-name) 2)
-                    ;; Everything else gets a sane default of 4
-                    (t 4))))
-              (progn
-                (setq c-basic-offset identation-size c-default-style "linux")
-                (setq tab-width identation-size indent-tabs-mode nil)))))
+(on-windows
+ ;; Try to set an appropriate identation size
+ (add-hook 'find-file-hook
+           (lambda ()
+             (let ((identation-size
+                    (cond
+                     ;; EAS expects 3
+                     ((string-match  "^c:/workspace/src" buffer-file-name) 3)
+                     ;; smartblock-paren uses 2
+                     ((string-match "^c:/workspace/resilient/smartblock-parent" buffer-file-name) 2)
+                     ;; Everything else gets a sane default of 4
+                     (t 4))))
+               (progn
+                 (setq c-basic-offset identation-size c-default-style "linux")
+                 (setq tab-width identation-size indent-tabs-mode nil))))))

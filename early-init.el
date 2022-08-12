@@ -53,6 +53,12 @@
   (if (memq system-type '(windows-nt ms-dos))
       `(progn ,@body )))
 
+(defmacro cond-linux-win (linux windows)
+  (cond ((memq system-type '(windows-nt ms-dos))
+         `(progn ,windows))
+        ((memq system-type '(gnu gnu/linux))
+         `(progn ,linux))))
+
 (defmacro cond-linux-win-mac (linux windows darwin)
   (cond ((memq system-type '(windows-nt ms-dos))
          `(progn ,windows))
