@@ -29,7 +29,7 @@
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t)
 
-(setq warning-suppress-types '(((package reinitialization)) (comp) (lsp-mode)))
+(setq warning-suppress-types '(((package reinitialization)) (comp) (lsp-mode) (emacs)))
 
 (use-package gcmh
   :diminish gcmh-mode
