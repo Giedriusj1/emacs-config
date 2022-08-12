@@ -30,7 +30,7 @@
   (setq recentf-max-menu-items 250)
   (setq recentf-max-saved-items 250))
 
-(use-package zygospore :ensure nil
+(use-package zygospore
   :bind* (("C-1" . 'window-swap-states)
           ("C-2" . 'windmove-up)
           ("C-3" . 'windmove-right)
