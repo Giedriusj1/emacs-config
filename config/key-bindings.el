@@ -1,3 +1,6 @@
+(require 'bind-key)
+(override-global-mode)
+
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
 (define-prefix-command 'lisp-playground-map)
