@@ -68,5 +68,5 @@
   (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
                                                           helm-source-projectile-files-list)))
 
-(on-linux (use-package projectile-ripgrep :defer t))
+(use-package projectile-ripgrep :defer t)
 
