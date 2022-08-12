@@ -58,8 +58,6 @@
   :config
   (setq-default typescript-indent-level 2))
 
-(use-package g-adl-mode :ensure nil)    ; We can't defer this one for some reason
-
 (use-package graphql-mode :defer t)
 
 (use-package yaml-mode :defer t)

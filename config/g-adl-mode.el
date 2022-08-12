@@ -394,5 +394,3 @@
 (define-derived-mode adl-mode fundamental-mode "adl"
   "major mode for editing adl code."
   (setq font-lock-defaults '(adl-highlights)))
-
-(provide 'g-adl-mode)
