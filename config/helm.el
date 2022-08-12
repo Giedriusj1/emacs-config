@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package helm :defer 2
+(use-package helm :defer 1
   :diminish helm-minor-mode
   :diminish helm-mode
   :init
@@ -34,12 +34,12 @@
 
   (custom-set-faces '(helm-rg-file-match-face ((t (:foreground "purple" :background "black" :weight bold))))))
 
-(use-package helm-swoop :defer 3
+(use-package helm-swoop :defer 1
   :bind (:map control-semi-map
               (("C-m" . helm-swoop)
                ("m" . helm-multi-swoop-all))))
 
-(use-package swiper-helm :defer 3
+(use-package swiper-helm :defer 1
   :bind (:map control-semi-map (())
               ("o" . swiper-helm)
               ("C-;" . swiper-helm))
