@@ -1,4 +1,4 @@
-(setq native-comp-speed 2
+(setq native-comp-speed 3
       package-native-compile t
       native-comp-compiler-options "-march=native -mtune=native")
 
