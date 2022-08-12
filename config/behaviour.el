@@ -25,10 +25,7 @@
 
 (use-package google-this :defer t)
 
-;; Show number of matches in mode-line while searching
-(use-package anzu
-  :diminish anzu-mode
-  :config (global-anzu-mode t))
+(setq isearch-lazy-count t)
 
 (use-package recentf :ensure nil :defer t
   :config
