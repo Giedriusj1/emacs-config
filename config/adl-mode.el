@@ -1,4 +1,5 @@
 ;;; -*- lexical-binding: t -*-
+
 (setq adl-highlights
       '(
         ("SUB .*(" . font-lock-function-name-face)
@@ -394,3 +395,5 @@
 (define-derived-mode adl-mode fundamental-mode "adl"
   "major mode for editing adl code."
   (setq font-lock-defaults '(adl-highlights)))
+
+(add-to-list 'auto-mode-alist '("\\.adl\\'" . adl-mode))

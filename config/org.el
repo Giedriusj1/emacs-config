@@ -1,5 +1,9 @@
 (use-package org :defer 5 :ensure nil
-  :mode (("\\.org$" . org-mode))
+  :mode (("\\.org$" . org-mode)
+	 ("\\.org.gpg$" . org-mode)
+	 ("\\.notes$" . org-mode)
+	 ("\\.ref$" . org-mode)
+	 ("\\.ref.gpg$" . org-mode))
   :diminish org-indent-mode
   :config
 

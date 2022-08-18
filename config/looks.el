@@ -84,7 +84,7 @@
 
   (global-hl-line-mode t)
 
-  (use-package powerline :ensure t
+  (use-package powerline :demand
     :config
     (powerline-default-theme)
     (set-face-attribute 'mode-line nil

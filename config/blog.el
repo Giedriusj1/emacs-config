@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
- (use-package htmlize :defer t)
+ (use-package htmlize)
  ;; default one would pick source colours from my current theme...
  (setq org-html-htmlize-output-type 'css)
 

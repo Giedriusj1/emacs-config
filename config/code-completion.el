@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package yasnippet :defer t
+(use-package yasnippet
   :ensure yasnippet-snippets
   :ensure yasnippet-classic-snippets
   :ensure helm-c-yasnippet
@@ -9,9 +9,9 @@
          (org-mode . yas-minor-mode)))
 
 (on-linux
- (use-package company-quickhelp :defer t))
+ (use-package company-quickhelp))
 
-(use-package company :defer t
+(use-package company
   :bind ( :map company-active-map
           (("C-n" . company-select-next)
            ("C-p" . company-select-previous))

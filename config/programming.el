@@ -1,17 +1,17 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
- (use-package haskell-mode :defer t)
+ (use-package haskell-mode :mode ("\\.hs\\'" . haskell-mode) )
 
- (use-package lsp-pyright :defer t :ensure t)
+ (use-package lsp-pyright)
 
- (use-package toml-mode :defer t)
+ (use-package toml-mode :mode ("\\.toml\\'" . toml-mode))
 
- (use-package typescript-mode :defer t
+ (use-package typescript-mode :mode ("\\.ts\\'" . typescript-mode)
    :config
    (setq-default typescript-indent-level 2))
 
- (use-package rustic :defer t
+ (use-package rustic :mode ("\\.rs\\'" . rustic-mode)
    :config
    (defhydra hydra-rust (:color blue)
      ("c" helm-yas-complete "yas complete")
@@ -21,7 +21,7 @@
      ("SPC" rustic-cargo-check "cargo check"))))
 
 (on-windows
- (use-package powershell :defer t)
+ (use-package powershell :mode ("\\.ps1\\'" . powershell-mode))
  ;; Try to set an appropriate identation size
  (add-hook 'find-file-hook
            (lambda ()
@@ -37,7 +37,7 @@
                  (setq c-basic-offset identation-size c-default-style "linux")
                  (setq tab-width identation-size indent-tabs-mode nil))))))
 
-;; (use-package go-mode :defer t
+;; (use-package go-mode :mode ("\\.go\\'" . go-mode)
 ;;   :config
 ;;   (setq lsp-gopls-codelens nil)
 
@@ -46,17 +46,67 @@
 ;;               (add-hook 'before-save-hook 'gofmt-before-save))))
 
 
-;; (use-package graphql-mode :defer t)
+;; (use-package graphql-mode :mode ("\\.graphql\\'" . graphql-mode))
 
-(use-package yaml-mode :defer t)
+(use-package yaml-mode  :mode ("\\.yml\\'" . yaml-mode) ("\\.yaml\\'" . yaml-mode))
 
-(use-package ldap-mode :ensure nil :defer t)
+(use-package ldap-mode :ensure nil :mode ("\\.ldif\\'" . ldif-mode))
 
-(use-package json-mode :defer t)
+(use-package json-mode :mode ("\\.json\\'" . json-mode))
 
-(use-package dockerfile-mode :defer t)
+(use-package dockerfile-mode
+  :mode ("[Dd]ockerfile\\'" . dockerfile-mode))
 
-(use-package cmake-mode :defer t)
+(use-package markdown-mode :ensure nil
+  :mode ("\\.md\\'" . markdown-mode))
+
+(use-package doc-view :ensure nil
+  :mode ("\\.pdf\\'" . doc-view-mode))
+
+(use-package python :ensure nil
+  :mode ("\\.py\\'" . python-mode))
+
+(use-package sh-script :ensure nil
+  :mode (("\\.sh\\'" . sh-mode)
+	 ("bashrc\\'" . sh-mode)))
+
+
+(use-package cmake-mode
+  :mode ("\\CMakeLists.txt$" . cmake-mode))
+
+(use-package makefile-mode :ensure nil
+  :mode (("[Mm]ake[Ff]ile\\'" . makefile-mode)
+         ("\\Makefile.conf\\'" . makefile-mode)
+         ("\\.mak\\'" . makefile-mode)))
+
+(use-package bat-mode :ensure nil
+  :mode (("\\.bat\\'" . bat-mode)
+         ("\\.cmd\\'" . bat-mode)))
+
+(use-package asm-mode :ensure nil
+  :mode (("\\.s\\'" . asm-mode)
+	 ("\\.S\\'" . asm-mode)))
+
+(use-package cc-mode :ensure nil
+  :mode (("\\.c\\'" . c-mode)
+	 ("\\.cc\\'" . c-mode)
+	 ("\\.cpp\\'" . c++-mode)
+	 ("\\.h\\'" . c++-mode)
+	 ("\\.hh\\'" . c++-mode)
+	 ("\\.hpp\\'" . c++-mode)
+	 ("\\.mc\\'" . c++-mode)))
+
+
+(use-package elisp-mode :ensure nil
+  :mode
+  ("\\.el\\'" . emacs-lisp-mode)
+  ("\\.el.gz\\'" . emacs-lisp-mode)
+  ("\\.elc\\'" . elisp-byte-code-mode))
+
+(use-package xml-mode :ensure nil
+  :mode (("\\.xml\\'" . xml-mode)
+	 ("\\.pom\\'" . xml-mode)
+	 ("\\.sql\\'" . sql-mode)))
 
 (add-hook 'python-mode-hook
           (lambda()

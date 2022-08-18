@@ -10,3 +10,5 @@
 (define-derived-mode opensips-cfg-mode c-mode "opensips-cfg"
   "major mode for editing opensips cfg code."
   (setq font-lock-defaults '(opensips-cfg-highlights)))
+
+(add-to-list 'auto-mode-alist '("\\opensips.*.cfg\\'" . opensips-cfg-mode))

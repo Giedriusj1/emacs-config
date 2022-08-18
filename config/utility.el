@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package password-generator :defer t)
+(use-package password-generator)
 
 (i-defun g/recompile-custom-packages ()
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))

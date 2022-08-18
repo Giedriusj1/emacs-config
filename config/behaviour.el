@@ -1,33 +1,30 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
- (use-package shell-here :defer t
-   :bind* (( "C-`" . shell-here)))
+ (use-package shell-here :bind* (( "C-`" . shell-here)))
 
- (use-package auto-sudoedit :defer t
-   :diminish auto-sudoedit-mode
+ (use-package auto-sudoedit :diminish auto-sudoedit-mode
    :config (auto-sudoedit-mode 1)))
 
 (cond-linux-win
- (use-package paradox :defer t
-   :init
-   (i-defun lp ()
-     (paradox-enable)
-     (list-packages)))
+ (use-package paradox
+   :init (i-defun lp ()
+	   (paradox-enable)
+	   (list-packages)))
 
  (defalias 'lp 'list-packages))
 
-(use-package hydra :ensure t :defer t)
+(use-package hydra)
 
-(use-package diminish)
+(use-package diminish :demand)
 
 (diminish 'eldoc-mode)
 
-(use-package google-this :defer t)
+(use-package google-this)
 
 (setq isearch-lazy-count t)
 
-(use-package recentf :ensure nil :defer t
+(use-package recentf :ensure nil
   :config
   (recentf-mode 1)
   (setq recentf-max-menu-items 250)
@@ -45,7 +42,7 @@
   :init (add-hook 'prog-mode-hook 'auto-highlight-symbol-mode))
 
 (define-prefix-command 'mc-map)
-(use-package multiple-cursors :defer t
+(use-package multiple-cursors
   :bind
   (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
@@ -100,61 +97,6 @@
 	                           ((eq 'rustic-mode major-mode)
 	                            (hydra-rust/body))
 	                           (t (hydra-default/body)))))
-
-(setq auto-mode-alist
-      '(("[Mm]ake[Ff]ile\\'" . makefile-mode)
-        ("\\Makefile.conf\\'" . makefile-mode)
-        ("\\.mak\\'" . makefile-mode)
-        ("\\CMakeLists.txt$" . cmake-mode)
-        ("\\.md\\'" . markdown-mode)
-        ("\\.notes$" . org-mode)
-        ("\\.org$" . org-mode)
-        ("\\.org.gpg$" . org-mode)
-        ("\\.pdf\\'" . doc-view-mode)
-        ("\\.ref$" . org-mode)
-        ("\\.ref.gpg$" . org-mode)
-        ("\\.xml\\'" . xml-mode)
-        ("\\.pom\\'" . xml-mode)
-        ("\\.ldif\\'" . ldif-mode)
-        ("\\.toml\\'" . toml-mode)
-        ("\\.json\\'" . json-mode)
-        ("\\.sql\\'" . sql-mode)
-        ("[Dd]ockerfile\\'" . dockerfile-mode)
-
-        ;;programming modes
-        ("\\.ps1\\'" . powershell-mode)
-        ("\\.bat\\'" . bat-mode)
-        ("\\.c\\'" . c-mode)
-        ("\\.cc\\'" . c-mode)
-        ("\\.cmd\\'" . bat-mode)
-        ("\\.cpp\\'" . c++-mode)
-        ("\\.el\\'" . emacs-lisp-mode)
-        ("\\.el.gz\\'" . emacs-lisp-mode)
-        ("\\.elc\\'" . elisp-byte-code-mode)
-        ("\\.h\\'" . c++-mode)
-        ("\\.hh\\'" . c++-mode)
-        ("\\.hpp\\'" . c++-mode)
-        ("\\.rs\\'" . rustic-mode)
-        ("\\.go\\'" . go-mode)
-        ("\\.ts\\'" . typescript-mode)
-        ("\\.zig\\'" . zig-mode)
-        ("\\.java\\'" . java-mode)
-        ("\\.hs\\'" . haskell-mode)
-        ("\\.js\\'" . javascript-mode)
-        ("\\.mc\\'" . c++-mode)
-        ("\\.pm\\'" . perl-mode)
-        ("\\.py\\'" . python-mode)
-        ("\\.scm\\'" . scheme-mode)
-        ("\\.sh\\'" . sh-mode)
-        ("bashrc\\'" . sh-mode)
-        ("\\.yml\\'" . yaml-mode)
-        ("\\.yaml\\'" . yaml-mode)
-        ("\\.graphql\\'" . graphql-mode)
-        ("\\.s\\'" . asm-mode)
-        ("\\.S\\'" . asm-mode)
-        ("\\.adl\\'" . adl-mode)
-        ("\\opensips.*.cfg\\'" . opensips-cfg-mode)))
-
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'describe-bindings 'helm-descbinds)

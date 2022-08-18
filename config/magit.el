@@ -1,6 +1,6 @@
 (define-key tab-map (kbd "m") 'hydra-magit/body)
 
-(use-package magit :defer t)
+(use-package magit)
 
 (defhydra hydra-magit (:color blue)
   "magit"
@@ -14,7 +14,7 @@
   ("b" magit-blame "blame")
   ("r" magit-show-refs "show-refs"))
 
-(use-package ediff :defer t
+(use-package ediff :ensure nil
   :ensure magit
   :config
   (dolist (face-map '((ediff-even-diff-A           . magit-diff-context-highlight)

@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package dired-subtree :defer t)
+(use-package dired-subtree)
 
 (use-package dired :ensure nil :defer 5
   :config
@@ -33,7 +33,7 @@
   (setq dired-listing-switches "-alFh")
 
   (on-linux
-   (use-package dired-toggle-sudo :defer t)
+   (use-package dired-toggle-sudo)
    (setq dired-listing-switches
          (concat dired-listing-switches " --group-directories-first -v")))
 

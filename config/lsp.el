@@ -3,9 +3,9 @@
 (on-linux
  (define-key tab-map (kbd "o") 'g-lsp/invoke)
 
- (use-package helm-lsp :defer t)
+ (use-package helm-lsp)
 
- (use-package pretty-hydra :ensure t :defer t)
+ (use-package pretty-hydra)
 
 
  (i-defun describe-foo-at-point ()

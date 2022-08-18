@@ -43,6 +43,6 @@
   :diminish tree-sitter-mode
   :diminish tree-sitter-debug-mode)
 
-(use-package tree-sitter-langs :defer t)
+(use-package tree-sitter-langs)
 
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
