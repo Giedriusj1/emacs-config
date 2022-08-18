@@ -1,5 +1,6 @@
 emacs.el
 .cache/
+.extension/
 auto-save-list/
 elpa/
 temps/
