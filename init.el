@@ -32,8 +32,7 @@
 
 (setq warning-suppress-types '(((package reinitialization)) (comp) (lsp-mode) (emacs)))
 
-(use-package gcmh :demand
-  :diminish gcmh-mode
+(use-package gcmh :demand :diminish
   :config
   (gcmh-mode 1)
 
@@ -78,5 +77,6 @@
 (add-hook 'server-after-make-frame-hook
           (lambda ()
             (setq inhibit-message t)
-            (run-with-idle-timer 0 nil (lambda () (setq inhibit-message nil)
-                                         (message (concat "emacs uptime: " (emacs-uptime)))))))
+            (run-with-idle-timer 0 nil
+				 (lambda () (setq inhibit-message nil)
+                                   (message (concat "emacs uptime: " (emacs-uptime)))))))

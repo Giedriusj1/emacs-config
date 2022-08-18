@@ -11,14 +11,13 @@
 (on-linux
  (use-package company-quickhelp))
 
-(use-package company
+(use-package company :diminish
   :bind ( :map company-active-map
           (("C-n" . company-select-next)
            ("C-p" . company-select-previous))
           :map control-semi-map
           (("n" . company-complete)
            ("C-n" . dabbrev-expand)))
-  :diminish company-mode
   :config
   (global-company-mode t)
   (company-quickhelp-mode)

@@ -6,6 +6,9 @@
 (customize-set-variable 'menu-bar-mode nil)
 (customize-set-variable 'tool-bar-mode nil)
 
+(tooltip-mode -1)
+(blink-cursor-mode -1)
+
 (modify-all-frames-parameters '((vertical-scroll-bars . nil)))
 
 (setq g/message-buff (generate-new-buffer "G/Messages"))

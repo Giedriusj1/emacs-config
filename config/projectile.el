@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
+(use-package projectile :diminish)
+
 (defhydra hydra-projectile (:pre
                             (progn
                               (require 'helm-projectile)
@@ -22,8 +24,6 @@
 (use-package helm-projectile :defer 2
   :bind (:map tab-map
               ("p" . hydra-projectile/body))
-  :diminish projectile-mode
-
   :config
   (projectile-global-mode t)
 
