@@ -18,11 +18,7 @@
 
 (use-package diminish :demand)
 
-(diminish 'eldoc-mode)
-
-(use-package google-this)
-
-(setq isearch-lazy-count t)
+(use-package eldoc-mode :ensure nil :diminish)
 
 (use-package recentf :ensure nil
   :config
@@ -41,8 +37,10 @@
   :diminish auto-highlight-symbol-mode
   :init (add-hook 'prog-mode-hook 'auto-highlight-symbol-mode))
 
-(define-prefix-command 'mc-map)
+
 (use-package multiple-cursors
+  :init
+  (define-prefix-command 'mc-map)
   :bind
   (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
@@ -77,13 +75,15 @@
       kept-old-versions 2
       version-control t ; use versioned backups
 
-      uniquify-buffer-name-style 'forward)
+      uniquify-buffer-name-style 'forward
+      isearch-lazy-count t)
 
-(require 'pixel-scroll)
+(use-package pixel-scroll :ensure nil :demand
+  :init
+  (if (bound-and-true-p pixel-scroll-precision-mode)
+      (pixel-scroll-precision-mode)
+    (pixel-scroll-mode)))
 
-(if (bound-and-true-p pixel-scroll-precision-mode)
-    (pixel-scroll-precision-mode)
-  (pixel-scroll-mode))
 
 (define-key tab-map (kbd "j")
             (i-lambda () (cond ((eq 'org-mode major-mode)
@@ -100,4 +100,3 @@
 (defalias 'describe-bindings 'helm-descbinds)
 (defalias 'rel 'g/reload-emacs-config)
 (defalias 'msf 'menu-set-font)
-

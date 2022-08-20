@@ -2,6 +2,8 @@
 
 (use-package password-generator)
 
+(use-package google-this)
+
 (i-defun g/recompile-custom-packages ()
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))
 

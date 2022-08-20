@@ -8,8 +8,8 @@
   :hook ((prog-mode . yas-minor-mode)
          (org-mode . yas-minor-mode)))
 
-(on-linux
- (use-package company-quickhelp))
+(on-linux (when (display-graphic-p)
+  (use-package company-quickhelp)))
 
 (use-package company :diminish
   :bind ( :map company-active-map
