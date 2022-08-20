@@ -3,8 +3,6 @@
 (on-linux
  (use-package haskell-mode :mode ("\\.hs\\'" . haskell-mode) )
 
- (use-package lsp-pyright)
-
  (use-package toml-mode :mode ("\\.toml\\'" . toml-mode))
 
  (use-package typescript-mode :mode ("\\.ts\\'" . typescript-mode)
@@ -37,17 +35,6 @@
                  (setq c-basic-offset identation-size c-default-style "linux")
                  (setq tab-width identation-size indent-tabs-mode nil))))))
 
-;; (use-package go-mode :mode ("\\.go\\'" . go-mode)
-;;   :config
-;;   (setq lsp-gopls-codelens nil)
-
-;;   (add-hook 'go-mode-hook
-;;             (lambda ()
-;;               (add-hook 'before-save-hook 'gofmt-before-save))))
-
-
-;; (use-package graphql-mode :mode ("\\.graphql\\'" . graphql-mode))
-
 (use-package yaml-mode  :mode ("\\.yml\\'" . yaml-mode) ("\\.yaml\\'" . yaml-mode))
 
 (use-package ldap-mode :ensure nil :mode ("\\.ldif\\'" . ldif-mode))
@@ -69,7 +56,6 @@
 (use-package sh-script :ensure nil
   :mode (("\\.sh\\'" . sh-mode)
 	 ("bashrc\\'" . sh-mode)))
-
 
 (use-package cmake-mode
   :mode ("\\CMakeLists.txt$" . cmake-mode))
@@ -96,7 +82,6 @@
 	 ("\\.hpp\\'" . c++-mode)
 	 ("\\.mc\\'" . c++-mode)))
 
-
 (use-package elisp-mode :ensure nil
   :mode
   ("\\.el\\'" . emacs-lisp-mode)
@@ -122,7 +107,6 @@
           (lambda()
             (setq comment-start "//" comment-end  "")))
 
-
 (defhydra hydra-default (:color blue)
     ("c" helm-yas-complete "yas complete"))
 
@@ -138,3 +122,14 @@
 		        ((eq 'json-mode major-mode)
 		         (json-reformat-region))
 		        (t (message "Argh...don't know how to format in this mode :(")))))
+
+;; (use-package go-mode :mode ("\\.go\\'" . go-mode)
+;;   :config
+;;   (setq lsp-gopls-codelens nil)
+
+;;   (add-hook 'go-mode-hook
+;;             (lambda ()
+;;               (add-hook 'before-save-hook 'gofmt-before-save))))
+
+
+;; (use-package graphql-mode :mode ("\\.graphql\\'" . graphql-mode))

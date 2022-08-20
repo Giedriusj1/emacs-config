@@ -1,12 +1,15 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
+ (setq lsp-diagnostic-package :none)
+
  (define-key tab-map (kbd "o") 'g-lsp/invoke)
+
+ (use-package lsp-pyright)
 
  (use-package helm-lsp)
 
  (use-package pretty-hydra)
-
 
  (i-defun describe-foo-at-point ()
    "Show the documentation of the Elisp function and variable near point.
