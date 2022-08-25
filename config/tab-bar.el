@@ -7,21 +7,14 @@
 (global-set-key (kbd "<C-iso-lefttab>") 'tab-bar-switch-to-prev-tab)
 (global-set-key (kbd "<C-S-tab>") 'tab-bar-switch-to-prev-tab)
 
-(defhydra hydra-frame-helper
-  (:color blue)
-  "
- tab-bar                 frame management
-------------------------------------------
-                        [_M-m_]ake frame
-[_M-c_]reate              [_M-o_]ther frame
-[_M-k_]lose current       [_M-SPC_]other frame
-                        [_M-d_]elete frame
-"
-  ("M-m" make-frame nil)
-  ("M-o" other-frame nil)
-  ("M-SPC" other-frame nil)
-  ("M-d" delete-frame nil)
-  ("M-c" tab-bar-new-tab)
-  ("M-k" tab-bar-close-tab))
+(pretty-hydra-define hydra-frame-helper (:color blue)
+  ("tab-bar"
+   (("M-c" tab-bar-new-tab "new")
+    ("M-k" tab-bar-close-tab "close"))
+   "frame"
+   (("M-m" make-frame "new")
+    ("M-o" other-frame "other")
+    ("M-SPC" other-frame "other")
+    ("M-d" delete-frame "delete"))))
 
 (global-set-key (kbd "M-SPC") 'hydra-frame-helper/body)

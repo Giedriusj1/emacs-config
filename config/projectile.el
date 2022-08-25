@@ -11,13 +11,11 @@
   "
 [_q_] invalidate cache [_p_] projects
 [_j_] helm projectile  [_d_] dired projectile root
-[_g_]rep [_a_]ck [_r_] projectile-ripgrep [_R_] helm-projectile-ripgrep
+[_r_] projectile-ripgrep [_R_] helm-projectile-ripgrep
 " ("p" g/helm-projectile-projects nil)
   ("q" projectile-invalidate-cache nil)
   ("j" helm-projectile nil)
   ("d" projectile-dired nil)
-  ("g" helm-projectile-grep nil)
-  ("a" helm-projectile-ack nil)
   ("r" projectile-ripgrep nil)
   ("R" helm-projectile-rg nil))
 

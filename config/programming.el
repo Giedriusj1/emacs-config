@@ -11,12 +11,14 @@
 
  (use-package rustic :mode ("\\.rs\\'" . rustic-mode)
    :config
-   (defhydra hydra-rust (:color blue)
-     ("c" helm-yas-complete "yas complete")
-     ("C" rustic-cargo-clean "cargo clean")
-     ("r" rustic-cargo-run "cargo run")
-     ("b" rustic-cargo-build "cargo build")
-     ("SPC" rustic-cargo-check "cargo check"))))
+   (pretty-hydra-define hydra-rust (:color blue)
+     ("cargo"
+     (("C" rustic-cargo-clean "clean")
+     ("r" rustic-cargo-run "run")
+     ("b" rustic-cargo-build "build")
+     ("SPC" rustic-cargo-check "check"))
+     "yas"
+     (("c" helm-yas-complete "complete"))))))
 
 (on-windows
  (use-package powershell :mode ("\\.ps1\\'" . powershell-mode))
@@ -110,10 +112,12 @@
 (defhydra hydra-default (:color blue)
     ("c" helm-yas-complete "yas complete"))
 
-(defhydra hydra-emacs-lisp (:color blue)
-  ( "j" eval-buffer "eval buffer")
-  ( "k" eval-last-sexp "eval-last-sexp")
-  ( "c" helm-yas-complete "yas complete"))
+(pretty-hydra-define hydra-emacs-lisp (:color blue)
+  ("eval"
+  (( "j" eval-buffer "eval buffer")
+   ( "k" eval-last-sexp "eval-last-sexp"))
+  "yas"
+  (( "c" helm-yas-complete "complete"))))
 
 (define-key tab-map (kbd "i")
 	    (i-lambda ()

@@ -9,8 +9,6 @@
 
  (use-package helm-lsp)
 
- (use-package pretty-hydra)
-
  (i-defun describe-foo-at-point ()
    "Show the documentation of the Elisp function and variable near point.
 	This checks in turn:

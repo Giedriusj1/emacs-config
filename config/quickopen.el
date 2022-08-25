@@ -47,26 +47,22 @@
 
 (setq helm-projectile-fuzzy-match nil)
 
-(defhydra hydra-quickopen (:color blue)
-  "
-[_t_] ~/notes/temp
-[_c_] ~/.emacs.d/init.el
-[_l_] dired ~/private-sync/
-[_;_] grep notes"
-  ("t" (lambda ()
-	     (interactive)
-	     (find-file "~/private-sync/temp.org")) nil)
-  ("c" (lambda ()
-         (interactive)
-         (find-file "~/.emacs.d/init.el")) nil)
 
-  (";" (lambda ()
-         (interactive)
-         (g/helm-projectile-grep-notes "~/private-sync")) nil)
-  ("l" (lambda ()
-         (interactive)
-         (progn (zygospore-toggle-delete-other-windows)
-	            (dired "~/private-sync")
-	            (helm-find-files-1 default-directory))) nil))
+(pretty-hydra-define hydra-quickopen (:color blue)
+  ("quickopen"
+   (("t" (lambda ()
+	   (interactive)
+	   (find-file "~/private-sync/temp.org")) "~/private-sync/temp.org")
+    ("c" (lambda ()
+           (interactive)
+           (find-file "~/.emacs.d/init.el")) "~/.emacs.d/init.el")
+    ("l" (lambda ()
+           (interactive)
+           (progn (zygospore-toggle-delete-other-windows)
+	          (dired "~/private-sync")
+	          (helm-find-files-1 default-directory))) "dired ~/private-sync/")
+    (";" (lambda ()
+           (interactive)
+           (g/helm-projectile-grep-notes "~/private-sync")) "grep notes"))))
 
 (define-key tab-map (kbd ";") 'hydra-quickopen/body)

@@ -14,7 +14,7 @@
 
  (defalias 'lp 'list-packages))
 
-(use-package hydra)
+(use-package pretty-hydra)
 
 (use-package diminish :demand)
 
