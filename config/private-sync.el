@@ -14,7 +14,7 @@
  (defun turn-on-auto-commit-hook ()
    (cond ((string-match (concat "^" (expand-file-name "~/private-sync")) buffer-file-name)
           (progn
-            (git-auto-commit-mode 1)
+            (git-auto-commit-mode t)
             (setq gac-automatically-push-p t)))))
 
  (add-hook 'find-file-hook 'turn-on-auto-commit-hook))
