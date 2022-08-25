@@ -1,12 +1,16 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
- (use-package htmlize)
- ;; default one would pick source colours from my current theme...
- (setq org-html-htmlize-output-type 'css)
+ (i-defun g/org-publish-all-force ()
+   (progn
+     (require 'htmlize)
 
- (setq org-publish-project-alist
-       '(("org-blog"
+     (require 'ox-publish)
+     ;; default one would pick source colours from my current theme...
+     (setq org-html-htmlize-output-type 'css)
+
+     (setq org-publish-project-alist
+	   '(("org-blog"
 	      :base-directory "~/private-sync/blog/"
 	      :base-extension "org"
 	      :publishing-directory "~/public_html/"
@@ -19,8 +23,6 @@
 	      :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
 	      :publishing-directory "~/public_html/"
 	      :recursive t
-	      :publishing-function org-publish-attachment)
-         ))
+	      :publishing-function org-publish-attachment)))
 
- (i-defun g/org-publish-all-force ()
-     (org-publish-all t)))
+     (org-publish-all t))))
