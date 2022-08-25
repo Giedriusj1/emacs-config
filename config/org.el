@@ -5,21 +5,20 @@
 	 ("\\.ref$" . org-mode)
 	 ("\\.ref.gpg$" . org-mode))
   :diminish org-indent-mode
+  :pretty-hydra ((:color blue)
+		 ("org move"
+		  (( "o" org-metaright "org-metaright")
+		   ( "u" org-metaleft "org-metaleft")
+		   ( "p" org-metaup "org-metaup")
+		   ( "n" org-metadown "org-metadown"))
+		  "org shift"
+		  (( "C-o" org-shiftright "org-shiftright")
+		   ( "C-u" org-shiftleft "org-shiftleft")
+		   ( "t" org-todo "toggle todo"))
+		  ""
+		  (( "c" helm-yas-complete "complate")
+		   ( "e" org-edit-src-code "source"))))
   :config
-  (pretty-hydra-define hydra-org (:color blue)
-    ("org move"
-     (( "o" org-metaright "org-metaright")
-      ( "u" org-metaleft "org-metaleft")
-      ( "p" org-metaup "org-metaup")
-      ( "n" org-metadown "org-metadown"))
-     "org shift"
-     (( "C-o" org-shiftright "org-shiftright")
-      ( "C-u" org-shiftleft "org-shiftleft")
-      ( "t" org-todo "toggle todo"))
-     ""
-     (( "c" helm-yas-complete "complate")
-      ( "e" org-edit-src-code "source"))))
-
   (setq org-directory "~/private-sync/notes")
   (setq org-default-notes-file "~/private-sync/notes/notes.org")
   (setq org-src-preserve-indentation t)

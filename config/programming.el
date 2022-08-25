@@ -10,15 +10,14 @@
    (setq-default typescript-indent-level 2))
 
  (use-package rustic :mode ("\\.rs\\'" . rustic-mode)
-   :config
-   (pretty-hydra-define hydra-rust (:color blue)
-     ("cargo"
-     (("C" rustic-cargo-clean "clean")
-     ("r" rustic-cargo-run "run")
-     ("b" rustic-cargo-build "build")
-     ("SPC" rustic-cargo-check "check"))
-     "yas"
-     (("c" helm-yas-complete "complete"))))))
+   :pretty-hydra ((:color blue)
+		  ("cargo"
+		   (("C" rustic-cargo-clean "clean")
+		    ("r" rustic-cargo-run "run")
+		    ("b" rustic-cargo-build "build")
+		    ("SPC" rustic-cargo-check "check"))
+		   "yas"
+		   (("c" helm-yas-complete "complete"))))))
 
 (on-windows
  (use-package powershell :mode ("\\.ps1\\'" . powershell-mode))
@@ -109,23 +108,24 @@
           (lambda()
             (setq comment-start "//" comment-end  "")))
 
-(defhydra hydra-default (:color blue)
-    ("c" helm-yas-complete "yas complete"))
+(pretty-hydra-define hydra-default (:color blue)
+  ("yas"
+   (("c" helm-yas-complete "complete"))))
 
 (pretty-hydra-define hydra-emacs-lisp (:color blue)
   ("eval"
-  (( "j" eval-buffer "eval buffer")
-   ( "k" eval-last-sexp "eval-last-sexp"))
-  "yas"
-  (( "c" helm-yas-complete "complete"))))
+   (( "j" eval-buffer "eval buffer")
+    ( "k" eval-last-sexp "eval-last-sexp"))
+   "yas"
+   (( "c" helm-yas-complete "complete"))))
 
 (define-key tab-map (kbd "i")
-	    (i-lambda ()
-	          (cond ((eq 'rustic-mode major-mode)
-		         (rustic-format-buffer))
-		        ((eq 'json-mode major-mode)
-		         (json-reformat-region))
-		        (t (message "Argh...don't know how to format in this mode :(")))))
+  (i-lambda ()
+    (cond ((eq 'rustic-mode major-mode)
+	   (rustic-format-buffer))
+	  ((eq 'json-mode major-mode)
+	   (json-reformat-region))
+	  (t (message "Argh...don't know how to format in this mode :(")))))
 
 ;; (use-package go-mode :mode ("\\.go\\'" . go-mode)
 ;;   :config

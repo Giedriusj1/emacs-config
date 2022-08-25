@@ -14,7 +14,7 @@
 
  (defalias 'lp 'list-packages))
 
-(use-package pretty-hydra)
+(use-package pretty-hydra :demand)
 
 (use-package diminish :demand)
 
@@ -85,15 +85,15 @@
 
 
 (define-key tab-map (kbd "j")
-            (i-lambda () (cond ((eq 'org-mode major-mode)
-	                            (hydra-org/body))
-	                           ((eq 'emacs-lisp-mode major-mode)
-	                            (hydra-emacs-lisp/body))
-	                           ((eq 'rust-mode major-mode)
-	                            (hydra-rust/body))
-	                           ((eq 'rustic-mode major-mode)
-	                            (hydra-rust/body))
-	                           (t (hydra-default/body)))))
+  (i-lambda () (cond ((eq 'org-mode major-mode)
+	              (org-hydra/body))
+	             ((eq 'emacs-lisp-mode major-mode)
+	              (hydra-emacs-lisp/body))
+	             ((eq 'rust-mode major-mode)
+	              (rustic-hydra/body))
+	             ((eq 'rustic-mode major-mode)
+	              (rustic-hydra/body))
+	             (t (hydra-default/body)))))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'describe-bindings 'helm-descbinds)

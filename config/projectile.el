@@ -1,26 +1,23 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package projectile :diminish)
-
-(defhydra hydra-projectile (:pre
-                            (progn
-                              (require 'helm-projectile)
-                              (projectile-global-mode t)
-                              (helm-mode t))
-                            :color blue)
-  "
-[_q_] invalidate cache [_p_] projects
-[_j_] helm projectile  [_d_] dired projectile root
-[_r_] projectile-ripgrep [_R_] helm-projectile-ripgrep
-" ("p" g/helm-projectile-projects nil)
-  ("q" projectile-invalidate-cache nil)
-  ("j" helm-projectile nil)
-  ("d" projectile-dired nil)
-  ("r" projectile-ripgrep nil)
-  ("R" helm-projectile-rg nil))
+(use-package projectile :diminish
+  :pretty-hydra
+  ((:pre (progn
+	   (require 'helm-projectile)
+	   (projectile-global-mode t)
+	   (helm-mode t))
+	 :color blue)
+   ("projectile"
+    (("p" g/helm-projectile-projects "helm projects")
+     ("q" projectile-invalidate-cache "invalidate cache")
+     ("j" helm-projectile "helm projectile")
+     ("d" projectile-dired "dired"))
+    "projectile search"
+    (("r" projectile-ripgrep "ripgrep")
+     ("R" helm-projectile-rg "helm ripgrep")))))
 
 (use-package helm-projectile :defer 2
-  :bind (:map tab-map ("p" . hydra-projectile/body))
+  :bind (:map tab-map ("p" . projectile-hydra/body))
   :config
   (projectile-global-mode t)
 
