@@ -77,7 +77,7 @@
      ,@body))
 
 (defmacro i-lambda (arglist &rest body)
-  (declare (indent lambda))
+  (declare (indent defun))
   `(lambda ,arglist
      (interactive)
      ,@body))
