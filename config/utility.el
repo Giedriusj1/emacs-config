@@ -64,3 +64,22 @@ Host github.com
 	User git
 	IdentityFile ~/.ssh/id_rsa" 'utf-8 "~/.ssh/config"))
 
+
+;; lisp playground
+(define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
+
+(i-defun load-listp-playground (args)
+  ;; Load playground
+  (dolist (element (seq-filter (lambda (item)
+                                 (and (string-match-p ".el$" item)
+                                      (not (member item basic-load-sequence))))
+                               (directory-files "~/private-sync/projects/lisp-playground")))
+    (load (concat "~/private-sync/projects/lisp-playground/" element)))
+
+  ;; And then reload helm-tree-sitter
+  (dolist (element (seq-filter (lambda (item)
+                                 (and (string-match-p ".el$" item)
+                                      (not (member item basic-load-sequence))))
+                               (directory-files "~/.emacs.d/config/helm-tree-sitter")))
+    (load (concat "~/.emacs.d/config/helm-tree-sitter/" element))))
+

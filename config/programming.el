@@ -126,14 +126,3 @@
 	  ((eq 'json-mode major-mode)
 	   (json-reformat-region))
 	  (t (message "Argh...don't know how to format in this mode :(")))))
-
-;; (use-package go-mode :mode ("\\.go\\'" . go-mode)
-;;   :config
-;;   (setq lsp-gopls-codelens nil)
-
-;;   (add-hook 'go-mode-hook
-;;             (lambda ()
-;;               (add-hook 'before-save-hook 'gofmt-before-save))))
-
-
-;; (use-package graphql-mode :mode ("\\.graphql\\'" . graphql-mode))
