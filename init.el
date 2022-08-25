@@ -34,7 +34,7 @@
 
 (use-package gcmh :demand :diminish
   :config
-  (gcmh-mode 1)
+  (gcmh-mode t)
 
   ;; (setq gcmh-verbose t)
   (setq gcmh-time-constant 10)

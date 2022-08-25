@@ -4,7 +4,7 @@
  (use-package shell-here :bind* (( "C-`" . shell-here)))
 
  (use-package auto-sudoedit :diminish auto-sudoedit-mode
-   :config (auto-sudoedit-mode 1)))
+   :config (auto-sudoedit-mode t)))
 
 (cond-linux-win
  (use-package paradox
@@ -22,7 +22,7 @@
 
 (use-package recentf :ensure nil
   :config
-  (recentf-mode 1)
+  (recentf-mode t)
   (setq recentf-max-menu-items 250)
   (setq recentf-max-saved-items 250))
 
@@ -45,8 +45,8 @@
   (:map tab-map(("l" . mc-map)))
   (:map mc-map (("l" . mc/edit-lines))))
 
-(cua-mode 1)
-(delete-selection-mode 1)
+(cua-mode t)
+(delete-selection-mode t)
 (show-paren-mode t)
 (electric-pair-mode t)
 
@@ -55,7 +55,6 @@
       cua-prefix-override-inhibit-delay 0.01
       inhibit-splash-screen t
       initial-scratch-message ""
-      column-number-mode t
       history-length 25
       select-enable-clipboard t ;; Merge OS and Emacs' clipboards
       auto-window-vscroll nil   ;; Gives us better line scrolling performance

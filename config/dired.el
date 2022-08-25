@@ -41,7 +41,7 @@
 
   (add-hook 'dired-mode-hook
 	        (lambda ()
-	          (dired-hide-details-mode 1)
+	          (dired-hide-details-mode t)
               (dired-omit-mode)))
 
   (set-face-foreground 'dired-directory "LightSlateBlue" )
