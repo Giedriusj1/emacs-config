@@ -12,7 +12,7 @@
     (scroll-up-line)
     (next-line)))
 
-(define-key control-semi-map (kbd "C-f") 'toggle-swift-mode)
+(define-key control-semi-map (kbd "C-f") 'global-swift-mode)
 
 (defvar swift-command-map
   (let ((map (make-sparse-keymap)))
@@ -28,6 +28,7 @@
     (define-key map (kbd "n") 'end-of-defun)
 
     (define-key map (kbd "u") 'cua-scroll-down)
+
     (define-key map (kbd "j") 'cua-scroll-up)
 
     ;; cua mode
@@ -38,29 +39,10 @@
     map))
 
 (define-minor-mode swift-mode
-  "Toggle SWIFT buffer mode."
-  ;; The initial value.
-  :init-value nil
-  ;; The indicator for the mode line.
-  :lighter " SWIFT"
-  ;; The minor mode bindings.
-  :keymap swift-command-map)
-
-(define-globalized-minor-mode global-swift-mode swift-mode
-  swift-mode
-  :init-value nil)
-
-(i-defun toggle-swift-mode()
+  :lighter " === SWIFT ==="
+  :keymap swift-command-map
   (if (eq global-swift-mode t)
-      (progn ;; turning mode off
-        (custom-set-faces '(cursor ((t (:background "OrangeRed")))))
-	    (set-face-attribute 'mode-line nil
-                            :foreground "Black"
-                            :background "DarkOrange3"
-                            :box nil)
-        (global-swift-mode -1))
-
-    (progn ;; turning mode on
       (custom-set-faces '(cursor ((t (:background "blue")))))
-      (custom-set-faces '(mode-line ((t (:background "#333377")))))
-      (global-swift-mode))))
+    (custom-set-faces '(cursor ((t (:background "OrangeRed")))))))
+
+(define-globalized-minor-mode global-swift-mode swift-mode swift-mode)

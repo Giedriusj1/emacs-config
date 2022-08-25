@@ -57,12 +57,6 @@
 
   (custom-set-faces
    '(org-level-1 ((t (:inherit outline-1 :weight demibold :height 1.2))))
-   ;; '(org-level-1 ((t (:inherit outline-1 :weight demibold :foreground "DarkOrange3" :height 1.2))))
-   ;; '(org-level-2 ((t (:inherit outline-2 :weight demibold :foreground "darkOliveGreen3" :height 1.2))))
-   ;; '(org-level-3 ((t (:inherit outline-3 :weight demibold :height 1.1))))
-   ;; '(org-level-4 ((t (:inherit outline-4 :weight demibold :height 1.0))))
-   ;; '(org-level-5 ((t (:inherit outline-5 :weight demibold :height 1.0))))
-
    '(default ((t (:background "#131818"))))
    '(cursor ((t (:background "OrangeRed"))))
    '(mode-line-inactive ((t (:background "#101010"))))
@@ -82,15 +76,7 @@
 
   (set-font-for-current-resolution)
 
-  (global-hl-line-mode t)
-
-  (use-package powerline :demand
-    :config
-    (powerline-default-theme)
-    (set-face-attribute 'mode-line nil
-    		            :foreground "Black"
-    		            :background "DarkOrange3"
-    		            :box nil)))
+  (global-hl-line-mode t))
 
 (add-hook 'after-make-frame-functions 'load-graphic-settings)
 
