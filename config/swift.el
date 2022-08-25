@@ -40,6 +40,6 @@
   
   (if (eq global-swift-mode t)
       (custom-set-faces '(cursor ((t (:background "blue")))))
-    (custom-set-faces '(cursor ((t (:background "OrangeRed")))))))
+    (custom-set-faces '(cursor ((t (:inherit cursor-orig)))))))
 
 (define-globalized-minor-mode global-swift-mode swift-mode swift-mode)

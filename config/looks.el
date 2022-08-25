@@ -58,7 +58,7 @@
   (custom-set-faces
    '(org-level-1 ((t (:inherit outline-1 :weight demibold :height 1.2))))
    '(default ((t (:background "#131818"))))
-   '(cursor ((t (:background "OrangeRed"))))
+   '(cursor-orig ((t (:inherit cursor))))
    '(mode-line-inactive ((t (:background "#101010"))))
    '(mode-line ((t (:background "#404040"))))
    '(hl-line ((t (:inherit nil :background "#222222"))))
