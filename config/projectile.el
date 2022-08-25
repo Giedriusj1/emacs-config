@@ -20,8 +20,7 @@
   ("R" helm-projectile-rg nil))
 
 (use-package helm-projectile :defer 2
-  :bind (:map tab-map
-              ("p" . hydra-projectile/body))
+  :bind (:map tab-map ("p" . hydra-projectile/body))
   :config
   (projectile-global-mode t)
 
