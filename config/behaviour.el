@@ -73,9 +73,13 @@
       kept-new-versions 6
       kept-old-versions 2
       version-control t ; use versioned backups
-
       uniquify-buffer-name-style 'forward
-      isearch-lazy-count t)
+      isearch-lazy-count t
+
+      ;; Native comp
+      native-comp-speed 3
+      package-native-compile t
+      native-comp-compiler-options "-march=native -mtune=native")
 
 (use-package pixel-scroll :ensure nil :demand
   :init

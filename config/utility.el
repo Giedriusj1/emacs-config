@@ -16,6 +16,15 @@
 (i-defun g/reload-emacs-config ()
   (load-file "~/.emacs.d/init.el"))
 
+(i-defun g/compile-elpa-and-custom-to-native ()
+  (progn
+    (g/recompile-custom-packages)
+    (g/recompile-config)
+    (native-compile-async '("~/.emacs.d/custom-packages"
+                            "~/.emacs.d/elpa"
+                            "~/.emacs.d/config"
+                            )'recursively)))
+
 (i-defun emacs-init-time ()
   "Return a string giving the duration of the Emacs initialization."
   (let ((str (format "%.2f seconds" (float-time (time-subtract after-init-time before-init-time)))))
