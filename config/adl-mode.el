@@ -1,12 +1,11 @@
 ;;; -*- lexical-binding: t -*-
 
-(setq adl-highlights
-      '(
+(define-derived-mode adl-mode fundamental-mode "adl"
+  "major mode for editing adl code."
+  (setq font-lock-defaults '((
         ("SUB .*(" . font-lock-function-name-face)
-        ;; ("//.*\\\\|/\\*\\\\|/*\\/" . font-lock-comment-face)
         ("//.*" . font-lock-comment-face)
-        (
-         "A
+        ("A
 \\|ACCEPT
 \\|ACCOUNT
 \\|ACTIVITY
@@ -390,10 +389,6 @@
 \\|import
 \\|CONSTANTS"
          . font-lock-constant-face)
-        (" on \\|goto " . font-lock-keyword-face)))
-
-(define-derived-mode adl-mode fundamental-mode "adl"
-  "major mode for editing adl code."
-  (setq font-lock-defaults '(adl-highlights)))
+        (" on \\|goto " . font-lock-keyword-face)))))
 
 (add-to-list 'auto-mode-alist '("\\.adl\\'" . adl-mode))
