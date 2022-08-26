@@ -4,10 +4,9 @@
  (use-package lsp-mode
    :ensure helm-lsp
    :ensure lsp-pyright
-   :bind ( :map tab-map (("o" . g-lsp/invoke)))
+   :bind ( :map tab-map ("o" . g-lsp/invoke))
    :pretty-hydra ((:pre
-		   (if (and
-			;; lsp-mode is not enabled
+		   (if (and ;; lsp-mode is not enabled
 			(not (bound-and-true-p lsp-mode))
 			;; and we are not on Windows
 			(not (on-windows t)))
@@ -67,7 +66,7 @@
    (pretty-hydra-define hydra-describe (:foreign-keys warn  :quit-key "q" :color blue)
      ("Symbol"
       (("d" describe-thing-in-popup "declaration")
-       ("D" find-function-at-point "find function"))
+       ("D" xref-find-definitions "find function"))
       "Eval"
       (("b" eval-buffer "buffer")
        ("e" eval-last-sexp "last sexp"))))))

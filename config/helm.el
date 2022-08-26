@@ -9,15 +9,14 @@
             (lambda ()
               (diminish 'helm-mode)))
 
-  :bind
-  (:map control-semi-map
-        (( "C-s" . g/control-semi-map-helm-tree-sitter-or-imenu)
-         ( "s" .   g/control-semi-map-helm-tree-sitter-debug)
-         ( "l" . helm-M-x)
-         ( "r" . helm-mark-ring)
-         ( "C-r" . helm-global-mark-ring)
-         ( "b" . helm-resume)
-         ( "C-b" . helm-resume)))
+  :bind (:map control-semi-map
+              (( "C-s" . g/control-semi-map-helm-tree-sitter-or-imenu)
+               ( "s" .   g/control-semi-map-helm-tree-sitter-debug)
+               ( "l" . helm-M-x)
+               ( "r" . helm-mark-ring)
+               ( "C-r" . helm-global-mark-ring)
+               ( "b" . helm-resume)
+               ( "C-b" . helm-resume)))
 
   :config
   (i-defun g/control-semi-map-helm-tree-sitter-debug ()

@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
- (use-package shell-here :bind* (( "C-`" . shell-here)))
+ (use-package shell-here :bind* ( "C-`" . shell-here))
 
  (use-package auto-sudoedit :diminish auto-sudoedit-mode
    :config (auto-sudoedit-mode t)))
