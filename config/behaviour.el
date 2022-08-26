@@ -49,6 +49,7 @@
 (delete-selection-mode t)
 (show-paren-mode t)
 (electric-pair-mode t)
+(column-number-mode t)
 
 (setq windmove-wrap-around t
       debug-on-error nil
