@@ -1,8 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
- (use-package haskell-mode :mode ("\\.hs\\'" . haskell-mode) )
-
  (use-package toml-mode :mode ("\\.toml\\'" . toml-mode))
 
  (use-package typescript-mode :mode ("\\.ts\\'" . typescript-mode)
