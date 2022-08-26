@@ -3,6 +3,7 @@
 (use-package helm :defer 1
   :diminish helm-minor-mode
   :diminish helm-mode
+  :ensure helm-rg
   :init
   (add-hook 'helm-mode-hook
             (lambda ()
@@ -36,14 +37,7 @@
 
 (use-package helm-swoop :defer 1
   :bind (:map control-semi-map
-              (("C-m" . helm-swoop)
-               ("m" . helm-multi-swoop-all))))
-
-(use-package swiper-helm :defer 1
-  :bind (:map control-semi-map (())
-              ("o" . swiper-helm)
-              ("C-;" . swiper-helm))
-  :config
-  (require 'swiper))
-
-(use-package helm-rg :defer 3)
+              ("C-m" . helm-swoop)
+	      ("C-;" . helm-swoop)
+              ("m" . helm-multi-swoop-all))
+  :config (setq helm-swoop-speed-or-color t))
