@@ -3,22 +3,20 @@
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 
 (require 'package)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                         ("melpa" . "https://melpa.org/packages/")))
 
-;; Set to t if gnu.org or melpa.org are down
-(when nil
-  (message "Using emergency package mirrors")
-  (setq package-archives
-        '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
-          ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+(if t (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                               ("melpa" . "https://melpa.org/packages/")))
 
-  (setq package-check-signature nil))
+  (progn
+    (message "Using emergency package mirrors")
+    (setq package-archives
+          '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
+            ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
+    (setq package-check-signature nil)))
 
 ;; On Windows system we'll just ignore signatures altogether...
 ;; too much hassle.
-(on-windows
- (setq package-check-signature nil))
+(on-windows (setq package-check-signature nil))
 
 ;; Make sure we have use-package installed.
 ;; All other packages will be installed by it.
