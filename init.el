@@ -1,4 +1,5 @@
 ;;; -*- lexical-binding: t -*-
+
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 
@@ -73,8 +74,5 @@
 
 
 (add-hook 'server-after-make-frame-hook
-          (lambda ()
-            (setq inhibit-message t)
-            (run-with-idle-timer 0 nil
-				 (lambda () (setq inhibit-message nil)
-                                   (message (concat "emacs uptime: " (emacs-uptime)))))))
+	  (lambda ()
+	    (message (concat "emacs uptime: " (emacs-uptime)))))
