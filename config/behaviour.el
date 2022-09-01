@@ -82,13 +82,6 @@
       package-native-compile t
       native-comp-compiler-options "-march=native -mtune=native")
 
-(use-package pixel-scroll :ensure nil :demand
-  :init
-  (if (bound-and-true-p pixel-scroll-precision-mode)
-      (pixel-scroll-precision-mode)
-    (pixel-scroll-mode)))
-
-
 (define-key tab-map (kbd "j")
   (i-lambda () (cond ((eq 'org-mode major-mode)
 	              (org-hydra/body))
