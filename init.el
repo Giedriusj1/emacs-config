@@ -69,10 +69,10 @@
    (load (concat "~/.emacs.d/config/" element))))
 
 (fset 'display-startup-echo-area-message 'ignore)
-(message (concat "Emacs took " (emacs-init-time) " seconds to start."
-		         (if (fboundp 'native-compile-async) " With native compiler!")))
-
 
 (add-hook 'server-after-make-frame-hook
 	  (lambda ()
 	    (message (concat "emacs uptime: " (emacs-uptime)))))
+
+(message (concat "Emacs took " (emacs-init-time) " seconds to start."
+		         (if (fboundp 'native-compile-async) " With native compiler!")))
