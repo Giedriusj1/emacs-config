@@ -1,7 +1,8 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
- (use-package toml-mode :mode ("\\.toml\\'" . toml-mode))
+ (use-package toml-mode :mode (("\\.toml\\'" . toml-mode)
+			       ("Cargo.lock" . toml-mode)))
 
  (use-package typescript-mode :mode ("\\.ts\\'" . typescript-mode)
    :config
