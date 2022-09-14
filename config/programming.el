@@ -16,7 +16,10 @@
 		    ("b" rustic-cargo-build "build")
 		    ("SPC" rustic-cargo-check "check"))
 		   "yas"
-		   (("c" helm-yas-complete "complete"))))))
+		   (("c" helm-yas-complete "complete"))))
+   :config
+   (setq rustic-ansi-faces
+	 ["#282828" "#fb4934" "green3" "#fabd2f" "#83a598" "#cc241d" "#8ec07c" "#ebdbb2"])))
 
 (on-windows
  (use-package powershell :mode ("\\.ps1\\'" . powershell-mode))
