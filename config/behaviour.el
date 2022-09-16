@@ -12,7 +12,12 @@
 	   (paradox-enable)
 	   (list-packages)))
 
- (defalias 'lp 'list-packages))
+ (i-defun lp ()
+   ;; On Windows system we'll just ignore signatures altogether...
+   ;; too much hassle.
+   (setq package-check-signature nil)
+
+   (list-packages)))
 
 (use-package pretty-hydra :demand)
 

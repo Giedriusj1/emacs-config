@@ -3,31 +3,12 @@
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 
-(require 'package)
-
-(if t (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                               ("melpa" . "https://melpa.org/packages/")))
-
-  (progn
-    (message "Using emergency package mirrors")
-    (setq package-archives
-          '(("melpa" . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/melpa/")
-            ("gnu"   . "https://raw.githubusercontent.com/d12frosted/elpa-mirror/master/gnu/")))
-    (setq package-check-signature nil)))
-
-;; On Windows system we'll just ignore signatures altogether...
-;; too much hassle.
-(on-windows (setq package-check-signature nil))
-
-;; Make sure we have use-package installed.
-;; All other packages will be installed by it.
-(unless (package-installed-p 'use-package)
-  (progn (package-refresh-contents)
-         (package-install 'use-package)))
-
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t)
 (setq use-package-always-defer t)
+
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")))
 
 (setq warning-suppress-types '(((package reinitialization)) (comp) (lsp-mode) (emacs)))
 
@@ -75,4 +56,4 @@
 	    (message (concat "emacs uptime: " (emacs-uptime)))))
 
 (message (concat "Emacs took " (emacs-init-time) " seconds to start."
-		         (if (fboundp 'native-compile-async) " With native compiler!")))
+		 (if (fboundp 'native-compile-async) " With native compiler!")))
