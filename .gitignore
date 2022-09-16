@@ -2,7 +2,6 @@ emacs.el
 .cache/
 .extension/
 auto-save-list/
-elpa/
 temps/
 url/
 emacs_backtrace.txt
