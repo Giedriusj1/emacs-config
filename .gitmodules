@@ -1,3 +1,0 @@
-[submodule "config/helm-tree-sitter"]
-	path = config/helm-tree-sitter
-	url = git@github.com-personal:Giedriusj1/helm-tree-sitter.git
