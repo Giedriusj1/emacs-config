@@ -3,14 +3,25 @@
 (add-to-list 'load-path "~/.emacs.d/elpa")
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 
+(require 'package)
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+			 ("melpa" . "https://melpa.org/packages/")))
+
+;; Make sure we have use-package installed.
+;; All other packages will be installed by it.
+(unless (package-installed-p 'use-package)
+  (progn (package-refresh-contents)
+         (package-install 'use-package)))
+
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t)
 (setq use-package-always-defer t)
 
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-			 ("melpa" . "https://melpa.org/packages/")))
+
 
 (setq warning-suppress-types '(((package reinitialization)) (comp) (lsp-mode) (emacs)))
+
+(require 'use-package)
 
 (use-package gcmh :demand :diminish
   :config
@@ -28,7 +39,7 @@
 (setq basic-load-sequence '("looks.el"        ; We want looks ASAP, to reduce any flickering
                             "key-bindings.el" ; Key bindings are also needed early, for prefixes
                             "behaviour.el"    ; We need hydra macros
-                            "helm.el"
+                            "vertico.el"
                             "dired.el"
                             "magit.el"
                             "org.el"

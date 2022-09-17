@@ -66,13 +66,7 @@
 
    ;; Make some default wombat colours a bit more lively
    '(font-lock-builtin-face ((((class color) (min-colors 89)) (:foreground "#ff685d"))))
-   '(font-lock-constant-face ((((class color) (min-colors 89)) (:foreground "#ff685d"))))
-
-   ;; Some default helm faces are quite ugly... let's fix em up.
-   '(helm-selection ((t (:background "grey24" :distant-foreground "black"))))
-   '(helm-buffer-directory ((t (:weight bold :foreground "LightSlateBlue" :distant-foreground "black"))))
-   '(helm-ff-directory ((t :inherit helm-buffer-directory )))
-   '(helm-source-header ((t (:background "#450a6b" :foreground "#dddddd" :weight bold :height 1.3 :family "Sans Serif")))))
+   '(font-lock-constant-face ((((class color) (min-colors 89)) (:foreground "#ff685d")))))
 
   (set-font-for-current-resolution)
 

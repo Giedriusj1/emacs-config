@@ -15,8 +15,10 @@
 		    ("r" rustic-cargo-run "run")
 		    ("b" rustic-cargo-build "build")
 		    ("SPC" rustic-cargo-check "check"))
-		   "yas"
-		   (("c" helm-yas-complete "complete"))))
+		   ;; "yas"
+		   ;; (("c" helm-yas-complete "complete"))
+
+		   ))
    :config
    (setq rustic-ansi-faces
 	 ["#282828" "#fb4934" "green3" "#fabd2f" "#83a598" "#cc241d" "#8ec07c" "#ebdbb2"])))
@@ -87,6 +89,7 @@
 
 (use-package elisp-mode :ensure nil
   :mode
+  ("\\.g1\\'" . emacs-lisp-mode)
   ("\\.el\\'" . emacs-lisp-mode)
   ("\\.el.gz\\'" . emacs-lisp-mode)
   ("\\.elc\\'" . elisp-byte-code-mode))
@@ -110,9 +113,9 @@
           (lambda()
             (setq comment-start "//" comment-end  "")))
 
-(pretty-hydra-define hydra-default (:color blue)
-  ("yas"
-   (("c" helm-yas-complete "complete"))))
+;; (pretty-hydra-define hydra-default (:color blue)
+;;   ("yas"
+;;    (("c" helm-yas-complete "complete"))))
 
 (pretty-hydra-define hydra-emacs-lisp (:color blue)
   ("eval"

@@ -16,7 +16,8 @@
 		   ( "C-u" org-shiftleft "org-shiftleft")
 		   ( "t" org-todo "toggle todo"))
 		  ""
-		  (( "c" helm-yas-complete "complate")
+		  (
+		   ;; ( "c" helm-yas-complete "complate")
 		   ( "e" org-edit-src-code "source"))))
   :config
   (setq org-directory "~/private-sync/notes")
@@ -27,7 +28,7 @@
   (setq org-export-with-toc nil)
   (setq org-hierarchical-todo-statistics nil)
   (setq org-imenu-depth 5)
-  (customize-set-variable 'helm-split-window-default-side 'right)
+  ;; (customize-set-variable 'helm-split-window-default-side 'right)
 
   (add-hook 'org-mode-hook (lambda ()
                              (org-indent-initialize-agent))))

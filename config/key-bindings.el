@@ -6,7 +6,7 @@
 (define-prefix-command 'lisp-playground-map)
 
 (bind-keys*
- ("C-j" . helm-mini)
+ ("C-j" . consult-buffer)
  ("<C-tab>" . tab-bar-switch-to-next-tab)
 
  ("M-h" . open-line)
@@ -59,6 +59,9 @@
             ("C-l" . execute-extended-command)
             ("C-2" . split-window-below))
 
+
+(define-key control-semi-map (kbd "C-;") 'consult-line)
+
 (define-key control-semi-map (kbd "C-2") (i-lambda ()
                                            (split-window-below)
                                            (balance-windows)))
@@ -83,5 +86,5 @@
             ("C- ." 'comment-dwim)
             ("M- ." 'comment-dwim)
             ("u" . universal-argument)
-            ("C-f" . helm-find-files)
+            ("C-f" . find-file)
             ("C-d" . dired-jump))

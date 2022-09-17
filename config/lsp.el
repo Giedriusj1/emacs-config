@@ -2,7 +2,7 @@
 
 (on-linux
  (use-package lsp-mode
-   :ensure helm-lsp
+   ;; :ensure helm-lsp
    :ensure lsp-pyright
    :bind ( :map tab-map ("o" . g-lsp/invoke))
    :pretty-hydra ((:pre
@@ -15,10 +15,14 @@
 		       (progn (message "enabling lsp mode...") (lsp)))
 
 		   :foreign-keys warn :title "LSP" :quit-key "q" :color blue)
-		  ("Buffer"
+		  (
+
+		   "Buffer"
 		   (("f" lsp-format-buffer "format")
-		    ("u" helm-lsp-code-actions "execute action")
-		    ("h" helm-lsp-diagnostics "diagnostics"))
+		    ;; ("u" helm-lsp-code-actions "execute action")
+		    ;; ("h" helm-lsp-diagnostics "diagnostics")
+		    )
+		   
 		   "Server"
 		   (("S" lsp-restart-workspace "restart"))
 		   "Symbol"
