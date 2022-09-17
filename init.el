@@ -4,7 +4,7 @@
 (add-to-list 'load-path "~/.emacs.d/custom-packages")
 
 (require 'package)
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")))
 
 ;; Make sure we have use-package installed.
@@ -24,9 +24,6 @@
 (use-package gcmh :demand :diminish
   :config
   (gcmh-mode t)
-
-  ;; (setq gcmh-verbose t)
-  (setq gcmh-time-constant 10)
 
   ;;Let's garbage collect when focusing out of the window..
   (add-hook 'focus-out-hook #'garbage-collect)

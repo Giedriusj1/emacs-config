@@ -23,8 +23,39 @@
   :init
   (vertico-mode)
 
-  (setq vertico-count 30
+  (setq vertico-count 25
 	vertico-resize nil))
+
+(setq enable-recursive-minibuffers t)
+
+(bind-keys* :map minibuffer-local-map ("C-g" . exit-recursive-edit))
+
+(use-package consult :defer 1
+  :init
+  (defun consult-line-empty (&optional initial start)
+    (interactive (list nil (not (not current-prefix-arg))))
+    (let ((curr-line (line-number-at-pos (point) consult-line-numbers-widen))
+          (top (not (eq start consult-line-start-from-top))))
+      (consult--line
+       (or (consult--with-increased-gc
+            (consult--line-candidates top curr-line))
+           (user-error "No lines"))
+       :curr-line (and (not top) curr-line)
+       :prompt (if top "Go to line from top: " "Go to line: ")
+       :initial initial)))
+
+  :config
+  (advice-add #'consult-line
+              :around
+              #'consult-line-advice
+              '((name . "wrapper")))
+
+  (i-defun consult-line-advice (consult-line-function &rest rest)
+    (if (use-region-p)
+	(apply consult-line-function
+               (buffer-substring (region-beginning) (region-end)) rest)
+      (apply consult-line-function
+             (thing-at-point 'symbol) rest))))
 
 (use-package marginalia
   :bind (:map minibuffer-local-map ("C-l" . marginalia-cycle))
@@ -57,7 +88,6 @@
 (use-package auto-highlight-symbol
   :diminish auto-highlight-symbol-mode
   :init (add-hook 'prog-mode-hook 'auto-highlight-symbol-mode))
-
 
 (use-package multiple-cursors
   :init

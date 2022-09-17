@@ -1,6 +1,8 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package projectile :diminish
+  :ensure projectile-ripgrep
+  :ensure consult-projectile
   :bind (:map tab-map ("p" . projectile-hydra/body))
   :pretty-hydra
   ((:pre (progn
@@ -14,6 +16,3 @@
     "projectile search"
     (("r" projectile-ripgrep "ripgrep")
      ("R" consult-ripgrep "consult ripgrep")))))
-
-(use-package projectile-ripgrep)
-(use-package consult-projectile)

@@ -60,7 +60,9 @@
             ("C-2" . split-window-below))
 
 
-(define-key control-semi-map (kbd "C-;") 'consult-line)
+(define-key control-semi-map (kbd "C-;") 'consult-line-empty)
+
+(define-key control-semi-map (kbd "C-m") 'consult-line)
 
 (define-key control-semi-map (kbd "C-2") (i-lambda ()
                                            (split-window-below)
