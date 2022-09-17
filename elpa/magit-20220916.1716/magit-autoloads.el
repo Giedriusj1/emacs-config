@@ -2202,7 +2202,6 @@ Move WORKTREE to PATH.
 ;; version-control: never
 ;; no-byte-compile: t
 ;; no-update-autoloads: t
-;; no-native-compile: t
 ;; coding: utf-8-emacs-unix
 ;; End:
 
