@@ -3,6 +3,7 @@ emacs.el
 .extension/
 auto-save-list/
 temps/
+elpa/
 url/
 emacs_backtrace.txt
 eshell/

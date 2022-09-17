@@ -3,7 +3,6 @@
 (use-package yasnippet
   :ensure yasnippet-snippets
   :ensure yasnippet-classic-snippets
-  :ensure helm-c-yasnippet
   :diminish yas-minor-mode
   :hook ((prog-mode . yas-minor-mode)
          (org-mode . yas-minor-mode)))

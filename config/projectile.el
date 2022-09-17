@@ -4,74 +4,16 @@
   :bind (:map tab-map ("p" . projectile-hydra/body))
   :pretty-hydra
   ((:pre (progn
-	   ;; (require 'helm-projectile)
-	   (projectile-global-mode t)
-	   ;; (helm-mode t)
-	   )
+	   (projectile-global-mode t))
 	 :color blue)
    ("projectile"
-    (("p" consult-projectile-switch-project "helm projects")
+    (("p" consult-projectile-switch-project "projects")
      ("q" projectile-invalidate-cache "invalidate cache")
-     ("j" consult-projectile-find-file "helm projectile")
+     ("j" consult-projectile-find-file "find file")
      ("d" projectile-dired "dired"))
     "projectile search"
     (("r" projectile-ripgrep "ripgrep")
-     ("R" consult-ripgrep "helm ripgrep"))
-
-    )
-
-   )
-
-
-  )
+     ("R" consult-ripgrep "consult ripgrep")))))
 
 (use-package projectile-ripgrep)
-
-;; (use-package helm-projectile :defer 2
-;;   :bind (:map tab-map ("p" . projectile-hydra/body))
-;;   :config
-;;   (projectile-global-mode t)
-
-;;   (remove-hook 'find-file-hook #'projectile-find-file-hook-function)
-
-;;   ;; Make projectile use external tools for file indexing.
-;;   ;; If this breaks revert to 'native for more reliability.
-;;   (setq projectile-indexing-method 'alien)
-
-;;   (defcustom g/helm-source-projectile-projects-actions
-;;     (helm-make-actions "Open Dired in project's directory `C-d'" #'dired "Switch to project"
-;;                        (lambda (project)
-;;                          (let ((projectile-completion-system 'helm))
-;;                            (projectile-switch-project-by-name
-;;                             project)))
-;;                        "Open project root in vc-dir or magit `M-g'" #'helm-projectile-vc
-;;                        "Switch to Eshell `M-e'" #'helm-projectile-switch-to-eshell
-;;                        "Grep in projects `C-s'" #'helm-projectile-grep
-;;                        "Compile project `M-c'. With C-u, new compile command"
-;;                        #'helm-projectile-compile-project "Remove project(s) from project list `M-D'"
-;;                        #'helm-projectile-remove-known-project)
-;;     "Actions for `helm-source-projectile-projects'."
-;;     :group 'helm-projectile
-;;     :type '(alist :key-type string
-;;                   :value-type function))
-
-;;   (defvar g/helm-source-projectile-projects
-;;     (helm-build-sync-source "Projectile projects"
-;;       :candidates (lambda ()
-;;                     (with-helm-current-buffer projectile-known-projects))
-;;       :keymap helm-projectile-projects-map
-;;       :mode-line helm-read-file-name-mode-line-string
-;;       :action 'g/helm-source-projectile-projects-actions)
-;;     "Helm source for known projectile projects.")
-
-;;   (i-defun g/helm-projectile-projects ()
-;;     (let ((helm-ff-transformer-show-only-basename nil))
-;;       (helm :sources '(g/helm-source-projectile-projects)
-;;             :buffer "*helm projectile projects*"
-;;             :truncate-lines helm-projectile-truncate-lines)))
-
-;;   (customize-set-variable 'helm-projectile-sources-list '(helm-source-projectile-buffers-list
-;;                                                           helm-source-projectile-files-list)))
-
-
-
+(use-package consult-projectile)

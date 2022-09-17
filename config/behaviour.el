@@ -19,6 +19,22 @@
 
    (list-packages)))
 
+(use-package vertico
+  :init
+  (vertico-mode)
+
+  (setq vertico-count 30
+	vertico-resize nil))
+
+(use-package marginalia
+  :bind (:map minibuffer-local-map ("C-l" . marginalia-cycle))
+  :init (marginalia-mode))
+
+(use-package orderless
+  :custom
+  (completion-styles '(orderless basic))
+  (completion-category-overrides '((file (styles basic partial-completion)))))
+
 (use-package pretty-hydra :demand)
 
 (use-package diminish :demand)
@@ -99,6 +115,5 @@
 	             (t (hydra-default/body)))))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
-;; (defalias 'describe-bindings 'helm-descbinds)
 (defalias 'rel 'g/reload-emacs-config)
 (defalias 'msf 'menu-set-font)

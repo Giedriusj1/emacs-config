@@ -15,10 +15,8 @@
 		    ("r" rustic-cargo-run "run")
 		    ("b" rustic-cargo-build "build")
 		    ("SPC" rustic-cargo-check "check"))
-		   ;; "yas"
-		   ;; (("c" helm-yas-complete "complete"))
-
-		   ))
+		   "yas"
+		   (("c" consult-yasnippet "complete"))))
    :config
    (setq rustic-ansi-faces
 	 ["#282828" "#fb4934" "green3" "#fabd2f" "#83a598" "#cc241d" "#8ec07c" "#ebdbb2"])))
@@ -39,6 +37,8 @@
                (progn
                  (setq c-basic-offset identation-size c-default-style "linux")
                  (setq tab-width identation-size indent-tabs-mode nil))))))
+
+(use-package consult-yasnippet)
 
 (use-package yaml-mode  :mode ("\\.yml\\'" . yaml-mode) ("\\.yaml\\'" . yaml-mode))
 
@@ -113,16 +113,16 @@
           (lambda()
             (setq comment-start "//" comment-end  "")))
 
-;; (pretty-hydra-define hydra-default (:color blue)
-;;   ("yas"
-;;    (("c" helm-yas-complete "complete"))))
+(pretty-hydra-define hydra-default (:color blue)
+  ("yas"
+   (("c" consult-yasnippet "complete"))))
 
 (pretty-hydra-define hydra-emacs-lisp (:color blue)
   ("eval"
    (( "j" eval-buffer "eval buffer")
     ( "k" eval-last-sexp "eval-last-sexp"))
    "yas"
-   (( "c" helm-yas-complete "complete"))))
+   (( "c" consult-yasnippet "complete"))))
 
 (define-key tab-map (kbd "i")
   (i-lambda ()

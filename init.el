@@ -17,8 +17,6 @@
 (setq use-package-always-ensure t)
 (setq use-package-always-defer t)
 
-
-
 (setq warning-suppress-types '(((package reinitialization)) (comp) (lsp-mode) (emacs)))
 
 (require 'use-package)
@@ -39,7 +37,6 @@
 (setq basic-load-sequence '("looks.el"        ; We want looks ASAP, to reduce any flickering
                             "key-bindings.el" ; Key bindings are also needed early, for prefixes
                             "behaviour.el"    ; We need hydra macros
-                            "vertico.el"
                             "dired.el"
                             "magit.el"
                             "org.el"
