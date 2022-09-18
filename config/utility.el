@@ -10,8 +10,7 @@
 (i-defun g/recompile-config ()
   (byte-recompile-directory "~/.emacs.d/config" 0))
 
-(i-defun g/reload-emacs-config ()
-  (load-file "~/.emacs.d/init.el"))
+(i-defun g/rel () (load-file "~/.emacs.d/init.el"))
 
 (i-defun g/compile-elpa-and-custom-to-native ()
   (progn

@@ -45,6 +45,11 @@
        :initial initial)))
 
   :config
+  (setq consult-async-input-throttle 0.1
+	consult-async-refresh-delay 0.1
+	consult-async-input-debounce 0.05
+	consult-async-min-input 0)
+
   (advice-add #'consult-line
               :around
               #'consult-line-advice
@@ -144,6 +149,26 @@
 	              (rustic-hydra/body))
 	             (t (hydra-default/body)))))
 
+(define-key tab-map (kbd ";") 'hydra-quickopen/body)
+
+(pretty-hydra-define hydra-quickopen (:color blue)
+  ("quickopen"
+   (("t" (lambda ()
+	   (interactive)
+	   (find-file "~/private-sync/temp.org")) "~/private-sync/temp.org")
+    ("c" (lambda ()
+           (interactive)
+           (find-file "~/.emacs.d/init.el")) "~/.emacs.d/init.el")
+    ("l" (lambda ()
+           (interactive)
+           (progn (zygospore-toggle-delete-other-windows)
+	          (dired "~/private-sync")
+	          (find-file default-directory))) "dired ~/private-sync/")
+    (";" (lambda ()
+           (interactive)
+	   ;; ;TODO: ignore
+	   ;; '("*.doc" "*.ovpn" "*.pcap" "*.pcapng" "*.png" "*.pem" )
+           (consult-ripgrep "~/private-sync")) "grep notes"))))
+
 (defalias 'yes-or-no-p 'y-or-n-p)
-(defalias 'rel 'g/reload-emacs-config)
 (defalias 'msf 'menu-set-font)

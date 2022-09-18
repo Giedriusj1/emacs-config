@@ -39,7 +39,6 @@
                             "org.el"
                             "projectile.el"
                             "private-sync.el"
-                            "quickopen.el"
                             "swift.el"))
 
 ;; Let's load the files specified in the basic load sequence:
