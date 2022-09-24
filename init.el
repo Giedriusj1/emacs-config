@@ -7,6 +7,10 @@
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
 			 ("melpa" . "https://melpa.org/packages/")))
 
+;; On Windows system we'll just ignore signatures altogether...
+;; too much hassle.
+(on-windows (setq package-check-signature nil))
+
 ;; Make sure we have use-package installed.
 ;; All other packages will be installed by it.
 (unless (package-installed-p 'use-package)
