@@ -66,7 +66,8 @@
   :init
   (add-hook 'find-file-hook
 	    (lambda()
-	      (diminish 'eldoc-mode))))
+	      (diminish 'eldoc-mode)
+	      (diminish 'auto-revert-mode))))
 
 (use-package recentf :ensure nil :demand
   :config
