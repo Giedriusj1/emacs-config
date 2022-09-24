@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
+(use-package diminish :demand)
+
 (on-linux
  (use-package shell-here :bind* ( "C-`" . shell-here))
 
@@ -60,9 +62,11 @@
 
 (use-package pretty-hydra :demand)
 
-(use-package diminish :demand)
-
-(use-package eldoc-mode :ensure nil :diminish)
+(use-package eldoc-mode :ensure nil
+  :init
+  (add-hook 'find-file-hook
+	    (lambda()
+	      (diminish 'eldoc-mode))))
 
 (use-package recentf :ensure nil :demand
   :config
