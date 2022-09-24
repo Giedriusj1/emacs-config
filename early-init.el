@@ -1,52 +1,12 @@
 ;; Increase garbage collector threshold for better performance
 (setq gc-cons-threshold most-positive-fixnum)
 
-(customize-set-variable 'scroll-bar-mode nil)
-(customize-set-variable 'horizontal-scroll-bar-mode nil)
-(customize-set-variable 'menu-bar-mode nil)
-(customize-set-variable 'tool-bar-mode nil)
-
-(tooltip-mode -1)
-(blink-cursor-mode -1)
-
-(modify-all-frames-parameters '((vertical-scroll-bars . nil)))
-
-(setq g/message-buff (generate-new-buffer "G/Messages"))
-
-(defun g/message (msg)
-  (with-current-buffer "G/Messages" ; replace with the name of the buffer you want to append
-    (goto-char (point-max))
-    (insert (format "%s %s\n"
-                    (format-time-string "%d/%m/%Y - %H:%M:%S")
-                    msg) )))
-
-(g/message "Emacs booting up")
-(g/message (emacs-version))
-
-(setq package-quickstart t)
-
-(advice-add 'x-apply-session-resources :override 'ignore)
-
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-(setq frame-inhibit-implied-resize t)
-(setq initial-major-mode 'fundamental-mode)
-
-(defvar doom--file-name-handler-alist file-name-handler-alist)
-
-(setq file-name-handler-alist nil)
-
-(add-hook 'emacs-startup-hook
-  (lambda ()
-    (setq file-name-handler-alist doom--file-name-handler-alist)))
-
-
 ;; Some basic macros that will be used throughout the config
 (defmacro measure-time (&rest body)
   "Measure the time it takes to evaluate BODY."
   `(let ((time (current-time)))
      ,@body
-     (message "took %.06f seconds" (float-time (time-since time)))))  
+     (message "took %.06f seconds" (float-time (time-since time)))))
 
 (defmacro on-linux (&rest body)
   (if (memq system-type '(gnu gnu/linux))
@@ -81,3 +41,86 @@
   `(lambda ,arglist
      (interactive)
      ,@body))
+
+;; Disable unneeded UI elements
+(customize-set-variable 'scroll-bar-mode nil)
+(customize-set-variable 'horizontal-scroll-bar-mode nil)
+(customize-set-variable 'menu-bar-mode nil)
+(customize-set-variable 'tool-bar-mode nil)
+
+;; General UI settings
+(setq bidi-inhibit-bpa t)
+(setq-default bidi-paragraph-direction 'left-to-right)
+
+(customize-set-variable 'custom-enabled-themes '(wombat))
+
+(customize-set-variable
+ 'custom-safe-themes '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
+
+(custom-set-faces
+ '(org-level-1 ((t (:inherit outline-1 :weight demibold :height 1.2))))
+ '(default ((t (:background "#131818"))))
+ '(cursor-orig ((t (:inherit cursor))))
+ '(mode-line-inactive ((t (:background "#101010"))))
+ '(mode-line ((t (:background "#404040"))))
+ '(hl-line ((t (:inherit nil :background "#222222"))))
+ '(minibuffer-prompt ((t (:foreground "#ff584d"))))
+
+ ;; Make some default wombat colours a bit more lively
+ '(font-lock-builtin-face ((((class color) (min-colors 89)) (:foreground "#ff685d"))))
+ '(font-lock-constant-face ((((class color) (min-colors 89)) (:foreground "#ff685d")))))
+
+ ;; (set-font-for-current-resolution)
+
+(global-hl-line-mode t)
+
+(fringe-mode 0)
+
+(setq-default frame-title-format
+              '(:eval
+                (if (>= 1 (length (tab-bar-tabs)))
+                    (format "%s %s" (buffer-name)
+                            (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
+                                  (dired-directory (concat "{" dired-directory "}"))
+                                  (t "[no file]")))
+
+                  (mapcar (i-lambda (tab)
+              (let ((tab-name (alist-get 'name tab)))
+                (if (eq (car tab) 'current-tab)
+                    (format " [ %s ] " tab-name)
+                  (format  " %s "tab-name ))  ))
+            (tab-bar-tabs)))))
+
+(tooltip-mode -1)
+(blink-cursor-mode -1)
+
+(modify-all-frames-parameters '((vertical-scroll-bars . nil)))
+
+(setq g/message-buff (generate-new-buffer "G/Messages"))
+
+(defun g/message (msg)
+  (with-current-buffer "G/Messages" ; replace with the name of the buffer you want to append
+    (goto-char (point-max))
+    (insert (format "%s %s\n"
+                    (format-time-string "%d/%m/%Y - %H:%M:%S")
+                    msg) )))
+
+(g/message "Emacs booting up")
+(g/message (emacs-version))
+
+(setq package-quickstart t)
+
+(advice-add 'x-apply-session-resources :override 'ignore)
+
+(add-to-list 'default-frame-alist '(fullscreen . maximized))
+
+(setq frame-inhibit-implied-resize t)
+(setq initial-major-mode 'fundamental-mode)
+
+(defvar doom--file-name-handler-alist file-name-handler-alist)
+
+(setq file-name-handler-alist nil)
+
+(add-hook 'emacs-startup-hook
+  (lambda ()
+    (setq file-name-handler-alist doom--file-name-handler-alist)))
