@@ -90,9 +90,7 @@
           :map control-semi-map
           ("C-1" . zygospore-toggle-delete-other-windows)))
 
-(use-package auto-highlight-symbol
-  :diminish auto-highlight-symbol-mode
-  :init (add-hook 'prog-mode-hook 'auto-highlight-symbol-mode))
+(use-package ripgrep)
 
 (use-package multiple-cursors
   :init
