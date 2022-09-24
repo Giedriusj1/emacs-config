@@ -17,7 +17,7 @@
 (setq use-package-always-ensure t)
 (setq use-package-always-defer t)
 
-(setq warning-suppress-types '(((package reinitialization)) (comp) (lsp-mode) (emacs)))
+(setq warning-suppress-types '(((package reinitialization)) (comp) (emacs)))
 
 (require 'use-package)
 
