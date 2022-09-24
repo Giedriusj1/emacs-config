@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-print-current-line
+# key: g-print-current-line
+# --
+println!(" {}", std::line!());
