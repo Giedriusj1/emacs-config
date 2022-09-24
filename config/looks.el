@@ -70,7 +70,9 @@
 
   (set-font-for-current-resolution)
 
-  (global-hl-line-mode t))
+  (global-hl-line-mode t)
+
+  (fringe-mode 0))
 
 (add-hook 'after-make-frame-functions 'load-graphic-settings)
 
