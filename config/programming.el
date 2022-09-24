@@ -58,7 +58,13 @@
   :mode ("\\.pdf\\'" . doc-view-mode))
 
 (use-package python :ensure nil
-  :mode ("\\.py\\'" . python-mode))
+  :mode ("\\.py\\'" . python-mode)
+  :config
+  (add-hook 'python-mode-hook
+            (lambda()
+              (setq indent-tabs-mode nil)
+              (setq python-indent 4)
+              (setq tab-width 4))))
 
 (use-package sh-script :ensure nil
   :mode (("\\.sh\\'" . sh-mode)
@@ -87,7 +93,11 @@
 	 ("\\.h\\'" . c++-mode)
 	 ("\\.hh\\'" . c++-mode)
 	 ("\\.hpp\\'" . c++-mode)
-	 ("\\.mc\\'" . c++-mode)))
+	 ("\\.mc\\'" . c++-mode))
+  :config
+  (add-hook 'c-mode-common-hook
+            (lambda()
+              (setq comment-start "//" comment-end  "")))  )
 
 (use-package elisp-mode :ensure nil
   :mode
@@ -101,19 +111,9 @@
 	 ("\\.pom\\'" . xml-mode)
 	 ("\\.sql\\'" . sql-mode)))
 
-(add-hook 'python-mode-hook
-          (lambda()
-            (setq indent-tabs-mode nil)
-            (setq python-indent 4)
-            (setq tab-width 4)))
-
 (add-hook 'scheme-mode-hook
           (lambda()
             (setq indent-tabs-mode nil)))
-
-(add-hook 'c-mode-common-hook
-          (lambda()
-            (setq comment-start "//" comment-end  "")))
 
 (pretty-hydra-define hydra-default (:color blue)
   ("yas"
