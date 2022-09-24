@@ -6,19 +6,6 @@
  (use-package auto-sudoedit :diminish auto-sudoedit-mode
    :config (auto-sudoedit-mode t)))
 
-(cond-linux-win
- (use-package paradox
-   :init (i-defun lp ()
-	   (paradox-enable)
-	   (list-packages)))
-
- (i-defun lp ()
-   ;; On Windows system we'll just ignore signatures altogether...
-   ;; too much hassle.
-   (setq package-check-signature nil)
-
-   (list-packages)))
-
 (use-package vertico
   :init
   (vertico-mode)
@@ -188,4 +175,5 @@
       (project-dired))))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'lp 'list-packages)
 (defalias 'msf 'menu-set-font)
