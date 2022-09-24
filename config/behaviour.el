@@ -133,8 +133,10 @@
 
       ;; Native comp
       native-comp-speed 3
-      package-native-compile t
-      native-comp-compiler-options "-march=native -mtune=native")
+      package-native-compile t)
+
+(setq native-comp-compiler-options '("-O2" "-mtune=native"))
+(setq native-comp-driver-options '("-O2" "-mtune=native"))
 
 (define-key tab-map (kbd "j")
   (i-lambda () (cond ((eq 'org-mode major-mode)
