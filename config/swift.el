@@ -18,7 +18,7 @@
 	    (define-key map (kbd "o") (i-lambda () (progn
 						     (scroll-down-line)
 						     (previous-line))))
-	    
+
 	    (define-key map (kbd "l") (i-lambda () (progn
 						     (scroll-up-line)
 						     (next-line))))
@@ -35,11 +35,14 @@
 	    (define-key map (kbd "C-x") 'kill-region)
 	    (define-key map (kbd "C-c") 'kill-ring-save)
 	    (define-key map (kbd "C-v") 'yank)
+
+	    (define-key map (kbd "C-g") 'global-swift-mode)
+
 	    map)
 
-  
+
   (if (eq global-swift-mode t)
-      (custom-set-faces '(cursor ((t (:background "blue")))))
+      (custom-set-faces '(cursor ((t (:background "orange")))))
     (custom-set-faces '(cursor ((t (:inherit cursor-orig)))))))
 
 (define-globalized-minor-mode global-swift-mode swift-mode swift-mode)
