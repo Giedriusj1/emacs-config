@@ -170,5 +170,17 @@
 	   ;; '("*.doc" "*.ovpn" "*.pcap" "*.pcapng" "*.png" "*.pem" )
            (consult-ripgrep "~/private-sync")) "grep notes"))))
 
+(use-package project :diminish
+  :bind (:map tab-map ("p" . project-hydra/body))
+  :pretty-hydra
+  ((:color blue)
+   ("project"
+    (("p" project-switch-project "projects")
+     ("j" project-find-file "find file")
+     ("d" project-dired "dired"))
+    "project search"
+    (("r" project-find-regexp "find regexp")
+     ("R" consult-ripgrep "consult ripgrep")))))
+
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'msf 'menu-set-font)
