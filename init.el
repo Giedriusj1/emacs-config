@@ -37,7 +37,6 @@
                             "dired.el"
                             "magit.el"
                             "org.el"
-                            "projectile.el"
                             "private-sync.el"
                             "swift.el"))
 
