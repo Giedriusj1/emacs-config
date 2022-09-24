@@ -26,12 +26,11 @@
     (let ((curr-line (line-number-at-pos (point) consult-line-numbers-widen))
           (top (not (eq start consult-line-start-from-top))))
       (consult--line
-       (or (consult--with-increased-gc
-            (consult--line-candidates top curr-line))
-           (user-error "No lines"))
-       :curr-line (and (not top) curr-line)
-       :prompt (if top "Go to line from top: " "Go to line: ")
-       :initial initial)))
+       (or
+	(consult--line-candidates top curr-line)
+	(user-error "No lines"))
+       :curr-line curr-line
+       :prompt "Go to line: ")))
 
   :config
   (setq consult-async-input-throttle 0.1
@@ -64,6 +63,7 @@
 
 (use-package eldoc-mode :ensure nil
   :init
+  (setq max-mini-window-height 3) 	; Make sure the minibuffer docs are sensible in size
   (add-hook 'find-file-hook
 	    (lambda()
 	      (diminish 'eldoc-mode)
