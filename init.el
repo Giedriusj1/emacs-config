@@ -32,8 +32,7 @@
 (run-with-idle-timer 5 t (lambda () (garbage-collect)))
 
 ;; This defines in which order we want to load our config.
-(setq basic-load-sequence '("looks.el"        ; We want looks ASAP, to reduce any flickering
-                            "key-bindings.el" ; Key bindings are also needed early, for prefixes
+(setq basic-load-sequence '("key-bindings.el" ; Key bindings are also needed early, for prefixes
                             "behaviour.el"    ; We need hydra macros
                             "dired.el"
                             "magit.el"
