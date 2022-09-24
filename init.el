@@ -21,14 +21,12 @@
 
 (require 'use-package)
 
-(use-package gcmh :demand :diminish
-  :config
-  (gcmh-mode t)
+;;Let's garbage collect when focusing out of the window..
+(add-hook 'focus-out-hook #'garbage-collect)
+;;  and saving files.
+(add-hook 'after-save-hook #'garbage-collect)
 
-  ;;Let's garbage collect when focusing out of the window..
-  (add-hook 'focus-out-hook #'garbage-collect)
-  ;;  and saving files.
-  (add-hook 'after-save-hook #'garbage-collect))
+(run-with-idle-timer 5 t (lambda () (garbage-collect)))
 
 ;; This defines in which order we want to load our config.
 (setq basic-load-sequence '("looks.el"        ; We want looks ASAP, to reduce any flickering
