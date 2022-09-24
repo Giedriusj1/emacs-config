@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (add-to-list 'load-path "~/.emacs.d/elpa")
-(add-to-list 'load-path "~/.emacs.d/custom-packages")
 
 (require 'package)
 (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")

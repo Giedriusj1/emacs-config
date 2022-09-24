@@ -44,8 +44,6 @@
 
 (use-package yaml-mode  :mode ("\\.yml\\'" . yaml-mode) ("\\.yaml\\'" . yaml-mode))
 
-(use-package ldap-mode :ensure nil :mode ("\\.ldif\\'" . ldif-mode))
-
 (use-package json-mode :mode ("\\.json\\'" . json-mode))
 
 (use-package dockerfile-mode
