@@ -17,6 +17,8 @@
 		    ("SPC" rustic-cargo-check "check"))
 		   "yas"
 		   (("c" consult-yasnippet "complete"))))
+   :init
+   (setq rustic-lsp-setup-p nil)
    :config
    (setq rustic-ansi-faces
 	 ["#282828" "#fb4934" "green3" "#fabd2f" "#83a598" "#cc241d" "#8ec07c" "#ebdbb2"])))
