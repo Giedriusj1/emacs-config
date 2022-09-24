@@ -175,12 +175,17 @@
   :pretty-hydra
   ((:color blue)
    ("project"
-    (("p" project-switch-project "projects")
+    (("p" g/project-switch-project "projects")
      ("j" project-find-file "find file")
      ("d" project-dired "dired"))
     "project search"
     (("r" project-find-regexp "find regexp")
-     ("R" consult-ripgrep "consult ripgrep")))))
+     ("R" consult-ripgrep "consult ripgrep"))))
+  :config
+  (defun g/project-switch-project (dir)
+    (interactive (list (project-prompt-project-dir)))
+    (let ((default-directory dir))
+      (project-dired))))
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'msf 'menu-set-font)
