@@ -77,7 +77,7 @@
 
 (use-package eldoc-mode :ensure nil :diminish)
 
-(use-package recentf :ensure nil
+(use-package recentf :ensure nil :demand
   :config
   (recentf-mode t)
   (setq recentf-max-menu-items 250)
