@@ -52,14 +52,13 @@
 (use-package yasnippet
   :ensure consult-yasnippet
   :ensure yasnippet-snippets
-  :ensure yasnippet-classic-snippets
   :diminish yas-minor-mode
   :hook ((prog-mode . yas-minor-mode)
          (org-mode . yas-minor-mode)))
 
 (use-package yaml-mode  :mode ("\\.yml\\'" . yaml-mode) ("\\.yaml\\'" . yaml-mode))
 
-(use-package json-mode :mode ("\\.json\\'" . json-mode))
+(use-package js-mode :ensure nil :mode ("\\.json\\'" . js-mode))
 
 (use-package dockerfile-mode
   :mode ("[Dd]ockerfile\\'" . dockerfile-mode))
