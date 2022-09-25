@@ -1,6 +1,15 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
+ (use-package corfu
+   :ensure corfu-doc
+   :bind (:map control-semi-map
+               (("n" . completion-at-point)
+		("C-n" . dabbrev-expand)))
+   :init
+   (global-corfu-mode)
+   (corfu-doc-mode))
+
  (use-package toml-mode :mode (("\\.toml\\'" . toml-mode)
 			       ("Cargo.lock" . toml-mode)))
 
@@ -40,7 +49,13 @@
                  (setq c-basic-offset identation-size c-default-style "linux")
                  (setq tab-width identation-size indent-tabs-mode nil))))))
 
-(use-package consult-yasnippet)
+(use-package yasnippet
+  :ensure consult-yasnippet
+  :ensure yasnippet-snippets
+  :ensure yasnippet-classic-snippets
+  :diminish yas-minor-mode
+  :hook ((prog-mode . yas-minor-mode)
+         (org-mode . yas-minor-mode)))
 
 (use-package yaml-mode  :mode ("\\.yml\\'" . yaml-mode) ("\\.yaml\\'" . yaml-mode))
 
