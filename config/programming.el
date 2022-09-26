@@ -17,20 +17,16 @@
    :config
    (setq-default typescript-indent-level 2))
 
- (use-package rustic :mode ("\\.rs\\'" . rustic-mode)
+ (use-package rust-mode :mode ("\\.rs\\'" . rust-mode)
+   :ensure cargo
    :pretty-hydra ((:color blue)
 		  ("cargo"
-		   (("C" rustic-cargo-clean "clean")
-		    ("r" rustic-cargo-run "run")
-		    ("b" rustic-cargo-build "build")
-		    ("SPC" rustic-cargo-check "check"))
+		   (("C" cargo-process-clean "clean")
+		    ("r" cargo-process-run "run")
+		    ("b" cargo-process-build "build")
+		    ("SPC" cargo-process-check "check"))
 		   "yas"
-		   (("c" consult-yasnippet "complete"))))
-   :init
-   (setq rustic-lsp-setup-p nil)
-   :config
-   (setq rustic-ansi-faces
-	 ["#282828" "#fb4934" "green3" "#fabd2f" "#83a598" "#cc241d" "#8ec07c" "#ebdbb2"])))
+		   (("c" consult-yasnippet "complete"))))))
 
 (on-windows
  (use-package powershell :mode ("\\.ps1\\'" . powershell-mode))
@@ -140,8 +136,8 @@
 
 (define-key tab-map (kbd "i")
   (i-lambda ()
-    (cond ((eq 'rustic-mode major-mode)
-	   (rustic-format-buffer))
+    (cond ((eq 'rust-mode major-mode)
+	   (rustic-format-buffer)) ;TODO: 
 	  ((eq 'json-mode major-mode)
 	   (json-reformat-region))
 	  (t (message "Argh...don't know how to format in this mode :(")))))

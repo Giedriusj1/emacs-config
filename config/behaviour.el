@@ -136,9 +136,7 @@
 	             ((eq 'emacs-lisp-mode major-mode)
 	              (hydra-emacs-lisp/body))
 	             ((eq 'rust-mode major-mode)
-	              (rustic-hydra/body))
-	             ((eq 'rustic-mode major-mode)
-	              (rustic-hydra/body))
+	              (rust-mode-hydra/body))
 	             (t (hydra-default/body)))))
 
 (define-key tab-map (kbd ";") 'hydra-quickopen/body)
