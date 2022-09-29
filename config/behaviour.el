@@ -64,6 +64,7 @@
 (use-package eldoc-mode :ensure nil
   :init
   (setq max-mini-window-height 3) 	; Make sure the minibuffer docs are sensible in size
+  (setq eldoc-idle-delay 0.1)
   (add-hook 'find-file-hook
 	    (lambda()
 	      (diminish 'eldoc-mode)
