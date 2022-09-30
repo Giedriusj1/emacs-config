@@ -54,9 +54,6 @@
 
 (customize-set-variable 'custom-enabled-themes '(wombat))
 
-(customize-set-variable
- 'custom-safe-themes '("3c83b3676d796422704082049fc38b6966bcad960f896669dfc21a7a37a748fa" default))
-
 (custom-set-faces
  '(org-level-1 ((t (:inherit outline-1 :weight demibold :height 1.2))))
  '(default ((t (:background "#131818"))))
