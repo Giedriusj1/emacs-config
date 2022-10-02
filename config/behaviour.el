@@ -123,7 +123,7 @@
       version-control t ; use versioned backups
       uniquify-buffer-name-style 'forward
       isearch-lazy-count t
-
+      use-short-answers t
       ;; Native comp
       native-comp-speed 3
       package-native-compile t)
@@ -178,6 +178,5 @@
     (let ((default-directory dir))
       (project-dired))))
 
-(defalias 'yes-or-no-p 'y-or-n-p)
 (defalias 'lp 'list-packages)
 (defalias 'msf 'menu-set-font)
