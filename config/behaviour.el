@@ -59,8 +59,6 @@
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(use-package pretty-hydra :demand)
-
 (use-package eldoc-mode :ensure nil
   :init
   (setq max-mini-window-height 3) 	; Make sure the minibuffer docs are sensible in size
@@ -132,47 +130,51 @@
 (setq native-comp-driver-options '("-O2" "-mtune=native"))
 
 (define-key tab-map (kbd "j")
-  (i-lambda () (cond ((eq 'org-mode major-mode)
-	              (org-hydra/body))
-	             ((eq 'emacs-lisp-mode major-mode)
-	              (hydra-emacs-lisp/body))
-	             ((eq 'rust-mode major-mode)
-	              (rust-mode-hydra/body))
-	             (t (hydra-default/body)))))
+	    (i-lambda () (cond ((eq 'org-mode major-mode)
+				(g/org-transient))
+			       ((eq 'emacs-lisp-mode major-mode)
+				(g/emacs-lisp-transient))
+			       ((eq 'rust-mode major-mode)
+				(g/rust-transient))
+			       (t (g/default-transient)))))
 
-(define-key tab-map (kbd ";") 'hydra-quickopen/body)
+(define-key tab-map (kbd ";") 'g/quickopen-transient)
 
-(pretty-hydra-define hydra-quickopen (:color blue)
-  ("quickopen"
-   (("t" (lambda ()
-	   (interactive)
-	   (find-file "~/private-sync/temp.org")) "~/private-sync/temp.org")
-    ("c" (lambda ()
-           (interactive)
-           (find-file "~/.emacs.d/init.el")) "~/.emacs.d/init.el")
-    ("l" (lambda ()
-           (interactive)
-           (progn (zygospore-toggle-delete-other-windows)
-	          (dired "~/private-sync")
-	          (find-file default-directory))) "dired ~/private-sync/")
-    (";" (lambda ()
-           (interactive)
-	   ;; ;TODO: ignore
-	   ;; '("*.doc" "*.ovpn" "*.pcap" "*.pcapng" "*.png" "*.pem" )
-           (consult-ripgrep "~/private-sync")) "grep notes"))))
+(use-package transient :demand)
+
+(define-transient-command g/quickopen-transient ()
+  ["quickopen"
+   ("t"  "~/private-sync/temp.org" (lambda ()
+				     (interactive)
+				     (find-file "~/private-sync/temp.org")))
+
+
+   ("c"  "~/.emacs.d/init.el" (lambda ()
+				(interactive)
+				(find-file "~/.emacs.d/init.el")))
+   ("l"  "dired ~/private-sync/" (lambda ()
+				   (interactive)
+				   (progn (zygospore-toggle-delete-other-windows)
+					  (dired "~/private-sync")
+					  (find-file default-directory))))
+   (";"  "grep notes" (lambda ()
+			(interactive)
+			;; ;TODO: ignore
+			;; '("*.doc" "*.ovpn" "*.pcap" "*.pcapng" "*.png" "*.pem" )
+			(consult-ripgrep "~/private-sync")))])
 
 (use-package project :diminish
-  :bind (:map tab-map ("p" . project-hydra/body))
-  :pretty-hydra
-  ((:color blue)
-   ("project"
-    (("p" g/project-switch-project "projects")
-     ("j" project-find-file "find file")
-     ("d" project-dired "dired"))
-    "project search"
-    (("r" project-find-regexp "find regexp")
-     ("R" consult-ripgrep "consult ripgrep"))))
+  :bind (:map tab-map ("p" . g/project-transient))
   :config
+  (define-transient-command g/project-transient ()
+    "Project"
+    ["Project"
+     ("p"  "projects" g/project-switch-project)
+     ("j" "find file" project-find-file)
+     ("d" "dired" project-dired)]
+    ["Search"
+     ("r" "find regexp" project-find-regexp)
+     ("R" "consult ripgrep" consult-ripgrep)])
   (defun g/project-switch-project (dir)
     (interactive (list (project-prompt-project-dir)))
     (let ((default-directory dir))

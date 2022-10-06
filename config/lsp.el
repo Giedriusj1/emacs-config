@@ -2,37 +2,27 @@
 
 (on-linux
  (use-package eglot
-   :bind ( :map tab-map ("o" . eglot-hydra/body))
-   :pretty-hydra (
-		  (;; :pre
-		   ;; (if (and ;; lsp-mode is not enabled
-		   ;; 	(not (bound-and-true-p lsp-mode))
-		   ;; 	;; and we are not on Windows
-		   ;; 	(not (on-windows t)))
-
-		   ;;     ;; Enable LSP
-		   ;;     (progn (message "enabling lsp mode...") (lsp)))
-
-		   :foreign-keys warn :title "LSP" :quit-key "q" :color blue)
-		  ("Buffer"
-		   (("f" eglot-format-buffer "format")
-		    ("u" eglot-code-actions "execute action")
-		    ;; ("h" consult-lsp-diagnostics "diagnostics")
-		    )
-		   "Server"
-		   (("S" eglot-shutdown "shutdown"))
-		   "Symbol"
-		   (;; ("d" lsp-find-declaration "declaration")
-		    ("D" xref-find-definitions "definition")
-		    ;; ("R" lsp-find-references "references")
-		    ;; ("i" lsp-find-implementation "implementation")
-		    ("o" eldoc "documentation")
-		    ;; ("t" lsp-find-type-definition "type")
-		    ;; ("r" lsp-rename "rename")
-		    ;; ("s" lsp-signature-help "signature")
-		    )))
-
+   :bind ( :map tab-map ("o" . g/eglot-transient))
    :config
+   (define-transient-command g/eglot-transient ()
+     ["Buffer"
+      ("f" "format" eglot-format-buffer)
+      ("u" "execute action" eglot-code-actions)
+      ("h" "diagnostics" consult-flymake)]
+     ["Server"
+      ("s" "shutdown" eglot-shutdown)
+      ("S" "shutdown all" eglot-shutdown-all)]
+     ["Symbol"
+      ;; ("d" lsp-find-declaration "declaration")
+      ("D" "definition" xref-find-definitions)
+      ;; ("R" lsp-find-references "references")
+      ;; ("i" lsp-find-implementation "implementation")
+      ("o" "documentation" eldoc)
+      ;; ("t" lsp-find-type-definition "type")
+      ("r" "rename" eglot-rename)
+      ;; ("s" lsp-signature-help "signature")
+      ])
+
    ;; (i-defun describe-thing-in-popup ()
    ;;   (require 'popup)
    ;;   (require 'xref)

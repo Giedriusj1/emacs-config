@@ -7,14 +7,15 @@
 (global-set-key (kbd "<C-iso-lefttab>") 'tab-bar-switch-to-prev-tab)
 (global-set-key (kbd "<C-S-tab>") 'tab-bar-switch-to-prev-tab)
 
-(pretty-hydra-define hydra-frame-helper (:color blue)
-  ("tab-bar"
-   (("M-c" tab-bar-new-tab "new")
-    ("M-k" tab-bar-close-tab "close"))
-   "frame"
-   (("M-m" make-frame "new")
-    ("M-o" other-frame "other")
-    ("M-SPC" other-frame "other")
-    ("M-d" delete-frame "delete"))))
 
-(global-set-key (kbd "M-SPC") 'hydra-frame-helper/body)
+(define-transient-command g/frame-helper-transient ()
+  ["tab-bar"
+   ("M-c" "new" tab-bar-new-tab)
+   ("M-k" "close" tab-bar-close-tab)]
+  ["frame"
+   ("M-m" "new" make-frame)
+   ("M-o" "other" other-frame)
+   ("M-SPC" "other" other-frame)
+   ("M-d" "delete" delete-frame)])
+
+(global-set-key (kbd "M-SPC") 'g/frame-helper-transient)

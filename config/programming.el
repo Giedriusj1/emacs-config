@@ -19,14 +19,15 @@
 
  (use-package rust-mode
    :mode ("\\.rs\\'" . rust-mode)
-   :pretty-hydra ((:color blue)
-		  ("cargo"
-		   (("C" cargo-process-clean "clean")
-		    ("r" cargo-process-run "run")
-		    ("b" cargo-process-build "build")
-		    ("SPC" cargo-process-check "check"))
-		   "yas"
-		   (("c" consult-yasnippet "complete")))))
+   :config
+   (define-transient-command g/rust-transient ()
+     ["cargo"
+      ("C" "clean" cargo-process-clean)
+      ("r" "run" cargo-process-run)
+      ("b" "build" cargo-process-build)
+      ("SPC" "check" cargo-process-check)]
+     ["yas"
+      ("c" "complete" consult-yasnippet)]))
 
  (use-package cargo))
 
@@ -125,16 +126,16 @@
           (lambda()
             (setq indent-tabs-mode nil)))
 
-(pretty-hydra-define hydra-default (:color blue)
-  ("yas"
-   (("c" consult-yasnippet "complete"))))
+(define-transient-command g/default-transient ()
+  ["yas"
+   ("c" "complete" consult-yasnippet)])
 
-(pretty-hydra-define hydra-emacs-lisp (:color blue)
-  ("eval"
-   (( "j" eval-buffer "eval buffer")
-    ( "k" eval-last-sexp "eval-last-sexp"))
-   "yas"
-   (( "c" consult-yasnippet "complete"))))
+(define-transient-command g/emacs-lisp-transient ()
+  ["eval"
+   ( "j" "eval buffer" eval-buffer)
+   ( "k" "eval-last-sexp" eval-last-sexp)]
+  ["yas"
+   ("c" "complete" consult-yasnippet)])
 
 (define-key tab-map (kbd "i")
   (i-lambda ()

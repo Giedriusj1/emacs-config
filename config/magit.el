@@ -1,18 +1,19 @@
-(define-key tab-map (kbd "m") 'magit-hydra/body)
+(define-key tab-map (kbd "m") 'magit-status)
 
 (use-package magit
-  :pretty-hydra ((:color blue)
-		 ("show"
-		  (("l" magit-log "log")
-		   ("m" magit-status "status")
-		   ("D" magit-diff "diff")
-		   ("b" magit-blame "blame")
-		   ("r" magit-show-refs "refs"))
-		  "git"
-		  (("p" magit-pull "pull")
-		   ("P" magit-push "push")
-		   ("c" magit-commit "commit")
-		   ("d" magit-diff-dwim "diff-dwim")))))
+  ;; :pretty-hydra ((:color blue)
+  ;; 		 ("show"
+  ;; 		  (("l" magit-log "log")
+  ;; 		   ("m" magit-status "status")
+  ;; 		   ("D" magit-diff "diff")
+  ;; 		   ("b" magit-blame "blame")
+  ;; 		   ("r" magit-show-refs "refs"))
+  ;; 		  "git"
+  ;; 		  (("p" magit-pull "pull")
+  ;; 		   ("P" magit-push "push")
+  ;; 		   ("c" magit-commit "commit")
+  ;; 		   ("d" magit-diff-dwim "diff-dwim"))))
+  )
 
 (use-package ediff :ensure nil
   :ensure magit
