@@ -6,7 +6,7 @@
 	 ("\\.ref.gpg$" . org-mode))
   :diminish org-indent-mode
   :config
-  (define-transient-command g/org-transient ()
+  (transient-define-prefix g/org-transient ()
     ["org move"
      ( "o" "org-metaright" org-metaright)
      ( "u" "org-metaleft" org-metaleft)

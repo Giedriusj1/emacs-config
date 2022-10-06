@@ -20,7 +20,7 @@
  (use-package rust-mode
    :mode ("\\.rs\\'" . rust-mode)
    :config
-   (define-transient-command g/rust-transient ()
+   (transient-define-prefix g/rust-transient ()
      ["cargo"
       ("C" "clean" cargo-process-clean)
       ("r" "run" cargo-process-run)
@@ -126,11 +126,11 @@
           (lambda()
             (setq indent-tabs-mode nil)))
 
-(define-transient-command g/default-transient ()
+(transient-define-prefix g/default-transient ()
   ["yas"
    ("c" "complete" consult-yasnippet)])
 
-(define-transient-command g/emacs-lisp-transient ()
+(transient-define-prefix g/emacs-lisp-transient ()
   ["eval"
    ( "j" "eval buffer" eval-buffer)
    ( "k" "eval-last-sexp" eval-last-sexp)]
@@ -138,9 +138,9 @@
    ("c" "complete" consult-yasnippet)])
 
 (define-key tab-map (kbd "i")
-  (i-lambda ()
-    (cond ((eq 'rust-mode major-mode)
-	   (rustic-format-buffer)) ;TODO: 
-	  ((eq 'json-mode major-mode)
-	   (json-reformat-region))
-	  (t (message "Argh...don't know how to format in this mode :(")))))
+	    (i-lambda ()
+	      (cond ((eq 'rust-mode major-mode)
+		     (rustic-format-buffer)) ;TODO:
+		    ((eq 'json-mode major-mode)
+		     (json-reformat-region))
+		    (t (message "Argh...don't know how to format in this mode :(")))))

@@ -8,7 +8,7 @@
 (global-set-key (kbd "<C-S-tab>") 'tab-bar-switch-to-prev-tab)
 
 
-(define-transient-command g/frame-helper-transient ()
+(transient-define-prefix g/frame-helper-transient ()
   ["tab-bar"
    ("M-c" "new" tab-bar-new-tab)
    ("M-k" "close" tab-bar-close-tab)]

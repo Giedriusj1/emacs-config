@@ -142,7 +142,7 @@
 
 (use-package transient :demand)
 
-(define-transient-command g/quickopen-transient ()
+(transient-define-prefix g/quickopen-transient ()
   ["quickopen"
    ("t"  "~/private-sync/temp.org" (lambda ()
 				     (interactive)
@@ -166,7 +166,7 @@
 (use-package project :diminish
   :bind (:map tab-map ("p" . g/project-transient))
   :config
-  (define-transient-command g/project-transient ()
+  (transient-define-prefix g/project-transient ()
     "Project"
     ["Project"
      ("p"  "projects" g/project-switch-project)

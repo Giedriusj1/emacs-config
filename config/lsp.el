@@ -4,7 +4,7 @@
  (use-package eglot
    :bind ( :map tab-map ("o" . g/eglot-transient))
    :config
-   (define-transient-command g/eglot-transient ()
+   (transient-define-prefix g/eglot-transient ()
      ["Buffer"
       ("f" "format" eglot-format-buffer)
       ("u" "execute action" eglot-code-actions)
