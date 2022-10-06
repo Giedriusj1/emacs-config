@@ -17,8 +17,8 @@
    :config
    (setq-default typescript-indent-level 2))
 
- (use-package rust-mode :mode ("\\.rs\\'" . rust-mode)
-   :ensure cargo
+ (use-package rust-mode
+   :mode ("\\.rs\\'" . rust-mode)
    :pretty-hydra ((:color blue)
 		  ("cargo"
 		   (("C" cargo-process-clean "clean")
@@ -26,7 +26,9 @@
 		    ("b" cargo-process-build "build")
 		    ("SPC" cargo-process-check "check"))
 		   "yas"
-		   (("c" consult-yasnippet "complete"))))))
+		   (("c" consult-yasnippet "complete")))))
+
+ (use-package cargo))
 
 (on-windows
  (use-package powershell :mode ("\\.ps1\\'" . powershell-mode))
