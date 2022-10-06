@@ -33,7 +33,7 @@
 
 ;; This defines in which order we want to load our config.
 (setq basic-load-sequence '("key-bindings.el" ; Key bindings are also needed early, for prefixes
-                            "behaviour.el"    ; We need hydra macros
+                            "behaviour.el"
                             "dired.el"
                             "magit.el"
                             "org.el"
