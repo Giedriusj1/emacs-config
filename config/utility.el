@@ -43,6 +43,9 @@
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
 
+
+(use-package f)
+
 (i-defun g/set-github-key-personal()
   (require 'f)
   (f-write-text "# personal key
