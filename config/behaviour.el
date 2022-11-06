@@ -213,7 +213,7 @@
     ;; 			(consult-ripgrep "~/private-sync"))
     ])
 
-(use-package project :diminish
+(use-package project :diminish :ensure nil
   :bind (:map tab-map ("p" . g/project-transient))
   :config
   (transient-define-prefix g/project-transient ()
