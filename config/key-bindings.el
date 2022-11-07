@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (require 'bind-key)
 (override-global-mode)
 

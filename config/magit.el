@@ -1,19 +1,21 @@
-(define-key tab-map (kbd "m") 'magit-status)
+;;; -*- lexical-binding: t -*-
 
 (use-package magit
-  ;; :pretty-hydra ((:color blue)
-  ;; 		 ("show"
-  ;; 		  (("l" magit-log "log")
-  ;; 		   ("m" magit-status "status")
-  ;; 		   ("D" magit-diff "diff")
-  ;; 		   ("b" magit-blame "blame")
-  ;; 		   ("r" magit-show-refs "refs"))
-  ;; 		  "git"
-  ;; 		  (("p" magit-pull "pull")
-  ;; 		   ("P" magit-push "push")
-  ;; 		   ("c" magit-commit "commit")
-  ;; 		   ("d" magit-diff-dwim "diff-dwim"))))
-  )
+  :init (define-key tab-map (kbd "m") 'g/magit-transient)
+  :config
+  (transient-define-prefix g/magit-transient ()
+    ["show"
+     ("l" "log" magit-log)
+     ("m" "status" magit-status)
+     ("D" "diff" magit-diff)
+     ("b" "blame" magit-blame)
+     ("r" "refs" magit-show-refs)]
+    ["git"
+     ("p" "pull" magit-pull)
+     ("P" "push" magit-push)
+     ("c" "commit" magit-commit)
+     ("d" "diff-dwim" magit-diff-dwim)
+     ]))
 
 (use-package ediff :ensure nil
   :ensure magit
@@ -69,6 +71,5 @@
   ;; This makes ediff usable with org mode
   (with-eval-after-load 'outline
     (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)))
-
 
 (use-package git-modes)

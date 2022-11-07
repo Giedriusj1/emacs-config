@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (use-package org :defer 5 :ensure nil
   :mode (("\\.org$" . org-mode)
 	 ("\\.org.gpg$" . org-mode)

@@ -1,4 +1,5 @@
 ;;; -*- lexical-binding: t -*-
+
 (on-linux
  (i-defun private-sync-fn ()
    (let* ((default-directory "~/private-sync"))

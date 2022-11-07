@@ -2,8 +2,7 @@
 
 (use-package diminish :demand)
 
-(on-linux
- (use-package shell-here :bind* ( "C-`" . shell-here)))
+(on-linux (use-package shell-here :bind* ( "C-`" . shell-here)))
 
 (use-package vertico
   :init
@@ -11,8 +10,6 @@
 
   (setq vertico-count 25
 	vertico-resize nil))
-
-(setq enable-recursive-minibuffers t)
 
 (bind-keys* :map minibuffer-local-map ("C-g" . exit-recursive-edit))
 
@@ -119,9 +116,12 @@
       uniquify-buffer-name-style 'forward
       isearch-lazy-count t
       use-short-answers t
+
       ;; Native comp
       native-comp-speed 3
-      package-native-compile t)
+      package-native-compile t
+
+      enable-recursive-minibuffers t)
 
 (setq native-comp-compiler-options '("-O2" "-mtune=native"))
 (setq native-comp-driver-options '("-O2" "-mtune=native"))
