@@ -43,25 +43,23 @@
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
 
+(write-region "something something" nil "~/ttt")
 
-(use-package f)
 
 (i-defun g/set-github-key-personal()
-  (require 'f)
-  (f-write-text "# personal key
+  (write-region "# personal key
 Host github.com
 	HostName github.com
 	User git
-	IdentityFile ~/.ssh/id_rsa_github_personal" 'utf-8 "~/.ssh/config"))
+	IdentityFile ~/.ssh/id_rsa_github_personal" nil "~/.ssh/config"))
 
 
 (i-defun g/set-github-key-normal()
-  (require 'f)
-  (f-write-text "# default (work) key
+  (write-region "# default (work) key
 Host github.com
 	HostName github.com
 	User git
-	IdentityFile ~/.ssh/id_rsa" 'utf-8 "~/.ssh/config"))
+	IdentityFile ~/.ssh/id_rsa" nil "~/.ssh/config"))
 
 
 ;; lisp playground
