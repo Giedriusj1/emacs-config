@@ -2,7 +2,6 @@
 
 (use-package magit
   :init (define-key tab-map (kbd "m") 'g/magit-transient)
-  :config
   (transient-define-prefix g/magit-transient ()
     ["show"
      ("l" "log" magit-log)
