@@ -25,7 +25,9 @@
       ("C" "clean" cargo-process-clean)
       ("r" "run" cargo-process-run)
       ("b" "build" cargo-process-build)
-      ("SPC" "check" cargo-process-check)]
+      ("SPC" "check" cargo-process-check)
+      ("t" "test all" cargo-process-test)
+      ("T" "test current test" cargo-process-current-test)]
      ["yas"
       ("c" "complete" consult-yasnippet)]))
 
