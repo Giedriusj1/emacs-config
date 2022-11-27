@@ -9,7 +9,8 @@
   (vertico-mode)
 
   (setq vertico-count 25
-	vertico-resize nil))
+	vertico-resize nil
+	vertico-cycle t))
 
 (bind-keys* :map minibuffer-local-map ("C-g" . exit-recursive-edit))
 
