@@ -2,13 +2,13 @@
 
 (on-linux
  (use-package corfu
-   :ensure corfu-doc
    :bind (:map control-semi-map
                (("n" . completion-at-point)
 		("C-n" . dabbrev-expand)))
    :init
    (global-corfu-mode)
-   (corfu-doc-mode))
+   (setq corfu-popupinfo-delay 0.2)
+   (corfu-popupinfo-mode))
 
  (use-package toml-mode :mode (("\\.toml\\'" . toml-mode)
 			       ("Cargo.lock" . toml-mode)))
