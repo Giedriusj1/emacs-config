@@ -32,7 +32,6 @@
  ("C-f" . cua-exchange-point-and-mark)
  ("C-v" . yank)
  
- ("<f9>" . toggle-font-size)
  ("<f10>" . toggle-truncate-lines)
  ("<f11>" . toggle-frame-fullscreen)
  ("<f12>" . whitespace-mode)
