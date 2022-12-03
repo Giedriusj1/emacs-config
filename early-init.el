@@ -109,8 +109,6 @@
 
 (advice-add 'x-apply-session-resources :override 'ignore)
 
-(add-to-list 'default-frame-alist '(fullscreen . maximized))
-
 (setq frame-inhibit-implied-resize t)
 (setq initial-major-mode 'fundamental-mode)
 
