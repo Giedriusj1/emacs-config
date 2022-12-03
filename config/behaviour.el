@@ -18,14 +18,26 @@
   :init
   (defun consult-line-empty (&optional initial start)
     (interactive (list nil (not (not current-prefix-arg))))
-    (let ((curr-line (line-number-at-pos (point) consult-line-numbers-widen))
-          (top (not (eq start consult-line-start-from-top))))
-      (consult--line
-       (or
-	(consult--line-candidates top curr-line)
-	(user-error "No lines"))
-       :curr-line curr-line
-       :prompt "Go to line: ")))
+    (let* ((curr-line (line-number-at-pos (point) consult-line-numbers-widen))
+           (top (not (eq start consult-line-start-from-top)))
+           (candidates (or (consult--line-candidates top curr-line)
+                           (user-error "No lines"))))
+      (consult--read
+       candidates
+       :annotate (consult--line-prefix curr-line)
+       :category 'consult-location
+       :sort nil
+       :require-match t
+       ;; Always add last isearch string to future history
+       :add-history (list (thing-at-point 'symbol) isearch-string)
+       :history '(:input consult--line-history)
+       :lookup #'consult--line-match
+       :default (car candidates)
+       ;; Add isearch-string as initial input if starting from isearch
+       :initial (or initial
+                    (and isearch-mode
+			 (prog1 isearch-string (isearch-done))))
+       :state (consult--location-state candidates))))
 
   :config
   (setq consult-async-input-throttle 0.1
@@ -167,11 +179,12 @@
       (consult-ripgrep "~/private-sync"))
     )
 
-   (":"  "consult find"
+   (":"  "find notes"
     (lambda ()
       (interactive)
-      (consult-find "~/private-sync"))
-    )
+      (let* ((root "~/private-sync")
+	     (pr (project-current nil root)))
+	(project-find-file-in nil (list root) pr nil))))
    ])
 
 (use-package project :diminish :ensure nil
