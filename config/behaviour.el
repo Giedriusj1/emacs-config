@@ -167,7 +167,7 @@
 				   (progn (zygospore-toggle-delete-other-windows)
 					  (dired "~/private-sync")
 					  (find-file default-directory))))
-   (";"  "grep notes"
+   (":"  "grep notes"
     ;; (lambda ()
     ;;    (interactive)
     ;;    (g/helm-projectile-grep-notes "~/private-sync"))
@@ -179,7 +179,7 @@
       (consult-ripgrep "~/private-sync"))
     )
 
-   (":"  "find notes"
+   (";"  "find notes"
     (lambda ()
       (interactive)
       (let* ((root "~/private-sync")
