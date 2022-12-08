@@ -67,11 +67,10 @@
  '(font-lock-builtin-face ((((class color) (min-colors 89)) (:foreground "#ff685d"))))
  '(font-lock-constant-face ((((class color) (min-colors 89)) (:foreground "#ff685d")))))
 
- ;; (set-font-for-current-resolution)
-
 (global-hl-line-mode t)
-
 (fringe-mode 0)
+(tooltip-mode -1)
+(blink-cursor-mode -1)
 
 (setq-default frame-title-format
               '(:eval
@@ -82,14 +81,11 @@
                                   (t "[no file]")))
 
                   (mapcar (i-lambda (tab)
-              (let ((tab-name (alist-get 'name tab)))
-                (if (eq (car tab) 'current-tab)
-                    (format " [ %s ] " tab-name)
-                  (format  " %s "tab-name ))  ))
-            (tab-bar-tabs)))))
-
-(tooltip-mode -1)
-(blink-cursor-mode -1)
+			    (let ((tab-name (alist-get 'name tab)))
+			      (if (eq (car tab) 'current-tab)
+				  (format " [ %s ] " tab-name)
+				(format  " %s "tab-name ))  ))
+			  (tab-bar-tabs)))))
 
 (modify-all-frames-parameters '((vertical-scroll-bars . nil)))
 
@@ -112,6 +108,8 @@
 (setq frame-inhibit-implied-resize t)
 (setq initial-major-mode 'fundamental-mode)
 
+(fset 'display-startup-echo-area-message 'ignore)
+
 (defvar doom--file-name-handler-alist file-name-handler-alist)
 
 (setq file-name-handler-alist nil)
@@ -119,3 +117,12 @@
 (add-hook 'emacs-startup-hook
   (lambda ()
     (setq file-name-handler-alist doom--file-name-handler-alist)))
+
+(setq warning-suppress-types '(((package reinitialization)) (comp) (emacs)))
+
+;;Let's garbage collect when focusing out of the window..
+(add-hook 'focus-out-hook #'garbage-collect)
+;;  and saving files.
+(add-hook 'after-save-hook #'garbage-collect)
+
+(run-with-idle-timer 5 t (lambda () (garbage-collect)))
