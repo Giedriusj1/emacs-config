@@ -132,9 +132,7 @@
 
       ;; Native comp
       native-comp-speed 3
-      package-native-compile t
-
-      enable-recursive-minibuffers t)
+      package-native-compile t)
 
 (setq native-comp-compiler-options '("-O2" "-mtune=native"))
 (setq native-comp-driver-options '("-O2" "-mtune=native"))
