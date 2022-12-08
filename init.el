@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
-(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-			 ("melpa" . "https://melpa.org/packages/")))
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
 ;; On Windows system we'll just ignore signatures altogether...
 ;; too much hassle.
