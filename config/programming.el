@@ -13,9 +13,7 @@
  (use-package toml-mode :mode (("\\.toml\\'" . toml-mode)
 			       ("Cargo.lock" . toml-mode)))
 
- (use-package typescript-mode :mode ("\\.ts\\'" . typescript-mode)
-   :config
-   (setq-default typescript-indent-level 2))
+ (use-package tsx-ts-mode :mode ("\\.ts\\'" . tsx-ts-mode) :ensure nil)
 
  (use-package rust-mode
    :mode ("\\.rs\\'" . rust-mode)
