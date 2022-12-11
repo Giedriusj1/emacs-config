@@ -193,7 +193,6 @@
   :bind (:map tab-map ("p" . g/project-transient))
   :config
   (transient-define-prefix g/project-transient ()
-    "Project"
     ["Project"
      ("p"  "projects" g/project-switch-project)
      ("j" "find file" project-find-file)
