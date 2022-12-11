@@ -65,7 +65,6 @@
             ("C-l" . execute-extended-command)
             ("C-2" . split-window-below))
 
-
 (define-key control-semi-map (kbd "C-;") 'consult-line-empty)
 
 (define-key control-semi-map (kbd "C-m") 'consult-line)
