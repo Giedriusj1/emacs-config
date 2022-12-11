@@ -214,3 +214,4 @@
 
 (defalias 'lp 'list-packages)
 (defalias 'msf 'menu-set-font)
+(defalias 'dtw 'delete-trailing-whitespace)
