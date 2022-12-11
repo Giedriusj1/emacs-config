@@ -202,5 +202,15 @@
     (let ((default-directory dir))
       (project-dired))))
 
+(transient-define-prefix g/frame-helper-transient ()
+  ["tab-bar"
+   ("M-c" "new" tab-bar-new-tab)
+   ("M-k" "close" tab-bar-close-tab)]
+  ["frame"
+   ("M-m" "new" make-frame)
+   ("M-o" "other" other-frame)
+   ("M-SPC" "other" other-frame)
+   ("M-d" "delete" delete-frame)])
+
 (defalias 'lp 'list-packages)
 (defalias 'msf 'menu-set-font)

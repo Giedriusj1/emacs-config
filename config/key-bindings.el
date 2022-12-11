@@ -31,7 +31,7 @@
  ("C-w" . back-to-indentation)
  ("C-f" . cua-exchange-point-and-mark)
  ("C-v" . yank)
- 
+
  ("<f10>" . toggle-truncate-lines)
  ("<f11>" . toggle-frame-fullscreen)
  ("<f12>" . whitespace-mode)
@@ -42,7 +42,12 @@
  ( "M-n" . forward-paragraph)
  ( "M-," . backward-kill-word)
  ( "<down>" . scroll-up-line)
- ( "C-M-SPC" . rectangle-mark-mode))
+ ( "C-M-SPC" . rectangle-mark-mode)
+
+ ("<C-tab>" . tab-bar-switch-to-next-tab)
+ ("<C-iso-lefttab>" . tab-bar-switch-to-prev-tab)
+ ("<C-S-tab>" . tab-bar-switch-to-prev-tab)
+ ("M-SPC" . g/frame-helper-transient))
 
 (bind-keys
  ( "M-p" . backward-paragraph))

@@ -71,6 +71,8 @@
 (fringe-mode 0)
 (tooltip-mode -1)
 (blink-cursor-mode -1)
+(setq tab-bar-show -1)
+(tab-bar-mode)
 
 (setq-default frame-title-format
               '(:eval

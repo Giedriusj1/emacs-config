@@ -17,7 +17,7 @@
       use-package-always-defer t)
 
 ;; This defines in which order we want to load our config.
-(setq basic-load-sequence '("key-bindings.el" ; Key bindings are also needed early, for prefixes
+(setq basic-load-sequence '("key-bindings.el" ; Needed early for prefixes
                             "behaviour.el"
                             "dired.el"
                             "magit.el"
