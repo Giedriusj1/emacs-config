@@ -4,9 +4,9 @@
   :config
   (require 'dired-x)
 
-  (add-hook 'dired-omit-mode-hook
-            (lambda ()
-              (diminish 'dired-omit-mode)))
+  ;; (add-hook 'dired-omit-mode-hook
+  ;;           (lambda ()
+  ;;             (diminish 'dired-omit-mode)))
 
   (define-key dired-mode-map (kbd "(") (i-lambda ()
                                          (if dired-hide-details-mode

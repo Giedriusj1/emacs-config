@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package diminish :demand)
+;; (use-package diminish :demand)
 
 (on-linux (use-package shell-here :bind* ( "C-`" . shell-here)))
 
@@ -74,10 +74,11 @@
   :init
   (setq max-mini-window-height 3) 	; Make sure the minibuffer docs are sensible in size
   (setq eldoc-idle-delay 0.1)
-  (add-hook 'find-file-hook
-	    (lambda()
-	      (diminish 'eldoc-mode)
-	      (diminish 'auto-revert-mode))))
+  ;; (add-hook 'find-file-hook
+  ;; 	    (lambda()
+  ;; 	      (diminish 'eldoc-mode)
+  ;; 	      (diminish 'auto-revert-mode)))
+  )
 
 (use-package recentf :ensure nil :demand
   :config
