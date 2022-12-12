@@ -1,7 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package org-modern)
-
 (use-package org :defer 5 :ensure nil
   :mode (("\\.org$" . org-mode)
 	 ("\\.org.gpg$" . org-mode)
@@ -10,8 +8,6 @@
 	 ("\\.ref.gpg$" . org-mode))
   :diminish org-indent-mode
   :config
-  (global-org-modern-mode)
-
   (transient-define-prefix g/org-transient ()
     ["org move"
      ( "o" "org-metaright" org-metaright)
