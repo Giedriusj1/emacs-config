@@ -1,7 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package password-generator)
-
 (use-package google-this)
 
 (i-defun g/recompile-custom-packages ()
@@ -64,3 +62,12 @@ Host github.com
 
 ;; lisp playground
 (define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
+
+
+(i-defun generate-password ()
+  (let ((chars "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$&_+[]:.?/")
+        (password ""))
+    (dotimes (i 32 password)
+      (setq password (concat password (char-to-string (elt chars (random (length chars)))))))
+
+    (message password)))
