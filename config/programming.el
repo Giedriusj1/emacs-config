@@ -98,18 +98,34 @@
   :mode (("\\.s\\'" . asm-mode)
 	 ("\\.S\\'" . asm-mode)))
 
-(use-package cc-mode :ensure nil
-  :mode (("\\.c\\'" . c-mode)
-	 ("\\.cc\\'" . c-mode)
-	 ("\\.cpp\\'" . c++-mode)
-	 ("\\.h\\'" . c++-mode)
-	 ("\\.hh\\'" . c++-mode)
-	 ("\\.hpp\\'" . c++-mode)
-	 ("\\.mc\\'" . c++-mode))
-  :config
-  (add-hook 'c-mode-common-hook
-            (lambda()
-              (setq comment-start "//" comment-end  "")))  )
+(on-windows
+ (use-package cc-mode :ensure nil
+   :mode (("\\.c\\'" . c-mode)
+	  ("\\.cc\\'" . c-mode)
+	  ("\\.cpp\\'" . c++-mode)
+	  ("\\.h\\'" . c++-mode)
+	  ("\\.hh\\'" . c++-mode)
+	  ("\\.hpp\\'" . c++-mode)
+	  ("\\.mc\\'" . c++-mode))
+   :config
+   (add-hook 'c-mode-common-hook
+             (lambda()
+               (setq comment-start "//" comment-end  "")))  ) )
+
+(on-linux
+ (use-package cc-mode :ensure nil
+   :mode (("\\.c\\'" . c-ts-mode)
+	  ("\\.cc\\'" . c-ts-mode)
+	  ("\\.cpp\\'" . c++-ts-mode)
+	  ("\\.h\\'" . c++-ts-mode)
+	  ("\\.hh\\'" . c++-ts-mode)
+	  ("\\.hpp\\'" . c++-ts-mode)
+	  ("\\.mc\\'" . c++-ts-mode))
+   :config
+   (add-hook 'c-ts-mode-hook
+             (lambda()
+               (setq comment-start "//" comment-end  "")))))
+
 
 (use-package elisp-mode :ensure nil
   :mode
