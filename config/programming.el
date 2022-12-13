@@ -10,8 +10,9 @@
    (setq corfu-popupinfo-delay 0.2)
    (corfu-popupinfo-mode))
 
- (use-package toml-mode :mode (("\\.toml\\'" . toml-mode)
-			       ("Cargo.lock" . toml-mode)))
+ (up conf-toml-mode :mode (("\\.toml\\'" . conf-toml-mode)
+			   ("Cargo.lock" . conf-toml-mode))
+   :ensure nil)
 
  (use-package tsx-ts-mode :mode ("\\.ts\\'" . tsx-ts-mode) :ensure nil)
 
