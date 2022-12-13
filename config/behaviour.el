@@ -86,13 +86,6 @@
   (setq recentf-max-menu-items 250)
   (setq recentf-max-saved-items 250))
 
-(g/up zygospore
-  :bind* (("C-1" . 'window-swap-states)
-          ("C-2" . 'windmove-up)
-          ("C-3" . 'windmove-right)
-          :map control-semi-map
-          ("C-1" . zygospore-toggle-delete-other-windows)))
-
 (g/up ripgrep)
 
 (g/up multiple-cursors
@@ -215,6 +208,16 @@
    ("M-o" "other" other-frame)
    ("M-SPC" "other" other-frame)
    ("M-d" "delete" delete-frame)])
+
+
+(defvar g-toggle-delete-other-windows-reg "")
+
+(i-defun g-toggle-delete-other-windows ()
+  (if (and (equal (selected-window) (next-window)))
+      (jump-to-register g-toggle-delete-other-windows-reg)
+    (progn
+      (window-configuration-to-register g-toggle-delete-other-windows-reg)
+      (delete-other-windows))))
 
 (defalias 'lp 'list-packages)
 (defalias 'msf 'menu-set-font)

@@ -8,6 +8,10 @@
 (define-prefix-command 'lisp-playground-map)
 
 (bind-keys*
+ ("C-1" . window-swap-states)
+ ("C-2" . windmove-up)
+ ("C-3" . windmove-right)
+
  ("C-j" . consult-buffer)
  ("<C-tab>" . tab-bar-switch-to-next-tab)
 
@@ -85,6 +89,7 @@
 (define-key control-semi-map (kbd "C-4") 'balance-windows)
 (define-key control-semi-map (kbd "C-d") 'follow-mode)
 
+(define-key control-semi-map (kbd "C-1") 'g-toggle-delete-other-windows)
 
 (bind-keys* :map tab-map
             ("SPC" . lisp-playground-map)
