@@ -2,9 +2,9 @@
 
 ;; (use-package diminish :demand)
 
-(on-linux (use-package shell-here :bind* ( "C-`" . shell-here)))
+(on-linux (g/up shell-here :bind* ( "C-`" . shell-here)))
 
-(use-package vertico
+(g/up vertico
   :init
   (vertico-mode)
 
@@ -18,7 +18,7 @@
 
 (bind-keys* :map minibuffer-local-map ("C-g" . exit-recursive-edit))
 
-(use-package consult :defer 1
+(g/up consult :defer 1
   :init
   (defun consult-line-empty (&optional initial start)
     (interactive (list nil (not (not current-prefix-arg))))
@@ -61,16 +61,16 @@
       (apply consult-line-function
              (thing-at-point 'symbol) rest))))
 
-(use-package marginalia
+(g/up marginalia
   :bind (:map minibuffer-local-map ("C-l" . marginalia-cycle))
   :init (marginalia-mode))
 
-(use-package orderless
+(g/up orderless
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
 
-(use-package eldoc-mode :ensure nil
+(g/up eldoc-mode :ensure nil
   :init
   (setq max-mini-window-height 3) 	; Make sure the minibuffer docs are sensible in size
   (setq eldoc-idle-delay 0.1)
@@ -80,22 +80,22 @@
   ;; 	      (diminish 'auto-revert-mode)))
   )
 
-(use-package recentf :ensure nil :demand
+(g/up recentf :ensure nil :demand
   :config
   (recentf-mode t)
   (setq recentf-max-menu-items 250)
   (setq recentf-max-saved-items 250))
 
-(use-package zygospore
+(g/up zygospore
   :bind* (("C-1" . 'window-swap-states)
           ("C-2" . 'windmove-up)
           ("C-3" . 'windmove-right)
           :map control-semi-map
           ("C-1" . zygospore-toggle-delete-other-windows)))
 
-(use-package ripgrep)
+(g/up ripgrep)
 
-(use-package multiple-cursors
+(g/up multiple-cursors
   :init
   (define-prefix-command 'mc-map)
   :bind
@@ -153,7 +153,7 @@
 
 (define-key tab-map (kbd ";") 'g/quickopen-transient)
 
-(use-package transient :demand)
+(g/up transient :demand)
 
 (transient-define-prefix g/quickopen-transient ()
   ["quickopen"
@@ -190,7 +190,7 @@
 	(project-find-file-in nil (list root) pr nil))))
    ])
 
-(use-package project :diminish :ensure nil
+(g/up project :diminish :ensure nil
   :bind (:map tab-map ("p" . g/project-transient))
   :config
   (transient-define-prefix g/project-transient ()

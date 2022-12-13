@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
- (use-package corfu
+ (g/up corfu
    :bind (:map control-semi-map
                (("n" . completion-at-point)
 		("C-n" . dabbrev-expand)))
@@ -10,13 +10,13 @@
    (setq corfu-popupinfo-delay 0.2)
    (corfu-popupinfo-mode))
 
- (up conf-toml-mode :mode (("\\.toml\\'" . conf-toml-mode)
-			   ("Cargo.lock" . conf-toml-mode))
+ (g/up conf-toml-mode :mode (("\\.toml\\'" . conf-toml-mode)
+			     ("Cargo.lock" . conf-toml-mode))
    :ensure nil)
 
- (use-package tsx-ts-mode :mode ("\\.ts\\'" . tsx-ts-mode) :ensure nil)
+ (g/up tsx-ts-mode :mode ("\\.ts\\'" . tsx-ts-mode) :ensure nil)
 
- (use-package rust-mode
+ (g/up rust-mode
    :mode ("\\.rs\\'" . rust-mode)
    :config
    (transient-define-prefix g/rust-transient ()
@@ -30,10 +30,10 @@
      ["yas"
       ("c" "complete" consult-yasnippet)]))
 
- (use-package cargo))
+ (g/up cargo))
 
 (on-windows
- (use-package powershell :mode ("\\.ps1\\'" . powershell-mode))
+ (g/up powershell :mode ("\\.ps1\\'" . powershell-mode))
  ;; Try to set an appropriate identation size
  (add-hook 'find-file-hook
            (lambda ()
@@ -49,27 +49,27 @@
                  (setq c-basic-offset identation-size c-default-style "linux")
                  (setq tab-width identation-size indent-tabs-mode nil))))))
 
-(use-package yasnippet
+(g/up yasnippet
   :ensure consult-yasnippet
   :ensure yasnippet-snippets
   :diminish yas-minor-mode
   :hook ((prog-mode . yas-minor-mode)
          (org-mode . yas-minor-mode)))
 
-(use-package yaml-mode  :mode ("\\.yml\\'" . yaml-mode) ("\\.yaml\\'" . yaml-mode))
+(g/up yaml-mode  :mode ("\\.yml\\'" . yaml-mode) ("\\.yaml\\'" . yaml-mode))
 
-(use-package js-mode :ensure nil :mode ("\\.json\\'" . js-mode))
+(g/up js-mode :ensure nil :mode ("\\.json\\'" . js-mode))
 
-(use-package dockerfile-mode
+(g/up dockerfile-mode
   :mode ("[Dd]ockerfile\\'" . dockerfile-mode))
 
-(use-package markdown-mode :ensure nil
+(g/up markdown-mode :ensure nil
   :mode ("\\.md\\'" . markdown-mode))
 
-(use-package doc-view :ensure nil
+(g/up doc-view :ensure nil
   :mode ("\\.pdf\\'" . doc-view-mode))
 
-(use-package python :ensure nil
+(g/up python :ensure nil
   :mode ("\\.py\\'" . python-mode)
   :config
   (add-hook 'python-mode-hook
@@ -78,28 +78,28 @@
               (setq python-indent 4)
               (setq tab-width 4))))
 
-(use-package sh-script :ensure nil
+(g/up sh-script :ensure nil
   :mode (("\\.sh\\'" . sh-mode)
 	 ("bashrc\\'" . sh-mode)))
 
-(use-package cmake-mode
+(g/up cmake-mode
   :mode ("\\CMakeLists.txt$" . cmake-mode))
 
-(use-package makefile-mode :ensure nil
+(g/up makefile-mode :ensure nil
   :mode (("[Mm]ake[Ff]ile\\'" . makefile-mode)
          ("\\Makefile.conf\\'" . makefile-mode)
          ("\\.mak\\'" . makefile-mode)))
 
-(use-package bat-mode :ensure nil
+(g/up bat-mode :ensure nil
   :mode (("\\.bat\\'" . bat-mode)
          ("\\.cmd\\'" . bat-mode)))
 
-(use-package asm-mode :ensure nil
+(g/up asm-mode :ensure nil
   :mode (("\\.s\\'" . asm-mode)
 	 ("\\.S\\'" . asm-mode)))
 
 (on-windows
- (use-package cc-mode :ensure nil
+ (g/up cc-mode :ensure nil
    :mode (("\\.c\\'" . c-mode)
 	  ("\\.cc\\'" . c-mode)
 	  ("\\.cpp\\'" . c++-mode)
@@ -113,7 +113,7 @@
                (setq comment-start "//" comment-end  "")))  ) )
 
 (on-linux
- (use-package cc-mode :ensure nil
+ (g/up cc-mode :ensure nil
    :mode (("\\.c\\'" . c-ts-mode)
 	  ("\\.cc\\'" . c-ts-mode)
 	  ("\\.cpp\\'" . c++-ts-mode)
@@ -127,14 +127,14 @@
                (setq comment-start "//" comment-end  "")))))
 
 
-(use-package elisp-mode :ensure nil
+(g/up elisp-mode :ensure nil
   :mode
   ("\\.g1\\'" . emacs-lisp-mode)
   ("\\.el\\'" . emacs-lisp-mode)
   ("\\.el.gz\\'" . emacs-lisp-mode)
   ("\\.elc\\'" . elisp-byte-code-mode))
 
-(use-package xml-mode :ensure nil
+(g/up xml-mode :ensure nil
   :mode (("\\.xml\\'" . xml-mode)
 	 ("\\.pom\\'" . xml-mode)
 	 ("\\.sql\\'" . sql-mode)))

@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package google-this)
+(g/up google-this)
 
 (i-defun g/recompile-custom-packages ()
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))

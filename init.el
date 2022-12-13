@@ -10,7 +10,7 @@
 	      (progn (package-refresh-contents)
 		     (package-install 'use-package))))
 
-(require 'use-package)
+(require 'use-package) (defalias 'g/up 'use-package)
 
 ;; Make sure we install any packages that aren't on the system.
 (setq use-package-always-ensure t

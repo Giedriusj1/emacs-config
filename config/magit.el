@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package magit
+(g/up magit
   :init (define-key tab-map (kbd "m") 'g/magit-transient)
   (transient-define-prefix g/magit-transient ()
     ["show"
@@ -16,7 +16,7 @@
      ("d" "diff-dwim" magit-diff-dwim)
      ]))
 
-(use-package ediff :ensure nil
+(g/up ediff :ensure nil
   :ensure magit
   :config
   (dolist (face-map '((ediff-even-diff-A           . magit-diff-context-highlight)
@@ -71,4 +71,4 @@
   (with-eval-after-load 'outline
     (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)))
 
-(use-package git-modes)
+(g/up git-modes)

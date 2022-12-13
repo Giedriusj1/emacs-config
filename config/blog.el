@@ -2,7 +2,7 @@
 
 (on-linux
  (i-defun g/org-publish-all-force ()
-   (progn (use-package htmlize)
+   (progn (g/up htmlize)
 	  (require 'htmlize)
 
 	  (require 'ox-publish)

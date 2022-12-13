@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (on-linux
- (use-package eglot :ensure nil
+ (g/up eglot :ensure nil
    :bind ( :map tab-map ("o" . g/eglot-transient))
    :config
    (transient-define-prefix g/eglot-transient ()

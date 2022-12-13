@@ -9,8 +9,7 @@
  ;; Run the above every 2 mins (if we are idle)
  (run-with-idle-timer (* 60 2) t 'private-sync-fn)
 
- (use-package git-auto-commit-mode
-   :diminish git-auto-commit-mode)
+ (g/up git-auto-commit-mode :diminish git-auto-commit-mode)
 
  (defun turn-on-auto-commit-hook ()
    (cond ((string-match (concat "^" (expand-file-name "~/private-sync")) buffer-file-name)
