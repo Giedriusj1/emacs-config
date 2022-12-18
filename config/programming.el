@@ -113,7 +113,7 @@
                (setq comment-start "//" comment-end  "")))  ) )
 
 (on-linux
- (g/up cc-mode :ensure nil
+ (g/up c-ts-mode :ensure nil
    :mode (("\\.c\\'" . c-ts-mode)
 	  ("\\.cc\\'" . c-ts-mode)
 	  ("\\.cpp\\'" . c++-ts-mode)
