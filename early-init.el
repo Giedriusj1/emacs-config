@@ -81,11 +81,10 @@
                             (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
                                   (dired-directory (concat "{" dired-directory "}"))
                                   (t "[no file]")))
-
                   (mapcar (i-lambda (tab)
 			    (let ((tab-name (alist-get 'name tab)))
 			      (if (eq (car tab) 'current-tab)
-				  (format " [ %s ] " tab-name)
+				  (format " [ %s ☀️ ] " tab-name)
 				(format  " %s "tab-name ))  ))
 			  (tab-bar-tabs)))))
 
