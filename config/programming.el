@@ -60,8 +60,14 @@
 
 (g/up js-mode :ensure nil :mode ("\\.json\\'" . js-mode))
 
-(g/up dockerfile-mode
-  :mode ("[Dd]ockerfile\\'" . dockerfile-mode))
+(on-windows
+ (g/up dockerfile-mode
+   :mode ("[Dd]ockerfile\\'" . dockerfile-mode)))
+
+(on-linux
+ (g/up dockerfile-ts-mode
+   :mode ("[Dd]ockerfile\\'" . dockerfile-ts-mode)))
+
 
 (g/up markdown-mode :ensure nil
   :mode ("\\.md\\'" . markdown-mode))
