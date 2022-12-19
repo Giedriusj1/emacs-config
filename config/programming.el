@@ -16,8 +16,8 @@
 
  (g/up tsx-ts-mode :mode ("\\.ts\\'" . tsx-ts-mode) :ensure nil)
 
- (g/up rust-mode
-   :mode ("\\.rs\\'" . rust-mode)
+ (g/up rust-ts-mode :ensure nil
+   :mode ("\\.rs\\'" . rust-ts-mode)
    :config
    (transient-define-prefix g/rust-transient ()
      ["cargo"
@@ -56,9 +56,9 @@
   :hook ((prog-mode . yas-minor-mode)
          (org-mode . yas-minor-mode)))
 
-(g/up yaml-mode  :mode ("\\.yml\\'" . yaml-mode) ("\\.yaml\\'" . yaml-mode))
+(g/up yaml-ts-mode :ensure nil  :mode ("\\.yml\\'" . yaml-ts-mode) ("\\.yaml\\'" . yaml-ts-mode))
 
-(g/up js-mode :ensure nil :mode ("\\.json\\'" . js-mode))
+(g/up json-js-mode :ensure nil :mode ("\\.json\\'" . json-ts-mode))
 
 (on-windows
  (g/up dockerfile-mode
