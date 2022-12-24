@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
-(g/up google-this)
+;; lisp playground
+(define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
 
 (i-defun g/recompile-custom-packages ()
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))
@@ -59,11 +60,6 @@ Host github.com
 	User git
 	IdentityFile ~/.ssh/id_rsa" nil "~/.ssh/config"))
 
-
-;; lisp playground
-(define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
-
-
 (i-defun generate-password ()
   (let ((chars "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$&_+[]:.?/")
         (password ""))
@@ -71,3 +67,12 @@ Host github.com
       (setq password (concat password (char-to-string (elt chars (random (length chars)))))))
 
     (message password)))
+
+(i-defun google-selected-text ()
+  (let ((selected-text (if (region-active-p)
+                           (buffer-substring-no-properties (region-beginning) (region-end))
+                         (current-word))))
+    (let ((modified-text (read-from-minibuffer "Modify text (or press C-g to cancel): " selected-text)))
+      (if (equal modified-text "")
+          (message "Google search cancelled.")
+        (browse-url (concat "https://www.google.com/search?q=" (url-hexify-string modified-text)))))))
