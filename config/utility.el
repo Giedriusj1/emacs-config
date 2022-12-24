@@ -42,9 +42,6 @@
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
 
-(write-region "something something" nil "~/ttt")
-
-
 (i-defun g/set-github-key-personal()
   (write-region "# personal key
 Host github.com
@@ -76,3 +73,14 @@ Host github.com
       (if (equal modified-text "")
           (message "Google search cancelled.")
         (browse-url (concat "https://www.google.com/search?q=" (url-hexify-string modified-text)))))))
+
+(defun create-shell-here ()
+  (interactive)
+  (let* ((dir default-directory)
+         (shell-name (format "*shell* <%s>" dir))
+         (shell-buffer (get-buffer shell-name)))
+    (if shell-buffer
+        (switch-to-buffer shell-buffer)
+      (shell (generate-new-buffer-name shell-name)))))
+
+(bind-keys* ( "C-`" . create-shell-here))

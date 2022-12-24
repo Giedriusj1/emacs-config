@@ -1,9 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-;; (use-package diminish :demand)
-
-(on-linux (g/up shell-here :bind* ( "C-`" . shell-here)))
-
 (g/up vertico
   :init
   (vertico-mode)
