@@ -136,6 +136,8 @@
 				(g/org-transient))
 			       ((eq 'emacs-lisp-mode major-mode)
 				(g/emacs-lisp-transient))
+			       ((eq 'rust-ts-mode major-mode)
+				(g/rust-transient))
 			       ((eq 'rust-mode major-mode)
 				(g/rust-transient))
 			       (t (g/default-transient)))))
