@@ -22,8 +22,7 @@
                             "dired.el"
                             "magit.el"
                             "org.el"
-                            "private-sync.el"
-                            "swift.el"))
+                            "private-sync.el"))
 
 ;; Let's load the files specified in the basic load sequence:
 (dolist (element basic-load-sequence)
