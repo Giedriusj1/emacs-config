@@ -20,12 +20,6 @@
                             "~/.emacs.d/config"
                             )'recursively)))
 
-(i-defun emacs-init-time ()
-  "Return a string giving the duration of the Emacs initialization."
-  (let ((str (format "%.2f seconds" (float-time (time-subtract after-init-time before-init-time)))))
-    (if (called-interactively-p 'interactive)
-        (message "%s" str) str)))
-
 (i-defun g/open-in-external-app ()
   (let ((fileList (cond ((string-equal major-mode "dired-mode")
                          (dired-get-marked-files))
