@@ -26,8 +26,9 @@
 		   "lsp.el"
 		   "programming.el"
 		   "sn-modes.el"
-		   "utility.el"))
-  
+		   "utility.el"
+		   "copilot.el"))
+
   (measure-time (load (concat "~/.emacs.d/config/" element))))
 
 (add-hook 'server-after-make-frame-hook
