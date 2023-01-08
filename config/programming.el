@@ -167,3 +167,7 @@
 		    ((eq 'json-mode major-mode)
 		     (json-reformat-region))
 		    (t (message "Argh...don't know how to format in this mode :(")))))
+
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
