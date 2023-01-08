@@ -37,3 +37,8 @@
 
 (message (concat (format "Emacs took %.2f seconds to start" (float-time (time-subtract after-init-time before-init-time)))
 		 (if (fboundp 'native-compile-async) " With native compiler!")))
+
+;; load ~/.emacs.d/config/private.el
+(if (file-exists-p "~/private-sync/private.el")
+    (load "~/private-sync/private.el"))
+
