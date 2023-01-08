@@ -14,14 +14,24 @@
        (copilot-accept-completion)
      (indent-for-tab-command arg)))
 
-
-
  (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command)
 
- (g/up gpt :bind
-   ("C--" . (lambda ()
-	      (interactive)
-	      (gpt-dwim ;; :temperature "0.123" :max-tokens "500"
-	       ))))
+ (g/up gpt :bind ("C--" . g/gpt-transient)
 
- )
+   :config
+   (transient-define-prefix g/gpt-transient ()
+     ["codex"
+      ("c" "codex temp 0" (lambda ()
+			    (interactive)
+			    (gpt-dwim :temperature "0" :max-tokens "500" :engine "code-davinci-002")))
+      ("C" "codex temp 0.5" (lambda ()
+			      (interactive)
+			      (gpt-dwim :temperature "0.5" :max-tokens "500" :engine "code-davinci-002")))]
+     ["GPT-3"
+      ("d" "Davinci temp 0" (lambda ()
+			      (interactive)
+			      (gpt-dwim :temperature "0" :max-tokens "4000" :engine "text-davinci-003")))
+      ("D" "Davinci temp 0.5" (lambda ()
+				(interactive)
+				(gpt-dwim :temperature "0.5" :max-tokens "4000" :engine "text-davinci-003")))
+      ])))
