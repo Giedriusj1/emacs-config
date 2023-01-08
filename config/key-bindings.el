@@ -38,7 +38,7 @@
 
  ("<f10>" . toggle-truncate-lines)
  ("<f11>" . toggle-frame-fullscreen)
- ("<f12>" . whitespace-mode)
+ ("<C-f12>" . whitespace-mode)
 
  ( "<Scroll_Lock>" . scroll-lock-mode)
  ( "<up>" . scroll-down-line)
