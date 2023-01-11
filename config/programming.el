@@ -14,7 +14,7 @@
 			     ("Cargo.lock" . conf-toml-mode))
    :ensure nil)
 
- (g/up tsx-ts-mode :mode ("\\.ts\\'" . tsx-ts-mode) :ensure nil)
+ (g/up typescript-ts-mode :mode ("\\.ts\\'" . typescript-ts-mode) :ensure nil)
 
  (g/up rust-ts-mode :ensure nil
    :mode ("\\.rs\\'" . rust-ts-mode)
