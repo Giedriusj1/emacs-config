@@ -7,7 +7,7 @@
 		("C-n" . dabbrev-expand)))
    :init
    (global-corfu-mode)
-   (setq corfu-popupinfo-delay 0.2)
+   (setq corfu-popupinfo-delay 0.1)
    (corfu-popupinfo-mode))
 
  (g/up conf-toml-mode :mode (("\\.toml\\'" . conf-toml-mode)
