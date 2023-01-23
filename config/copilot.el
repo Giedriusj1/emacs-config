@@ -2,19 +2,20 @@
  (g/up s)
  (g/up editorconfig)
 
- ;; git clone https://github.com/zerolfx/copilot.el ~/prog/copilot.el
+ ;; git clone https://github.com/zerolfx/copilot.el ~/prog/EMACS/copilot.el
+ (let ((f "~/prog/EMACS/copilot.el/copilot.el"))
+   (when (file-exists-p f)
+     (load-library f))
 
- (load-library "~/prog/copilot.el/copilot.el")
+   ;; enable copilot-mode for every programming mode
+   (add-hook 'prog-mode-hook 'copilot-mode)
 
- ;; enable copilot-mode for every programming mode
- (add-hook 'prog-mode-hook 'copilot-mode)
+   (i-defun copilot-accept-or-indent-for-tab-command (&optional arg)
+     (if (copilot--overlay-visible)
+	 (copilot-accept-completion)
+       (indent-for-tab-command arg)))
 
- (i-defun copilot-accept-or-indent-for-tab-command (&optional arg)
-   (if (copilot--overlay-visible)
-       (copilot-accept-completion)
-     (indent-for-tab-command arg)))
-
- (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command)
+   (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command))
 
  (g/up gpt :bind ("C--" . g/gpt-transient)
 
