@@ -1,5 +1,9 @@
 ;;; -*- lexical-binding: t -*-
 
+(if (member "Iosevka" (font-family-list))
+    (custom-set-faces '(default ((t (:background "#131818"  :font "Iosevka-8")))))
+  (custom-set-faces '(default ((t (:background "#131818"))))))
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
 
