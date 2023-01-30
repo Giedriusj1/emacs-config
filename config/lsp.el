@@ -10,6 +10,7 @@
      (add-hook 'c++-mode-hook 'eglot-ensure)
      (add-hook 'c-mode-hook 'eglot-ensure)
      (add-hook 'typescript-mode-hook 'eglot-ensure)
+     (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
      (add-hook 'rustic-mode-hook 'eglot-ensure))
    :config
    (transient-define-prefix g/eglot-transient ()
