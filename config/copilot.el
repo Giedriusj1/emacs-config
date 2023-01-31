@@ -7,6 +7,7 @@
    (when (file-exists-p f)
      (load-library f))
 
+
    ;; enable copilot-mode for every programming mode
    (add-hook 'prog-mode-hook 'copilot-mode)
 
@@ -14,6 +15,11 @@
      (if (copilot--overlay-visible)
 	 (copilot-accept-completion)
        (indent-for-tab-command arg)))
+
+   ;; lazy load copilot only when needed
+   (add-hook 'prog-mode-hook (lambda ()
+			       (require 'copilot)
+			       (copilot-mode)))
 
    (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command))
 
