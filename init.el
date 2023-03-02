@@ -1,7 +1,10 @@
 ;;; -*- lexical-binding: t -*-
 
 (if (member "Iosevka" (font-family-list))
-    (custom-set-faces '(default ((t (:background "#131818"  :font "Iosevka-8")))))
+    (if (and (eq (display-pixel-width) 1920) (eq (display-pixel-height) 1080))
+	;; larger font for 1080p
+	(custom-set-faces '(default ((t (:background "#131818"  :font "Iosevka-12")))))
+      (custom-set-faces '(default ((t (:background "#131818"  :font "Iosevka-8"))))))
   (custom-set-faces '(default ((t (:background "#131818"))))))
 
 (require 'package)
