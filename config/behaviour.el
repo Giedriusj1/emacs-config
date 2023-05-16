@@ -148,9 +148,9 @@
 
 (transient-define-prefix g/quickopen-transient ()
   ["quickopen"
-   ("t"  "~/private-sync/temp.org" (lambda ()
-				     (interactive)
-				     (find-file "~/private-sync/temp.org")))
+   ("t"  "~/temp.org" (lambda ()
+			(interactive)
+			(find-file "~/temp.org")))
 
 
    ("c"  "~/.emacs.d/init.el" (lambda ()
