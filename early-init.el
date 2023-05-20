@@ -127,3 +127,7 @@
 (add-hook 'after-save-hook #'garbage-collect)
 
 (run-with-idle-timer 5 t (lambda () (garbage-collect)))
+
+
+;; add hook to increase frame size on startup
+(add-hook 'window-setup-hook 'toggle-frame-maximized t)
