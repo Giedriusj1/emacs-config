@@ -11,6 +11,7 @@
 	cua-paste
 	forward-sexp
 	indent-for-tab-command
+	org-delete-char
 	))
 
 (setq mc/cmds-to-run-once
