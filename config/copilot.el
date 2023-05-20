@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 (on-linux
  (g/up s)
  (g/up editorconfig)
