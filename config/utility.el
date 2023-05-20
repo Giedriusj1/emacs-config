@@ -79,24 +79,6 @@ Host github.com
 
 (bind-keys* ( "C-`" . create-shell-here))
 
-(setq g/file-name-prefix "~/.emacs.d/temps")
-
-(defun g/toggle-file-temp ()
-  (interactive)
-
-  ;; check if buffer-file-name begins with prefix
-  (if (string-prefix-p (expand-file-name g/file-name-prefix) buffer-file-name)
-      ;; ok, we are inside the temp file, let's switch to the real one
-      (progn
-	(let* ((real-file-name (concat "/"(replace-regexp-in-string (expand-file-name g/file-name-prefix) "" buffer-file-name))))
-	  (find-file real-file-name)))
-
-    ;;  ok, we are in the real file, let's switch to the temp one
-    (progn (find-file (concat g/file-name-prefix buffer-file-name)))))
-
-
-(define-key control-semi-map (kbd "C-g") 'g/toggle-file-temp)
-
 (on-linux
  (i-defun g/org-publish-all-force ()
    (progn (g/up htmlize)
