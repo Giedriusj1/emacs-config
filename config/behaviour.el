@@ -4,6 +4,8 @@
   :init
   (vertico-mode)
 
+  (vertico-buffer-mode)
+
   (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
 
   (define-key control-semi-map (kbd "C-r") 'vertico-repeat)
