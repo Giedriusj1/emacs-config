@@ -203,11 +203,12 @@
   ["tab-bar"
    ("M-c" "new" tab-bar-new-tab)
    ("M-k" "close" tab-bar-close-tab)]
-  ["frame"
-   ("M-m" "new" make-frame)
-   ("M-o" "other" other-frame)
-   ("M-SPC" "other" other-frame)
-   ("M-d" "delete" delete-frame)])
+  ;; ["frame"
+  ;;  ("M-m" "new" make-frame)
+  ;;  ("M-o" "other" other-frame)
+  ;;  ("M-SPC" "other" other-frame)
+  ;;  ("M-d" "delete" delete-frame)]
+  )
 
 
 (defvar g-toggle-delete-other-windows-reg "")
