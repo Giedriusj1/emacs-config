@@ -10,6 +10,11 @@
 
   (define-key control-semi-map (kbd "C-r") 'vertico-repeat)
 
+  (advice-add #'vertico-buffer--redisplay
+              :around
+              (i-lambda (win a)
+		(balance-windows)))
+
   (setq vertico-count 25
 	vertico-resize nil
 	vertico-cycle t))
