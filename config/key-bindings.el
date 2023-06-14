@@ -73,20 +73,12 @@
 
 (define-key control-semi-map (kbd "C-m") 'consult-line)
 
-(define-key control-semi-map (kbd "C-2") (i-lambda ()
-                                           (split-window-below)
-                                           (balance-windows)))
+(define-key control-semi-map (kbd "C-2") 'split-window-below)
 
-(define-key control-semi-map (kbd "C-3") (i-lambda ()
-                                           (split-window-right)
-                                           (balance-windows)))
+(define-key control-semi-map (kbd "C-3") 'split-window-right)
 
+(define-key control-semi-map (kbd "C-0") 'delete-window)
 
-(define-key control-semi-map (kbd "C-0") (i-lambda ()
-                                           (delete-window)
-                                           (balance-windows)))
-
-(define-key control-semi-map (kbd "C-4") 'balance-windows)
 (define-key control-semi-map (kbd "C-d") 'follow-mode)
 
 (define-key control-semi-map (kbd "C-1") 'g-toggle-delete-other-windows)

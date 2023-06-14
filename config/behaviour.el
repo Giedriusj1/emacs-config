@@ -1,5 +1,12 @@
 ;;; -*- lexical-binding: t -*-
 
+;; Make sure the windows are always balanced
+(add-hook 'window-configuration-change-hook
+	  (lambda ()
+	    ;; check if we are in ediff mode
+	    (if (not (eq major-mode 'ediff-mode))
+		(balance-windows))))
+
 (g/up vertico
   :init
   (vertico-mode)
@@ -9,11 +16,6 @@
   (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
 
   (define-key control-semi-map (kbd "C-r") 'vertico-repeat)
-
-  (advice-add #'vertico-buffer--redisplay
-              :around
-              (i-lambda (win a)
-		(balance-windows)))
 
   (setq vertico-count 25
 	vertico-resize nil
