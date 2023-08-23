@@ -9,26 +9,23 @@
    (when (file-exists-p f)
      (progn
        (add-to-list 'load-path (expand-file-name "~/prog/EMACS/copilot.el"))
-       (load-library f))))
 
 
- ;; enable copilot-mode for every programming mode
- (add-hook 'prog-mode-hook 'copilot-mode)
+       ;; lazy load copilot only when needed
+       (add-hook 'prog-mode-hook (lambda ()
+				   (require 'copilot)
+				   (copilot-mode)))
 
- (i-defun copilot-accept-or-indent-for-tab-command (&optional arg)
-   (if (copilot--overlay-visible)
-       (copilot-accept-completion)
-     (indent-for-tab-command arg)))
+       (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command)
 
- ;; lazy load copilot only when needed
- (add-hook 'prog-mode-hook (lambda ()
-                             (require 'copilot)
-                             (copilot-mode)))
+       (i-defun copilot-accept-or-indent-for-tab-command (&optional arg)
+	 (if (copilot--overlay-visible)
+	     (copilot-accept-completion)
+	   (indent-for-tab-command arg)))
+       )))
 
- (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command)
 
  (g/up gpt :bind ("C--" . g/gpt-transient)
-
    :config
    (transient-define-prefix g/gpt-transient ()
      ["codex"
