@@ -34,7 +34,7 @@
 		   "programming.el"
 		   "sn-modes.el"
 		   "utility.el"
-		   "copilot.el"))
+		   "ai.el"))
 
   (measure-time (load (concat "~/.emacs.d/config/" element))))
 
