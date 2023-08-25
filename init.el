@@ -26,7 +26,6 @@
 ;; Let's load our config
 (dolist (element '("key-bindings.el" ; Needed early for prefixes
                    "behaviour.el"
-                   "dired.el"
                    "magit.el"
                    "org.el"
                    "private-sync.el"
