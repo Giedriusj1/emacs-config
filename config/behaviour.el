@@ -78,12 +78,7 @@
 (g/up eldoc-mode :ensure nil
   :init
   (setq max-mini-window-height 3) 	; Make sure the minibuffer docs are sensible in size
-  (setq eldoc-idle-delay 0.1)
-  ;; (add-hook 'find-file-hook
-  ;; 	    (lambda()
-  ;; 	      (diminish 'eldoc-mode)
-  ;; 	      (diminish 'auto-revert-mode)))
-  )
+  (setq eldoc-idle-delay 0.1))
 
 (g/up recentf :ensure nil :demand
   :config
@@ -171,16 +166,9 @@
 					  (dired "~/private-sync")
 					  (find-file default-directory))))
    (":"  "grep notes"
-    ;; (lambda ()
-    ;;    (interactive)
-    ;;    (g/helm-projectile-grep-notes "~/private-sync"))
-
     (lambda ()
       (interactive)
-      ;; ;TODO: ignore
-      ;; '("*.doc" "*.ovpn" "*.pcap" "*.pcapng" "*.png" "*.pem" )
-      (consult-ripgrep "~/private-sync"))
-    )
+      (consult-ripgrep "~/private-sync")))
 
    (";"  "find notes"
     (lambda ()
@@ -209,14 +197,7 @@
 (transient-define-prefix g/frame-helper-transient ()
   ["tab-bar"
    ("M-c" "new" tab-bar-new-tab)
-   ("M-k" "close" tab-bar-close-tab)]
-  ;; ["frame"
-  ;;  ("M-m" "new" make-frame)
-  ;;  ("M-o" "other" other-frame)
-  ;;  ("M-SPC" "other" other-frame)
-  ;;  ("M-d" "delete" delete-frame)]
-  )
-
+   ("M-k" "close" tab-bar-close-tab)])
 
 (defvar g-toggle-delete-other-windows-reg "")
 

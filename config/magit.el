@@ -66,7 +66,6 @@
       (put face 'theme-face nil)
       (face-spec-set face spec)))
 
-
   ;; This makes ediff usable with org mode
   (with-eval-after-load 'outline
     (add-hook 'ediff-prepare-buffer-hook #'outline-show-all)))
