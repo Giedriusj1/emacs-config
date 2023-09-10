@@ -132,10 +132,38 @@
              (lambda()
                (setq comment-start "//" comment-end  "")))))
 
+;; create major mode for editing .g1 files that extends emacs-lisp-mode
+(define-derived-mode g1-mode emacs-lisp-mode "g1"
+  "Major mode for editing .g1 files"
+  ;; (setq-local comment-start "#")
+  ;; (setq-local comment-end "")
+  ;; (setq-local comment-start-skip "#+\\s-*")
+  )
+
+
+(transient-define-prefix g/g1-transient ()
+  ["eval"
+   ( "j" "run file" g/g1-run-file nil t)
+   ( "J" "run file release" g/g1-run-file nil)]
+  ["yas"
+   ("c" "complete" consult-yasnippet)])
+
+(defun g/g1-run-file (debug)
+  (interactive)
+  (let ((file (buffer-file-name)))
+    (progn
+      (if debug
+	  (shell-command (concat "cd /home/giedrius/prog/g1 && cargo run " file))
+	(shell-command (concat "cd /home/giedrius/prog/g1 && cargo run --release " file)))
+
+      (switch-to-buffer-other-window "*Shell Command Output*")
+      (end-of-buffer))))
+
+;; make sure .g1 files are opened in g1-mode
+(add-to-list 'auto-mode-alist '("\\.g1\\'" . g1-mode))
 
 (g/up elisp-mode :ensure nil
   :mode
-  ("\\.g1\\'" . emacs-lisp-mode)
   ("\\.el\\'" . emacs-lisp-mode)
   ("\\.el.gz\\'" . emacs-lisp-mode)
   ("\\.elc\\'" . elisp-byte-code-mode))

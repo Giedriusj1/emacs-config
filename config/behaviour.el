@@ -144,6 +144,8 @@
 				(g/rust-transient))
 			       ((eq 'rust-mode major-mode)
 				(g/rust-transient))
+			       ((eq 'g1-mode major-mode)
+				(g/g1-transient))
 			       (t (g/default-transient)))))
 
 (define-key tab-map (kbd ";") 'g/quickopen-transient)
