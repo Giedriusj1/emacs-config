@@ -143,12 +143,14 @@
 
 (transient-define-prefix g/g1-transient ()
   ["eval"
-   ( "j" "run file" g/g1-run-file nil t)
-   ( "J" "run file release" g/g1-run-file nil)]
+   ("j" "run file"
+    (lambda () (interactive) (g/g1-run-file t)))
+   ("J" "run file release"
+    (lambda () (interactive) (g/g1-run-file nil)))]
   ["yas"
    ("c" "complete" consult-yasnippet)])
 
-(defun g/g1-run-file (debug)
+(defun g/g1-run-file (&optional debug)
   (interactive)
   (let ((file (buffer-file-name)))
     (progn
