@@ -92,7 +92,7 @@ Host github.com
 		'(("org-blog"
 		   :base-directory "~/private-sync/blog/"
 		   :base-extension "org"
-		   :publishing-directory "~/public_html/"
+		   :publishing-directory "~/prog/giedriusj1.github.io"
 		   :recursive t
 		   :publishing-function org-html-publish-to-html
 		   :headline-levels 4             ; Just the default for this project.
@@ -100,7 +100,7 @@ Host github.com
 		  ("org-static"
 		   :base-directory "~/private-sync/blog/"
 		   :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-		   :publishing-directory "~/public_html/"
+		   :publishing-directory "~/prog/giedriusj1.github.io"
 		   :recursive t
 		   :publishing-function org-publish-attachment)))
 
