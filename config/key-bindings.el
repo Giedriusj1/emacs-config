@@ -40,7 +40,6 @@
  ("<f11>" . toggle-frame-fullscreen)
  ("<C-f12>" . whitespace-mode)
 
- ( "<Scroll_Lock>" . scroll-lock-mode)
  ( "<up>" . scroll-down-line)
  ( "<down>" . scroll-up-line)
  ( "M-n" . forward-paragraph)
