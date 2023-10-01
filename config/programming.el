@@ -16,8 +16,14 @@
 
  (g/up typescript-ts-mode :mode ("\\.ts\\'" . typescript-ts-mode) :ensure nil)
 
+ (g/up cargo)
+
+ ;; Only want to load it for rust-compile.el
+ (g/up rust-mode)
+
  (g/up rust-ts-mode :ensure nil
    :mode ("\\.rs\\'" . rust-ts-mode)
+   :init (require 'rust-compile) 	; Give cargo-process links to source files
    :config
    (transient-define-prefix g/rust-transient ()
      ["cargo"
@@ -28,9 +34,7 @@
       ("t" "test all" cargo-process-test)
       ("T" "test current test" cargo-process-current-test)]
      ["yas"
-      ("c" "complete" consult-yasnippet)]))
-
- (g/up cargo))
+      ("c" "complete" consult-yasnippet)])))
 
 (on-windows
  (g/up powershell :mode ("\\.ps1\\'" . powershell-mode))
