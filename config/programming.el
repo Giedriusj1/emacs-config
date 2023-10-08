@@ -150,7 +150,10 @@
    ("j" "run file"
     (lambda () (interactive) (g/g1-run-file t)))
    ("J" "run file release"
-    (lambda () (interactive) (g/g1-run-file nil)))]
+    (lambda () (interactive) (g/g1-run-file nil)))
+   ("t" "run g1 tests"
+    (lambda () (interactive) (shell-command (concat "cd /home/giedrius/prog/g1 && ./run-tests.sh "))))
+   ]
   ["yas"
    ("c" "complete" consult-yasnippet)])
 
