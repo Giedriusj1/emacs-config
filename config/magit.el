@@ -16,13 +16,13 @@
      ("d" "diff-dwim" magit-diff-dwim)
      ]))
 
-(on-linux
- (use-package difftastic
-   :config
-   (eval-after-load 'magit-diff
-     '(transient-append-suffix 'magit-diff '(-1 -1)
-	[("D" "Difftastic diff (dwim)" difftastic-magit-diff)
-         ("S" "Difftastic show" difftastic-magit-show)]))))
+;; (on-linux
+;;  (use-package difftastic
+;;    :config
+;;    (eval-after-load 'magit-diff
+;;      '(transient-append-suffix 'magit-diff '(-1 -1)
+;; 	[("D" "Difftastic diff (dwim)" difftastic-magit-diff)
+;;          ("S" "Difftastic show" difftastic-magit-show)]))))
 
 (g/up ediff :ensure nil
   :ensure magit
