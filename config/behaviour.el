@@ -159,6 +159,11 @@
 			(find-file "~/temp.org")))
 
 
+   ("P"  "~/private-sync/projects/lisp-playground/playground.el"
+    (lambda ()
+      (interactive)
+      (find-file "~/private-sync/projects/lisp-playground/playground.el")))
+
    ("c"  "~/.emacs.d/init.el" (lambda ()
 				(interactive)
 				(find-file "~/.emacs.d/init.el")))
