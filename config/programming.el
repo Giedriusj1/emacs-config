@@ -160,13 +160,11 @@
 (defun g/g1-run-file (&optional debug)
   (interactive)
   (let ((file (buffer-file-name)))
-    (progn
-      (if debug
-	  (shell-command (concat "cd /home/giedrius/prog/g1 && cargo run " file))
-	(shell-command (concat "cd /home/giedrius/prog/g1 && cargo run --release " file)))
-
-      (switch-to-buffer-other-window "*Shell Command Output*")
-      (end-of-buffer))))
+    (if debug
+        (async-shell-command (concat "cd /home/giedrius/prog/g1 && cargo run " file))
+      (async-shell-command (concat "cd /home/giedrius/prog/g1 && cargo run --release " file)))
+    ;; (switch-to-buffer-other-window "*Async Shell Command Output*")
+    ))
 
 ;; make sure .g1 files are opened in g1-mode
 (add-to-list 'auto-mode-alist '("\\.g1\\'" . g1-mode))
