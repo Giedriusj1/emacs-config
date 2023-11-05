@@ -6,7 +6,8 @@
   "Measure the time it takes to evaluate BODY."
   `(let ((time (current-time)))
      ,@body
-     (message "took %.06f seconds" (float-time (time-since time)))))
+     (let ((elapsed (float-time (time-since time))))
+       (message "took %.06f seconds or %.03f milliseconds" elapsed (* 1000.0 elapsed)))))
 
 (defmacro on-linux (&rest body)
   (if (memq system-type '(gnu gnu/linux))
