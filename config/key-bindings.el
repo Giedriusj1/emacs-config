@@ -63,6 +63,9 @@
             ("C-h" . highlight-symbol-at-point)
             ("q" . consult-goto-line)
 
+	    ("C-s" . consult-imenu)
+	    ("s" . consult-imenu-multi)
+
             ("C-j" . jump-to-register)
             ("C-q" . consult-goto-line)
             ("C-l" . execute-extended-command)
