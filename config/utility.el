@@ -36,20 +36,20 @@
     (sgml-pretty-print (point-min) (point-max))
     (indent-region (point-min) (point-max))))
 
-
-(i-defun g/set-github-key()
-  (write-region "# default (work) key
+(i-defun g/set-github-key-personal()
+  (write-region "# personal key
 Host github.com
-	HostName github.com
-	User git
-	IdentityFile ~/.ssh/id_rsa
-
-# personal key
-Host github-personal.com
 	HostName github.com
 	User git
 	IdentityFile ~/.ssh/id_rsa_github_personal" nil "~/.ssh/config"))
 
+
+(i-defun g/set-github-key-normal()
+  (write-region "# default (work) key
+Host github.com
+	HostName github.com
+	User git
+	IdentityFile ~/.ssh/id_rsa" nil "~/.ssh/config"))
 
 (i-defun generate-password ()
   (let ((chars "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$&_+[]:.?/")
