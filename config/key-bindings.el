@@ -61,10 +61,10 @@
             ("j" . jump-to-register)
             ("h" . unhighlight-regexp)
             ("C-h" . highlight-symbol-at-point)
-            ("q" . goto-line)
+            ("q" . consult-goto-line)
 
             ("C-j" . jump-to-register)
-            ("C-q" . goto-line)
+            ("C-q" . consult-goto-line)
             ("C-l" . execute-extended-command)
             ("C-2" . split-window-below))
 
