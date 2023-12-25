@@ -77,6 +77,18 @@ Host github.com
 (bind-keys* ( "C-`" . create-shell-here))
 
 (on-linux
+
+ (i-defun g/translate-rus-to-en()
+   (progn (g/up google-translate)
+
+	  (setq google-translate-default-target-language "en")
+	  (setq google-translate-default-source-language "ru")
+
+	  (google-translate-at-point)
+
+	  (setq google-translate-default-target-language nil)
+	  (setq google-translate-default-source-language nil)))
+
  (i-defun g/org-publish-all-force ()
    (progn (g/up htmlize)
 	  (require 'htmlize)
