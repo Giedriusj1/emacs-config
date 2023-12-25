@@ -1,8 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-;; lisp playground
-(define-key lisp-playground-map (kbd "SPC") 'load-listp-playground)
-
 (i-defun g/recompile-custom-packages ()
   (byte-recompile-directory "~/.emacs.d/custom-packages" 0))
 

@@ -5,7 +5,6 @@
 
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
-(define-prefix-command 'lisp-playground-map)
 
 (bind-keys*
  ("C-1" . window-swap-states)
@@ -86,7 +85,6 @@
 (define-key control-semi-map (kbd "C-1") 'g-toggle-delete-other-windows)
 
 (bind-keys* :map tab-map
-            ("SPC" . lisp-playground-map)
             ("TAB" . comment-dwim)
             ("M- ." 'comment-dwim)
             ("C- ." 'comment-dwim)
@@ -94,7 +92,6 @@
             ("u" . universal-argument)
             ("C-f" . find-file)
             ("C-d" . dired-jump))
-
 
 (define-minor-mode swift-mode
   "Move around swiftly"
