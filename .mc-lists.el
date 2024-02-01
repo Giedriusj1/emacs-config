@@ -12,6 +12,7 @@
 	forward-sexp
 	indent-for-tab-command
 	org-delete-char
+	org-end-of-line
 	))
 
 (setq mc/cmds-to-run-once
