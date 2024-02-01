@@ -122,7 +122,7 @@
   (lambda ()
     (setq file-name-handler-alist doom--file-name-handler-alist)))
 
-(setq warning-suppress-types '(((package reinitialization)) (comp) (emacs)))
+(setq warning-suppress-types '(((package reinitialization)) (comp) (emacs) (copilot)))
 
 ;;Let's garbage collect when focusing out of the window..
 (add-hook 'focus-out-hook #'garbage-collect)
