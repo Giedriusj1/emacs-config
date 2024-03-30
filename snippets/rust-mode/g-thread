@@ -1,6 +1,6 @@
 # -*- mode: snippet -*-
-# name: g-thread-channel
-# key: g-thread-channel
+# name: g-thread
+# key: g-thread
 # --
 std::thread::spawn(move || {
     // TODO: do something in a thread
