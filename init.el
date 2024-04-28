@@ -18,6 +18,8 @@
 
 ;; Let's load our config
 (dolist (element '("key-bindings.el" ; Needed early for prefixes
+		   "s.el"
+		   "f.el"
                    "behaviour.el"
                    "magit.el"
                    "org.el"
@@ -26,7 +28,6 @@
 		   "programming.el"
 		   "sn-modes.el"
 		   "utility.el"
-		   "f.el"
 		   "ai.el"))
 
   (measure-time (load (concat "~/.emacs.d/config/" element))))
