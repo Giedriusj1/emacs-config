@@ -26,6 +26,7 @@
 		   "programming.el"
 		   "sn-modes.el"
 		   "utility.el"
+		   "f.el"
 		   "ai.el"))
 
   (measure-time (load (concat "~/.emacs.d/config/" element))))
