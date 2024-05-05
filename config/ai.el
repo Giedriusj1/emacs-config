@@ -7,6 +7,9 @@
      (progn
        (add-to-list 'load-path (expand-file-name "~/prog/EMACS/copilot.el"))
 
+       (g/up s)
+       (g/up f)
+       (g/up dash)
        (g/up editorconfig)
 
        ;; lazy load copilot only when needed
