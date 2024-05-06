@@ -18,9 +18,6 @@
 
 ;; Let's load our config
 (dolist (element '("key-bindings.el" ; Needed early for prefixes
-		   "s.el"
-		   "dash.el"
-		   "f.el"
                    "behaviour.el"
                    "magit.el"
                    "org.el"
