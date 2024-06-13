@@ -12,6 +12,7 @@
  ("C-3" . windmove-right)
 
  ("C-j" . consult-buffer)
+ ("C-M-j" . consult-project-buffer)
  ("<C-tab>" . tab-bar-switch-to-next-tab)
 
  ("M-h" . open-line)
