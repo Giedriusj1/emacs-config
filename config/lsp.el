@@ -16,6 +16,7 @@
      (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
      (add-hook 'rust-ts-mode-hook 'eglot-ensure))
    :config
+   (setq eglot-events-buffer-size 0)
    (transient-define-prefix g/eglot-transient ()
      ["Buffer"
       ("f" "format" eglot-format-buffer)
