@@ -12,8 +12,13 @@
      (add-hook 'c++-ts-mode 'eglot-ensure)
      (add-hook 'c-mode-hook 'eglot-ensure)
      (add-hook 'c-ts-mode-hook 'eglot-ensure)
+
+     ;; js and ts
      (add-hook 'typescript-mode-hook 'eglot-ensure)
      (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
+     (add-hook 'js-mode-hook 'eglot-ensure)
+     (add-hook 'js-ts-mode-hook 'eglot-ensure)
+
      (add-hook 'rust-ts-mode-hook 'eglot-ensure))
    :config
    (setq eglot-events-buffer-size 0)

@@ -64,6 +64,16 @@
 
 (g/up json-js-mode :ensure nil :mode ("\\.json\\'" . json-ts-mode))
 
+(on-linux
+ (g/up js-ts-mode :ensure nil
+   :mode (("\\.js\\'" . js-ts-mode))
+   :config
+   (add-hook 'js-ts-mode-hook
+	     (lambda()
+	       ;; (setq indent-tabs-mode nil)
+	       (setq js-indent-level 2)
+	       (setq tab-width 2)))))
+
 (on-windows
  (g/up dockerfile-mode
    :mode ("[Dd]ockerfile\\'" . dockerfile-mode)))
