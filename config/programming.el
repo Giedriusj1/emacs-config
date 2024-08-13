@@ -66,13 +66,25 @@
 
 (on-linux
  (g/up js-ts-mode :ensure nil
-   :mode (("\\.js\\'" . js-ts-mode))
+   :mode (("\\.js\\'" . js-ts-mode)
+	  ("\\.tsx\\'" . tsx-ts-mode)
+	  )
    :config
-   (add-hook 'js-ts-mode-hook
-	     (lambda()
-	       ;; (setq indent-tabs-mode nil)
+   ;; (add-hook 'js-ts-mode-hook
+	 ;;     (lambda()
+	 ;;       (setq indent-tabs-mode nil)
+	 ;;       (setq js-indent-level 2)
+	 ;;       (setq tab-width 2)))
+
+   ;; add to multiple hooks
+   (dolist (hook '(js-ts-mode-hook tsx-ts-mode-hook))
+     (add-hook hook
+	       (lambda()
+	       (setq indent-tabs-mode nil)
 	       (setq js-indent-level 2)
-	       (setq tab-width 2)))))
+	       (setq tab-width 2))))
+
+   ))
 
 (on-windows
  (g/up dockerfile-mode

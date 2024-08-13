@@ -18,6 +18,10 @@
      (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
      (add-hook 'js-mode-hook 'eglot-ensure)
      (add-hook 'js-ts-mode-hook 'eglot-ensure)
+     (add-hook 'js-jsx-mode-hook 'eglot-ensure)
+     (add-hook 'tsx-ts-mode-hook 'eglot-ensure)
+     (add-hook 'typescript-mode 'eglot-ensure)
+     (add-hook 'typescript-ts-mode 'eglot-ensure)
 
      (add-hook 'rust-ts-mode-hook 'eglot-ensure))
    :config
