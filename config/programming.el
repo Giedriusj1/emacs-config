@@ -86,6 +86,8 @@
 
    ))
 
+(on-linux (g/up npm))
+
 (on-windows
  (g/up dockerfile-mode
    :mode ("[Dd]ockerfile\\'" . dockerfile-mode)))
