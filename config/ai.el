@@ -2,10 +2,10 @@
 
 (on-linux
  ;; git clone https://github.com/zerolfx/copilot.el ~/prog/EMACS/copilot.el
- (let ((f "~/prog/EMACS/copilot.el/copilot.el"))
+ (let ((f "~/.emacs.d/copilot.el/copilot.el"))
    (when (file-exists-p f)
      (progn
-       (add-to-list 'load-path (expand-file-name "~/prog/EMACS/copilot.el"))
+       (add-to-list 'load-path (expand-file-name "~/.emacs.d/copilot.el"))
 
        (g/up s)
        (g/up f)
