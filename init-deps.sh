@@ -1,5 +1,5 @@
 #! /bin/bash
 
-git clone git@github.com:Giedriusj1/emacs-elpa-deps.git elpa --depth 1
+git clone --depth=1 git@github.com:Giedriusj1/emacs-elpa-deps.git elpa
 
-git clone https://github.com/zerolfx/copilot.el
+git clone --depth=1  https://github.com/zerolfx/copilot.el
