@@ -49,7 +49,7 @@
 (customize-set-variable 'menu-bar-mode nil)
 (customize-set-variable 'tool-bar-mode nil)
 
-(pixel-scroll-precision-mode)
+(when (>= emacs-major-version 29) (pixel-scroll-precision-mode))
 
 ;; General UI settings
 (setq bidi-inhibit-bpa t)
