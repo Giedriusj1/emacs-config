@@ -3,5 +3,5 @@
 # key: g-thread
 # --
 std::thread::spawn(move || {
-    // TODO: do something in a thread
+    // do something in a thread
 });
