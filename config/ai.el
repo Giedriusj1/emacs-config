@@ -12,10 +12,11 @@
        (g/up dash)
        (g/up editorconfig)
 
-       ;; lazy load copilot only when needed
-       (add-hook 'prog-mode-hook (lambda ()
-				   (require 'copilot)
-				   (copilot-mode)))
+       (dolist (mode '(prog-mode-hook text-mode-hook))
+	 (add-hook mode
+		   (lambda ()
+		     (require 'copilot)
+		     (copilot-mode))))
 
        (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command)
 
