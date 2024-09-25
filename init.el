@@ -42,7 +42,6 @@
 	  (lambda ()
 	    (message (concat "emacs uptime: " (emacs-uptime)))))
 
-;; load ~/.emacs.d/config/private.el
 (if (file-exists-p "~/private-sync/private.el")
     (load "~/private-sync/private.el"))
 
