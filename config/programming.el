@@ -7,8 +7,9 @@
 		("C-n" . dabbrev-expand)))
    :init
    (global-corfu-mode)
-   (setq corfu-popupinfo-delay 0.1)
-   (corfu-popupinfo-mode))
+   (corfu-popupinfo-mode)
+   (setq corfu-popupinfo-max-height 40)
+   (setq corfu-count 20))
 
  (g/up conf-toml-mode :mode (("\\.toml\\'" . conf-toml-mode)
 			     ("Cargo.lock" . conf-toml-mode))
