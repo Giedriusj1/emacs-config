@@ -16,7 +16,10 @@
 	 (add-hook mode
 		   (lambda ()
 		     (require 'copilot)
-		     (copilot-mode))))
+
+		     (if (copilot-installed-version)
+			 (copilot-mode)
+		       (message "Copilot is not installed")))))
 
        (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command)
 
