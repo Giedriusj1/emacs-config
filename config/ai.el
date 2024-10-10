@@ -18,15 +18,16 @@
 		     (require 'copilot)
 
 		     (if (copilot-installed-version)
-			 (copilot-mode)
-		       (message "Copilot is not installed")))))
+			 (progn
+			   (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command)
+			   (i-defun copilot-accept-or-indent-for-tab-command (&optional arg)
+			     (if (copilot--overlay-visible)
+				 (copilot-accept-completion)
+			       (indent-for-tab-command arg)))
 
-       (global-set-key (kbd "TAB") 'copilot-accept-or-indent-for-tab-command)
+			   (copilot-mode))
 
-       (i-defun copilot-accept-or-indent-for-tab-command (&optional arg)
-	 (if (copilot--overlay-visible)
-	     (copilot-accept-completion)
-	   (indent-for-tab-command arg)))
+		       (message "Copilot server is not installed")))))
        )))
 
 
