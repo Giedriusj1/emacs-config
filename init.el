@@ -10,14 +10,6 @@
 	      (progn (package-refresh-contents)
 		     (package-install 'use-package))))
 
-(on-linux (when (<= emacs-major-version 28)
-	    ;; We are probably running on a Raspberry pi....
-	    (progn
-	      (setq native-comp-deferred-compilation nil)
-	      (setq native-comp-jit-compilation nil)
-	      (package-refresh-contents)
-	      (package-install 'use-package))))
-
 (require 'use-package) (defalias 'g/up 'use-package)
 
 ;; Make sure we install any packages that aren't on the system.

@@ -77,7 +77,6 @@ Host github.com
 (bind-keys* ( "C-`" . create-shell-here))
 
 (on-linux
-
  (i-defun g/translate-rus-to-en()
    (progn (g/up google-translate)
 
