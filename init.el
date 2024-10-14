@@ -38,10 +38,6 @@
 
   (measure-time (load (concat "~/.emacs.d/config/" element))))
 
-(add-hook 'server-after-make-frame-hook
-	  (lambda ()
-	    (message (concat "emacs uptime: " (emacs-uptime)))))
-
 (if (file-exists-p "~/private-sync/private.el")
     (load "~/private-sync/private.el"))
 
