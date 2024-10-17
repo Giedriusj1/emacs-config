@@ -26,9 +26,17 @@
      (add-hook 'rust-ts-mode-hook 'eglot-ensure))
    :config
    (setq eglot-events-buffer-size 0)
+
+   ;; eglot format is hard to get to work well, so we use prettier for js and ts
+   (defun prettify-or-eglot-format-buffer ()
+     (interactive)
+     (if (derived-mode-p 'typescript-mode 'js-mode 'js-jsx-mode 'tsx-mode)
+	 (prettier-prettify)
+       (eglot-format-buffer)))
+
    (transient-define-prefix g/eglot-transient ()
      ["Buffer"
-      ("f" "format" eglot-format-buffer)
+      ("f" "format" prettify-or-eglot-format-buffer)
       ("u" "execute action" eglot-code-actions)
       ("h" "diagnostics" consult-flymake)]
      ["Server"

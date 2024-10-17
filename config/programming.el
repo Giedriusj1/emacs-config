@@ -15,7 +15,7 @@
 			     ("Cargo.lock" . conf-toml-mode))
    :ensure nil)
 
- (g/up typescript-ts-mode :mode ("\\.ts\\'" . typescript-ts-mode) :ensure nil)
+
 
  (g/up cargo)
 
@@ -66,26 +66,23 @@
 (g/up json-js-mode :ensure nil :mode ("\\.json\\'" . json-ts-mode))
 
 (on-linux
+
+ (g/up prettier)
+
  (g/up js-ts-mode :ensure nil
    :mode (("\\.js\\'" . js-ts-mode)
 	  ("\\.tsx\\'" . tsx-ts-mode)
-	  )
+	  ("\\.ts\\'" . typescript-ts-mode))
    :config
-   ;; (add-hook 'js-ts-mode-hook
-	 ;;     (lambda()
-	 ;;       (setq indent-tabs-mode nil)
-	 ;;       (setq js-indent-level 2)
-	 ;;       (setq tab-width 2)))
-
-   ;; add to multiple hooks
-   (dolist (hook '(js-ts-mode-hook tsx-ts-mode-hook))
+   (dolist (hook '(js-ts-mode-hook tsx-ts-mode-hook typescript-ts-mode-hook))
      (add-hook hook
 	       (lambda()
-	       (setq indent-tabs-mode nil)
-	       (setq js-indent-level 2)
-	       (setq tab-width 2))))
-
-   ))
+		 (progn
+		   (setq indent-tabs-mode nil)
+		   (setq js-indent-level 2)
+		   (setq tab-width 2)
+		   )
+		 )))))
 
 (on-linux (g/up npm))
 
