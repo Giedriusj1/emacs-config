@@ -2,7 +2,7 @@
 
 (on-linux
  (g/up eglot :ensure nil
-   :bind ( :map tab-map ("o" . g/eglot-transient))
+   :bind (:map tab-map ("o" . g/eglot-transient))
    :init
    ;; enable by default on high memory machines
    (when (> (string-to-number (shell-command-to-string "free -m | awk '/^Mem/ {print $2}'")) 32000)
@@ -27,13 +27,16 @@
    :config
    (setq eglot-events-buffer-size 0)
 
-
    (defun prettify-or-eglot-format-buffer ()
      (interactive)
-     ;; eglot format is hard to get to work well, so we use prettier for js and ts
-     (if (derived-mode-p 'typescript-mode 'typescript-ts-mode 'js-mode 'js-jsx-mode 'tsx-mode)
-	 (prettier-prettify)
-       (eglot-format-buffer)))
+     (cond
+      ((derived-mode-p 'typescript-mode 'typescript-ts-mode 'js-mode 'js-jsx-mode 'tsx-mode)
+       (prettier-prettify))
+      ((derived-mode-p 'emacs-lisp-mode)
+       (indent-region (point-min) (point-max)))
+      (t
+       (eglot-format-buffer))))
+
 
    (transient-define-prefix g/eglot-transient ()
      ["Buffer"
