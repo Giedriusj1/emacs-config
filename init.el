@@ -22,7 +22,6 @@
                    "magit.el"
                    "org.el"
                    "private-sync.el"
-		   "lsp.el"
 		   "programming.el"
 		   "sn-modes.el"
 		   "utility.el"
