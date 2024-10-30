@@ -35,6 +35,9 @@
      ["yas"
       ("c" "complete" consult-yasnippet)])))
 
+(g/up go-ts-mode :ensure nil
+  :mode ("\\.go\\'" . go-ts-mode))
+
 (on-linux
  (g/up eglot :ensure nil
    :bind (:map tab-map ("o" . g/eglot-transient))
