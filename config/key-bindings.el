@@ -63,8 +63,8 @@
             ("C-h" . highlight-symbol-at-point)
             ("q" . consult-goto-line)
 
-	    ("C-s" . consult-imenu)
-	    ("s" . consult-imenu-multi)
+            ("C-s" . consult-imenu)
+            ("s" . consult-imenu-multi)
 
             ("C-j" . jump-to-register)
             ("C-q" . consult-goto-line)
@@ -98,39 +98,39 @@
   "Move around swiftly"
   :lighter " === SWIFT ==="
   :keymap (let ((map (make-sparse-keymap)))
-	    ;; movement
-	    (define-key map (kbd "i") (i-lambda () (dotimes (bind 2)
-						     (scroll-down-line)
-						     (previous-line))))
+            ;; movement
+            (define-key map (kbd "i") (i-lambda () (dotimes (bind 2)
+                                                     (scroll-down-line)
+                                                     (previous-line))))
 
-	    (define-key map (kbd "k") (i-lambda () (dotimes (bind 2)
-						     (scroll-up-line)
-						     (next-line))))
+            (define-key map (kbd "k") (i-lambda () (dotimes (bind 2)
+                                                     (scroll-up-line)
+                                                     (next-line))))
 
-	    (define-key map (kbd "o") (i-lambda () (progn
-						     (scroll-down-line)
-						     (previous-line))))
+            (define-key map (kbd "o") (i-lambda () (progn
+                                                     (scroll-down-line)
+                                                     (previous-line))))
 
-	    (define-key map (kbd "l") (i-lambda () (progn
-						     (scroll-up-line)
-						     (next-line))))
+            (define-key map (kbd "l") (i-lambda () (progn
+                                                     (scroll-up-line)
+                                                     (next-line))))
 
-	    (define-key map (kbd "p") 'beginning-of-defun)
-	    (define-key map (kbd "n") 'end-of-defun)
+            (define-key map (kbd "p") 'beginning-of-defun)
+            (define-key map (kbd "n") 'end-of-defun)
 
-	    (define-key map (kbd "u") 'cua-scroll-down)
+            (define-key map (kbd "u") 'cua-scroll-down)
 
-	    (define-key map (kbd "j") 'cua-scroll-up)
+            (define-key map (kbd "j") 'cua-scroll-up)
 
-	    ;; cua mode
-	    (define-key map (kbd "C-z") 'toggle-swift-mode)
-	    (define-key map (kbd "C-x") 'kill-region)
-	    (define-key map (kbd "C-c") 'kill-ring-save)
-	    (define-key map (kbd "C-v") 'yank)
+            ;; cua mode
+            (define-key map (kbd "C-z") 'toggle-swift-mode)
+            (define-key map (kbd "C-x") 'kill-region)
+            (define-key map (kbd "C-c") 'kill-ring-save)
+            (define-key map (kbd "C-v") 'yank)
 
-	    (define-key map (kbd "C-g") 'global-swift-mode)
+            (define-key map (kbd "C-g") 'global-swift-mode)
 
-	    map)
+            map)
 
 
   (if (eq global-swift-mode t)

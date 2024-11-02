@@ -2,10 +2,10 @@
 
 ;; Make sure the windows are always balanced
 (add-hook 'window-configuration-change-hook
-	  (lambda ()
-	    ;; check if we are in ediff mode
-	    (if (not (eq major-mode 'ediff-mode))
-		(balance-windows))))
+          (lambda ()
+            ;; check if we are in ediff mode
+            (if (not (eq major-mode 'ediff-mode))
+                (balance-windows))))
 
 (g/up vertico
   :init
@@ -18,8 +18,8 @@
   (define-key control-semi-map (kbd "C-r") 'vertico-repeat)
 
   (setq vertico-count 25
-	vertico-resize nil
-	vertico-cycle t))
+        vertico-resize nil
+        vertico-cycle t))
 
 (bind-keys* :map minibuffer-local-map ("C-g" . exit-recursive-edit))
 
@@ -45,14 +45,14 @@
        ;; Add isearch-string as initial input if starting from isearch
        :initial (or initial
                     (and isearch-mode
-			 (prog1 isearch-string (isearch-done))))
+                         (prog1 isearch-string (isearch-done))))
        :state (consult--location-state candidates))))
 
   :config
   (setq consult-async-input-throttle 0.1
-	consult-async-refresh-delay 0.1
-	consult-async-input-debounce 0.05
-	consult-async-min-input 0)
+        consult-async-refresh-delay 0.1
+        consult-async-input-debounce 0.05
+        consult-async-min-input 0)
 
   (advice-add #'consult-line
               :around
@@ -61,7 +61,7 @@
 
   (i-defun consult-line-advice (consult-line-function &rest rest)
     (if (use-region-p)
-	(apply consult-line-function
+        (apply consult-line-function
                (buffer-substring (region-beginning) (region-end)) rest)
       (apply consult-line-function
              (thing-at-point 'symbol) rest))))
@@ -77,7 +77,7 @@
 
 (g/up eldoc-mode :ensure nil
   :init
-  (setq max-mini-window-height 3) 	; Make sure the minibuffer docs are sensible in size
+  (setq max-mini-window-height 3)       ; Make sure the minibuffer docs are sensible in size
   (setq eldoc-idle-delay 0.1))
 
 (g/up recentf :ensure nil :demand
@@ -136,17 +136,17 @@
 (setq native-comp-driver-options '("-O2" "-mtune=native"))
 
 (define-key tab-map (kbd "j")
-	    (i-lambda () (cond ((eq 'org-mode major-mode)
-				(g/org-transient))
-			       ((eq 'emacs-lisp-mode major-mode)
-				(g/emacs-lisp-transient))
-			       ((eq 'rust-ts-mode major-mode)
-				(g/rust-transient))
-			       ((eq 'rust-mode major-mode)
-				(g/rust-transient))
-			       ((eq 'g1-mode major-mode)
-				(g/g1-transient))
-			       (t (g/default-transient)))))
+            (i-lambda () (cond ((eq 'org-mode major-mode)
+                                (g/org-transient))
+                               ((eq 'emacs-lisp-mode major-mode)
+                                (g/emacs-lisp-transient))
+                               ((eq 'rust-ts-mode major-mode)
+                                (g/rust-transient))
+                               ((eq 'rust-mode major-mode)
+                                (g/rust-transient))
+                               ((eq 'g1-mode major-mode)
+                                (g/g1-transient))
+                               (t (g/default-transient)))))
 
 (define-key tab-map (kbd ";") 'g/quickopen-transient)
 
@@ -155,8 +155,8 @@
 (transient-define-prefix g/quickopen-transient ()
   ["quickopen"
    ("t"  "~/temp.org" (lambda ()
-			(interactive)
-			(find-file "~/temp.org")))
+                        (interactive)
+                        (find-file "~/temp.org")))
 
 
    ("P"  "~/private-sync/projects/lisp-playground/playground.el"
@@ -165,13 +165,13 @@
       (find-file "~/private-sync/projects/lisp-playground/playground.el")))
 
    ("c"  "~/.emacs.d/init.el" (lambda ()
-				(interactive)
-				(find-file "~/.emacs.d/init.el")))
+                                (interactive)
+                                (find-file "~/.emacs.d/init.el")))
    ("l"  "dired ~/private-sync/" (lambda ()
-				   (interactive)
-				   (progn (zygospore-toggle-delete-other-windows)
-					  (dired "~/private-sync")
-					  (find-file default-directory))))
+                                   (interactive)
+                                   (progn (zygospore-toggle-delete-other-windows)
+                                          (dired "~/private-sync")
+                                          (find-file default-directory))))
    (":"  "grep notes"
     (lambda ()
       (interactive)
@@ -181,8 +181,8 @@
     (lambda ()
       (interactive)
       (let* ((root "~/private-sync")
-	     (pr (project-current nil root)))
-	(project-find-file-in nil (list root) pr nil))))
+             (pr (project-current nil root)))
+        (project-find-file-in nil (list root) pr nil))))
    ])
 
 (g/up project :diminish :ensure nil

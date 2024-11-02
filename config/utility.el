@@ -36,17 +36,17 @@
 (i-defun g/set-github-key-personal()
   (write-region "# personal key
 Host github.com
-	HostName github.com
-	User git
-	IdentityFile ~/.ssh/id_rsa_github_personal" nil "~/.ssh/config"))
+        HostName github.com
+        User git
+        IdentityFile ~/.ssh/id_rsa_github_personal" nil "~/.ssh/config"))
 
 
 (i-defun g/set-github-key-normal()
   (write-region "# default (work) key
 Host github.com
-	HostName github.com
-	User git
-	IdentityFile ~/.ssh/id_rsa" nil "~/.ssh/config"))
+        HostName github.com
+        User git
+        IdentityFile ~/.ssh/id_rsa" nil "~/.ssh/config"))
 
 (i-defun generate-password ()
   (let ((chars "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$&_+[]:.?/")
@@ -80,36 +80,36 @@ Host github.com
  (i-defun g/translate-rus-to-en()
    (progn (g/up google-translate)
 
-	  (setq google-translate-default-target-language "en")
-	  (setq google-translate-default-source-language "ru")
+          (setq google-translate-default-target-language "en")
+          (setq google-translate-default-source-language "ru")
 
-	  (google-translate-at-point)
+          (google-translate-at-point)
 
-	  (setq google-translate-default-target-language nil)
-	  (setq google-translate-default-source-language nil)))
+          (setq google-translate-default-target-language nil)
+          (setq google-translate-default-source-language nil)))
 
  (i-defun g/org-publish-all-force ()
    (progn (g/up htmlize)
-	  (require 'htmlize)
+          (require 'htmlize)
 
-	  (require 'ox-publish)
-	  ;; default one would pick source colours from my current theme...
-	  (setq org-html-htmlize-output-type 'css)
+          (require 'ox-publish)
+          ;; default one would pick source colours from my current theme...
+          (setq org-html-htmlize-output-type 'css)
 
-	  (setq org-publish-project-alist
-		'(("org-blog"
-		   :base-directory "~/private-sync/blog/"
-		   :base-extension "org"
-		   :publishing-directory "~/prog/giedriusj1.github.io"
-		   :recursive t
-		   :publishing-function org-html-publish-to-html
-		   :headline-levels 4             ; Just the default for this project.
-		   :auto-preamble nil )
-		  ("org-static"
-		   :base-directory "~/private-sync/blog/"
-		   :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
-		   :publishing-directory "~/prog/giedriusj1.github.io"
-		   :recursive t
-		   :publishing-function org-publish-attachment)))
+          (setq org-publish-project-alist
+                '(("org-blog"
+                   :base-directory "~/private-sync/blog/"
+                   :base-extension "org"
+                   :publishing-directory "~/prog/giedriusj1.github.io"
+                   :recursive t
+                   :publishing-function org-html-publish-to-html
+                   :headline-levels 4             ; Just the default for this project.
+                   :auto-preamble nil )
+                  ("org-static"
+                   :base-directory "~/private-sync/blog/"
+                   :base-extension "css\\|js\\|png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+                   :publishing-directory "~/prog/giedriusj1.github.io"
+                   :recursive t
+                   :publishing-function org-publish-attachment)))
 
-	  (org-publish-all t))))
+          (org-publish-all t))))

@@ -6,9 +6,9 @@
 ;; On Windows system we'll just ignore signatures altogether...
 ;; too much hassle.
 (on-windows (setq package-check-signature nil)
-	    (unless (package-installed-p 'use-package)
-	      (progn (package-refresh-contents)
-		     (package-install 'use-package))))
+            (unless (package-installed-p 'use-package)
+              (progn (package-refresh-contents)
+                     (package-install 'use-package))))
 
 (require 'use-package) (defalias 'g/up 'use-package)
 
@@ -22,10 +22,10 @@
                    "magit.el"
                    "org.el"
                    "private-sync.el"
-		   "programming.el"
-		   "sn-modes.el"
-		   "utility.el"
-		   "ai.el"))
+                   "programming.el"
+                   "sn-modes.el"
+                   "utility.el"
+                   "ai.el"))
 
   (measure-time (load (concat "~/.emacs.d/config/" element))))
 
@@ -33,4 +33,4 @@
     (load "~/private-sync/private.el"))
 
 (message (concat (format "Emacs took %.2f seconds to start" (float-time (time-subtract after-init-time before-init-time)))
-		 (if (fboundp 'native-compile-async) " With native compiler!")))
+                 (if (fboundp 'native-compile-async) " With native compiler!")))

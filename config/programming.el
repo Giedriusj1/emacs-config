@@ -1,10 +1,13 @@
 ;;; -*- lexical-binding: t -*-
 
+(setq-default indent-tabs-mode nil)
+(setq tab-always-indent 'complete)
+
 (on-linux
  (g/up corfu
    :bind (:map control-semi-map
                (("n" . completion-at-point)
-		("C-n" . dabbrev-expand)))
+                ("C-n" . dabbrev-expand)))
    :init
    (global-corfu-mode)
    (corfu-popupinfo-mode)
@@ -12,7 +15,7 @@
    (setq corfu-count 20))
 
  (g/up conf-toml-mode :mode (("\\.toml\\'" . conf-toml-mode)
-			     ("Cargo.lock" . conf-toml-mode))
+                             ("Cargo.lock" . conf-toml-mode))
    :ensure nil)
 
  (g/up cargo)
@@ -22,7 +25,7 @@
 
  (g/up rust-ts-mode :ensure nil
    :mode ("\\.rs\\'" . rust-ts-mode)
-   :init (require 'rust-compile) 	; Give cargo-process links to source files
+   :init (require 'rust-compile)        ; Give cargo-process links to source files
    :config
    (transient-define-prefix g/rust-transient ()
      ["cargo"
@@ -50,6 +53,8 @@
      (add-hook 'c++-ts-mode 'eglot-ensure)
      (add-hook 'c-mode-hook 'eglot-ensure)
      (add-hook 'c-ts-mode-hook 'eglot-ensure)
+
+     (add-hook 'go-ts-mode-hook 'eglot-ensure)
 
      ;; js and ts
      (add-hook 'typescript-mode-hook 'eglot-ensure)
@@ -125,18 +130,18 @@
 
  (g/up js-ts-mode :ensure nil
    :mode (("\\.js\\'" . js-ts-mode)
-	  ("\\.tsx\\'" . tsx-ts-mode)
-	  ("\\.ts\\'" . typescript-ts-mode))
+          ("\\.tsx\\'" . tsx-ts-mode)
+          ("\\.ts\\'" . typescript-ts-mode))
    :config
    (dolist (hook '(js-ts-mode-hook tsx-ts-mode-hook typescript-ts-mode-hook))
      (add-hook hook
-	       (lambda()
-		 (progn
-		   (setq indent-tabs-mode nil)
-		   (setq js-indent-level 2)
-		   (setq tab-width 2)
-		   )
-		 )))))
+               (lambda()
+                 (progn
+                   (setq indent-tabs-mode nil)
+                   (setq js-indent-level 2)
+                   (setq tab-width 2)
+                   )
+                 )))))
 
 (on-linux (g/up npm))
 
@@ -166,7 +171,7 @@
 
 (g/up sh-script :ensure nil
   :mode (("\\.sh\\'" . sh-mode)
-	 ("bashrc\\'" . sh-mode)))
+         ("bashrc\\'" . sh-mode)))
 
 ;; (g/up cmake-mode
 ;;   :mode ("\\CMakeLists.txt$" . cmake-mode))
@@ -182,17 +187,17 @@
 
 (g/up asm-mode :ensure nil
   :mode (("\\.s\\'" . asm-mode)
-	 ("\\.S\\'" . asm-mode)))
+         ("\\.S\\'" . asm-mode)))
 
 (on-windows
  (g/up cc-mode :ensure nil
    :mode (("\\.c\\'" . c-mode)
-	  ("\\.cc\\'" . c-mode)
-	  ("\\.cpp\\'" . c++-mode)
-	  ("\\.h\\'" . c++-mode)
-	  ("\\.hh\\'" . c++-mode)
-	  ("\\.hpp\\'" . c++-mode)
-	  ("\\.mc\\'" . c++-mode))
+          ("\\.cc\\'" . c-mode)
+          ("\\.cpp\\'" . c++-mode)
+          ("\\.h\\'" . c++-mode)
+          ("\\.hh\\'" . c++-mode)
+          ("\\.hpp\\'" . c++-mode)
+          ("\\.mc\\'" . c++-mode))
    :config
    (add-hook 'c-mode-common-hook
              (lambda()
@@ -201,12 +206,12 @@
 (on-linux
  (g/up c-ts-mode :ensure nil
    :mode (("\\.c\\'" . c-ts-mode)
-	  ("\\.cc\\'" . c-ts-mode)
-	  ("\\.cpp\\'" . c++-ts-mode)
-	  ("\\.h\\'" . c++-ts-mode)
-	  ("\\.hh\\'" . c++-ts-mode)
-	  ("\\.hpp\\'" . c++-ts-mode)
-	  ("\\.mc\\'" . c++-ts-mode))
+          ("\\.cc\\'" . c-ts-mode)
+          ("\\.cpp\\'" . c++-ts-mode)
+          ("\\.h\\'" . c++-ts-mode)
+          ("\\.hh\\'" . c++-ts-mode)
+          ("\\.hpp\\'" . c++-ts-mode)
+          ("\\.mc\\'" . c++-ts-mode))
    :config
    (add-hook 'c-ts-mode-hook
              (lambda()
@@ -253,8 +258,8 @@
 
 (g/up xml-mode :ensure nil
   :mode (("\\.xml\\'" . xml-mode)
-	 ("\\.pom\\'" . xml-mode)
-	 ("\\.sql\\'" . sql-mode)))
+         ("\\.pom\\'" . xml-mode)
+         ("\\.sql\\'" . sql-mode)))
 
 (add-hook 'scheme-mode-hook
           (lambda()
@@ -272,5 +277,5 @@
    ("c" "complete" consult-yasnippet)])
 
 (add-hook 'emacs-lisp-mode-hook
-	  (lambda ()
-	    (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
+          (lambda ()
+            (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
