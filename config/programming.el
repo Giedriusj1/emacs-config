@@ -207,15 +207,56 @@
  (g/up c-ts-mode :ensure nil
    :mode (("\\.c\\'" . c-ts-mode)
           ("\\.cc\\'" . c-ts-mode)
+          ;; ("\\.cpp\\'" . c++-ts-mode)
+          ;; ("\\.h\\'" . c++-ts-mode)
+          ;; ("\\.hh\\'" . c++-ts-mode)
+          ;; ("\\.hpp\\'" . c++-ts-mode)
+          ;; ("\\.mc\\'" . c++-ts-mode)
+          )
+   :config
+   (add-hook 'c-ts-mode-hook
+             (lambda()
+               (setq comment-start "//" comment-end  ""))))
+
+
+ (g/up c++-ts-mode :ensure nil
+   :mode (;; ("\\.c\\'" . c-ts-mode)
+          ;; ("\\.cc\\'" . c-ts-mode)
           ("\\.cpp\\'" . c++-ts-mode)
           ("\\.h\\'" . c++-ts-mode)
           ("\\.hh\\'" . c++-ts-mode)
           ("\\.hpp\\'" . c++-ts-mode)
           ("\\.mc\\'" . c++-ts-mode))
    :config
-   (add-hook 'c-ts-mode-hook
-             (lambda()
-               (setq comment-start "//" comment-end  "")))))
+
+
+(transient-define-prefix g/c++-transient ()
+  ["compile"
+   ("r" "compile and run"
+    (lambda () (interactive) (compile (concat "clang++ -g -std=c++17 -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
+      )
+
+    )
+
+   ("A" "compile and run + ASAN"
+    (lambda () (interactive) (compile (concat "clang++ -fsanitize=address -std=c++17 -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
+      )
+
+    )
+
+   ("R" "compile and run all checks"
+    (lambda () (interactive) (compile (concat "clang++ -std=c++17 -Wall -Wextra -Werror -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
+      )
+
+    )
+   ]
+
+  ["yas"
+   ("c" "complete" consult-yasnippet)])
+
+   )
+
+ )
 
 ;; create major mode for editing .g1 files that extends emacs-lisp-mode
 (define-derived-mode g1-mode emacs-lisp-mode "g1"
