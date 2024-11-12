@@ -206,13 +206,7 @@
 (on-linux
  (g/up c-ts-mode :ensure nil
    :mode (("\\.c\\'" . c-ts-mode)
-          ("\\.cc\\'" . c-ts-mode)
-          ;; ("\\.cpp\\'" . c++-ts-mode)
-          ;; ("\\.h\\'" . c++-ts-mode)
-          ;; ("\\.hh\\'" . c++-ts-mode)
-          ;; ("\\.hpp\\'" . c++-ts-mode)
-          ;; ("\\.mc\\'" . c++-ts-mode)
-          )
+          ("\\.cc\\'" . c-ts-mode))
    :config
    (add-hook 'c-ts-mode-hook
              (lambda()
@@ -220,9 +214,7 @@
 
 
  (g/up c++-ts-mode :ensure nil
-   :mode (;; ("\\.c\\'" . c-ts-mode)
-          ;; ("\\.cc\\'" . c-ts-mode)
-          ("\\.cpp\\'" . c++-ts-mode)
+   :mode (("\\.cpp\\'" . c++-ts-mode)
           ("\\.h\\'" . c++-ts-mode)
           ("\\.hh\\'" . c++-ts-mode)
           ("\\.hpp\\'" . c++-ts-mode)
