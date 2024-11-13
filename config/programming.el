@@ -222,33 +222,46 @@
    :config
 
 
-(transient-define-prefix g/c++-transient ()
-  ["compile"
-   ("r" "compile and run"
-    (lambda () (interactive) (compile (concat "clang++ -g -std=c++17 -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
-      )
+   (setq read-process-output-max (* 4 1024 1024))
+   (setq process-adaptive-read-buffering nil)
 
-    )
+   (transient-define-prefix g/c++-transient ()
+     ["compile"
+      ("r" "compile and run"
+       (lambda ()
+         (interactive)
+         (let ((command (concat "clang++ -lfmt -fuse-ld=mold -g -O0 -std=c++17 -o "
+                                (file-name-sans-extension (buffer-file-name))
+                                " "
+                                (buffer-file-name)
+                                " && "
+                                (file-name-sans-extension (buffer-file-name))
+                                " 2>&1")))
+           (compile command)))
+       )
 
-   ("A" "compile and run + ASAN"
-    (lambda () (interactive) (compile (concat "clang++ -fsanitize=address -std=c++17 -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
-      )
+      ("A" "compile and run + ASAN"
+       (lambda () (interactive) (compile (concat "clang++ -fsanitize=address -std=c++23 -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
+         )
 
-    )
+       )
 
-   ("R" "compile and run all checks"
-    (lambda () (interactive) (compile (concat "clang++ -std=c++17 -Wall -Wextra -Werror -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
-      )
+      ("R" "compile and run all checks"
+       (lambda () (interactive) (compile (concat "clang++ -std=c++20 -Wall -Wextra -Werror -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
+         )
 
-    )
-   ]
+       )
+      ]
 
-  ["yas"
-   ("c" "complete" consult-yasnippet)])
+     ["yas"
+      ("c" "complete" consult-yasnippet)])
 
    )
 
  )
+
+(use-package ansi-color
+    :hook (compilation-filter . ansi-color-compilation-filter))
 
 ;; create major mode for editing .g1 files that extends emacs-lisp-mode
 (define-derived-mode g1-mode emacs-lisp-mode "g1"
