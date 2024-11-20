@@ -20,6 +20,14 @@
 
  (g/up cargo)
 
+ (defun cargo-process-clippy-tests ()
+   (interactive)
+   (cargo-process--start "Clippy"
+                         "clippy --tests"
+                         nil
+                         nil
+                         cargo-process--command-clippy--additional-args))
+
  ;; Only want to load it for rust-compile.el
  (g/up rust-mode)
 
@@ -261,7 +269,7 @@
  )
 
 (use-package ansi-color
-    :hook (compilation-filter . ansi-color-compilation-filter))
+  :hook (compilation-filter . ansi-color-compilation-filter))
 
 ;; create major mode for editing .g1 files that extends emacs-lisp-mode
 (define-derived-mode g1-mode emacs-lisp-mode "g1"
