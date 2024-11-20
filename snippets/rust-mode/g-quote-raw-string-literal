@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-quote-raw-string-literal
+# key: g-quote-raw-string-literal
+# --
+let str = r#""#;
