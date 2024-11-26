@@ -1,5 +1,12 @@
 ;;; -*- lexical-binding: t -*-
 
+(use-package doom-modeline
+  :ensure t
+  :init (doom-modeline-mode 1))
+
+(use-package all-the-icons-dired
+  :init (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+
 ;; Make sure the windows are always balanced
 (add-hook 'window-configuration-change-hook
           (lambda ()
