@@ -4,8 +4,8 @@
   :ensure t
   :init (doom-modeline-mode 1))
 
-(use-package all-the-icons-dired
-  :init (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
+;; (use-package all-the-icons-dired
+;;   :init (add-hook 'dired-mode-hook 'all-the-icons-dired-mode))
 
 ;; Make sure the windows are always balanced
 (add-hook 'window-configuration-change-hook
@@ -233,7 +233,7 @@
   :config
   (require 'dired-x)
 
-  (set-face-foreground 'dired-directory "LightSlateBlue" )
+  ;; (set-face-foreground 'dired-directory "LightSlateBlue" )
 
   ;; Most of the above were taken from Thierry Volpiato's dired-extension.el
   (setq dired-font-lock-keywords
@@ -250,7 +250,7 @@
 
          ;; Symbolic links.
          (list dired-re-sym ;"\\([^ ]+\\) -> [^ ]+$"
-	       '(".+" (dired-move-to-filename) nil (0 dired-symlink-face)))
+               '(".+" (dired-move-to-filename) nil (0 dired-symlink-face)))
 
          ;; Flagged files or not yet saved (.# or #.#)
          (list "\\(^..*-\\).*\\( [0-9:]* \\)\\(\.?#.*#?\\)$" '(3 dired-symlink-face))
@@ -264,32 +264,33 @@
 
          ;; Subdirectories.
          (list dired-re-dir
-	       '(".+" (dired-move-to-filename) nil (0 dired-directory-face)))
+               '(".+" (dired-move-to-filename) nil (0 dired-directory-face)))
 
          ;; Files suffixed with `completion-ignored-extensions'.
          '(eval .
                 ;; It is quicker to first find just an extension, then go back to the
                 ;; start of that file name.  So we do this complex MATCH-ANCHORED form.
                 (list (concat "\\(" (regexp-opt completion-ignored-extensions) "\\|#\\)$")
-	              '(".+" (dired-move-to-filename) nil (0 dired-ignored-face))))
+                      '(".+" (dired-move-to-filename) nil (0 dired-ignored-face))))
          ;; plus a character put in by -F.
          '(eval .
                 (list (concat "\\(" (regexp-opt completion-ignored-extensions)
-		              "\\|#\\)[*=|]$")
-	              '(".+" (progn
-		               (end-of-line)
-		               ;; If the last character is not part of the filename,
-		               ;; move back to the start of the filename
-		               ;; so it can be fontified.
-		               ;; Otherwise, leave point at the end of the line;
-		               ;; that way, nothing is fontified.
-		               (unless (get-text-property (1- (point)) 'mouse-face)
-		                 (dired-move-to-filename)))
-	                nil (0 dired-ignored-face))))
+        	              "\\|#\\)[*=|]$")
+                      '(".+" (progn
+        	               (end-of-line)
+        	               ;; If the last character is not part of the filename,
+        	               ;; move back to the start of the filename
+        	               ;; so it can be fontified.
+        	               ;; Otherwise, leave point at the end of the line;
+        	               ;; that way, nothing is fontified.
+        	               (unless (get-text-property (1- (point)) 'mouse-face)
+        	                 (dired-move-to-filename)))
+                        nil (0 dired-ignored-face))))
 
          ;; Regular file names.
-         (list "\\(^..*-\\).*\\( [0-9:]* \\)\\(.*\\)$"
-               '(".+" (dired-move-to-filename) nil (0 '((:foreground "yellow")))))
+         ;; (list "\\(^..*-\\).*\\( [0-9:]* \\)\\(.*\\)$"
+         ;;       '(".+" (dired-move-to-filename) nil (0 '((:foreground "yellow")))))
+
          ;; '(".+" (dired-move-to-filename) nil (0 '((:foreground "Dodgerblue3")))))
 
          ;; Filenames extensions.
