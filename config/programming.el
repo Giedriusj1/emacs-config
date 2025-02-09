@@ -20,14 +20,6 @@
 
  (g/up cargo)
 
- (defun cargo-process-clippy-tests ()
-   (interactive)
-   (cargo-process--start "Clippy"
-                         "clippy --tests"
-                         nil
-                         nil
-                         cargo-process--command-clippy--additional-args))
-
  ;; Only want to load it for rust-compile.el
  (g/up rust-mode)
 
@@ -35,14 +27,29 @@
    :mode ("\\.rs\\'" . rust-ts-mode)
    :init (require 'rust-compile)        ; Give cargo-process links to source files
    :config
+
+   (defun cargo-process-clippy-tests ()
+     (interactive)
+     (cargo-process--start "Clippy"
+                           "clippy --tests"
+                           nil
+                           nil
+                           cargo-process--command-clippy--additional-args))
+
+   (transient-define-prefix g/rust-transient-tests ()
+     ["cargo test"
+      ("t" "all file" cargo-process-current-file-tests)
+      ("T" "current test" cargo-process-current-test)
+      ("a" "all" cargo-process-test)
+      ("c" "clippy tests" cargo-process-clippy-tests)])
+
    (transient-define-prefix g/rust-transient ()
      ["cargo"
       ("C" "clean" cargo-process-clean)
       ("r" "run" cargo-process-run)
       ("b" "build" cargo-process-build)
       ("SPC" "check" cargo-process-check)
-      ("t" "test all" cargo-process-test)
-      ("T" "test current test" cargo-process-current-test)]
+      ("t" "test" g/rust-transient-tests)]
      ["yas"
       ("c" "complete" consult-yasnippet)])))
 
