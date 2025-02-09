@@ -3,18 +3,19 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-	backward-sexp
-	c-electric-pound
-	c-electric-semi&comma
-	comment-region
-	cua-copy-handler
-	cua-paste
-	forward-sexp
-	indent-for-tab-command
-	org-delete-char
-	org-end-of-line
-	))
+        backward-sexp
+        c-electric-pound
+        c-electric-semi&comma
+        comment-region
+        cua-copy-handler
+        cua-paste
+        forward-sexp
+        indent-for-tab-command
+        org-delete-char
+        org-end-of-line
+        yaml-electric-dash-and-dot
+        ))
 
 (setq mc/cmds-to-run-once
       '(
-	))
+        ))
