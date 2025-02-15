@@ -25,8 +25,8 @@
 
  (g/up rust-ts-mode :ensure nil
    :mode ("\\.rs\\'" . rust-ts-mode)
-   :init (require 'rust-compile)        ; Give cargo-process links to source files
    :config
+   (require 'rust-compile)        ; Give cargo-process links to source files
 
    (defun cargo-process-clippy-tests ()
      (interactive)
