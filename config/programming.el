@@ -275,6 +275,10 @@
 
  )
 
+(use-package project
+  :init
+  (setq project-vc-extra-root-markers '("Cargo.toml")))
+
 (use-package ansi-color
   :hook (compilation-filter . ansi-color-compilation-filter))
 
