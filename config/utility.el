@@ -51,10 +51,10 @@ Host github.com
 (i-defun generate-password ()
   (let ((chars "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$&_+[]:.?/")
         (password ""))
-    (dotimes (i 32 password)
+    (dotimes (i 32)
       (setq password (concat password (char-to-string (elt chars (random (length chars)))))))
+    (insert password)))
 
-    (message password)))
 
 (i-defun google-selected-text ()
   (let ((selected-text (if (region-active-p)
