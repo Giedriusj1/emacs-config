@@ -77,21 +77,20 @@ Host github.com
 (bind-keys* ( "C-`" . create-shell-here))
 
 (on-linux
- (defun g/cargo-new-without-git ()
-   (interactive)
-   (let ((dir (if (derived-mode-p 'dired-mode)
-                  (dired-current-directory)
-                default-directory)))
+ (i-defun g/cargo-new-without-git ()
+   (unless (derived-mode-p 'dired-mode)
+     (error "This command must be run from a Dired buffer"))
+   (let ((dir (dired-current-directory)))
      ;; Run cargo init --vcs none in the directory.
      (shell-command (format "cd %s && cargo init --vcs none"
                             (shell-quote-argument dir)))
      ;; Create .gitignore file with the content "target/".
      (with-temp-file (expand-file-name ".gitignore" dir)
        (insert "target/\n"))
-     ;; If running in a Dired buffer, refresh it.
-     (when (derived-mode-p 'dired-mode)
-       (revert-buffer))
+     ;; Refresh the Dired buffer.
+     (revert-buffer)
      (message "Initialized Cargo project without Git in %s" dir)))
+
 
  (i-defun g/translate-rus-to-en()
    (progn (g/up google-translate)
