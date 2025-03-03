@@ -1,0 +1,20 @@
+# -*- mode: snippet -*-
+# name: g-gtest-template
+# key: g-gtest-template
+# --
+
+#include <gtest/gtest.h>
+
+// Test case using ASSERT_EQ and EXPECT_EQ
+TEST(AdditionTest, BasicAssertions) {
+
+  ASSERT_EQ(1, 1);
+
+  ASSERT_TRUE(1);
+}
+
+// Main function to run all tests.
+int main(int argc, char **argv) {
+  ::testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
+}

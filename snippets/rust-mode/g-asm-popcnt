@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-asm-popcnt
+# key: g-asm-popcnt
+# --
+unsafe { core::arch::x86_64::_popcnt32(n) }
