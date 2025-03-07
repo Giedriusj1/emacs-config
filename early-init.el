@@ -79,17 +79,20 @@
 
 (setq-default frame-title-format
               '(:eval
-                (if (>= 1 (length (tab-bar-tabs)))
-                    (format "%s %s" (buffer-name)
-                            (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
-                                  (dired-directory (concat "{" dired-directory "}"))
-                                  (t "[no file]")))
-                  (mapcar (i-lambda (tab)
-			    (let ((tab-name (alist-get 'name tab)))
-			      (if (eq (car tab) 'current-tab)
-				  (format " [ %s ☀️ ] " tab-name)
-				(format  " %s "tab-name ))  ))
-			  (tab-bar-tabs)))))
+                (format "%s%s%s"
+                        (if (bound-and-true-p eglot--managed-mode) "🌐 " "" )
+                        (if (bound-and-true-p copilot-mode) "🚀 "  "")
+                        (if (>= 1 (length (tab-bar-tabs)))
+                            (format "%s %s" (buffer-name)
+                                    (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
+                                          (dired-directory (concat "{" dired-directory "}"))
+                                          (t "[no file]")))
+                          (mapcar (i-lambda (tab)
+			            (let ((tab-name (alist-get 'name tab)))
+			              (if (eq (car tab) 'current-tab)
+				          (format " [ %s ☀️ ] " tab-name)
+				        (format  " %s "tab-name ))  ))
+			          (tab-bar-tabs))))))
 
 (modify-all-frames-parameters '((vertical-scroll-bars . nil)))
 
