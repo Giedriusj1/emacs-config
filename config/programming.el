@@ -245,7 +245,7 @@
       ("r" "compile and run"
        (lambda ()
          (interactive)
-         (let ((command (concat "clang++ -lfmt -fuse-ld=mold -g -O0 -std=c++17 -o "
+         (let ((command (concat "clang++ -lgtest -lgtest_main -pthread -g -O0 -std=c++17 -o "
                                 (file-name-sans-extension (buffer-file-name))
                                 " "
                                 (buffer-file-name)
