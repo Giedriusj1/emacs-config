@@ -307,8 +307,8 @@
   (interactive)
   (let ((file (buffer-file-name)))
     (if debug
-        (async-shell-command (concat "cd /home/giedrius/prog/g1 && cargo run " file))
-      (async-shell-command (concat "cd /home/giedrius/prog/g1 && cargo run --release " file)))
+        (async-shell-command (concat "cd /home/giedrius/prog/GITHUB_GiedriusJ1/g1 && cargo run " file))
+      (async-shell-command (concat "cd /home/giedrius/prog/GITHUB_GiedriusJ1/g1 && cargo run --release " file)))
     ;; (switch-to-buffer-other-window "*Async Shell Command Output*")
     ))
 
