@@ -3,6 +3,9 @@
 (on-linux
  (g/up copilot
    :init
+
+   (defalias 'cop 'copilot-mode)
+
    (dolist (mode '(prog-mode-hook text-mode-hook))
      (add-hook
       mode
