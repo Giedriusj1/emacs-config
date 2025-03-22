@@ -256,7 +256,7 @@
        )
 
       ("A" "compile and run + ASAN"
-       (lambda () (interactive) (compile (concat "clang++ -fsanitize=address -std=c++23 -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
+       (lambda () (interactive) (compile (concat "clang++ -lgtest -lgtest_main -pthread -fsanitize=address -std=c++23 -o " (file-name-sans-extension (buffer-file-name)) " " (buffer-file-name) " && " (file-name-sans-extension (buffer-file-name))))
          )
 
        )
