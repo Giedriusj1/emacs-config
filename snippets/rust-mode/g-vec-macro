@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-vec-macro
+# key: v
+# --
+vec![$0]

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-to-string
+# key: ts
+# --
+.to_string()
