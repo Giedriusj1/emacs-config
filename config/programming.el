@@ -191,8 +191,8 @@
   :mode (("\\.sh\\'" . sh-mode)
          ("bashrc\\'" . sh-mode)))
 
-;; (g/up cmake-mode
-;;   :mode ("\\CMakeLists.txt$" . cmake-mode))
+(g/up cmake-ts-mode
+  :mode ("\\CMakeLists.txt$" . cmake-ts-mode))
 
 (g/up makefile-mode :ensure nil
   :mode (("[Mm]ake[Ff]ile\\'" . makefile-mode)
