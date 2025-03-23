@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: sort-lambda
+# key: srtl
+# --
+std::sort(std::begin(${1:container}), std::end($1),
+                                      [](auto a, auto b) { $0 return a < b; });
+
