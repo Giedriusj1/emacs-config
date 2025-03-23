@@ -60,6 +60,9 @@
  (g/up eglot :ensure nil
    :bind (:map tab-map ("o" . g/eglot-transient))
    :init
+
+   (defalias 'eg 'eglot)
+
    ;; enable by default on high memory machines
    (when (> (string-to-number (shell-command-to-string "free -m | awk '/^Mem/ {print $2}'")) 32000)
      (add-hook 'python-mode-hook 'eglot-ensure)
