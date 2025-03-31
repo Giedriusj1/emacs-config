@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: g-into-iter-delegate-vec
+# key: g-into-iter-delegate-vec
+# --
+impl IntoIterator for ${1:type} {
+    type Item = ${3:item};
+    type IntoIter = std::vec::IntoIter<${3}>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        self.${2:var}.into_iter()
+    }
+}

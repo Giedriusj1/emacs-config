@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: g-implement-index-trait
+# key: g-implement-index-trait
+# --
+
+impl std::ops::Index<${1:index}> for ${3:struct_name} {
+    type Output = ${2:output_type};
+
+    fn index(&self, index: ${1}) -> &Self::Output {
+        todo!()
+    }
+}
