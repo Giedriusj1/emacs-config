@@ -23,6 +23,26 @@
 
 (bind-keys* :map minibuffer-local-map ("C-g" . exit-recursive-edit))
 
+
+
+(g/up avy
+  :bind
+  (("C-M-s" . avy-goto-char-timer)
+   ;; ("C-'" . avy-goto-line-timer)
+   ;; ("C-\"" . avy-goto-word-1-timer)
+   ;; ("C-," . avy-goto-word-0)
+   )
+  :config
+  (setq avy-all-windows t
+        avy-background t
+        avy-style 'pre)
+  ;; (avy-setup-default)
+
+  (setq avy-timeout-seconds 0.2)
+  (setq avy-background t))
+
+
+
 (g/up consult :defer 1
   :init
   (defun consult-line-empty (&optional initial start)
