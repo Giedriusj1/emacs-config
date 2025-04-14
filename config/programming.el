@@ -347,3 +347,11 @@
 (add-hook 'emacs-lisp-mode-hook
           (lambda ()
             (add-hook 'before-save-hook 'delete-trailing-whitespace nil t)))
+
+(defun g/comp-mode()
+  (interactive)
+  ;; enable eglot
+  (eglot-ensure)
+
+  ;; disable copilot-mode
+  (copilot-mode -1))
