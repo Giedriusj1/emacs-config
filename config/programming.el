@@ -56,6 +56,9 @@
 (g/up go-ts-mode :ensure nil
   :mode ("\\.go\\'" . go-ts-mode))
 
+(g/up protobuf-ts-mode :ensure nil
+  :mode ("\\.proto\\'" . protobuf-ts-mode))
+
 (on-linux
  (g/up eglot :ensure nil
    :bind (:map tab-map ("o" . g/eglot-transient))
