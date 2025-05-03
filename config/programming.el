@@ -56,7 +56,7 @@
 (g/up go-ts-mode :ensure nil
   :mode ("\\.go\\'" . go-ts-mode))
 
-(g/up protobuf-ts-mode :ensure nil
+(g/up protobuf-ts-mode
   :mode ("\\.proto\\'" . protobuf-ts-mode))
 
 (on-linux
