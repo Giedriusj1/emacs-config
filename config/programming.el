@@ -119,20 +119,8 @@
 
 (on-windows
  (g/up powershell :mode ("\\.ps1\\'" . powershell-mode))
- ;; Try to set an appropriate identation size
- (add-hook 'find-file-hook
-           (lambda ()
-             (let ((identation-size
-                    (cond
-                     ;; EAS expects 3
-                     ((string-match  "^c:/workspace/src" buffer-file-name) 3)
-                     ;; smartblock-paren uses 2
-                     ((string-match "^c:/workspace/resilient/smartblock-parent" buffer-file-name) 2)
-                     ;; Everything else gets a sane default of 4
-                     (t 4))))
-               (progn
-                 (setq c-basic-offset identation-size c-default-style "linux")
-                 (setq tab-width identation-size indent-tabs-mode nil))))))
+ (setq c-basic-offset identation-size c-default-style "linux")
+ (setq tab-width identation-size indent-tabs-mode nil))
 
 (g/up yasnippet
   :ensure consult-yasnippet
