@@ -23,8 +23,6 @@
 
 (bind-keys* :map minibuffer-local-map ("C-g" . exit-recursive-edit))
 
-
-
 (g/up avy
   :bind
   (("C-M-s" . avy-goto-char-timer)
@@ -86,11 +84,11 @@
       (apply consult-line-function
              (thing-at-point 'symbol) rest))))
 
-(g/up marginalia
+(g/up marginalia :defer nil
   :bind (:map minibuffer-local-map ("C-l" . marginalia-cycle))
   :init (marginalia-mode))
 
-(g/up orderless
+(g/up orderless :defer nil
   :custom
   (completion-styles '(orderless basic))
   (completion-category-overrides '((file (styles basic partial-completion)))))
