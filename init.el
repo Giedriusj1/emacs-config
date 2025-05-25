@@ -23,7 +23,6 @@
                    "org.el"
                    "private-sync.el"
                    "programming.el"
-                   "sn-modes.el"
                    "utility.el"
                    "ai.el"))
 
