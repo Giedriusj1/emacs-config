@@ -134,7 +134,6 @@
 (g/up json-js-mode :ensure nil :mode ("\\.json\\'" . json-ts-mode))
 
 (on-linux
-
  (g/up prettier)
 
  (g/up js-ts-mode :ensure nil
@@ -161,7 +160,6 @@
 (on-linux
  (g/up dockerfile-ts-mode
    :mode ("[Dd]ockerfile\\'" . dockerfile-ts-mode)))
-
 
 (g/up markdown-mode :ensure nil
   :mode ("\\.md\\'" . markdown-mode))
@@ -190,9 +188,10 @@
          ("\\Makefile.conf\\'" . makefile-mode)
          ("\\.mak\\'" . makefile-mode)))
 
-(g/up bat-mode :ensure nil
-  :mode (("\\.bat\\'" . bat-mode)
-         ("\\.cmd\\'" . bat-mode)))
+(on-windows
+ (g/up bat-mode :ensure nil
+   :mode (("\\.bat\\'" . bat-mode)
+          ("\\.cmd\\'" . bat-mode))))
 
 (g/up asm-mode :ensure nil
   :mode (("\\.s\\'" . asm-mode)

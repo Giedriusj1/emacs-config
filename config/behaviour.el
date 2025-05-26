@@ -33,11 +33,8 @@
   :config
   (setq avy-all-windows t
         avy-background t
-        avy-style 'pre)
-  ;; (avy-setup-default)
-
-  (setq avy-timeout-seconds 0.2)
-  (setq avy-background t))
+        avy-style 'pre
+        avy-timeout-seconds 0.2))
 
 
 
