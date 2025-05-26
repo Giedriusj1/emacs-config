@@ -9,7 +9,11 @@
    (dolist (mode '(prog-mode-hook text-mode-hook))
      (add-hook mode
                (lambda ()
-                 (bind-keys* ( "C-M-i" . copilot-accept-completion))
+                 ;; Set key binding immediately
+                 (bind-keys* ("C-M-i" . copilot-accept-completion))
 
-                 (copilot-mode)
+                 ;; Defer activation of copilot-mode slightly, so it does not interfere
+                 ;; with text rendering
+                 (run-at-time "0.5 sec" nil #'copilot-mode)
+
                  )))))
