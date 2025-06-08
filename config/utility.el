@@ -55,6 +55,39 @@ Host github.com
       (setq password (concat password (char-to-string (elt chars (random (length chars)))))))
     (insert password)))
 
+(i-defun generate-password ()
+  (let* ((letters "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
+         (digits "0123456789")
+         (specials "!@#$&_+[]:.?/")
+         (password-len 20)
+         (num-digits 3)
+         (num-specials 3)
+         (num-letters (- password-len num-digits num-specials))
+         (chars '()))
+
+    ;; Add mostly letters
+    (dotimes (_ num-letters)
+      (push (elt letters (random (length letters))) chars))
+
+    ;; Add some digits
+    (dotimes (_ num-digits)
+      (push (elt digits (random (length digits))) chars))
+
+    ;; Add some special characters
+    (dotimes (_ num-specials)
+      (push (elt specials (random (length specials))) chars))
+
+    ;; Fisher–Yates shuffle
+    (let ((n (length chars)))
+      (dotimes (i n)
+        (let* ((j (+ i (random (- n i))))
+               (tmp (nth i chars)))
+          (setcar (nthcdr i chars) (nth j chars))
+          (setcar (nthcdr j chars) tmp))))
+
+    ;; Insert password
+    (insert (concat chars))))
+
 
 (i-defun google-selected-text ()
   (let ((selected-text (if (region-active-p)
