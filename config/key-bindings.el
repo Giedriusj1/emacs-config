@@ -94,7 +94,7 @@
             ("C-f" . find-file)
             ("C-d" . dired-jump))
 
-(define-minor-mode swift-mode
+(define-minor-mode swiftly-mode
   "Move around swiftly"
   :lighter " === SWIFT ==="
   :keymap (let ((map (make-sparse-keymap)))
@@ -123,20 +123,20 @@
             (define-key map (kbd "j") 'cua-scroll-up)
 
             ;; cua mode
-            (define-key map (kbd "C-z") 'toggle-swift-mode)
+            (define-key map (kbd "C-z") 'toggle-swiftly-mode)
             (define-key map (kbd "C-x") 'kill-region)
             (define-key map (kbd "C-c") 'kill-ring-save)
             (define-key map (kbd "C-v") 'yank)
 
-            (define-key map (kbd "C-g") 'global-swift-mode)
+            (define-key map (kbd "C-g") 'global-swiftly-mode)
 
             map)
 
 
-  (if (eq global-swift-mode t)
+  (if (eq global-swiftly-mode t)
       (custom-set-faces '(cursor ((t (:background "orange")))))
     (custom-set-faces '(cursor ((t (:inherit cursor-orig)))))))
 
-(define-globalized-minor-mode global-swift-mode swift-mode swift-mode)
+(define-globalized-minor-mode global-swiftly-mode swiftly-mode swiftly-mode)
 
-(define-key control-semi-map (kbd "C-f") 'global-swift-mode)
+(define-key control-semi-map (kbd "C-f") 'global-swiftly-mode)
