@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(on-linux
+(on-linux-or-mac
  (g/up copilot :defer nil
    :init
 

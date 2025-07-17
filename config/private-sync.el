@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(on-linux
+(on-linux-or-mac
  (i-defun private-sync-fn ()
    (let* ((default-directory "~/private-sync"))
      (g/message "pulling private-sync repo")

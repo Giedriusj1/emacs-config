@@ -3,7 +3,7 @@
 (setq-default indent-tabs-mode nil)
 (setq tab-always-indent 'complete)
 
-(on-linux
+(on-linux-or-mac
  (g/up corfu
    :bind (:map control-semi-map
                (("n" . completion-at-point)
@@ -22,6 +22,8 @@
 
  ;; Only want to load it for rust-compile.el
  (g/up rust-mode)
+
+ (on-linux
 
  (g/up rust-ts-mode :ensure nil
    :mode ("\\.rs\\'" . rust-ts-mode)
@@ -51,15 +53,55 @@
       ("SPC" "check" cargo-process-check)
       ("t" "test" g/rust-transient-tests)]
      ["yas"
-      ("c" "complete" consult-yasnippet)])))
+      ("c" "complete" consult-yasnippet)]))
+ )
 
-(g/up go-ts-mode :ensure nil
-  :mode ("\\.go\\'" . go-ts-mode))
+ ;; todo: remove duplication
+ (on-mac
 
-(g/up protobuf-ts-mode
-  :mode ("\\.proto\\'" . protobuf-ts-mode))
+ (g/up rust-mode :ensure nil
+   :mode ("\\.rs\\'" . rust-mode)
+   :config
+   (require 'rust-compile)        ; Give cargo-process links to source files
+
+   (defun cargo-process-clippy-tests ()
+     (interactive)
+     (cargo-process--start "Clippy"
+                           "clippy --tests"
+                           nil
+                           nil
+                           cargo-process--command-clippy--additional-args))
+
+   (transient-define-prefix g/rust-transient-tests ()
+     ["cargo test"
+      ("t" "all file" cargo-process-current-file-tests)
+      ("T" "current test" cargo-process-current-test)
+      ("a" "all" cargo-process-test)
+      ("c" "clippy tests" cargo-process-clippy-tests)])
+
+   (transient-define-prefix g/rust-transient ()
+     ["cargo"
+      ("C" "clean" cargo-process-clean)
+      ("r" "run" cargo-process-run)
+      ("b" "build" cargo-process-build)
+      ("SPC" "check" cargo-process-check)
+      ("t" "test" g/rust-transient-tests)]
+     ["yas"
+      ("c" "complete" consult-yasnippet)]))
+ )
+
+ )
+
 
 (on-linux
+ (g/up go-ts-mode :ensure nil
+   :mode ("\\.go\\'" . go-ts-mode))
+
+ (g/up protobuf-ts-mode
+   :mode ("\\.proto\\'" . protobuf-ts-mode))
+ )
+
+(on-linux-or-mac
  (g/up eglot :ensure nil
    :bind (:map tab-map ("o" . g/eglot-transient))
    :init
@@ -151,9 +193,13 @@
                    )
                  )))))
 
-(on-linux (g/up npm))
+(on-linux-or-mac (g/up npm))
 
 (on-windows
+ (g/up dockerfile-mode
+   :mode ("[Dd]ockerfile\\'" . dockerfile-mode)))
+
+(on-mac
  (g/up dockerfile-mode
    :mode ("[Dd]ockerfile\\'" . dockerfile-mode)))
 

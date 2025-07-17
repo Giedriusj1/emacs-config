@@ -329,12 +329,15 @@
   (define-key dired-mode-map (kbd "l") 'dired-up-directory)
   (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
 
-  (setq dired-listing-switches "-alFh")
+  (on-linux
+   (setq dired-listing-switches "-alFh")
+   )
 
   (on-linux
    (g/up dired-toggle-sudo)
    (setq dired-listing-switches
-         (concat dired-listing-switches " --group-directories-first -v")))
+         (concat dired-listing-switches " --group-directories-first -v"))
+   )
 
   (setq dired-dwim-target t)
 
