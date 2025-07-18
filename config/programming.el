@@ -101,6 +101,10 @@
    :mode ("\\.proto\\'" . protobuf-ts-mode))
  )
 
+(on-mac
+ (g/up protobuf-mode
+   :mode ("\\.proto\\'" . protobuf-mode)))
+
 (on-linux-or-mac
  (g/up eglot :ensure nil
    :bind (:map tab-map ("o" . g/eglot-transient))
