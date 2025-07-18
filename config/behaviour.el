@@ -331,13 +331,9 @@
 
   (on-linux
    (setq dired-listing-switches "-alFh")
-   )
-
-  (on-linux
    (g/up dired-toggle-sudo)
    (setq dired-listing-switches
-         (concat dired-listing-switches " --group-directories-first -v"))
-   )
+         (concat dired-listing-switches " --group-directories-first -v")))
 
   (setq dired-dwim-target t)
 
