@@ -20,6 +20,8 @@
 
  (g/up cargo)
 
+ (g/up kotlin-mode :mode ("\\.kt\\'" . kotlin-mode))
+
  ;; Only want to load it for rust-compile.el
  (g/up rust-mode)
 
