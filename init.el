@@ -19,6 +19,7 @@
 
 ;; Let's load our config
 (dolist (element '("key-bindings.el" ; Needed early for prefixes
+                   "feline.el"       ; Needed early for the modeline
                    "behaviour.el"
                    "magit.el"
                    "org.el"

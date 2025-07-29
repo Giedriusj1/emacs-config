@@ -1,5 +1,16 @@
 ;;; -*- lexical-binding: t -*-
 
+;; modeline
+(feline-mode)
+
+(setq feline-mode-symbols
+      '(emacs-lisp-mode "λ"
+        python-mode "py"
+        typescript-mode "ts"
+        rustic-mode "rs"
+        rust-mode "rs"
+        magit-status-mode ""))
+
 ;; Make sure the windows are always balanced
 (add-hook 'window-configuration-change-hook
           (lambda ()
@@ -328,6 +339,8 @@
 
   (define-key dired-mode-map (kbd "l") 'dired-up-directory)
   (define-key dired-mode-map (kbd "r") 'dired-do-redisplay)
+
+  (on-mac (setq dired-listing-switches "-alFh"))
 
   (on-linux
    (setq dired-listing-switches "-alFh")
