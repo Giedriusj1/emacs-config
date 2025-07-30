@@ -3,6 +3,9 @@
 ;; modeline
 (feline-mode)
 
+(setq feline-line-prefix "")
+(setq feline-column-prefix ":")
+
 (setq feline-mode-symbols
       '(emacs-lisp-mode "λ"
         python-mode "py"
