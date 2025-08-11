@@ -23,6 +23,10 @@
 
   (vertico-buffer-mode)
 
+  (vertico-multiform-mode)
+
+  (define-key vertico-multiform-map (kbd "C-t") 'vertico-multiform-buffer)
+
   (add-hook 'minibuffer-setup-hook #'vertico-repeat-save)
 
   (define-key control-semi-map (kbd "C-r") 'vertico-repeat)
