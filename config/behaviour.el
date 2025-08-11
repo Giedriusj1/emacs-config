@@ -15,11 +15,7 @@
         magit-status-mode ""))
 
 ;; Make sure the windows are always balanced
-(add-hook 'window-configuration-change-hook
-          (lambda ()
-            ;; check if we are in ediff mode
-            (if (not (eq major-mode 'ediff-mode))
-                (balance-windows))))
+(setf window-combination-resize t)
 
 (g/up vertico
   :init
