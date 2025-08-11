@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t -*-
+
 ;; Increase garbage collector threshold for better performance
 (setq gc-cons-threshold most-positive-fixnum)
 
