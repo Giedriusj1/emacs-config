@@ -17,11 +17,24 @@
 ;; Make sure the windows are always balanced
 (setf window-combination-resize t)
 
+(on-linux-or-mac
+ (g/up transient-posframe
+    :init
+    (transient-posframe-mode)))
+
+
+(on-linux-or-mac
+ (g/up vertico-posframe))
+
 (g/up vertico
   :init
   (vertico-mode)
 
-  (vertico-buffer-mode)
+  (on-linux-or-mac
+   (vertico-posframe-mode))
+
+  (on-windows
+   (vertico-buffer-mode))
 
   (vertico-multiform-mode)
 
