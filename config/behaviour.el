@@ -174,8 +174,12 @@
       native-comp-speed 3
       package-native-compile t)
 
-(setq native-comp-compiler-options '("-O2" "-mtune=native"))
-(setq native-comp-driver-options '("-O2" "-mtune=native"))
+
+
+(on-linux
+ ;; macos do not like these flags :/
+ (setq native-comp-compiler-options '("-O2" "-mtune=native"))
+ (setq native-comp-driver-options '("-O2" "-mtune=native")))
 
 (define-key tab-map (kbd "j")
             (i-lambda () (cond ((eq 'org-mode major-mode)
