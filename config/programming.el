@@ -22,22 +22,9 @@
 
  (g/up kotlin-mode :mode ("\\.kt\\'" . kotlin-mode))
 
- ;; Only want to load it for rust-compile.el
- (g/up rust-mode)
-
- (on-linux
-  (g/up rust-ts-mode :ensure nil
-    :mode ("\\.rs\\'" . rust-ts-mode)
-    :config
-    (require 'rust-compile)        ; Give cargo-process links to source files
-    ))
-
- (on-mac
-  (g/up rust-mode :ensure nil
-    :mode ("\\.rs\\'" . rust-mode)
-    :config
-    (require 'rust-compile)        ; Give cargo-process links to source files
-    ))
+ (on-linux-or-mac
+  (g/up rust-mode
+    :mode ("\\.rs\\'" . rust-mode)))
 
  (defun cargo-process-clippy-tests ()
    (interactive)
@@ -66,17 +53,12 @@
  )
 
 
-(on-linux
+(on-linux-or-mac
  (g/up go-ts-mode :ensure nil
    :mode ("\\.go\\'" . go-ts-mode))
 
  (g/up protobuf-ts-mode
-   :mode ("\\.proto\\'" . protobuf-ts-mode))
- )
-
-(on-mac
- (g/up protobuf-mode
-   :mode ("\\.proto\\'" . protobuf-mode)))
+   :mode ("\\.proto\\'" . protobuf-ts-mode)))
 
 (on-linux-or-mac
  (g/up eglot :ensure nil
@@ -176,11 +158,7 @@
  (g/up dockerfile-mode
    :mode ("[Dd]ockerfile\\'" . dockerfile-mode)))
 
-(on-mac
- (g/up dockerfile-mode
-   :mode ("[Dd]ockerfile\\'" . dockerfile-mode)))
-
-(on-linux
+(on-linux-or-mac
  (g/up dockerfile-ts-mode
    :mode ("[Dd]ockerfile\\'" . dockerfile-ts-mode)))
 
