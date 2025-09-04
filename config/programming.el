@@ -67,28 +67,28 @@
 
    (defalias 'eg 'eglot)
 
-   ;; enable by default on high memory machines
-   (when (> (string-to-number (shell-command-to-string "free -m | awk '/^Mem/ {print $2}'")) 32000)
-     (add-hook 'python-mode-hook 'eglot-ensure)
-     (add-hook 'python-ts-mode-hook 'eglot-ensure)
-     (add-hook 'c++-mode-hook 'eglot-ensure)
-     (add-hook 'c++-ts-mode 'eglot-ensure)
-     (add-hook 'c-mode-hook 'eglot-ensure)
-     (add-hook 'c-ts-mode-hook 'eglot-ensure)
+   ;; ;; enable by default on high memory machines
+   ;; (when (> (string-to-number (shell-command-to-string "free -m | awk '/^Mem/ {print $2}'")) 32000)
+   ;;   (add-hook 'python-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'python-ts-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'c++-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'c++-ts-mode 'eglot-ensure)
+   ;;   (add-hook 'c-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'c-ts-mode-hook 'eglot-ensure)
 
-     (add-hook 'go-ts-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'go-ts-mode-hook 'eglot-ensure)
 
-     ;; js and ts
-     (add-hook 'typescript-mode-hook 'eglot-ensure)
-     (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
-     (add-hook 'js-mode-hook 'eglot-ensure)
-     (add-hook 'js-ts-mode-hook 'eglot-ensure)
-     (add-hook 'js-jsx-mode-hook 'eglot-ensure)
-     (add-hook 'tsx-ts-mode-hook 'eglot-ensure)
-     (add-hook 'typescript-mode 'eglot-ensure)
-     (add-hook 'typescript-ts-mode 'eglot-ensure)
+   ;;   ;; js and ts
+   ;;   (add-hook 'typescript-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'typescript-ts-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'js-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'js-ts-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'js-jsx-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'tsx-ts-mode-hook 'eglot-ensure)
+   ;;   (add-hook 'typescript-mode 'eglot-ensure)
+   ;;   (add-hook 'typescript-ts-mode 'eglot-ensure)
 
-     (add-hook 'rust-ts-mode-hook 'eglot-ensure))
+   ;;   (add-hook 'rust-ts-mode-hook 'eglot-ensure))
    :config
    (setq eglot-events-buffer-size 0)
 
