@@ -4,6 +4,9 @@
 (setq tab-always-indent 'complete)
 
 (on-linux-or-mac
+ (g/up kotlin-mode :mode ("\\.kt\\'" . kotlin-mode)))
+
+(on-linux-or-mac
  (g/up corfu
    :bind (:map control-semi-map
                (("n" . completion-at-point)
@@ -12,17 +15,18 @@
    (global-corfu-mode)
    (corfu-popupinfo-mode)
    (setq corfu-popupinfo-max-height 40)
-   (setq corfu-count 20))
+   (setq corfu-count 20)))
+
+(on-linux-or-mac
+ ;; Rust related config
 
  (g/up conf-toml-mode :mode (("\\.toml\\'" . conf-toml-mode)
                              ("Cargo.lock" . conf-toml-mode))
    :ensure nil)
 
- (g/up cargo)
-
- (g/up kotlin-mode :mode ("\\.kt\\'" . kotlin-mode))
-
  (on-linux-or-mac
+  (g/up cargo)
+
   (g/up rust-mode
     :mode ("\\.rs\\'" . rust-mode)))
 
@@ -55,16 +59,17 @@
 
 (on-linux-or-mac
  (g/up go-ts-mode :ensure nil
-   :mode ("\\.go\\'" . go-ts-mode))
+   :mode ("\\.go\\'" . go-ts-mode)))
 
+(on-linux-or-mac
  (g/up protobuf-ts-mode
    :mode ("\\.proto\\'" . protobuf-ts-mode)))
 
 (on-linux-or-mac
  (g/up eglot :ensure nil
    :bind (:map tab-map ("o" . g/eglot-transient))
-   :init
-
+   ;; :init
+   ;;
    ;; ;; enable by default on high memory machines
    ;; (when (> (string-to-number (shell-command-to-string "free -m | awk '/^Mem/ {print $2}'")) 32000)
    ;;   (add-hook 'python-mode-hook 'eglot-ensure)
