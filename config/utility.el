@@ -12,8 +12,7 @@
   (progn
     (g/recompile-custom-packages)
     (g/recompile-config)
-    (native-compile-async '("~/.emacs.d/custom-packages"
-                            "~/.emacs.d/elpa"
+    (native-compile-async '("~/.emacs.d/elpa"
                             "~/.emacs.d/config"
                             )'recursively)))
 
