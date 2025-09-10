@@ -38,6 +38,14 @@
                          nil
                          cargo-process--command-clippy--additional-args))
 
+ (defun cargo-process-clippy-all-features ()
+   (interactive)
+   (cargo-process--start "Clippy"
+                         "clippy --tests --all-features --all-targets"
+                         nil
+                         nil
+                         cargo-process--command-clippy--additional-args))
+
  (transient-define-prefix g/rust-transient-tests ()
    ["cargo test"
     ("t" "all file" cargo-process-current-file-tests)
