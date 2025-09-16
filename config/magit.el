@@ -3,18 +3,19 @@
 (g/up magit
   :init (define-key tab-map (kbd "m") 'g/magit-transient)
   (transient-define-prefix g/magit-transient ()
-    ["show"
-     ("l" "log" magit-log)
-     ("m" "status" magit-status)
-     ("D" "diff" magit-diff)
-     ("b" "blame" magit-blame)
-     ("r" "refs" magit-show-refs)]
-    ["git"
-     ("p" "pull" magit-pull)
-     ("P" "push" magit-push)
-     ("c" "commit" magit-commit)
-     ("d" "diff-dwim" magit-diff-dwim)
-     ]))
+    [" magit 🐈‍⬛"
+     [("s" "status" magit-status)
+      ("m" "dispatch" magit-dispatch)
+      ("M" "dispatchfile" magit-file-dispatch)
+      ;; ("D" "diff" magit-diff)
+      ;; ("b" "blame" magit-blame)
+      ;; ("r" "refs" magit-show-refs)
+      ]
+     [("p" "pull" magit-pull)
+      ("P" "push" magit-push)
+      ;; ("c" "commit" magit-commit)
+      ;; ("d" "diff-dwim" magit-diff-dwim)
+      ]]))
 
 ;; (on-linux
 ;;  (use-package difftastic
