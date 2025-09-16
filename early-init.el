@@ -89,9 +89,8 @@
 
 (setq-default frame-title-format
               '(:eval
-                (format "%s%s%s"
-                        (if (bound-and-true-p eglot--managed-mode) "🌐 " "" )
-                        (if (bound-and-true-p copilot-mode) "🚀 "  "")
+                (format "%s%s"
+                        (if (bound-and-true-p copilot-mode) "🚀"  "")
                         (if (>= 1 (length (tab-bar-tabs)))
                             (format "%s %s" (buffer-name)
                                     (cond (buffer-file-truename (concat "(" buffer-file-truename ")"))
