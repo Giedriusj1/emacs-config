@@ -122,6 +122,8 @@
 
             (define-key map (kbd "j") 'cua-scroll-up)
 
+            (define-key map (kbd "s") 'avy-goto-char-timer)
+
             ;; cua mode
             (define-key map (kbd "C-z") 'toggle-swiftly-mode)
             (define-key map (kbd "C-x") 'kill-region)
