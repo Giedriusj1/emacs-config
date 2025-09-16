@@ -19,11 +19,9 @@
   `(when (memq system-type '(gnu gnu/linux darwin))
      ,@body))
 
-
 (defmacro on-mac (&rest body)
   (if (memq system-type '(darwin))
       `(progn ,@body )))
-
 
 (defmacro on-windows (&rest body)
   (if (memq system-type '(windows-nt ms-dos))
