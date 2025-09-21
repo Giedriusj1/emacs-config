@@ -101,7 +101,9 @@
 
    ;;   (add-hook 'rust-ts-mode-hook 'eglot-ensure))
    :config
-   (setq eglot-events-buffer-size 0)
+   (setq eglot-events-buffer-config
+      (list :size 0
+            :format 'full))
 
    (defun prettify-or-eglot-format-buffer ()
      (interactive)
