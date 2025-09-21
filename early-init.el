@@ -89,7 +89,7 @@
 
 (setq-default frame-title-format
               '(:eval
-                (format "%s%s"
+                (format "%s%s%s"
                         (if (bound-and-true-p copilot-mode) "🚀"  "")
                         (if (>= 1 (length (tab-bar-tabs)))
                             (format "%s %s" (buffer-name)
@@ -101,7 +101,8 @@
 			              (if (eq (car tab) 'current-tab)
 				          (format " [ %s ☀️ ] " tab-name)
 				        (format  " %s "tab-name ))  ))
-			          (tab-bar-tabs))))))
+			          (tab-bar-tabs)))
+                        (if (bound-and-true-p swiftly-mode) " 🟧🟧🟧🟧🟧🟧🟧🟧"  ""))))
 
 (modify-all-frames-parameters '((vertical-scroll-bars . nil)))
 

@@ -98,6 +98,10 @@
   "Move around swiftly"
   :lighter " === SWIFT ==="
   :keymap (let ((map (make-sparse-keymap)))
+
+            ;;disable all self inserting keys
+            (suppress-keymap map t)
+
             ;; movement
             (define-key map (kbd "i") (i-lambda () (dotimes (bind 2)
                                                      (scroll-down-line)
