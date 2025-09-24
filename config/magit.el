@@ -9,7 +9,8 @@
       ("D" "dispatch file" magit-file-dispatch)]
      [("p" "pull" magit-pull)
       ("P" "push" magit-push)]
-     [("l" "log" magit-log)]]))
+     [("l" "log" magit-log)]
+     [("r" "refs" magit-show-refs)]]))
 
 ;; (on-linux
 ;;  (use-package difftastic
