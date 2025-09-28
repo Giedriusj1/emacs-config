@@ -145,3 +145,9 @@
                    :publishing-function org-publish-attachment)))
 
           (org-publish-all t))))
+
+(on-mac
+ ;; function to insert a hash symbol
+ (i-defun insert-hash-symbol ()
+   (interactive)
+   (insert "#")))
