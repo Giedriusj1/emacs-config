@@ -6,7 +6,8 @@
     [" magit 🐈‍⬛"
      [("m" "status" magit-status)
       ("d" "dispatch" magit-dispatch)
-      ("D" "dispatch file" magit-file-dispatch)]
+      ("D" "dispatch file" magit-file-dispatch)
+      ("b" "blame" magit-blame-addition)]
      [("p" "pull" magit-pull)
       ("P" "push" magit-push)]
      [("l" "log" magit-log)]
