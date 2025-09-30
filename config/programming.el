@@ -32,6 +32,8 @@
 
  (defun cargo-process-clippy-tests ()
    (interactive)
+   (require 'cargo-process)
+
    (cargo-process--start "Clippy"
                          "clippy --tests"
                          nil
@@ -40,6 +42,8 @@
 
  (defun cargo-process-clippy-all-features ()
    (interactive)
+
+   (require 'cargo-process)
    (cargo-process--start "Clippy"
                          "clippy --tests --all-features --all-targets"
                          nil
