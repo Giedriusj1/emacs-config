@@ -13,6 +13,7 @@
         indent-for-tab-command
         org-delete-char
         org-end-of-line
+        org-self-insert-command
         yaml-electric-dash-and-dot
         ))
 
