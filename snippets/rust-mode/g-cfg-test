@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: g-cfg-test
+# key: g-cfg-test
+# --
+#[cfg(test)]
