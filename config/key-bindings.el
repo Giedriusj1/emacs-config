@@ -6,6 +6,10 @@
 (define-prefix-command 'control-semi-map)
 (define-prefix-command 'tab-map)
 
+(on-mac (progn
+          (setq mac-command-modifier 'meta)
+          (setq mac-option-modifier 'super)))
+
 (bind-keys*
  ("C-1" . window-swap-states)
  ("C-2" . windmove-up)
