@@ -29,6 +29,12 @@
 
   (measure-time (load (concat "~/.emacs.d/config/" element))))
 
+(on-mac
+ (measure-time (progn
+                 (load "~/.emacs.d/extra-packages/exec-path-from-shell")
+                 (setq exec-path-from-shell-arguments '("-l"))
+                 (exec-path-from-shell-initialize))))
+
 (if (file-exists-p "~/private-sync/private.el")
     (load "~/private-sync/private.el"))
 
