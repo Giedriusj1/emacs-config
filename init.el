@@ -16,9 +16,11 @@
 (setq use-package-always-ensure t
       use-package-always-defer t)
 
-;; Let's load our config
+(defmacro g/load (file) `(measure-time (load ,file)))
+
+(g/load "~/.emacs.d/extra-packages/feline") ; Needed early for the modeline
+
 (dolist (element '("key-bindings.el" ; Needed early for prefixes
-                   "feline.el"       ; Needed early for the modeline
                    "behaviour.el"
                    "magit.el"
                    "org.el"
@@ -27,16 +29,14 @@
                    "utility.el"
                    "ai.el"))
 
-  (measure-time (load (concat "~/.emacs.d/config/" element))))
+  (g/load (concat "~/.emacs.d/config/" element)))
 
 (on-mac
- (measure-time (progn
-                 (load "~/.emacs.d/extra-packages/exec-path-from-shell")
-                 (setq exec-path-from-shell-arguments '("-l"))
-                 (exec-path-from-shell-initialize))))
+ (g/load "~/.emacs.d/extra-packages/exec-path-from-shell")
+ (setq exec-path-from-shell-arguments '("-l"))
+ (exec-path-from-shell-initialize))
 
-(if (file-exists-p "~/private-sync/private.el")
-    (load "~/private-sync/private.el"))
+(g/load-if-exists "~/.emacs.d/config/sql.el")
 
 (message (concat (format "Emacs took %.2f seconds to start" (float-time (time-subtract after-init-time before-init-time)))
                  (if (fboundp 'native-compile-async) " With native compiler!")))

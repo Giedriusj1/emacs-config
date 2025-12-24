@@ -11,6 +11,12 @@
      (let ((elapsed (float-time (time-since time))))
        (message "took %.06f seconds or %.03f milliseconds" elapsed (* 1000.0 elapsed)))))
 
+(defmacro g/load (file) `(measure-time (load ,file)))
+
+(defmacro g/load-if-exists (file)
+  `(when (file-exists-p ,file)
+     (g/load ,file)))
+
 (defmacro on-linux (&rest body)
   (if (memq system-type '(gnu gnu/linux))
       `(progn ,@body )))
