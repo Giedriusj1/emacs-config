@@ -116,6 +116,13 @@
        (prettier-prettify))
       ((derived-mode-p 'emacs-lisp-mode)
        (indent-region (point-min) (point-max)))
+      ;; CARV engine
+      ((and (derived-mode-p 'rust-mode)
+            (when-let* ((root (vc-root-dir)))
+              (string-match-p "engine-rust" root)))
+       (let ((default-directory (vc-root-dir)))
+         (shell-command (concat "rustfmt +nightly-2025-04-01 " (buffer-file-name)))
+         (revert-buffer t t t)))
       (t
        (eglot-format-buffer))))
 
