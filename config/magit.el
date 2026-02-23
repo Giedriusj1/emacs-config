@@ -11,7 +11,33 @@
      [("p" "pull" magit-pull)
       ("P" "push" magit-push)]
      [("l" "log" magit-log)]
-     [("r" "refs" magit-show-refs)]]))
+     [("r" "refs" magit-show-refs)]])
+
+  :custom
+  (magit-refs-show-commit-count 'branch)
+
+  :config
+  (defun g/magit-refs-line-has-upstream-p (line)
+    (let ((upstream (nth 7 line)))
+      (and upstream
+           (not (eq (get-text-property 0 'face upstream) 'error)))))
+
+  (defun g/magit-refs-sort-local-branches-by-upstream (lines)
+    "Place branches with an upstream before branches without one."
+    (let (with-upstream without-upstream)
+      (dolist (line lines)
+        (if (g/magit-refs-line-has-upstream-p line)
+            (push line with-upstream)
+          (push line without-upstream)))
+      (nconc (nreverse with-upstream)
+             (nreverse without-upstream))))
+
+  (advice-remove #'magit-refs--format-local-branches
+                 #'g/magit-refs-sort-local-branches-by-upstream)
+  (advice-add #'magit-refs--format-local-branches
+              :filter-return
+              #'g/magit-refs-sort-local-branches-by-upstream
+              '((name . g/magit-refs-sort-local-branches-by-upstream))))
 
 ;; (on-linux
 ;;  (use-package difftastic
