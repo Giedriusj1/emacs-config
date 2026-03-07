@@ -11,12 +11,20 @@
      [("p" "pull" magit-pull)
       ("P" "push" magit-push)]
      [("l" "log" magit-log)]
-     [("r" "refs" magit-show-refs)]])
+     [("r" "refs" magit-show-refs)
+      ("o" "diff vs origin/main" g/magit-diff-origin-main)]])
+
+  :commands (magit-diff-range)
 
   :custom
   (magit-refs-show-commit-count 'branch)
 
   :config
+  (defun g/magit-diff-origin-main ()
+    "Show diff between current branch and origin/main."
+    (interactive)
+    (magit-diff-range "origin/main...HEAD"))
+
   (defun g/magit-refs-line-has-upstream-p (line)
     (let ((upstream (nth 7 line)))
       (and upstream
