@@ -84,7 +84,11 @@
 
  ;; Make some default wombat colours a bit more lively
  '(font-lock-builtin-face ((((class color) (min-colors 89)) (:foreground "#ff685d"))))
- '(font-lock-constant-face ((((class color) (min-colors 89)) (:foreground "#ff685d")))))
+ '(font-lock-constant-face ((((class color) (min-colors 89)) (:foreground "#ff685d"))))
+
+ ;; Reduce red in agent-shell
+ '(error ((t (:foreground "#ff9f43"))))
+ '(warning ((t (:foreground "#feca57")))))
 
 (global-hl-line-mode t)
 (fringe-mode 0)
