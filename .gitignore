@@ -39,3 +39,4 @@ eln-cache/
 projects
 bookmarks
 async-bytecomp.log
+/.agent-shell/
