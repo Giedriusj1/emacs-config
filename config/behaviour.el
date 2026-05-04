@@ -50,6 +50,11 @@
 
 (bind-keys* :map minibuffer-local-map ("C-g" . exit-recursive-edit))
 
+;; rainbow-delimiters
+
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
+
 (g/up avy
   :bind
   (("C-M-s" . avy-goto-char-timer)
