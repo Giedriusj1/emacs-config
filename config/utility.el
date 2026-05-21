@@ -93,7 +93,7 @@
 
 (bind-keys* ( "C-`" . create-shell-here))
 
-(on-linux
+(on-linux-or-mac
  (i-defun g/cargo-new-without-git ()
    (unless (derived-mode-p 'dired-mode)
      (error "This command must be run from a Dired buffer"))
