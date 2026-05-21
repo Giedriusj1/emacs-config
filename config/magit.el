@@ -103,7 +103,16 @@
   (advice-add #'magit-log-wash-rev
               :around
               #'g/magit-log-highlight-own-commits
-              '((name . g/magit-log-highlight-own-commits))))
+              '((name . g/magit-log-highlight-own-commits)))
+
+  (add-to-list 'load-path "~/.emacs.d/config")
+  (require 'magit-log-author-colors)
+  (setq magit-log-author-colors
+        '(("Giedrius" . "#ff9fe7")
+          ("Pruth" . "#009fe7")
+          ("Pete" . "#dcdcdc")
+          ("Anton" . "#20bfe7")))
+  (magit-log-author-colors-mode 1))
 
 ;; (on-linux
 ;;  (use-package difftastic
