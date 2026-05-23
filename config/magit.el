@@ -109,9 +109,19 @@
   (require 'magit-log-author-colors)
   (setq magit-log-author-colors
         '(("Giedrius" . "#ff9fe7")
-          ("Pruth" . "#009fe7")
+          ("Pruth" . "#60d5ff")
+          ("Oliver" . "#b9f27c")
+          ("Anton" . "#ffd166")
           ("Pete" . "#dcdcdc")
-          ("Anton" . "#20bfe7")))
+          ("Connor" . "#c792ea")
+          ("James" . "#ffb86c")
+          ("laura" . "#7ee7d7")
+          ("Adrian" . "#82aaff")
+          ("samvandenbrink" . "#f78c6c")
+          ("Carter" . "#c3e88d")
+          ("Evan" . "#89ddff")
+          ("Charlie" . "#f07178")
+          ("carvbot" . "#a6accd")))
   (magit-log-author-colors-mode 1))
 
 ;; (on-linux
