@@ -107,6 +107,7 @@
 
   (add-to-list 'load-path "~/.emacs.d/config")
   (require 'magit-log-author-colors)
+  (require 'magit-log-conventional-commits)
   (setq magit-log-author-colors
         '(("Giedrius" . "#ff9fe7")
           ("Pruth" . "#60d5ff")
@@ -122,7 +123,8 @@
           ("Evan" . "#89ddff")
           ("Charlie" . "#f07178")
           ("carvbot" . "#a6accd")))
-  (magit-log-author-colors-mode 1))
+  (magit-log-author-colors-mode 1)
+  (magit-log-conventional-commits-mode 1))
 
 ;; (on-linux
 ;;  (use-package difftastic
