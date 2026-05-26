@@ -16,8 +16,8 @@
   :group 'magit-log-conventional-commits)
 
 (defface magit-log-conventional-commit-scope
-  '((((class color) (background light)) :foreground "#0969da")
-    (((class color) (background dark)) :foreground "#82aaff"))
+  '((((class color) (background light)) :foreground "#a3a3a3")
+    (((class color) (background dark)) :foreground "#a3a3a3"))
   "Face used for conventional commit scopes."
   :group 'magit-log-conventional-commits)
 
