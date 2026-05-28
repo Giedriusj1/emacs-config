@@ -3,22 +3,33 @@
 (on-linux-or-mac
 
  ;; COPILOT
- (g/up copilot :defer nil
-   :init
+  (g/up copilot
+    :init
 
-   (defalias 'cop 'copilot-mode)
+    (bind-keys* ("C-M-i" . copilot-accept-completion))
 
-   (dolist (mode '(prog-mode-hook text-mode-hook))
-     (add-hook mode
-               (lambda ()
-                 ;; Set key binding immediately
-                 (bind-keys* ("C-M-i" . copilot-accept-completion))
+    (defun g/copilot--turn-on ()
+      (when (derived-mode-p 'prog-mode 'text-mode)
+        (copilot-mode 1)))
 
-                 ;; Defer activation of copilot-mode slightly, so it does not interfere
-                 ;; with text rendering
-                 (run-at-time "0.5 sec" nil #'copilot-mode)
+    (define-minor-mode g/copilot-mode
+      "Toggle Copilot in programming and text buffers."
+      :global t
+      (if g/copilot-mode
+          (progn
+            (add-hook 'prog-mode-hook #'g/copilot--turn-on)
+            (add-hook 'text-mode-hook #'g/copilot--turn-on)
+            (dolist (buffer (buffer-list))
+              (with-current-buffer buffer
+                (g/copilot--turn-on))))
+        (remove-hook 'prog-mode-hook #'g/copilot--turn-on)
+        (remove-hook 'text-mode-hook #'g/copilot--turn-on)
+        (dolist (buffer (buffer-list))
+          (with-current-buffer buffer
+            (when (bound-and-true-p copilot-mode)
+              (copilot-mode -1))))))
 
-                 ))))
+    (defalias 'cop #'g/copilot-mode))
 
  ;; ;; CLAUDE CODE
  ;; ;; install required inheritenv dependency:
