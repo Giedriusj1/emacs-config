@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: compare-with-zero
+# key: cmp0
+# --
+        cmp ${1:x0}, #0

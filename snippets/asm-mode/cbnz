@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: compare-and-branch-if-not-zero
+# key: cbnz
+# --
+        cbnz ${1:x0}, ${2:label}

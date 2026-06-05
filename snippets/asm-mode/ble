@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: branch-if-less-or-equal
+# key: ble
+# --
+        b.le ${1:label}

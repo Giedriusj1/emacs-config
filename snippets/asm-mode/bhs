@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: branch-if-higher-or-same-unsigned
+# key: bhs
+# --
+        b.hs ${1:label}

@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: branch-if-not-equal
+# key: bne
+# --
+        b.ne ${1:label}

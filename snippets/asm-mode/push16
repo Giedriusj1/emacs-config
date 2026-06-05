@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: push-to-stack-16
+# key: push16
+# --
+        sub sp, sp, #16
+        str x0, [sp]

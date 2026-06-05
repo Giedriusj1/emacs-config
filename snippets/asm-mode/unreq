@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: unregister-alias
+# key: unreq
+# --
+        .unreq ${1:alias}

@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: count-down-loop-with-aliases
+# key: loop-countdown
+# --
+${1:count} .req ${2:x0}
+
+${3:loop}:
+        ${4:// body}
+        subs $1, $1, #1
+        b.ne $3
+
+        .unreq $1

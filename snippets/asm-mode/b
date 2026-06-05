@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: branch
+# key: b
+# --
+        b ${1:label}

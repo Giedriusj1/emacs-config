@@ -1,0 +1,16 @@
+# -*- mode: snippet -*-
+# name: while-loop-with-aliases
+# key: loop-while
+# --
+${1:value} .req ${2:x0}
+${3:limit} .req ${4:x1}
+
+${5:loop}:
+        cmp $1, $3
+        b.${6:ge} ${7:done}
+        ${8:// body}
+        b $5
+
+$7:
+        .unreq $1
+        .unreq $3

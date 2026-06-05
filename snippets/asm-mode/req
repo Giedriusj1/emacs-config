@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: register-alias
+# key: req
+# --
+${1:alias} .req ${2:x0}

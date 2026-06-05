@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: branch-if-lower-unsigned
+# key: blo
+# --
+        b.lo ${1:label}

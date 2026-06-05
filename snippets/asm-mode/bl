@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: branch-with-link
+# key: bl
+# --
+        bl ${1:function}

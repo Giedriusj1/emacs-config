@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: branch-if-less-than
+# key: blt
+# --
+        b.lt ${1:label}

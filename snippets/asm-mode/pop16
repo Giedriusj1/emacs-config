@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: pop16
+# key: pop16
+# --
+        ldr x0, [sp]
+        add sp, sp, #16

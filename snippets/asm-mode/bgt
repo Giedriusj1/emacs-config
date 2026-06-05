@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: branch-if-greater-than
+# key: bgt
+# --
+        b.gt ${1:label}

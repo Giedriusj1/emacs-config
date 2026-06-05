@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: branch-if-greater-or-equal
+# key: bge
+# --
+        b.ge ${1:label}
