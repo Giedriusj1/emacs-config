@@ -220,7 +220,9 @@
 
 (g/up asm-mode :ensure nil
   :mode (("\\.s\\'" . asm-mode)
-         ("\\.S\\'" . asm-mode)))
+         ("\\.S\\'" . asm-mode))
+  :config
+  (setq asm-comment-char ?/))
 
 (on-windows
  (g/up cc-mode :ensure nil
